@@ -1,0 +1,339 @@
+{
+  "erzeugtAm": "2026-08-13",
+  "eintraege": [
+    {
+      "tag": "2026-08-29",
+      "name": "Nationalpark Snæfellsjökull",
+      "art": "stopp",
+      "hinweis": "Treffer liegt 8.6 km von der kuratierten Planposition — zu weit für eine Verfeinerung",
+      "kandidaten": [
+        {
+          "label": "Snæfellsjökull, Snæfellsbær, Vesturland",
+          "pos": [
+            64.808342,
+            -23.7779354
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Vatnshellir Lava Cave",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"Vatnshellir Lava Cave\"",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-01",
+      "name": "Geothermal Sea Baths GeoSea",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"Geothermal Sea Baths GeoSea\" (Reiseplan nennt: Húsavík)",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-01",
+      "name": "Schlucht Ásbyrgi",
+      "art": "stopp",
+      "hinweis": "2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig",
+      "kandidaten": [
+        {
+          "label": "Ásbyrgi, Norðurþing, Norðurland eystra",
+          "pos": [
+            66.0015884,
+            -16.5122266
+          ],
+          "quelle": "nominatim"
+        },
+        {
+          "label": "Ásbyrgi, Norðurþing, Norðurland eystra",
+          "pos": [
+            66.0296303,
+            -16.4852247
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-02",
+      "name": "Insel Hrísey",
+      "art": "stopp",
+      "hinweis": "2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig",
+      "kandidaten": [
+        {
+          "label": "Hrísey, Akureyrarbær, Norðurland eystra",
+          "pos": [
+            66.0033591,
+            -18.3847408
+          ],
+          "quelle": "nominatim"
+        },
+        {
+          "label": "Hrísey, Akureyrarbær, Norðurland eystra",
+          "pos": [
+            65.9796723,
+            -18.3772049
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-02",
+      "name": "Bjórböðin Bier-Spa",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"Bjórböðin Bier-Spa\" (Reiseplan nennt: Árskógssandur)",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-02",
+      "name": "Arctic Sea Tours",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"Arctic Sea Tours\" (Reiseplan nennt: Dalvík)",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-02",
+      "name": "Siglufjörður",
+      "art": "stopp",
+      "hinweis": "2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig",
+      "kandidaten": [
+        {
+          "label": "Siglufjörður, Fjallabyggð, Norðurland eystra",
+          "pos": [
+            66.1504928,
+            -18.9096279
+          ],
+          "quelle": "nominatim"
+        },
+        {
+          "label": "Siglufjörður, 581, Ísland",
+          "pos": [
+            66.1664854,
+            -18.878156
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-03",
+      "name": "Schlucht Stuðlagil",
+      "art": "stopp",
+      "hinweis": "Treffer liegt 12.7 km von der kuratierten Planposition — zu weit für eine Verfeinerung",
+      "kandidaten": [
+        {
+          "label": "Stuðlagil, Grund, Múlaþing",
+          "pos": [
+            65.164322,
+            -15.3108869
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-03",
+      "name": "Rjúkandi Wasserfall",
+      "art": "stopp",
+      "hinweis": "Treffer liegt 17.1 km von der kuratierten Planposition — zu weit für eine Verfeinerung",
+      "kandidaten": [
+        {
+          "label": "Rjúkandi, Múlaþing, Austurland",
+          "pos": [
+            65.3335816,
+            -15.0794796
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-05",
+      "name": "Steinsammlung von Petra",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"Steinsammlung von Petra\" (Reiseplan nennt: Stöðvarfjörður)",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-05",
+      "name": "Breiðdalsvík",
+      "art": "stopp",
+      "hinweis": "2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig",
+      "kandidaten": [
+        {
+          "label": "Breiðdalsflugvöllur, Austurlandsvegur, Breiðdalsvík",
+          "pos": [
+            64.7895443,
+            -14.0381909
+          ],
+          "quelle": "nominatim"
+        },
+        {
+          "label": "Breiðdalsvík, Ísland",
+          "pos": [
+            64.7706023,
+            -13.9795071
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-05",
+      "name": "Skaftárstofa",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"Skaftárstofa\" (Reiseplan nennt: Kirkjubæjarklaustur)",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-06",
+      "name": "Skógafoss",
+      "art": "stopp",
+      "hinweis": "2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig",
+      "kandidaten": [
+        {
+          "label": "Skógafoss, Rangárþing eystra, Suðurland",
+          "pos": [
+            63.5321038,
+            -19.511292
+          ],
+          "quelle": "nominatim"
+        },
+        {
+          "label": "Skógafoss, Rangárþing eystra, Suðurland",
+          "pos": [
+            63.5495018,
+            -19.4949498
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-07",
+      "name": "Nationalpark Þingvellir",
+      "art": "stopp",
+      "hinweis": "2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig",
+      "kandidaten": [
+        {
+          "label": "Þingvellir, Bláskógabyggð, Suðurland",
+          "pos": [
+            64.2590998,
+            -21.1212537
+          ],
+          "quelle": "nominatim"
+        },
+        {
+          "label": "Þjóðgarðurinn á Þingvöllum, Bláskógabyggð, Suðurland",
+          "pos": [
+            64.2786082,
+            -21.0819412
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-07",
+      "name": "Wanderung durch die Almannagjá",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"durch die Almannagjá\" (Reiseplan nennt: Þingvellir)",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-07",
+      "name": "Silfra-Spalte",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"Silfra-Spalte\" (Reiseplan nennt: Þingvellir)",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-07",
+      "name": "Gullfoss",
+      "art": "stopp",
+      "hinweis": "2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig",
+      "kandidaten": [
+        {
+          "label": "Gullfoss, Bláskógabyggð, Suðurland",
+          "pos": [
+            64.314452,
+            -20.1495557
+          ],
+          "quelle": "nominatim"
+        },
+        {
+          "label": "Gullfoss, Bláskógabyggð, Suðurland",
+          "pos": [
+            64.327316,
+            -20.1191026
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-07",
+      "name": "Friðheimar Greenhouse",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"Friðheimar Greenhouse\" (Reiseplan nennt: Straße 35, kurz hinter Reykholt)",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-08",
+      "name": "Krýsuvík & Seltún",
+      "art": "stopp",
+      "hinweis": "2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig",
+      "kandidaten": [
+        {
+          "label": "Krýsuvík, Hafnarfjarðarkaupstaður, Höfuðborgarsvæðið",
+          "pos": [
+            63.9135991,
+            -22.0459221
+          ],
+          "quelle": "nominatim"
+        },
+        {
+          "label": "Krýsuvík, Hafnarfjarðarkaupstaður, Höfuðborgarsvæðið",
+          "pos": [
+            63.8864367,
+            -22.0665685
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-09",
+      "name": "Krýsuvík & Kleifarvatn",
+      "art": "stopp",
+      "hinweis": "2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig",
+      "kandidaten": [
+        {
+          "label": "Krýsuvík, Hafnarfjarðarkaupstaður, Höfuðborgarsvæðið",
+          "pos": [
+            63.9135991,
+            -22.0459221
+          ],
+          "quelle": "nominatim"
+        },
+        {
+          "label": "Krýsuvík, Hafnarfjarðarkaupstaður, Höfuðborgarsvæðið",
+          "pos": [
+            63.8864367,
+            -22.0665685
+          ],
+          "quelle": "nominatim"
+        }
+      ]
+    },
+    {
+      "tag": "2026-09-10",
+      "name": "Check-in",
+      "art": "stopp",
+      "hinweis": "kein Treffer in OSM für \"Check-in\" (Reiseplan nennt: Keflavík International Airport)",
+      "kandidaten": []
+    }
+  ]
+}

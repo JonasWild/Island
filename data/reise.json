@@ -32,7 +32,13 @@
       "pos": [
         63.985,
         -22.6056
-      ]
+      ],
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "Keflavík International Airport (KEF), Terminalgebäude"
+      }
     },
     "allgemeineHinweise": [
       "Check-in in Hotels und Gästehäusern in der Regel ab 15:00 Uhr. Bei Ankunft nach 19:00 Uhr die Unterkunft telefonisch informieren (Spät-Check-in, Abendessen).",
@@ -67,7 +73,13 @@
         64.7686,
         -21.5486
       ],
-      "posUngenau": true
+      "posMeta": {
+        "quelle": "anbieter",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "ref": "https://www.viatis.is/de/ferienhaus/westisland/birkiskogar",
+        "hinweis": "Ferienhaussiedlung Birkiskógar bei Bifröst/Hreðavatn. Viatis nennt keine Hausnummer — Bereichsangabe."
+      }
     },
     {
       "id": "thrasastadir",
@@ -84,7 +96,17 @@
       "verpflegung": "Selbstverpflegung",
       "beschreibung": "Modernes Holzhaus mit Hot Pot & direkt am See.",
       "hinweis": "Ortsangabe prüfen: Der Übernachtungsplan nennt Akureyri, der Reiseplan beschreibt die Station als Basis im Mývatngebiet. Die Tagesausflüge (Diamond Circle 207 km, Siglufjörður 150 km je Strecke) sind ab Mývatn gerechnet.",
-      "pos": null
+      "pos": [
+        65.6963,
+        -17.6459
+      ],
+      "posMeta": {
+        "quelle": "anbieter",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "ref": "https://www.viatis.is/en/accommodation/northeast-iceland/thrasastadir/",
+        "hinweis": "Anbieterseite verortet das Haus direkt am See Ljósavatn im Ljósavatnsskarð, ca. 25 km östlich von Akureyri und 8 km von Goðafoss. Damit ist weder 'Akureyri' (Übernachtungsplan) noch 'Mývatn' (Reiseplan) die tatsächliche Basis. Punkt = Südufer Ljósavatn; die genaue Parzelle ist nicht öffentlich, deshalb 'bereich'. Achtung: Der OSM-Hof gleichen Namens liegt in Fljót/Skagafjörður (65.937, -18.926) und ist ein anderes Objekt."
+      }
     },
     {
       "id": "hlidarendi",
@@ -105,7 +127,13 @@
         65.2667,
         -14.4
       ],
-      "posUngenau": true
+      "posMeta": {
+        "quelle": "anbieter",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "ref": "https://www.viatis.is/de/ferienhaus/ostisland/hlidarendi",
+        "hinweis": "Ferienhaus im Umland von Egilsstaðir, keine öffentliche Adresse — Bereichsangabe."
+      }
     },
     {
       "id": "nupar",
@@ -124,10 +152,16 @@
       "beschreibung": "Hotel an der Ringstraße mit Blick auf die Lava, die Berge und die Gletscher des Vatnajökull.",
       "hinweis": null,
       "pos": [
-        63.795,
-        -17.955
+        63.9237,
+        -17.7062
       ],
-      "posUngenau": true
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM tourism=hotel 'Fosshotel Núpar', Suðurlandsvegur, Skaftárhreppur",
+        "hinweis": "Korrigiert: die bisherige Näherung lag bei Kirkjubæjarklaustur, das Hotel liegt aber ~30 km weiter östlich an der Ringstraße bei Núpar."
+      }
     },
     {
       "id": "hlidarholt",
@@ -148,7 +182,13 @@
         64.1333,
         -20.3167
       ],
-      "posUngenau": true
+      "posMeta": {
+        "quelle": "anbieter",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "ref": "https://www.viatis.is/de/ferienhaus/suedisland/hlidarholt",
+        "hinweis": "Ferienhaus bei Flúðir, keine öffentliche Adresse — Bereichsangabe."
+      }
     },
     {
       "id": "konvin",
@@ -167,10 +207,15 @@
       "beschreibung": "Geschmackvoll eingerichtete, geräumige Zimmer und ein Restaurant mit moderner, gemütlicher Atmosphäre.",
       "hinweis": null,
       "pos": [
-        63.9689,
-        -22.5619
+        63.9729,
+        -22.5765
       ],
-      "posUngenau": true
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM tourism=hotel 'Konvin Hotel', 762 Keilisbraut, Ásbrú, Njarðvík"
+      }
     }
   ],
   "tage": [
@@ -197,9 +242,15 @@
           "buchen": true,
           "buchenText": "Wegen eingeschränkter Verfügbarkeit Tickets vor Reisebeginn buchen.",
           "pos": [
-            63.8804,
-            -22.4495
-          ]
+            63.8800487,
+            -22.4493538
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Bláa lónið, 9, Norðurljósavegur"
+          }
         },
         {
           "name": "Halbinsel Reykjanes",
@@ -209,25 +260,42 @@
             63.885,
             -22.35
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Ganze Halbinsel — der Punkt ist ein Schwerpunkt, kein Ziel."
+          }
         },
         {
           "name": "Mosfellsbær",
           "strasse": "Vorort von Reykjavík",
           "text": "Haus Gljúfrasteinn des Nobelpreisträgers Halldór Laxness (seit 2004 für Besucher offen) und die Alafoss Wollfabrik mit alten Strickmaschinen und Wollprodukten.",
           "pos": [
-            64.1667,
-            -21.7
-          ]
+            64.1674922,
+            -21.6971313
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Mosfellsbær, Höfuðborgarsvæðið, Ísland"
+          }
         },
         {
           "name": "Akranes",
           "strasse": null,
           "text": "Einer der größten und ältesten Fischerorte Islands. Alter Leuchtturm mit Ausstellungen, Konzerten und Ausblick bis Reykjavík; Meeresschwimmen am Sandstrand Langisandur mit Aufwärmen im Hot Pot Guðlaug. Öffnungszeiten des Bades auf der Facebookseite prüfen.",
           "pos": [
-            64.3222,
-            -22.0733
-          ]
+            64.3170806,
+            -22.0833512
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Akraneskaupstaður, Vesturland, 300"
+          }
         }
       ]
     },
@@ -245,18 +313,30 @@
           "strasse": "Straße 518",
           "text": "Ortschaft des Dichters Snorri Sturluson; bei einem Rundgang die Ausgrabung des historischen Bades von Snorri ansehen.",
           "pos": [
-            64.6636,
-            -21.2903
-          ]
+            64.6636777,
+            -21.2871889
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Reykholt, Borgarbyggð, Vesturland"
+          }
         },
         {
           "name": "Deildartunguhver",
           "strasse": "Straße 50, Tal Reykholtsdalur",
           "text": "Ergiebigste Heißwasserquelle der Welt: ca. 180 Liter heißes Wasser pro Sekunde, per Rohrleitung bis Borgarnes, Hvanneyri und Akranes zur Gebäudeheizung.",
           "pos": [
-            64.6633,
-            -21.4103
-          ]
+            64.6632222,
+            -21.4098803
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Deildartunguhver, Kleppjárnsreykir, Borgarbyggð"
+          }
         },
         {
           "name": "Hraunfossar & Barnafoss",
@@ -267,36 +347,60 @@
             "hoehenmeter": "20 m"
           },
           "pos": [
-            64.7025,
-            -20.9786
-          ]
+            64.7017607,
+            -20.9777947
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Hraunfossar Barnafoss, Hraunsás, Borgarbyggð"
+          }
         },
         {
           "name": "Húsafell",
           "strasse": "Straße 518",
           "text": "Schöne Spazierwege, bei Isländern selbst ein beliebtes Ziel für Wochenendausflüge.",
           "pos": [
-            64.7011,
-            -20.8742
-          ]
+            64.6954293,
+            -20.8728753
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Húsafell, Borgarbyggð, Vesturland"
+          }
         },
         {
           "name": "Borgarnes",
           "strasse": null,
           "text": "Kleinstadt mit Einkaufsmöglichkeiten, schöner Lage, Freibad mit Wasserrutsche und heißen Töpfen sowie Touristeninformation.",
           "pos": [
-            64.5383,
-            -21.9219
-          ]
+            64.5383337,
+            -21.920208
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Borgarbyggð, Vesturland, Ísland"
+          }
         },
         {
           "name": "Settlement Center Borgarnes",
           "strasse": null,
           "text": "Erzählt die Geschichte der Besiedlung Islands.",
           "pos": [
-            64.5397,
-            -21.9227
-          ]
+            64.535725,
+            -21.9231261
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Landnámssetur Íslands, Brákarbraut, Borgarbyggð"
+          }
         },
         {
           "name": "Naturbad Krauma",
@@ -305,9 +409,15 @@
           "buchen": true,
           "buchenText": "Eintritt online buchen.",
           "pos": [
-            64.6636,
-            -21.4064
-          ]
+            64.6645269,
+            -21.4113352
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Krauma, Deildartunga, Kleppjárnsreykir"
+          }
         },
         {
           "name": "Gletschertunnel Langjökull",
@@ -315,10 +425,16 @@
           "text": "Europas zweitgrößten Gletscher von innen erleben.",
           "buchen": true,
           "pos": [
-            64.7333,
-            -20.4667
+            64.62813,
+            -20.48855
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "OSM tourism=attraction 'Into the Glacier' (Eingang Eisgang), Basislager Klaki 64.64866/-20.57817",
+            "hinweis": "Korrigiert um ca. 12 km nach Südwesten. Zugang nur mit dem Anbieterfahrzeug ab Klaki Base Camp bzw. Húsafell."
+          }
         },
         {
           "name": "Lavahöhle Víðgelmir",
@@ -326,14 +442,31 @@
           "text": "Eine der größten Lavahöhlen der Welt; steht unter Naturschutz und ist nur im Rahmen einer Führung zu besichtigen.",
           "buchen": true,
           "pos": [
-            64.7508,
-            -20.8878
-          ]
+            64.753166,
+            -20.8022143
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Vidgelmir, Víðgelmisvegur, Borgarbyggð"
+          }
         },
         {
           "name": "Hot Pot Krosslaug",
           "strasse": "Straße 52",
-          "text": "Historischer, geschützter Pool, darf genutzt werden - es passen max. 3-4 Personen gleichzeitig ins Becken."
+          "text": "Historischer, geschützter Pool, darf genutzt werden - es passen max. 3-4 Personen gleichzeitig ins Becken.",
+          "pos": [
+            64.50486,
+            -21.20468
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "OSM natural=hot_spring 'Krosslaug', Lundarreykjadalur (Denkmal-Node 64.50420/-21.20387 daneben)",
+            "hinweis": "Letzter offener Stopp — jetzt belegt. Historisches Taufbecken von 1000 n. Chr. an der Straße 52, Parkplatz mit ca. 50 m Fußweg, Wassertemperatur über 40 °C, Platz für 3-4 Personen."
+          }
         }
       ]
     },
@@ -361,7 +494,12 @@
             64.7,
             -22.2
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Landschaftsraum entlang der Straße 54 zwischen Borgarnes und Eldborg."
+          }
         },
         {
           "name": "Krater Eldborg",
@@ -371,55 +509,91 @@
             "distanz": "ca. 5 km hin und zurück"
           },
           "pos": [
-            64.7953,
-            -22.3186
-          ]
+            64.7963618,
+            -22.3214834
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Eldborg, Borgarbyggð, Vesturland"
+          }
         },
         {
           "name": "Gerðuberg Klippen",
           "strasse": "Straße 54",
           "text": "Beeindruckende Basaltsäulen, kleiner Pfad oberhalb der Klippen.",
           "pos": [
-            64.8206,
-            -22.3703
-          ]
+            64.8606323,
+            -22.3632624
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Gerðuberg, Eyja- og Miklaholtshreppur, Vesturland"
+          }
         },
         {
           "name": "Hof Ölkelda",
           "strasse": "Straße 571",
           "text": "Mineralquelle zum Probieren - durch den hohen Eisengehalt sehr gewöhnungsbedürftig.",
           "pos": [
-            64.8547,
-            -23.1489
+            64.83661,
+            -22.97675
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "OSM 'Ölkelda Mineral Spring' am Hof Ölkelda, Staðarsveit/Snæfellsnes",
+            "hinweis": "Korrigiert um ca. 8 km nach Osten; die Quelle liegt an der Straße 54 nahe der Abzweigung 571, nicht bei Straße 571 selbst."
+          }
         },
         {
           "name": "Strand Ytri Tunga",
           "strasse": "Parkplatz ausgeschildert",
           "text": "Goldfarbener Sandstrand und Lieblingsplatz der Robben, die auf den Felsen sonnen und ruhen.",
           "pos": [
-            64.8006,
-            -23.0836
-          ]
+            64.806971,
+            -23.0751595
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Ytri-Tunga, Snæfellsbær, Vesturland"
+          }
         },
         {
           "name": "Búðir",
           "strasse": "Straße 54",
           "text": "Alter Naturhafen mit kleiner Kirche; Spaziergang am Sandstrand Búðarós mit goldenem Sand und bizarren Lavafelsen.",
           "pos": [
-            64.8222,
-            -23.3847
-          ]
+            64.8219086,
+            -23.3841625
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Búðir, Snæfellsbær, Vesturland"
+          }
         },
         {
           "name": "Arnarstapi",
           "strasse": "Straße 574",
           "text": "Kleiner Fischerort mit hübschem Hafen; Spaziergang entlang der Klippen.",
           "pos": [
-            64.7669,
-            -23.6247
-          ]
+            64.766727,
+            -23.628085
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Arnarstapi, Snæfellsbær, Vesturland"
+          }
         },
         {
           "name": "Nationalpark Snæfellsjökull",
@@ -428,7 +602,13 @@
           "pos": [
             64.7553,
             -23.6469
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: Treffer liegt 8.6 km von der kuratierten Planposition — zu weit für eine Verfeinerung. Siehe data/offen.json."
+          }
         },
         {
           "name": "Vatnshellir Lava Cave",
@@ -439,43 +619,73 @@
           "pos": [
             64.7522,
             -23.8181
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Vatnshellir Lava Cave\". Siehe data/offen.json."
+          }
         },
         {
           "name": "Djúpalónssandur",
           "strasse": null,
           "text": "Kurzer Spaziergang zum Kiesstrand in der Bucht Dritvík, einst einer der Hauptfischereiplätze Islands. Mit den alten Kraftprobesteinen die Seetauglichkeit testen - mindestens 49 kg mussten gestemmt werden.",
           "pos": [
-            64.7519,
-            -23.8983
-          ]
+            64.7535266,
+            -23.8955205
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Djúpalónssandur, Dritvíkurvegur, Snæfellsbær"
+          }
         },
         {
           "name": "Öndverðarnes",
           "strasse": "Straße 579",
           "text": "Nordwest-Spitze der Halbinsel: Spaziergang zum Krater Vatnsborg, zu den Hügeln Neshólar oder nach Skarðsvík.",
           "pos": [
-            64.8867,
-            -24.0433
-          ]
+            64.8834748,
+            -24.0408743
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Öndverðarnes, Snæfellsbær, Vesturland"
+          }
         },
         {
           "name": "Hellissandur",
           "strasse": "Straße 574",
           "text": "Spaziergang zu einem schönen Strand; im Fischereimuseum das älteste Ruderboot Islands von 1826 und eine rekonstruierte Hütte.",
           "pos": [
-            64.9167,
-            -23.8956
-          ]
+            64.9171582,
+            -23.882463
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Hellissandur, Snæfellsbær, Vesturland"
+          }
         },
         {
           "name": "Rif",
           "strasse": "Straße 574",
           "text": "Eine der größten Küstenseeschwalben-Kolonien des Landes - Vorsicht, die Vögel sind angriffslustig.",
           "pos": [
-            64.9033,
-            -23.8272
-          ]
+            64.9213939,
+            -23.8297209
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Rif, Háarif, Rif"
+          }
         },
         {
           "name": "Ólafsvík",
@@ -483,27 +693,45 @@
           "text": "Ortschaft auf der Nordseite mit Schwimmbad. Bootsfahrt mit Láki Tours im Breiðafjörður: Wale und Papageitaucher, Seeangeln; im Sommer und Herbst Mink- und Buckelwale.",
           "buchen": true,
           "pos": [
-            64.8944,
-            -23.7108
-          ]
+            64.8959304,
+            -23.7084345
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Ólafsvík, Snæfellsbær, Vesturland"
+          }
         },
         {
           "name": "Grundarfjörður & Kirkjufell",
           "strasse": "Straße 54",
           "text": "Kleiner Ort mit dem markanten Hausberg Kirkjufell.",
           "pos": [
-            64.9272,
-            -23.3097
-          ]
+            64.9399465,
+            -23.3074783
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Kirkjufell, Grundarfjarðarbær, Vesturland"
+          }
         },
         {
           "name": "Stykkishólmur",
           "strasse": "Straße 58",
           "text": "Größte Ortschaft der Halbinsel: Rundblick vom Hügel am Hafen, weiße Kirche als Wahrzeichen, bunte alte Häuser, Vulkanmuseum von Haraldur Sigurðsson und Kunstausstellungen im norwegischen Haus Norska Húsið (1832).",
           "pos": [
-            65.0756,
-            -22.7283
-          ]
+            65.0742584,
+            -22.7302954
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Stykkishólmur, Sveitarfélagið Stykkishólmur, Vesturland"
+          }
         }
       ]
     },
@@ -528,27 +756,45 @@
           "strasse": "Straße 72, Umrundung Straße 711",
           "text": "Robbenzentrum Selasetur; Robben sonnen sich auf den Sandbänken, vor allem beim Felsen Hvítserkur. Die Umrundung kostet ca. 2 zusätzliche Stunden.",
           "pos": [
-            65.3958,
-            -20.9425
-          ]
+            65.3969593,
+            -20.9440293
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Hvammstangi, Húnaþing vestra, Norðurland vestra"
+          }
         },
         {
           "name": "Blönduós",
           "strasse": "Ringstraße 1",
           "text": "Kleine Ortschaft im Húnafjörður mit ungewöhnlicher Kirche, nach 11 Baujahren 1993 fertiggestellt.",
           "pos": [
-            65.66,
-            -20.275
-          ]
+            65.6601344,
+            -20.280998
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Blönduós, Húnabyggð, Norðurland vestra"
+          }
         },
         {
           "name": "Freilichtmuseum Glaumbær",
           "strasse": "Straße 75, ca. 8 km ab Varmahlíð",
           "text": "Grassodenhof aus dem 18. und 19. Jahrhundert - Einblick in die Lebens- und Wohnverhältnisse der isländischen Landbevölkerung.",
           "pos": [
-            65.6069,
-            -19.5053
-          ]
+            65.6105302,
+            -19.5052158
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Glaumbær, Skagafjörður, Norðurland vestra"
+          }
         },
         {
           "name": "Skagafjörður & Öxnadalsheiði",
@@ -558,16 +804,27 @@
             65.55,
             -19.3
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Zwei Landschaftsräume in einem Eintrag; der Punkt liegt zwischen Varmahlíð und der Passhöhe Öxnadalsheiði."
+          }
         },
         {
           "name": "Akureyri",
           "strasse": null,
           "text": "Größte Stadt des Nordens am Fjord Eyjafjörður, nur 50 km südlich des Polarkreises: Fußgängerzone Hafnargata mit bunten Holzhäusern, Akureyrarkirkja, Botanischer Garten mit heimischen und grönländischen Pflanzen.",
           "pos": [
-            65.6839,
-            -18.0906
-          ]
+            65.6826364,
+            -18.0912993
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Akureyrarbær, Norðurland eystra, Ísland"
+          }
         },
         {
           "name": "Tunnel Vaðlaheiðargöng",
@@ -576,19 +833,31 @@
           "buchen": true,
           "buchenText": "Registrierung nur im Zeitfenster ±3 Std. um die Durchfahrt möglich.",
           "pos": [
-            65.6772,
-            -18.0181
+            65.71115,
+            -17.98593
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "OSM highway=trunk 'Vaðlaheiðargöng' (Tunnelachse), Þingeyjarsveit",
+            "hinweis": "Bisher war das Büro in Akureyri verortet, jetzt der Tunnel selbst."
+          }
         },
         {
           "name": "Goðafoss",
           "strasse": "etwas abseits der Ringstraße 1",
           "text": "Der beeindruckende \"Wasserfall der Götter\" zwischen Akureyri und Mývatnsee.",
           "pos": [
-            65.6828,
-            -17.55
-          ]
+            65.6828162,
+            -17.550624
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Goðafoss, Þingeyjarsveit, Norðurland eystra"
+          }
         }
       ]
     },
@@ -615,27 +884,45 @@
             "gehzeit": "Rundweg ca. 1 Std."
           },
           "pos": [
-            65.5697,
-            -17.0392
-          ]
+            65.5676053,
+            -17.0358478
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Skútustaðir, Mývatnssveitarvegur, Þingeyjarsveit"
+          }
         },
         {
           "name": "Park Höfði / Kálfaströnd",
           "strasse": "südlicher Teil des Mývatn",
           "text": "Aussicht über den See von der Lavahalbinsel Kálfaströnd, Wanderung durch das Wäldchen.",
           "pos": [
-            65.5878,
-            -16.9439
-          ]
+            65.5707413,
+            -16.953679
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Höfði, Kálfaströnd, Þingeyjarsveit"
+          }
         },
         {
           "name": "Solfatarenfeld Námaskarð",
           "strasse": null,
           "text": "Farbenfrohe, brodelnde Quellen mit aufsteigendem Dampf - mit Vorsicht betrachten und die Hinweisschilder beachten.",
           "pos": [
-            65.6403,
-            -16.8092
-          ]
+            65.6473428,
+            -16.825068
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Námaskarð, Þingeyjarsveit, Norðurland eystra"
+          }
         },
         {
           "name": "Wanderung Námafjall",
@@ -647,9 +934,15 @@
             "distanz": "2,9 km"
           },
           "pos": [
-            65.6386,
-            -16.8125
-          ]
+            65.6401475,
+            -16.821119
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Námafjall, Þingeyjarsveit, Norðurland eystra"
+          }
         },
         {
           "name": "Dimmuborgir",
@@ -659,36 +952,60 @@
             "gehzeit": "max. 1,5 Std."
           },
           "pos": [
-            65.5911,
-            -16.9192
-          ]
+            65.5916639,
+            -16.9127366
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Dimmuborgir, Þingeyjarsveit, Norðurland eystra"
+          }
         },
         {
           "name": "Reykjahlíð",
           "strasse": "nordöstlich des Mývatn",
           "text": "Einkaufsmöglichkeiten, Hotelrestaurants und Cafés.",
           "pos": [
-            65.6439,
-            -16.9122
-          ]
+            65.6415611,
+            -16.9100073
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Reykjahlíð, Þingeyjarsveit, Norðurland eystra"
+          }
         },
         {
           "name": "Krafla & Leirhnjúkur",
           "strasse": "Straße 863",
           "text": "Vom Parkplatz Leirhnjúkur Rundweg zum Kratersee Víti (ca. 45 min) oder Wanderung durch dampfende Lava aus dem Krafla-Ausbruch von 1984.",
           "pos": [
-            65.7161,
-            -16.8272
-          ]
+            65.7212747,
+            -16.7935408
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Leirhnjúkur, Þingeyjarsveit, Norðurland eystra"
+          }
         },
         {
           "name": "Earth Lagoon Mývatn",
           "strasse": null,
           "text": "Die \"Blaue Lagune des Nordens\" als perfekter Tagesabschluss - Badesachen nicht vergessen. Wiedereröffnung laut Reiseplan Sommer 2026, vorab prüfen.",
           "pos": [
-            65.6306,
-            -16.8483
-          ]
+            65.6304565,
+            -16.8475989
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Jarðböðin við Mývatn, 8815, Þingeyjarsveit"
+          }
         }
       ]
     },
@@ -712,9 +1029,15 @@
           "strasse": "Straße 854",
           "text": "Gut erhaltener Grassodenhof von 1865, heute Regionalmuseum - kurios: durch einen Gang mit der Kirche verbunden. 2 km entfernt das Wasserkraftwerk Laxárdalsvirkjun mit einer kleinen Ausstellung nordischer Götterskulpturen.",
           "pos": [
-            65.8019,
-            -17.3617
-          ]
+            65.8203901,
+            -17.3512163
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Grenjaðarstaður, Grenjaðarstaðarkirkja, Þingeyjarsveit"
+          }
         },
         {
           "name": "Húsavík",
@@ -722,19 +1045,30 @@
           "text": "\"Hauptstadt der Walbeobachtung\": Walmuseum und kleine Holzkirche vom Anfang des 19. Jahrhunderts. 3-stündige Walbeobachtungsfahrt mit ca. 96 % Sichtungswahrscheinlichkeit, Partner Norðursigling/North Sailing.",
           "buchen": true,
           "pos": [
-            66.045,
-            -17.3383
-          ]
+            66.0433168,
+            -17.3410402
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Húsavík, Norðurþing, Norðurland eystra"
+          }
         },
         {
           "name": "Saltvík Reiterhof",
           "strasse": null,
           "text": "Entspannte Reittour entlang der Küste, für Anfänger und erfahrene Reiter.",
           "pos": [
-            65.9975,
-            -17.34
+            66.00094,
+            -17.36455
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "OSM place=farm 'Saltvík' südlich Húsavík (Gästehaus-Node 66.00118/-17.36463)"
+          }
         },
         {
           "name": "Geothermal Sea Baths GeoSea",
@@ -743,20 +1077,32 @@
           "pos": [
             66.0561,
             -17.3428
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Geothermal Sea Baths GeoSea\" (Reiseplan nennt: Húsavík). Siehe data/offen.json."
+          }
         },
         {
           "name": "Schlucht Ásbyrgi",
           "strasse": "Küstenstraße 85",
           "text": "Hufeisenförmige Schlucht mit bis zu 100 m hohen Felswänden; Wanderung ab Zeltplatz zur Basaltformation Eyja.",
           "wanderung": {
-            "distanz": "5 km",
-            "gehzeit": "1-2 Std."
+            "gehzeit": "1-2 Std.",
+            "distanz": "5 km"
           },
           "pos": [
             66.0208,
             -16.5075
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          }
         },
         {
           "name": "Nationalpark Jökulsárgljúfur",
@@ -766,25 +1112,42 @@
             65.95,
             -16.5
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Nordteil des Vatnajökull-Nationalparks entlang der Straße 862, ca. 30 km lang."
+          }
         },
         {
           "name": "Echofelsen Hljóðaklettar",
           "strasse": "Straße 862",
           "text": "Burgartige, von Basaltsäulen durchzogene Felsen; verschiedene Wanderwege ab Parkplatz.",
           "pos": [
-            65.9033,
-            -16.5083
-          ]
+            65.9444111,
+            -16.5330247
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Hljóðaklettar, Langavatnshöfðavegur, Norðurþing"
+          }
         },
         {
           "name": "Dettifoss & Selfoss",
           "strasse": "Straße 862",
           "text": "Der mächtigste Wasserfall Europas - auch für die kleineren \"Geschwister\" wie Selfoss Zeit nehmen.",
           "pos": [
-            65.8147,
-            -16.3844
-          ]
+            65.8187066,
+            -16.379113
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Dettifoss, Selfoss, Hafragilsfoss"
+          }
         }
       ]
     },
@@ -808,9 +1171,15 @@
           "strasse": "Straße 82",
           "text": "Von den Katla-Mitarbeitern besucht und absolut empfehlenswert: Walbeobachtung mit Whale Watching Hauganes, Hotpots direkt am Strand und das bunte Restaurant Baccalá Bar.",
           "pos": [
-            65.8836,
-            -18.2969
-          ]
+            65.9248793,
+            -18.305486
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Hauganes, Dalvíkurbyggð, Norðurland eystra"
+          }
         },
         {
           "name": "Insel Hrísey",
@@ -819,7 +1188,13 @@
           "pos": [
             65.9958,
             -18.3833
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          }
         },
         {
           "name": "Bjórböðin Bier-Spa",
@@ -828,16 +1203,28 @@
           "pos": [
             65.9014,
             -18.3789
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Bjórböðin Bier-Spa\" (Reiseplan nennt: Árskógssandur). Siehe data/offen.json."
+          }
         },
         {
           "name": "Dalvík",
           "strasse": "Straße 82",
           "text": "Fischfang und -verarbeitung; guter Ausgangspunkt für Wanderungen, u. a. im Naturreservat am Fluss Svarfaðardalsá mit zahlreichen Vogelarten.",
           "pos": [
-            65.9708,
-            -18.5286
-          ]
+            65.9710942,
+            -18.5304388
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Dalvík, Dalvíkurbyggð, Norðurland eystra"
+          }
         },
         {
           "name": "Wanderung Böggvisstaðadalur",
@@ -849,10 +1236,16 @@
             "distanz": "9 km"
           },
           "pos": [
-            65.9583,
-            -18.5
+            65.9607,
+            -18.61895
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "ref": "OSM natural=peak 'Böggvisstaðafjall'; Einstieg am Skigebiet 65.96895/-18.55504",
+            "hinweis": "Talwanderung, kein Punktziel. Punkt = Talmitte unterhalb des Böggvisstaðafjall, Start ab Dalvík/Skigebiet."
+          }
         },
         {
           "name": "Arctic Sea Tours",
@@ -861,7 +1254,13 @@
           "pos": [
             65.9708,
             -18.5286
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Arctic Sea Tours\" (Reiseplan nennt: Dalvík). Siehe data/offen.json."
+          }
         },
         {
           "name": "Héðinsfjörður",
@@ -871,7 +1270,12 @@
             66.0833,
             -18.8
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Fjord zwischen den beiden Tunnelröhren; der Rastplatz liegt am Tunnelunterbruch."
+          }
         },
         {
           "name": "Siglufjörður",
@@ -880,7 +1284,13 @@
           "pos": [
             66.1517,
             -18.9089
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          }
         }
       ]
     },
@@ -909,27 +1319,45 @@
             "distanz": "2,8 km"
           },
           "pos": [
-            65.8147,
-            -16.3844
-          ]
+            65.8187066,
+            -16.379113
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Dettifoss, Selfoss, Hafragilsfoss"
+          }
         },
         {
           "name": "Möðrudalur",
           "strasse": "Straße 901",
           "text": "Höchstgelegener Bauernhof Islands (479 m) mit kleiner Kirche, die Bauer Jón Stefánsson 1949 in Erinnerung an seine Frau baute. Das Fjallakaffi am Campingplatz ist für sein Gebäck \"Ástarpungar\" (Liebeskugeln) bekannt, dazu Islands berühmteste Tankstelle. Die Strecke führt über die menschenleere Einöde Möðrudalsöræfi.",
           "pos": [
-            65.3625,
-            -15.8875
-          ]
+            65.3741108,
+            -15.8826735
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Möðrudalur, Múlaþing, Austurland"
+          }
         },
         {
           "name": "Herðubreið",
           "strasse": null,
           "text": "Bei günstigem Wetter sehr gute Aussicht auf das östliche Hochland und die \"Königin isländischer Berge\".",
           "pos": [
-            65.1783,
-            -16.3467
-          ]
+            65.1786776,
+            -16.3450156
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Herðubreið, Þingeyjarsveit, Norðurland eystra"
+          }
         },
         {
           "name": "Schlucht Stuðlagil",
@@ -941,7 +1369,13 @@
           "pos": [
             65.1381,
             -15.5761
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: Treffer liegt 12.7 km von der kuratierten Planposition — zu weit für eine Verfeinerung. Siehe data/offen.json."
+          }
         },
         {
           "name": "Rjúkandi Wasserfall",
@@ -954,16 +1388,28 @@
           "pos": [
             65.2233,
             -15.3369
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: Treffer liegt 17.1 km von der kuratierten Planposition — zu weit für eine Verfeinerung. Siehe data/offen.json."
+          }
         },
         {
           "name": "Egilsstaðir",
           "strasse": null,
           "text": "Zentrum der Ostfjorde mit ca. 2300 Einwohnern: Einkaufsmöglichkeiten, ein sehr schönes Schwimmbad und Touristeninformation.",
           "pos": [
-            65.2669,
-            -14.3948
-          ]
+            65.2620412,
+            -14.4035258
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Egilsstaðir, Múlaþing, Austurland"
+          }
         },
         {
           "name": "See Lagarfljót (Lögurinn)",
@@ -973,16 +1419,27 @@
             65.15,
             -14.5
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "See mit ca. 30 km Umrundung; Punkt = Seemitte."
+          }
         },
         {
           "name": "Vök Baths",
           "strasse": "See Urriðavatn bei Egilsstaðir",
           "text": "Neues Bad mit schwimmenden Becken im See.",
           "pos": [
-            65.2947,
-            -14.4569
-          ]
+            65.3030657,
+            -14.447475
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Vök Baths, Hróarstunguvegur, Egilsstaðir"
+          }
         }
       ]
     },
@@ -1009,17 +1466,28 @@
             65.35,
             -14.5
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Landschaftsbeschreibung ohne Punktziel — Abschnitt der Straße 94 hinter Egilsstaðir."
+          }
         },
         {
           "name": "Eiðakirkja",
           "strasse": "bei Eiðar",
           "text": "Kleine Kirche etwas abseits der Straße - nicht spektakulär, aber sehr typisch für die Region; kurze Schleife für Fotos.",
           "pos": [
-            65.3833,
-            -14.4667
+            65.37506,
+            -14.35059
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "OSM Ortslage Eiðar (65.37228/-14.35045) mit Alþýðuskólinn á Eiðum",
+            "hinweis": "Korrigiert um ca. 12 km nach Südosten — die bisherige Näherung lag westlich der Straße 94 im freien Feld."
+          }
         },
         {
           "name": "Niederung Héraðsflói",
@@ -1029,7 +1497,12 @@
             65.45,
             -14.4
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Mündungsniederung von Jökulsá á Dal und Lagarfljót, Streckenabschnitt der Straße 94."
+          }
         },
         {
           "name": "Rhyolith- und Tuffberge / Passhöhe",
@@ -1039,7 +1512,12 @@
             65.475,
             -13.95
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Passabschnitt der Straße 94 vor dem Abstieg nach Bakkagerði — Streckenabschnitt, kein Punkt."
+          }
         },
         {
           "name": "Grüne Talrinne zum Meer",
@@ -1049,25 +1527,42 @@
             65.51,
             -13.85
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Abstieg der Straße 94 zur Küste — Streckenabschnitt, kein Punkt."
+          }
         },
         {
           "name": "Hafnarhólmi",
           "strasse": "oft ausgeschildert",
           "text": "Papageitaucher-Klippen. Saison laut Reiseplan zwischen Mai und Anfang August - Anfang September also voraussichtlich ohne Vögel.",
           "pos": [
-            65.5322,
-            -13.7911
-          ]
+            65.5424695,
+            -13.7567808
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Hafnarhólmi, Múlaþing, Austurland"
+          }
         },
         {
           "name": "Bakkagerði",
           "strasse": null,
           "text": "Ort in einem der schönsten Fjorde Islands, in dem es der Legende nach Elfen gibt; viele gut markierte Wanderwege.",
           "pos": [
-            65.5264,
-            -13.7981
-          ]
+            65.5269612,
+            -13.8161009
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Bakkagerði, Múlaþing, Austurland"
+          }
         }
       ]
     },
@@ -1092,18 +1587,30 @@
           "strasse": null,
           "text": "Früher wichtiger Handelsort, im Zweiten Weltkrieg Militärbasis der Alliierten; seit dem Alcoa-Aluminiumwerk 2005 deutlich gewachsen.",
           "pos": [
-            65.0292,
-            -14.2131
-          ]
+            65.0340671,
+            -14.2084678
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Reyðarfjörður, Fjarðabyggð, Austurland"
+          }
         },
         {
           "name": "Fáskrúðsfjörður",
           "strasse": null,
           "text": "Kleines Museum über die französischen Seeleute um 1900; die französisch-isländische Freundschaft zeigt sich an zweisprachigen Straßenschildern. Zahlreiche markierte Wanderwege.",
           "pos": [
-            64.9281,
-            -14.0106
-          ]
+            64.9299691,
+            -14.0084454
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Fáskrúðsfjörður, Fjarðabyggð, Austurland"
+          }
         },
         {
           "name": "Steinsammlung von Petra",
@@ -1112,7 +1619,13 @@
           "pos": [
             64.8339,
             -13.8722
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Steinsammlung von Petra\" (Reiseplan nennt: Stöðvarfjörður). Siehe data/offen.json."
+          }
         },
         {
           "name": "Breiðdalsvík",
@@ -1121,16 +1634,28 @@
           "pos": [
             64.7917,
             -14.0181
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          }
         },
         {
           "name": "Djúpivogur",
           "strasse": null,
           "text": "Eine der ältesten Gemeinden Islands; im Hafen die Kunstinstallation \"Eggin í Gleðivík\" (Die Eier in Gleðivík) von Sigurður Guðmundsson.",
           "pos": [
-            64.6567,
-            -14.2833
-          ]
+            64.655775,
+            -14.2820953
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Djúpivogur, Múlaþing, Austurland"
+          }
         },
         {
           "name": "Stokksnes, Vestrahorn & Brunnhorn",
@@ -1139,16 +1664,29 @@
           "pos": [
             64.2456,
             -14.9878
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "Zufahrt Stokksnes ab dem Viking Café, gebührenpflichtige Straße",
+            "hinweis": "Der Eintrag nennt drei Objekte. Der Punkt liegt auf der Landzunge Stokksnes mit Strand und Dünen — Brunnhorn (64.285/-14.920) liegt 5 km nordöstlich und ist von hier aus das Motiv, nicht das Ziel."
+          }
         },
         {
           "name": "Hvalnes",
           "strasse": "nahe Vestrahorn",
           "text": "Verlassener Hof; die Grassodengebäude sind nicht historisch, sondern für die Verfilmung von Halldór Laxness' \"Das wiedergefundene Paradies\" gebaut.",
           "pos": [
-            64.4,
-            -14.5528
-          ]
+            64.4103916,
+            -14.5519604
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Hvalnes, Sveitarfélagið Hornafjörður, Suðurland"
+          }
         },
         {
           "name": "Gletscherlagune Jökulsárlón",
@@ -1159,16 +1697,29 @@
           "pos": [
             64.0481,
             -16.1794
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "Parkplätze beidseits der Ringstraßenbrücke über die Jökulsá",
+            "hinweis": "Bewusst nicht auf die Seemitte gesetzt: OSM verortet die Lagune 4 km weiter nördlich am Gletscher. Für die Anfahrt zählt die Brücke — dort liegen Parkplätze, Bootsanleger und Café."
+          }
         },
         {
           "name": "Diamond Beach (Breiðamerkursandur)",
           "strasse": "bei Jökulsárlón",
           "text": "Im schwarzen Sand liegen je nach Strömung zahlreiche Eisbrocken aus der Lagune - von winzigen \"Diamanten\" bis zu mannsgroßen Blöcken.",
           "pos": [
-            64.0431,
-            -16.175
-          ]
+            64.0431419,
+            -16.178248
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Breiðamerkursandur, Sveitarfélagið Hornafjörður, Suðurland"
+          }
         },
         {
           "name": "Gletscherlagune Fjallsárlón",
@@ -1176,9 +1727,15 @@
           "text": "Kleinere Lagune mit Zodiak-Bootstouren und kleinem Café.",
           "buchen": true,
           "pos": [
-            64.0133,
-            -16.3806
-          ]
+            64.0228952,
+            -16.3977875
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Fjallsárlón, Sveitarfélagið Hornafjörður, Suðurland"
+          }
         },
         {
           "name": "Skaftafell",
@@ -1188,18 +1745,30 @@
             "gehzeit": "ca. 1,5 Std. (Svartifoss)"
           },
           "pos": [
-            64.0164,
-            -16.9664
-          ]
+            64.0164548,
+            -16.966458
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Skaftafell, Sveitarfélagið Hornafjörður, Suðurland"
+          }
         },
         {
           "name": "Kirkjubæjarklaustur",
           "strasse": null,
           "text": "Ausgangspunkt für Wanderungen und Busausflüge ins Hochland (nur im Sommer). Am Ortsende hinter dem Hotel führt ein Weg zu den Felsen Systrastapi und ein steiler, steiniger Pfad durch das Wäldchen hinauf zum See Systravatn mit herrlicher Aussicht. Bei der Tankstelle auf die Straße 203 abbiegen, nach ca. 200 m links die Basaltsäulenformation Kirkjugólf (Kirchenboden).",
           "pos": [
-            63.7908,
-            -18.0603
-          ]
+            63.7863599,
+            -18.0585595
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Kirkjubæjarklaustur, Skaftárhreppur, Suðurland"
+          }
         },
         {
           "name": "Schlucht Fjaðrárgljúfur",
@@ -1209,9 +1778,15 @@
             "gehzeit": "ca. 1-2 Stunden"
           },
           "pos": [
-            63.7714,
-            -18.1725
-          ]
+            63.7711975,
+            -18.1714427
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Fjaðrárgljúfur, Fjaðrárgljúfursvegur, Skaftárhreppur"
+          }
         },
         {
           "name": "Skaftárstofa",
@@ -1220,7 +1795,13 @@
           "pos": [
             63.7906,
             -18.0617
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Skaftárstofa\" (Reiseplan nennt: Kirkjubæjarklaustur). Siehe data/offen.json."
+          }
         }
       ]
     },
@@ -1247,34 +1828,57 @@
             63.75,
             -18.3
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Lavafeld der Laki-Spalte von 1783, ca. 565 km² — der Punkt liegt an der Ringstraße mitten im Feld."
+          }
         },
         {
           "name": "Vík í Mýrdal",
           "strasse": "Ringstraße 1",
           "text": "Südlichster Ort der Insel mit moderner Kirche auf einem Hügel und berühmtem schwarzen Strand; vom Strand sieht man die Felsgruppe Reynisdrangar - zu Stein erstarrte Trolle.",
           "pos": [
-            63.4186,
-            -19.0061
-          ]
+            63.4188166,
+            -19.0054737
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Vík, Mýrdalshreppur, Suðurland"
+          }
         },
         {
           "name": "Reynir / schwarzer Sandstrand",
           "strasse": "Straße 215",
           "text": "Beim letzten Bauern rechts am Hof vorbei bis zum Parkplatz, von dort nur wenige Meter zum Strand. Links am Bergabhang zwei fantastische Höhlen aus Säulenbasalt und schöner Blick auf die Reynisdrangar. Achtung: nicht nah ans Meer gehen, die Wellen haben eine unglaubliche Saugkraft.",
           "pos": [
-            63.4064,
-            -19.0447
-          ]
+            63.4220296,
+            -19.0487405
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Reynir, Mýrdalshreppur, Suðurland"
+          }
         },
         {
           "name": "Kap Dyrhólaey",
           "strasse": "Straße 218",
           "text": "Versandete Insel mit auffällig geformtem Felsen, auf dem Papageitaucher und andere Seevögel nisten. Während der Brutzeit (ca. Ende Mai bis Ende Juni) gesperrt. Nicht zu nah an den Rand: der Boden ist durch die Bruthöhlen locker und brüchig.",
           "pos": [
-            63.4022,
-            -19.1281
-          ]
+            63.4029569,
+            -19.1271623
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Dyrhólaey, Mýrdalshreppur, Suðurland"
+          }
         },
         {
           "name": "Skógafoss",
@@ -1283,16 +1887,28 @@
           "pos": [
             63.5319,
             -19.5114
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          }
         },
         {
           "name": "Heimatmuseum Skógasafn",
           "strasse": "Skógar",
           "text": "Kulturerbe der Region: Arbeitsgeräte, Kunsthandwerk, Gebäude, Bücher und Fahrzeuge.",
           "pos": [
-            63.525,
-            -19.5203
-          ]
+            63.5261876,
+            -19.4930589
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Skógasafn, Safnavegur, Skógar"
+          }
         },
         {
           "name": "Seljalandsfoss & Gljúfrabúi",
@@ -1303,9 +1919,15 @@
             "hoehenmeter": "50 m"
           },
           "pos": [
-            63.6156,
-            -19.9886
-          ]
+            63.6154571,
+            -19.9881686
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Seljalandsfoss, Rangárþing eystra, Suðurland"
+          }
         }
       ]
     },
@@ -1329,9 +1951,15 @@
           "strasse": null,
           "text": "Seit 2004 erste isländische UNESCO-Welterbestätte. Hier wurde 930 das erste demokratische Parlament der Welt ausgerufen; das Gebiet liegt auf dem mittelatlantischen Rücken, wo die eurasische und die nordamerikanische Platte auseinanderdriften. Bei der Almannagjá ein neues Kulturzentrum mit interaktiver Multimedia-Ausstellung. Mehrere gebührenpflichtige Parkplätze; um die Mittagszeit wegen der Nähe zu Reykjavík viele Besucher.",
           "pos": [
-            64.2558,
-            -21.13
-          ]
+            64.2590998,
+            -21.1212537
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          }
         },
         {
           "name": "Wanderung durch die Almannagjá",
@@ -1345,7 +1973,13 @@
           "pos": [
             64.2583,
             -21.125
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"durch die Almannagjá\" (Reiseplan nennt: Þingvellir). Siehe data/offen.json."
+          }
         },
         {
           "name": "Silfra-Spalte",
@@ -1355,25 +1989,43 @@
           "pos": [
             64.2558,
             -21.1189
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Silfra-Spalte\" (Reiseplan nennt: Þingvellir). Siehe data/offen.json."
+          }
         },
         {
           "name": "Laugarvatn",
           "strasse": "Straße 365",
           "text": "Ortschaft direkt am See, beliebt für Freizeitaktivitäten; markierte Wanderwege und ein natürliches Dampfbad.",
           "pos": [
-            64.2144,
-            -20.7286
-          ]
+            64.217171,
+            -20.7334229
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Laugarvatn, Bláskógabyggð, Suðurland"
+          }
         },
         {
           "name": "Geysir & Strokkur",
           "strasse": "Straße 35, Gebiet Haukadalur",
           "text": "Einzigartiges Geothermalgebiet mit vielen heißen Quellen. Die berühmteste ist Geysir, die derzeit aktivste Strokkur.",
           "pos": [
-            64.3108,
-            -20.3017
-          ]
+            64.3089624,
+            -20.2997533
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Geysir Cottages, 4, Haukadalur"
+          }
         },
         {
           "name": "Gullfoss",
@@ -1382,25 +2034,43 @@
           "pos": [
             64.3271,
             -20.1214
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          }
         },
         {
           "name": "Maar Kerið",
           "strasse": "Straße 35",
           "text": "Wassergefüllter Krater des kleinsten Vulkansystems Grímsnes, mit Kerhóll unter Naturschutz; der grün-blaue See kontrastiert schön mit den rötlichen Hängen.",
           "pos": [
-            64.0411,
-            -20.8853
-          ]
+            64.0409591,
+            -20.884611
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Kerið, Grímsnes- og Grafningshreppur, Suðurland"
+          }
         },
         {
           "name": "Gamla Laugin / Secret Lagoon",
           "strasse": "bei Flúðir",
           "text": "Ältestes Schwimmbad Islands, 1891 gebaut, erster Schwimmkurs 1909. Wasser ganzjährig 38-40 Grad, kleiner Geysir direkt vom Becken aus zu sehen.",
           "pos": [
-            64.1381,
-            -20.3097
-          ]
+            64.1371866,
+            -20.3090248
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Gamla Laugin, Hveramýri, Flúðir"
+          }
         },
         {
           "name": "Friðheimar Greenhouse",
@@ -1409,16 +2079,28 @@
           "pos": [
             64.1567,
             -20.5081
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Friðheimar Greenhouse\" (Reiseplan nennt: Straße 35, kurz hinter Reykholt). Siehe data/offen.json."
+          }
         },
         {
           "name": "Skálholt",
           "strasse": "kurz bevor Straße 31 in Straße 35 übergeht",
           "text": "Ehemaliger Bischofssitz mit sehenswerter Kirche - ein wichtiges kulturelles und historisches Zentrum des Landes.",
           "pos": [
-            64.1281,
-            -20.5281
-          ]
+            64.1279604,
+            -20.521983
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Skálholt, Bláskógabyggð, Suðurland"
+          }
         },
         {
           "name": "Laugarás Lagoon",
@@ -1428,7 +2110,12 @@
             64.1439,
             -20.51
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Im Herbst 2025 eröffnet und in OSM noch nicht erfasst; Punkt am Hvítá-Ufer bei Laugarás."
+          }
         }
       ]
     },
@@ -1454,18 +2141,30 @@
           "buchen": true,
           "buchenText": "Kajaktour vorab anfragen.",
           "pos": [
-            63.8339,
-            -21.07
-          ]
+            63.8369673,
+            -21.0611516
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Stokkseyri, Sveitarfélagið Árborg, Suðurland"
+          }
         },
         {
           "name": "Eyrarbakki",
           "strasse": "Straße 34",
           "text": "Jahrhundertelang der wichtigste Hafen der Südküste und Handelspunkt der Region; heute mit einem sehr schönen Heimatmuseum.",
           "pos": [
-            63.8639,
-            -21.1522
-          ]
+            63.8630116,
+            -21.1481411
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Eyrarbakki, Sveitarfélagið Árborg, Suðurland"
+          }
         },
         {
           "name": "Vogelschutzreservat Flói",
@@ -1475,7 +2174,12 @@
             63.8833,
             -21.1833
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Feuchtgebiet an der Ölfusá-Mündung, Betreiber Fuglavernd. Vogelsaison Mai bis August."
+          }
         },
         {
           "name": "Lighthouse Route",
@@ -1485,16 +2189,27 @@
             63.845,
             -21.25
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Streckenabschnitt Stokkseyri–Þorlákshöfn, kein einzelner Leuchtturm."
+          }
         },
         {
           "name": "Þorlákshöfn & Leuchtturm Hafnarnes",
           "strasse": null,
           "text": "Kleines Fischerdorf und guter Ausgangspunkt für Küstenwanderungen; der bildschöne Leuchtturm liegt am Ortsrand zwischen Klippen und tosenden Wellen.",
           "pos": [
-            63.8564,
-            -21.3833
-          ]
+            63.8561592,
+            -21.3866276
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Þorlákshöfn, Sveitarfélagið Ölfus, Suðurland"
+          }
         },
         {
           "name": "Lavahöhle Raufarhólshellir",
@@ -1502,9 +2217,15 @@
           "text": "Farbenfrohe, beeindruckende Lavahöhle, Besichtigung mit Führung.",
           "buchen": true,
           "pos": [
-            63.9433,
-            -21.3967
-          ]
+            63.9402409,
+            -21.3971824
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Raufarhólshellir, Þrengslavegur, Sveitarfélagið Ölfus"
+          }
         },
         {
           "name": "Krýsuvík & Seltún",
@@ -1513,38 +2234,62 @@
           "pos": [
             63.8931,
             -22.0547
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          }
         },
         {
           "name": "See Kleifarvatn",
           "strasse": "Straße 42",
           "text": "Landschaftlich wunderschön gelegen, auch \"schwarzer See\" genannt - im Inneren soll ein Ungeheuer leben.",
           "pos": [
-            63.925,
-            -21.9833
-          ]
+            63.926636,
+            -21.9699203
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Kleifarvatn, Hafnarfjarðarkaupstaður, Grindavíkurbær"
+          }
         },
         {
           "name": "Wanderung Reykjadalur",
           "strasse": "ab Hveragerði",
           "text": "Kurzweilige, einfache Wanderung über einen Bergrücken und an einem dampfenden Bach entlang in ein grünes, weites Tal - einer der schönsten Naturbadeplätze Islands, heiße Quellen sorgen für ideale Badetemperaturen im Bachbett.",
           "wanderung": {
-            "distanz": "8 km",
-            "gehzeit": "4 Std."
+            "gehzeit": "4 Std.",
+            "distanz": "8 km"
           },
           "pos": [
-            64.0264,
-            -21.2158
-          ]
+            64.0472514,
+            -21.2215882
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Reykjadalur, Sveitarfélagið Ölfus, Suðurland"
+          }
         },
         {
           "name": "Reiterhof Eldhestar",
           "strasse": "Hveragerði",
           "text": "Kurze und längere Reittouren in verschiedenen Schwierigkeitsstufen, für Anfänger und erfahrene Reiter.",
           "pos": [
-            63.995,
-            -21.244
-          ]
+            63.9850019,
+            -21.1695586
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Eldhestar, Vallavegur, Vellir"
+          }
         }
       ]
     },
@@ -1573,18 +2318,30 @@
             "distanz": "8,7 km"
           },
           "pos": [
-            64.0264,
-            -21.2158
-          ]
+            64.0472514,
+            -21.2215882
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Reykjadalur, Sveitarfélagið Ölfus, Suðurland"
+          }
         },
         {
           "name": "Reiterhof Eldhestar",
           "strasse": "Hveragerði",
           "text": "Reittouren in verschiedenen Schwierigkeitsstufen.",
           "pos": [
-            63.995,
-            -21.244
-          ]
+            63.9850019,
+            -21.1695586
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Eldhestar, Vallavegur, Vellir"
+          }
         },
         {
           "name": "Küstenroute Stokkseyri, Eyrarbakki, Þorlákshöfn",
@@ -1594,7 +2351,12 @@
             63.85,
             -21.2
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Sammeleintrag für die Küstenstraße 34 — die Einzelziele haben eigene Stopps am 08.09."
+          }
         },
         {
           "name": "Krýsuvík & Kleifarvatn",
@@ -1603,25 +2365,43 @@
           "pos": [
             63.8931,
             -22.0547
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          }
         },
         {
           "name": "Fagradalsfjall",
           "strasse": "Straße 427, Südseite Reykjanes",
           "text": "Die vulkanischen und seismischen Aktivitäten der letzten Jahre haben eine völlig neue Landschaft geschaffen; Wanderwege führen entlang des neu entstandenen Lavafeldes. Zugänglichkeit tagesaktuell prüfen.",
           "pos": [
-            63.9019,
-            -22.2731
-          ]
+            63.9051002,
+            -22.2725943
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Langhóll, Grindavíkurbær, Suðurnes"
+          }
         },
         {
           "name": "Grindavík",
           "strasse": null,
           "text": "Einer der geschichtlich faszinierendsten Fischereihäfen Islands - im Mittelalter englische und deutsche Kaufleute, im 17. Jh. Opfer algerischer Piraten (Denkmal). Seit 2023 steht das Leben still: Vulkanausbrüche und Erdspalten haben den Ort zerstört, die Einwohner sind evakuiert. Seit Oktober 2024 unter strengen Sicherheitsbedingungen wieder zugänglich, sofern die Lage es erlaubt - bei Gefahr wird evakuiert und gesperrt. Aktuelle Informationen vorab prüfen.",
           "pos": [
-            63.8417,
-            -22.4333
-          ]
+            63.844239,
+            -22.4317498
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Grindavík, Grindavíkurbær, Suðurnes"
+          }
         },
         {
           "name": "Blaue Lagune (Bláa Lónið)",
@@ -1630,18 +2410,30 @@
           "buchen": true,
           "buchenText": "Wegen eingeschränkter Verfügbarkeit vor Reisebeginn buchen.",
           "pos": [
-            63.8804,
-            -22.4495
-          ]
+            63.8800487,
+            -22.4493538
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Bláa lónið, 9, Norðurljósavegur"
+          }
         },
         {
           "name": "Rock'n'Roll-Museum",
           "strasse": "Konzertzentrum Reykjanesbær",
           "text": "Isländische Musik von Björk über Sigur Rós und Of Monsters and Men bis Páll Óskar.",
           "pos": [
-            64.0044,
-            -22.5628
-          ]
+            63.9898957,
+            -22.550263
+          ],
+          "posMeta": {
+            "quelle": "osm",
+            "genauigkeit": "punkt",
+            "geprueftAm": "2026-08-13",
+            "ref": "nominatim: Rokksafn Íslands, 2, Hjallavegur"
+          }
         }
       ]
     },
@@ -1665,10 +2457,15 @@
           "strasse": "Straße 41",
           "text": "Letzte Tankstelle auf dem Weg zum Flughafen am Kreisverkehr in Njarðvík (aus Reykjavík kommend); alternativ in der Ortschaft Keflavík oder am unbemannten Tankautomaten direkt an der Hertz-Rückgabestation.",
           "pos": [
-            64.0042,
-            -22.545
+            64.00229,
+            -22.55876
           ],
-          "posUngenau": true
+          "posMeta": {
+            "quelle": "manuell",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Tankstellen am Kreisverkehr Njarðvík an der Straße 41; mehrere Betreiber nebeneinander, deshalb Bereichsangabe."
+          }
         },
         {
           "name": "Check-in",
@@ -1677,7 +2474,13 @@
           "pos": [
             63.985,
             -22.6056
-          ]
+          ],
+          "posMeta": {
+            "quelle": "reiseplan",
+            "genauigkeit": "bereich",
+            "geprueftAm": "2026-08-13",
+            "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Check-in\" (Reiseplan nennt: Keflavík International Airport). Siehe data/offen.json."
+          }
         }
       ]
     }

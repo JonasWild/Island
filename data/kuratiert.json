@@ -1,0 +1,330 @@
+{
+  "_hinweis": "Handgeprüfte Positionen mit Beleg. Diese Datei gewinnt gegen jeden automatischen Treffer aus scripts/geocode.ts. Schlüssel = exakter Name aus reise.json (Unterkünfte mit Präfix 'unterkunft:').",
+  "eintraege": {
+    "unterkunft:thrasastadir": {
+      "pos": [
+        65.6963,
+        -17.6459
+      ],
+      "posMeta": {
+        "quelle": "anbieter",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "ref": "https://www.viatis.is/en/accommodation/northeast-iceland/thrasastadir/",
+        "hinweis": "Anbieterseite verortet das Haus direkt am See Ljósavatn im Ljósavatnsskarð, ca. 25 km östlich von Akureyri und 8 km von Goðafoss. Damit ist weder 'Akureyri' (Übernachtungsplan) noch 'Mývatn' (Reiseplan) die tatsächliche Basis. Punkt = Südufer Ljósavatn; die genaue Parzelle ist nicht öffentlich, deshalb 'bereich'. Achtung: Der OSM-Hof gleichen Namens liegt in Fljót/Skagafjörður (65.937, -18.926) und ist ein anderes Objekt."
+      }
+    },
+    "unterkunft:birkiskogar": {
+      "pos": [
+        64.7686,
+        -21.5486
+      ],
+      "posMeta": {
+        "quelle": "anbieter",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "ref": "https://www.viatis.is/de/ferienhaus/westisland/birkiskogar",
+        "hinweis": "Ferienhaussiedlung Birkiskógar bei Bifröst/Hreðavatn. Viatis nennt keine Hausnummer — Bereichsangabe."
+      }
+    },
+    "unterkunft:hlidarendi": {
+      "pos": [
+        65.2667,
+        -14.4
+      ],
+      "posMeta": {
+        "quelle": "anbieter",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "ref": "https://www.viatis.is/de/ferienhaus/ostisland/hlidarendi",
+        "hinweis": "Ferienhaus im Umland von Egilsstaðir, keine öffentliche Adresse — Bereichsangabe."
+      }
+    },
+    "unterkunft:hlidarholt": {
+      "pos": [
+        64.1333,
+        -20.3167
+      ],
+      "posMeta": {
+        "quelle": "anbieter",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "ref": "https://www.viatis.is/de/ferienhaus/suedisland/hlidarholt",
+        "hinweis": "Ferienhaus bei Flúðir, keine öffentliche Adresse — Bereichsangabe."
+      }
+    },
+    "unterkunft:nupar": {
+      "pos": [
+        63.9237,
+        -17.7062
+      ],
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM tourism=hotel 'Fosshotel Núpar', Suðurlandsvegur, Skaftárhreppur",
+        "hinweis": "Korrigiert: die bisherige Näherung lag bei Kirkjubæjarklaustur, das Hotel liegt aber ~30 km weiter östlich an der Ringstraße bei Núpar."
+      }
+    },
+    "unterkunft:konvin": {
+      "pos": [
+        63.9729,
+        -22.5765
+      ],
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM tourism=hotel 'Konvin Hotel', 762 Keilisbraut, Ásbrú, Njarðvík"
+      }
+    },
+    "Hot Pot Krosslaug": {
+      "pos": [
+        64.50486,
+        -21.20468
+      ],
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM natural=hot_spring 'Krosslaug', Lundarreykjadalur (Denkmal-Node 64.50420/-21.20387 daneben)",
+        "hinweis": "Letzter offener Stopp — jetzt belegt. Historisches Taufbecken von 1000 n. Chr. an der Straße 52, Parkplatz mit ca. 50 m Fußweg, Wassertemperatur über 40 °C, Platz für 3-4 Personen."
+      }
+    },
+    "Hof Ölkelda": {
+      "pos": [
+        64.83661,
+        -22.97675
+      ],
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM 'Ölkelda Mineral Spring' am Hof Ölkelda, Staðarsveit/Snæfellsnes",
+        "hinweis": "Korrigiert um ca. 8 km nach Osten; die Quelle liegt an der Straße 54 nahe der Abzweigung 571, nicht bei Straße 571 selbst."
+      }
+    },
+    "Gletschertunnel Langjökull": {
+      "pos": [
+        64.62813,
+        -20.48855
+      ],
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM tourism=attraction 'Into the Glacier' (Eingang Eisgang), Basislager Klaki 64.64866/-20.57817",
+        "hinweis": "Korrigiert um ca. 12 km nach Südwesten. Zugang nur mit dem Anbieterfahrzeug ab Klaki Base Camp bzw. Húsafell."
+      }
+    },
+    "Tunnel Vaðlaheiðargöng": {
+      "pos": [
+        65.71115,
+        -17.98593
+      ],
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM highway=trunk 'Vaðlaheiðargöng' (Tunnelachse), Þingeyjarsveit",
+        "hinweis": "Bisher war das Büro in Akureyri verortet, jetzt der Tunnel selbst."
+      }
+    },
+    "Saltvík Reiterhof": {
+      "pos": [
+        66.00094,
+        -17.36455
+      ],
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM place=farm 'Saltvík' südlich Húsavík (Gästehaus-Node 66.00118/-17.36463)"
+      }
+    },
+    "Eiðakirkja": {
+      "pos": [
+        65.37506,
+        -14.35059
+      ],
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM Ortslage Eiðar (65.37228/-14.35045) mit Alþýðuskólinn á Eiðum",
+        "hinweis": "Korrigiert um ca. 12 km nach Südosten — die bisherige Näherung lag westlich der Straße 94 im freien Feld."
+      }
+    },
+    "Wanderung Böggvisstaðadalur": {
+      "pos": [
+        65.9607,
+        -18.61895
+      ],
+      "posMeta": {
+        "quelle": "osm",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "ref": "OSM natural=peak 'Böggvisstaðafjall'; Einstieg am Skigebiet 65.96895/-18.55504",
+        "hinweis": "Talwanderung, kein Punktziel. Punkt = Talmitte unterhalb des Böggvisstaðafjall, Start ab Dalvík/Skigebiet."
+      }
+    },
+    "Volltanken": {
+      "pos": [
+        64.00229,
+        -22.55876
+      ],
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Tankstellen am Kreisverkehr Njarðvík an der Straße 41; mehrere Betreiber nebeneinander, deshalb Bereichsangabe."
+      }
+    },
+    "Halbinsel Reykjanes": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Ganze Halbinsel — der Punkt ist ein Schwerpunkt, kein Ziel."
+      }
+    },
+    "Moorgebiet Mýrar": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Landschaftsraum entlang der Straße 54 zwischen Borgarnes und Eldborg."
+      }
+    },
+    "Skagafjörður & Öxnadalsheiði": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Zwei Landschaftsräume in einem Eintrag; der Punkt liegt zwischen Varmahlíð und der Passhöhe Öxnadalsheiði."
+      }
+    },
+    "Nationalpark Jökulsárgljúfur": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Nordteil des Vatnajökull-Nationalparks entlang der Straße 862, ca. 30 km lang."
+      }
+    },
+    "Héðinsfjörður": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Fjord zwischen den beiden Tunnelröhren; der Rastplatz liegt am Tunnelunterbruch."
+      }
+    },
+    "See Lagarfljót (Lögurinn)": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "See mit ca. 30 km Umrundung; Punkt = Seemitte."
+      }
+    },
+    "Ebene des Hérað": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Landschaftsbeschreibung ohne Punktziel — Abschnitt der Straße 94 hinter Egilsstaðir."
+      }
+    },
+    "Niederung Héraðsflói": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Mündungsniederung von Jökulsá á Dal und Lagarfljót, Streckenabschnitt der Straße 94."
+      }
+    },
+    "Rhyolith- und Tuffberge / Passhöhe": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Passabschnitt der Straße 94 vor dem Abstieg nach Bakkagerði — Streckenabschnitt, kein Punkt."
+      }
+    },
+    "Grüne Talrinne zum Meer": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Abstieg der Straße 94 zur Küste — Streckenabschnitt, kein Punkt."
+      }
+    },
+    "Lavafeld Eldhraun": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Lavafeld der Laki-Spalte von 1783, ca. 565 km² — der Punkt liegt an der Ringstraße mitten im Feld."
+      }
+    },
+    "Vogelschutzreservat Flói": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Feuchtgebiet an der Ölfusá-Mündung, Betreiber Fuglavernd. Vogelsaison Mai bis August."
+      }
+    },
+    "Lighthouse Route": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Streckenabschnitt Stokkseyri–Þorlákshöfn, kein einzelner Leuchtturm."
+      }
+    },
+    "Küstenroute Stokkseyri, Eyrarbakki, Þorlákshöfn": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Sammeleintrag für die Küstenstraße 34 — die Einzelziele haben eigene Stopps am 08.09."
+      }
+    },
+    "Laugarás Lagoon": {
+      "posMeta": {
+        "quelle": "manuell",
+        "genauigkeit": "bereich",
+        "geprueftAm": "2026-08-13",
+        "hinweis": "Im Herbst 2025 eröffnet und in OSM noch nicht erfasst; Punkt am Hvítá-Ufer bei Laugarás."
+      }
+    },
+    "Gletscherlagune Jökulsárlón": {
+      "pos": [
+        64.0481,
+        -16.1794
+      ],
+      "posMeta": {
+        "quelle": "reiseplan",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "Parkplätze beidseits der Ringstraßenbrücke über die Jökulsá",
+        "hinweis": "Bewusst nicht auf die Seemitte gesetzt: OSM verortet die Lagune 4 km weiter nördlich am Gletscher. Für die Anfahrt zählt die Brücke — dort liegen Parkplätze, Bootsanleger und Café."
+      }
+    },
+    "Stokksnes, Vestrahorn & Brunnhorn": {
+      "pos": [
+        64.2456,
+        -14.9878
+      ],
+      "posMeta": {
+        "quelle": "reiseplan",
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-13",
+        "ref": "Zufahrt Stokksnes ab dem Viking Café, gebührenpflichtige Straße",
+        "hinweis": "Der Eintrag nennt drei Objekte. Der Punkt liegt auf der Landzunge Stokksnes mit Strand und Dünen — Brunnhorn (64.285/-14.920) liegt 5 km nordöstlich und ist von hier aus das Motiv, nicht das Ziel."
+      }
+    }
+  }
+}
