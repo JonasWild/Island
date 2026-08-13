@@ -28,7 +28,11 @@
     "flughafen": {
       "name": "Keflavik International Airport - Leifur Eiríksson International Airport (KEF)",
       "adresse": "IS-235 Keflavík",
-      "telefon": "+354 522 4430"
+      "telefon": "+354 522 4430",
+      "pos": [
+        63.985,
+        -22.6056
+      ]
     },
     "allgemeineHinweise": [
       "Check-in in Hotels und Gästehäusern in der Regel ab 15:00 Uhr. Bei Ankunft nach 19:00 Uhr die Unterkunft telefonisch informieren (Spät-Check-in, Abendessen).",
@@ -43,7 +47,6 @@
       }
     ]
   },
-
   "unterkuenfte": [
     {
       "id": "birkiskogar",
@@ -59,7 +62,12 @@
       "website": "https://www.viatis.is/de/ferienhaus/westisland/birkiskogar",
       "verpflegung": "Selbstverpflegung",
       "beschreibung": "Hübsches Ferienhaus im klassischen isländischen Stil in Westisland mit Hot Pot.",
-      "hinweis": null
+      "hinweis": null,
+      "pos": [
+        64.7686,
+        -21.5486
+      ],
+      "posUngenau": true
     },
     {
       "id": "thrasastadir",
@@ -75,7 +83,8 @@
       "website": "https://www.viatis.is/de/ferienhaus/nordost-island/thrasastadir",
       "verpflegung": "Selbstverpflegung",
       "beschreibung": "Modernes Holzhaus mit Hot Pot & direkt am See.",
-      "hinweis": "Ortsangabe prüfen: Der Übernachtungsplan nennt Akureyri, der Reiseplan beschreibt die Station als Basis im Mývatngebiet. Die Tagesausflüge (Diamond Circle 207 km, Siglufjörður 150 km je Strecke) sind ab Mývatn gerechnet."
+      "hinweis": "Ortsangabe prüfen: Der Übernachtungsplan nennt Akureyri, der Reiseplan beschreibt die Station als Basis im Mývatngebiet. Die Tagesausflüge (Diamond Circle 207 km, Siglufjörður 150 km je Strecke) sind ab Mývatn gerechnet.",
+      "pos": null
     },
     {
       "id": "hlidarendi",
@@ -91,7 +100,12 @@
       "website": "https://www.viatis.is/de/ferienhaus/ostisland/hlidarendi",
       "verpflegung": "Selbstverpflegung",
       "beschreibung": "Bezauberndes rustikales Ferienhaus in Ostisland mit Terrasse & Grill.",
-      "hinweis": "Nur für 5 Personen ausgelegt - bei 5 Reisenden voll belegt."
+      "hinweis": "Nur für 5 Personen ausgelegt - bei 5 Reisenden voll belegt.",
+      "pos": [
+        65.2667,
+        -14.4
+      ],
+      "posUngenau": true
     },
     {
       "id": "nupar",
@@ -108,7 +122,12 @@
       "website": "https://www.islandshotel.is/hotels-in-iceland/fosshotel-nupar/",
       "verpflegung": "Frühstück inklusive",
       "beschreibung": "Hotel an der Ringstraße mit Blick auf die Lava, die Berge und die Gletscher des Vatnajökull.",
-      "hinweis": null
+      "hinweis": null,
+      "pos": [
+        63.795,
+        -17.955
+      ],
+      "posUngenau": true
     },
     {
       "id": "hlidarholt",
@@ -124,7 +143,12 @@
       "website": "https://www.viatis.is/de/ferienhaus/suedisland/hlidarholt",
       "verpflegung": "Selbstverpflegung",
       "beschreibung": "Bezauberndes Ferienhaus in Südisland mit Hot Pot & atemberaubender Aussicht.",
-      "hinweis": null
+      "hinweis": null,
+      "pos": [
+        64.1333,
+        -20.3167
+      ],
+      "posUngenau": true
     },
     {
       "id": "konvin",
@@ -141,10 +165,14 @@
       "website": "https://www.konvin.is",
       "verpflegung": "ohne Verpflegung; Frühstück vor Ort von 04:00-10:00 Uhr",
       "beschreibung": "Geschmackvoll eingerichtete, geräumige Zimmer und ein Restaurant mit moderner, gemütlicher Atmosphäre.",
-      "hinweis": null
+      "hinweis": null,
+      "pos": [
+        63.9689,
+        -22.5619
+      ],
+      "posUngenau": true
     }
   ],
-
   "tage": [
     {
       "datum": "2026-08-27",
@@ -167,22 +195,39 @@
           "text": "Islands bekanntester Badeort: milchig-blaues Thermalwasser in einer Mondlandschaft aus moosbewachsenem Lavagestein, reich an Mineralien und Salzen.",
           "link": "https://www.katla-travel.de",
           "buchen": true,
-          "buchenText": "Wegen eingeschränkter Verfügbarkeit Tickets vor Reisebeginn buchen."
+          "buchenText": "Wegen eingeschränkter Verfügbarkeit Tickets vor Reisebeginn buchen.",
+          "pos": [
+            63.8804,
+            -22.4495
+          ]
         },
         {
           "name": "Halbinsel Reykjanes",
           "strasse": null,
-          "text": "Vulkanisch sehr aktiv: moosbedeckte Lavafelder, heiße Quellen, Lavahöhlen, Steilküsten und das Wandergebiet um den Fagradalsfjall."
+          "text": "Vulkanisch sehr aktiv: moosbedeckte Lavafelder, heiße Quellen, Lavahöhlen, Steilküsten und das Wandergebiet um den Fagradalsfjall.",
+          "pos": [
+            63.885,
+            -22.35
+          ],
+          "posUngenau": true
         },
         {
           "name": "Mosfellsbær",
           "strasse": "Vorort von Reykjavík",
-          "text": "Haus Gljúfrasteinn des Nobelpreisträgers Halldór Laxness (seit 2004 für Besucher offen) und die Alafoss Wollfabrik mit alten Strickmaschinen und Wollprodukten."
+          "text": "Haus Gljúfrasteinn des Nobelpreisträgers Halldór Laxness (seit 2004 für Besucher offen) und die Alafoss Wollfabrik mit alten Strickmaschinen und Wollprodukten.",
+          "pos": [
+            64.1667,
+            -21.7
+          ]
         },
         {
           "name": "Akranes",
           "strasse": null,
-          "text": "Einer der größten und ältesten Fischerorte Islands. Alter Leuchtturm mit Ausstellungen, Konzerten und Ausblick bis Reykjavík; Meeresschwimmen am Sandstrand Langisandur mit Aufwärmen im Hot Pot Guðlaug. Öffnungszeiten des Bades auf der Facebookseite prüfen."
+          "text": "Einer der größten und ältesten Fischerorte Islands. Alter Leuchtturm mit Ausstellungen, Konzerten und Ausblick bis Reykjavík; Meeresschwimmen am Sandstrand Langisandur mit Aufwärmen im Hot Pot Guðlaug. Öffnungszeiten des Bades auf der Facebookseite prüfen.",
+          "pos": [
+            64.3222,
+            -22.0733
+          ]
         }
       ]
     },
@@ -198,52 +243,92 @@
         {
           "name": "Reykholt",
           "strasse": "Straße 518",
-          "text": "Ortschaft des Dichters Snorri Sturluson; bei einem Rundgang die Ausgrabung des historischen Bades von Snorri ansehen."
+          "text": "Ortschaft des Dichters Snorri Sturluson; bei einem Rundgang die Ausgrabung des historischen Bades von Snorri ansehen.",
+          "pos": [
+            64.6636,
+            -21.2903
+          ]
         },
         {
           "name": "Deildartunguhver",
           "strasse": "Straße 50, Tal Reykholtsdalur",
-          "text": "Ergiebigste Heißwasserquelle der Welt: ca. 180 Liter heißes Wasser pro Sekunde, per Rohrleitung bis Borgarnes, Hvanneyri und Akranes zur Gebäudeheizung."
+          "text": "Ergiebigste Heißwasserquelle der Welt: ca. 180 Liter heißes Wasser pro Sekunde, per Rohrleitung bis Borgarnes, Hvanneyri und Akranes zur Gebäudeheizung.",
+          "pos": [
+            64.6633,
+            -21.4103
+          ]
         },
         {
           "name": "Hraunfossar & Barnafoss",
           "strasse": "Parkplatz Barnafoss, Straße 518",
           "text": "Einzigartige Lavawasserfälle. Gut sichtbarer Pfad am Fluss Hvíta entlang bis zum Hraunfossar und auf demselben Weg zurück.",
-          "wanderung": { "gehzeit": "ca. 1 Std.", "hoehenmeter": "20 m" }
+          "wanderung": {
+            "gehzeit": "ca. 1 Std.",
+            "hoehenmeter": "20 m"
+          },
+          "pos": [
+            64.7025,
+            -20.9786
+          ]
         },
         {
           "name": "Húsafell",
           "strasse": "Straße 518",
-          "text": "Schöne Spazierwege, bei Isländern selbst ein beliebtes Ziel für Wochenendausflüge."
+          "text": "Schöne Spazierwege, bei Isländern selbst ein beliebtes Ziel für Wochenendausflüge.",
+          "pos": [
+            64.7011,
+            -20.8742
+          ]
         },
         {
           "name": "Borgarnes",
           "strasse": null,
-          "text": "Kleinstadt mit Einkaufsmöglichkeiten, schöner Lage, Freibad mit Wasserrutsche und heißen Töpfen sowie Touristeninformation."
+          "text": "Kleinstadt mit Einkaufsmöglichkeiten, schöner Lage, Freibad mit Wasserrutsche und heißen Töpfen sowie Touristeninformation.",
+          "pos": [
+            64.5383,
+            -21.9219
+          ]
         },
         {
           "name": "Settlement Center Borgarnes",
           "strasse": null,
-          "text": "Erzählt die Geschichte der Besiedlung Islands."
+          "text": "Erzählt die Geschichte der Besiedlung Islands.",
+          "pos": [
+            64.5397,
+            -21.9227
+          ]
         },
         {
           "name": "Naturbad Krauma",
           "strasse": "bei Deildartunguhver",
           "text": "Geothermalbad mit Sauna, Hot Pots und Ruheräumen.",
           "buchen": true,
-          "buchenText": "Eintritt online buchen."
+          "buchenText": "Eintritt online buchen.",
+          "pos": [
+            64.6636,
+            -21.4064
+          ]
         },
         {
           "name": "Gletschertunnel Langjökull",
           "strasse": null,
           "text": "Europas zweitgrößten Gletscher von innen erleben.",
-          "buchen": true
+          "buchen": true,
+          "pos": [
+            64.7333,
+            -20.4667
+          ],
+          "posUngenau": true
         },
         {
           "name": "Lavahöhle Víðgelmir",
           "strasse": "Hof Fljótstunga, Straße 518",
           "text": "Eine der größten Lavahöhlen der Welt; steht unter Naturschutz und ist nur im Rahmen einer Führung zu besichtigen.",
-          "buchen": true
+          "buchen": true,
+          "pos": [
+            64.7508,
+            -20.8878
+          ]
         },
         {
           "name": "Hot Pot Krosslaug",
@@ -271,86 +356,154 @@
         {
           "name": "Moorgebiet Mýrar",
           "strasse": "Straße 54",
-          "text": "Schauplatz der Egils Saga, bekannt für zahlreiche Seen und Fischflüsse."
+          "text": "Schauplatz der Egils Saga, bekannt für zahlreiche Seen und Fischflüsse.",
+          "pos": [
+            64.7,
+            -22.2
+          ],
+          "posUngenau": true
         },
         {
           "name": "Krater Eldborg",
           "strasse": "Straße 54",
           "text": "Von der Straße gut zu erkennen, Wanderung vom Parkplatz zum Krater möglich.",
-          "wanderung": { "distanz": "ca. 5 km hin und zurück" }
+          "wanderung": {
+            "distanz": "ca. 5 km hin und zurück"
+          },
+          "pos": [
+            64.7953,
+            -22.3186
+          ]
         },
         {
           "name": "Gerðuberg Klippen",
           "strasse": "Straße 54",
-          "text": "Beeindruckende Basaltsäulen, kleiner Pfad oberhalb der Klippen."
+          "text": "Beeindruckende Basaltsäulen, kleiner Pfad oberhalb der Klippen.",
+          "pos": [
+            64.8206,
+            -22.3703
+          ]
         },
         {
           "name": "Hof Ölkelda",
           "strasse": "Straße 571",
-          "text": "Mineralquelle zum Probieren - durch den hohen Eisengehalt sehr gewöhnungsbedürftig."
+          "text": "Mineralquelle zum Probieren - durch den hohen Eisengehalt sehr gewöhnungsbedürftig.",
+          "pos": [
+            64.8547,
+            -23.1489
+          ],
+          "posUngenau": true
         },
         {
           "name": "Strand Ytri Tunga",
           "strasse": "Parkplatz ausgeschildert",
-          "text": "Goldfarbener Sandstrand und Lieblingsplatz der Robben, die auf den Felsen sonnen und ruhen."
+          "text": "Goldfarbener Sandstrand und Lieblingsplatz der Robben, die auf den Felsen sonnen und ruhen.",
+          "pos": [
+            64.8006,
+            -23.0836
+          ]
         },
         {
           "name": "Búðir",
           "strasse": "Straße 54",
-          "text": "Alter Naturhafen mit kleiner Kirche; Spaziergang am Sandstrand Búðarós mit goldenem Sand und bizarren Lavafelsen."
+          "text": "Alter Naturhafen mit kleiner Kirche; Spaziergang am Sandstrand Búðarós mit goldenem Sand und bizarren Lavafelsen.",
+          "pos": [
+            64.8222,
+            -23.3847
+          ]
         },
         {
           "name": "Arnarstapi",
           "strasse": "Straße 574",
-          "text": "Kleiner Fischerort mit hübschem Hafen; Spaziergang entlang der Klippen."
+          "text": "Kleiner Fischerort mit hübschem Hafen; Spaziergang entlang der Klippen.",
+          "pos": [
+            64.7669,
+            -23.6247
+          ]
         },
         {
           "name": "Nationalpark Snæfellsjökull",
           "strasse": "Straße 574, Visitor Center bei Hellnar",
-          "text": "Viele Wandermöglichkeiten; Visitor Center und Wanderbroschüre lohnen den Besuch."
+          "text": "Viele Wandermöglichkeiten; Visitor Center und Wanderbroschüre lohnen den Besuch.",
+          "pos": [
+            64.7553,
+            -23.6469
+          ]
         },
         {
           "name": "Vatnshellir Lava Cave",
           "strasse": null,
           "text": "Geführte Tour in den Lavatunnel, angeboten von Summit Adventure Guides.",
           "buchen": true,
-          "buchenText": "Vorausbuchung empfehlenswert."
+          "buchenText": "Vorausbuchung empfehlenswert.",
+          "pos": [
+            64.7522,
+            -23.8181
+          ]
         },
         {
           "name": "Djúpalónssandur",
           "strasse": null,
-          "text": "Kurzer Spaziergang zum Kiesstrand in der Bucht Dritvík, einst einer der Hauptfischereiplätze Islands. Mit den alten Kraftprobesteinen die Seetauglichkeit testen - mindestens 49 kg mussten gestemmt werden."
+          "text": "Kurzer Spaziergang zum Kiesstrand in der Bucht Dritvík, einst einer der Hauptfischereiplätze Islands. Mit den alten Kraftprobesteinen die Seetauglichkeit testen - mindestens 49 kg mussten gestemmt werden.",
+          "pos": [
+            64.7519,
+            -23.8983
+          ]
         },
         {
           "name": "Öndverðarnes",
           "strasse": "Straße 579",
-          "text": "Nordwest-Spitze der Halbinsel: Spaziergang zum Krater Vatnsborg, zu den Hügeln Neshólar oder nach Skarðsvík."
+          "text": "Nordwest-Spitze der Halbinsel: Spaziergang zum Krater Vatnsborg, zu den Hügeln Neshólar oder nach Skarðsvík.",
+          "pos": [
+            64.8867,
+            -24.0433
+          ]
         },
         {
           "name": "Hellissandur",
           "strasse": "Straße 574",
-          "text": "Spaziergang zu einem schönen Strand; im Fischereimuseum das älteste Ruderboot Islands von 1826 und eine rekonstruierte Hütte."
+          "text": "Spaziergang zu einem schönen Strand; im Fischereimuseum das älteste Ruderboot Islands von 1826 und eine rekonstruierte Hütte.",
+          "pos": [
+            64.9167,
+            -23.8956
+          ]
         },
         {
           "name": "Rif",
           "strasse": "Straße 574",
-          "text": "Eine der größten Küstenseeschwalben-Kolonien des Landes - Vorsicht, die Vögel sind angriffslustig."
+          "text": "Eine der größten Küstenseeschwalben-Kolonien des Landes - Vorsicht, die Vögel sind angriffslustig.",
+          "pos": [
+            64.9033,
+            -23.8272
+          ]
         },
         {
           "name": "Ólafsvík",
           "strasse": null,
           "text": "Ortschaft auf der Nordseite mit Schwimmbad. Bootsfahrt mit Láki Tours im Breiðafjörður: Wale und Papageitaucher, Seeangeln; im Sommer und Herbst Mink- und Buckelwale.",
-          "buchen": true
+          "buchen": true,
+          "pos": [
+            64.8944,
+            -23.7108
+          ]
         },
         {
           "name": "Grundarfjörður & Kirkjufell",
           "strasse": "Straße 54",
-          "text": "Kleiner Ort mit dem markanten Hausberg Kirkjufell."
+          "text": "Kleiner Ort mit dem markanten Hausberg Kirkjufell.",
+          "pos": [
+            64.9272,
+            -23.3097
+          ]
         },
         {
           "name": "Stykkishólmur",
           "strasse": "Straße 58",
-          "text": "Größte Ortschaft der Halbinsel: Rundblick vom Hügel am Hafen, weiße Kirche als Wahrzeichen, bunte alte Häuser, Vulkanmuseum von Haraldur Sigurðsson und Kunstausstellungen im norwegischen Haus Norska Húsið (1832)."
+          "text": "Größte Ortschaft der Halbinsel: Rundblick vom Hügel am Hafen, weiße Kirche als Wahrzeichen, bunte alte Häuser, Vulkanmuseum von Haraldur Sigurðsson und Kunstausstellungen im norwegischen Haus Norska Húsið (1832).",
+          "pos": [
+            65.0756,
+            -22.7283
+          ]
         }
       ]
     },
@@ -373,39 +526,69 @@
         {
           "name": "Hvammstangi & Halbinsel Vatnsnes",
           "strasse": "Straße 72, Umrundung Straße 711",
-          "text": "Robbenzentrum Selasetur; Robben sonnen sich auf den Sandbänken, vor allem beim Felsen Hvítserkur. Die Umrundung kostet ca. 2 zusätzliche Stunden."
+          "text": "Robbenzentrum Selasetur; Robben sonnen sich auf den Sandbänken, vor allem beim Felsen Hvítserkur. Die Umrundung kostet ca. 2 zusätzliche Stunden.",
+          "pos": [
+            65.3958,
+            -20.9425
+          ]
         },
         {
           "name": "Blönduós",
           "strasse": "Ringstraße 1",
-          "text": "Kleine Ortschaft im Húnafjörður mit ungewöhnlicher Kirche, nach 11 Baujahren 1993 fertiggestellt."
+          "text": "Kleine Ortschaft im Húnafjörður mit ungewöhnlicher Kirche, nach 11 Baujahren 1993 fertiggestellt.",
+          "pos": [
+            65.66,
+            -20.275
+          ]
         },
         {
           "name": "Freilichtmuseum Glaumbær",
           "strasse": "Straße 75, ca. 8 km ab Varmahlíð",
-          "text": "Grassodenhof aus dem 18. und 19. Jahrhundert - Einblick in die Lebens- und Wohnverhältnisse der isländischen Landbevölkerung."
+          "text": "Grassodenhof aus dem 18. und 19. Jahrhundert - Einblick in die Lebens- und Wohnverhältnisse der isländischen Landbevölkerung.",
+          "pos": [
+            65.6069,
+            -19.5053
+          ]
         },
         {
           "name": "Skagafjörður & Öxnadalsheiði",
           "strasse": null,
-          "text": "Für die Pferdezucht bekannte Region und die Hochebene Öxnadalsheiði auf der Weiterfahrt nach Akureyri."
+          "text": "Für die Pferdezucht bekannte Region und die Hochebene Öxnadalsheiði auf der Weiterfahrt nach Akureyri.",
+          "pos": [
+            65.55,
+            -19.3
+          ],
+          "posUngenau": true
         },
         {
           "name": "Akureyri",
           "strasse": null,
-          "text": "Größte Stadt des Nordens am Fjord Eyjafjörður, nur 50 km südlich des Polarkreises: Fußgängerzone Hafnargata mit bunten Holzhäusern, Akureyrarkirkja, Botanischer Garten mit heimischen und grönländischen Pflanzen."
+          "text": "Größte Stadt des Nordens am Fjord Eyjafjörður, nur 50 km südlich des Polarkreises: Fußgängerzone Hafnargata mit bunten Holzhäusern, Akureyrarkirkja, Botanischer Garten mit heimischen und grönländischen Pflanzen.",
+          "pos": [
+            65.6839,
+            -18.0906
+          ]
         },
         {
           "name": "Tunnel Vaðlaheiðargöng",
           "strasse": "Alternative: Straßen 83 und 84",
           "text": "Der Tunnel ist kostenpflichtig: Fahrzeug und Kreditkarte online registrieren, frühestens 3 Stunden vor und spätestens 3 Stunden nach der Durchfahrt. Ohne Registrierung stellt die Autovermietung eine höhere Summe zzgl. Bearbeitungsgebühr in Rechnung. Im Sommer empfiehlt Katla die Straßen 83/84 ohne Tunnel.",
           "buchen": true,
-          "buchenText": "Registrierung nur im Zeitfenster ±3 Std. um die Durchfahrt möglich."
+          "buchenText": "Registrierung nur im Zeitfenster ±3 Std. um die Durchfahrt möglich.",
+          "pos": [
+            65.6772,
+            -18.0181
+          ],
+          "posUngenau": true
         },
         {
           "name": "Goðafoss",
           "strasse": "etwas abseits der Ringstraße 1",
-          "text": "Der beeindruckende \"Wasserfall der Götter\" zwischen Akureyri und Mývatnsee."
+          "text": "Der beeindruckende \"Wasserfall der Götter\" zwischen Akureyri und Mývatnsee.",
+          "pos": [
+            65.6828,
+            -17.55
+          ]
         }
       ]
     },
@@ -428,44 +611,84 @@
           "name": "Pseudokrater Skútustaðir",
           "strasse": "Südufer des Mývatn",
           "text": "Wanderwege zu den Pseudokratern am südlichen Seeufer.",
-          "wanderung": { "gehzeit": "Rundweg ca. 1 Std." }
+          "wanderung": {
+            "gehzeit": "Rundweg ca. 1 Std."
+          },
+          "pos": [
+            65.5697,
+            -17.0392
+          ]
         },
         {
           "name": "Park Höfði / Kálfaströnd",
           "strasse": "südlicher Teil des Mývatn",
-          "text": "Aussicht über den See von der Lavahalbinsel Kálfaströnd, Wanderung durch das Wäldchen."
+          "text": "Aussicht über den See von der Lavahalbinsel Kálfaströnd, Wanderung durch das Wäldchen.",
+          "pos": [
+            65.5878,
+            -16.9439
+          ]
         },
         {
           "name": "Solfatarenfeld Námaskarð",
           "strasse": null,
-          "text": "Farbenfrohe, brodelnde Quellen mit aufsteigendem Dampf - mit Vorsicht betrachten und die Hinweisschilder beachten."
+          "text": "Farbenfrohe, brodelnde Quellen mit aufsteigendem Dampf - mit Vorsicht betrachten und die Hinweisschilder beachten.",
+          "pos": [
+            65.6403,
+            -16.8092
+          ]
         },
         {
           "name": "Wanderung Námafjall",
           "strasse": null,
           "text": "Mittelschwere Wanderung zwischen Solfataren und Schlammlöchern durch ein Heißquellengebiet mit Blick auf die Vulkanlandschaft des Námafjall.",
-          "wanderung": { "gehzeit": "1 Std.", "hoehenmeter": "130 m", "distanz": "2,9 km" }
+          "wanderung": {
+            "gehzeit": "1 Std.",
+            "hoehenmeter": "130 m",
+            "distanz": "2,9 km"
+          },
+          "pos": [
+            65.6386,
+            -16.8125
+          ]
         },
         {
           "name": "Dimmuborgir",
           "strasse": null,
           "text": "Labyrinth aus über 2000 Jahre alten versteinerten Lavaformationen - mit Fantasie die verborgene Welt der Trolle und die Höhle der isländischen Weihnachtsmänner entdecken.",
-          "wanderung": { "gehzeit": "max. 1,5 Std." }
+          "wanderung": {
+            "gehzeit": "max. 1,5 Std."
+          },
+          "pos": [
+            65.5911,
+            -16.9192
+          ]
         },
         {
           "name": "Reykjahlíð",
           "strasse": "nordöstlich des Mývatn",
-          "text": "Einkaufsmöglichkeiten, Hotelrestaurants und Cafés."
+          "text": "Einkaufsmöglichkeiten, Hotelrestaurants und Cafés.",
+          "pos": [
+            65.6439,
+            -16.9122
+          ]
         },
         {
           "name": "Krafla & Leirhnjúkur",
           "strasse": "Straße 863",
-          "text": "Vom Parkplatz Leirhnjúkur Rundweg zum Kratersee Víti (ca. 45 min) oder Wanderung durch dampfende Lava aus dem Krafla-Ausbruch von 1984."
+          "text": "Vom Parkplatz Leirhnjúkur Rundweg zum Kratersee Víti (ca. 45 min) oder Wanderung durch dampfende Lava aus dem Krafla-Ausbruch von 1984.",
+          "pos": [
+            65.7161,
+            -16.8272
+          ]
         },
         {
           "name": "Earth Lagoon Mývatn",
           "strasse": null,
-          "text": "Die \"Blaue Lagune des Nordens\" als perfekter Tagesabschluss - Badesachen nicht vergessen. Wiedereröffnung laut Reiseplan Sommer 2026, vorab prüfen."
+          "text": "Die \"Blaue Lagune des Nordens\" als perfekter Tagesabschluss - Badesachen nicht vergessen. Wiedereröffnung laut Reiseplan Sommer 2026, vorab prüfen.",
+          "pos": [
+            65.6306,
+            -16.8483
+          ]
         }
       ]
     },
@@ -487,44 +710,81 @@
         {
           "name": "Grenjaðarstaður",
           "strasse": "Straße 854",
-          "text": "Gut erhaltener Grassodenhof von 1865, heute Regionalmuseum - kurios: durch einen Gang mit der Kirche verbunden. 2 km entfernt das Wasserkraftwerk Laxárdalsvirkjun mit einer kleinen Ausstellung nordischer Götterskulpturen."
+          "text": "Gut erhaltener Grassodenhof von 1865, heute Regionalmuseum - kurios: durch einen Gang mit der Kirche verbunden. 2 km entfernt das Wasserkraftwerk Laxárdalsvirkjun mit einer kleinen Ausstellung nordischer Götterskulpturen.",
+          "pos": [
+            65.8019,
+            -17.3617
+          ]
         },
         {
           "name": "Húsavík",
           "strasse": null,
           "text": "\"Hauptstadt der Walbeobachtung\": Walmuseum und kleine Holzkirche vom Anfang des 19. Jahrhunderts. 3-stündige Walbeobachtungsfahrt mit ca. 96 % Sichtungswahrscheinlichkeit, Partner Norðursigling/North Sailing.",
-          "buchen": true
+          "buchen": true,
+          "pos": [
+            66.045,
+            -17.3383
+          ]
         },
         {
           "name": "Saltvík Reiterhof",
           "strasse": null,
-          "text": "Entspannte Reittour entlang der Küste, für Anfänger und erfahrene Reiter."
+          "text": "Entspannte Reittour entlang der Küste, für Anfänger und erfahrene Reiter.",
+          "pos": [
+            65.9975,
+            -17.34
+          ],
+          "posUngenau": true
         },
         {
           "name": "Geothermal Sea Baths GeoSea",
           "strasse": "Húsavík",
-          "text": "Angenehm temperiertes Meereswasser mit beeindruckendem Ausblick über Meer und Berge."
+          "text": "Angenehm temperiertes Meereswasser mit beeindruckendem Ausblick über Meer und Berge.",
+          "pos": [
+            66.0561,
+            -17.3428
+          ]
         },
         {
           "name": "Schlucht Ásbyrgi",
           "strasse": "Küstenstraße 85",
           "text": "Hufeisenförmige Schlucht mit bis zu 100 m hohen Felswänden; Wanderung ab Zeltplatz zur Basaltformation Eyja.",
-          "wanderung": { "distanz": "5 km", "gehzeit": "1-2 Std." }
+          "wanderung": {
+            "distanz": "5 km",
+            "gehzeit": "1-2 Std."
+          },
+          "pos": [
+            66.0208,
+            -16.5075
+          ]
         },
         {
           "name": "Nationalpark Jökulsárgljúfur",
           "strasse": "Straße 862",
-          "text": "Bizarres System von Schluchten mit markanten vulkanischen Bergen südlich von Ásbyrgi."
+          "text": "Bizarres System von Schluchten mit markanten vulkanischen Bergen südlich von Ásbyrgi.",
+          "pos": [
+            65.95,
+            -16.5
+          ],
+          "posUngenau": true
         },
         {
           "name": "Echofelsen Hljóðaklettar",
           "strasse": "Straße 862",
-          "text": "Burgartige, von Basaltsäulen durchzogene Felsen; verschiedene Wanderwege ab Parkplatz."
+          "text": "Burgartige, von Basaltsäulen durchzogene Felsen; verschiedene Wanderwege ab Parkplatz.",
+          "pos": [
+            65.9033,
+            -16.5083
+          ]
         },
         {
           "name": "Dettifoss & Selfoss",
           "strasse": "Straße 862",
-          "text": "Der mächtigste Wasserfall Europas - auch für die kleineren \"Geschwister\" wie Selfoss Zeit nehmen."
+          "text": "Der mächtigste Wasserfall Europas - auch für die kleineren \"Geschwister\" wie Selfoss Zeit nehmen.",
+          "pos": [
+            65.8147,
+            -16.3844
+          ]
         }
       ]
     },
@@ -546,43 +806,81 @@
         {
           "name": "Hauganes",
           "strasse": "Straße 82",
-          "text": "Von den Katla-Mitarbeitern besucht und absolut empfehlenswert: Walbeobachtung mit Whale Watching Hauganes, Hotpots direkt am Strand und das bunte Restaurant Baccalá Bar."
+          "text": "Von den Katla-Mitarbeitern besucht und absolut empfehlenswert: Walbeobachtung mit Whale Watching Hauganes, Hotpots direkt am Strand und das bunte Restaurant Baccalá Bar.",
+          "pos": [
+            65.8836,
+            -18.2969
+          ]
         },
         {
           "name": "Insel Hrísey",
           "strasse": "Fähre von Árskógssandur, ca. 40 km nördlich von Akureyri",
-          "text": "Historischer Fischerort mit ca. 250 Einwohnern im Eyjafjörður, Paradies für Vogelfreunde mit knapp 40 Brutvogelarten und einer der größten Seeschwalben-Brutkolonien der Welt; leichte Wanderungen."
+          "text": "Historischer Fischerort mit ca. 250 Einwohnern im Eyjafjörður, Paradies für Vogelfreunde mit knapp 40 Brutvogelarten und einer der größten Seeschwalben-Brutkolonien der Welt; leichte Wanderungen.",
+          "pos": [
+            65.9958,
+            -18.3833
+          ]
         },
         {
           "name": "Bjórböðin Bier-Spa",
           "strasse": "Árskógssandur",
-          "text": "Islands erstes Bier-Spa im für seine Brauerei bekannten Ort, mit Hot Pot im Freien und herrlichem Blick über den Fjord."
+          "text": "Islands erstes Bier-Spa im für seine Brauerei bekannten Ort, mit Hot Pot im Freien und herrlichem Blick über den Fjord.",
+          "pos": [
+            65.9014,
+            -18.3789
+          ]
         },
         {
           "name": "Dalvík",
           "strasse": "Straße 82",
-          "text": "Fischfang und -verarbeitung; guter Ausgangspunkt für Wanderungen, u. a. im Naturreservat am Fluss Svarfaðardalsá mit zahlreichen Vogelarten."
+          "text": "Fischfang und -verarbeitung; guter Ausgangspunkt für Wanderungen, u. a. im Naturreservat am Fluss Svarfaðardalsá mit zahlreichen Vogelarten.",
+          "pos": [
+            65.9708,
+            -18.5286
+          ]
         },
         {
           "name": "Wanderung Böggvisstaðadalur",
           "strasse": "ab Dalvík",
           "text": "Wandertipp von Islandberaterin Rita aus dem Katla-Team: idyllische Wanderung ins Tal Böggvisstaðadalur.",
-          "wanderung": { "gehzeit": "4 Std.", "hoehenmeter": "270 m", "distanz": "9 km" }
+          "wanderung": {
+            "gehzeit": "4 Std.",
+            "hoehenmeter": "270 m",
+            "distanz": "9 km"
+          },
+          "pos": [
+            65.9583,
+            -18.5
+          ],
+          "posUngenau": true
         },
         {
           "name": "Arctic Sea Tours",
           "strasse": "Dalvík",
-          "text": "Walbeobachtung im Eyjafjörður vor der Kulisse der Halbinsel Tröllaskagi, kleine Gruppen, Angeln möglich und frisch gefangener gegrillter Fisch nach der Tour."
+          "text": "Walbeobachtung im Eyjafjörður vor der Kulisse der Halbinsel Tröllaskagi, kleine Gruppen, Angeln möglich und frisch gefangener gegrillter Fisch nach der Tour.",
+          "pos": [
+            65.9708,
+            -18.5286
+          ]
         },
         {
           "name": "Héðinsfjörður",
           "strasse": "Tunnel Héðinsfjarðargöng",
-          "text": "Der Tunnel ist auf halber Strecke unterbrochen: Rast auf einem kleinen Parkplatz mit Blick auf den unbewohnten, tierreichen Fjord."
+          "text": "Der Tunnel ist auf halber Strecke unterbrochen: Rast auf einem kleinen Parkplatz mit Blick auf den unbewohnten, tierreichen Fjord.",
+          "pos": [
+            66.0833,
+            -18.8
+          ],
+          "posUngenau": true
         },
         {
           "name": "Siglufjörður",
           "strasse": "Straße 76",
-          "text": "Nördlichste Stadt Islands, nur 40 km vom Polarkreis, umgeben von atemberaubender Berglandschaft; durch den Heringsboom Anfang des 20. Jahrhunderts fünftgrößte Stadt des Landes. Heringsmuseum Síldarminjasafnið in einer alten Heringshalle und Café Fríða."
+          "text": "Nördlichste Stadt Islands, nur 40 km vom Polarkreis, umgeben von atemberaubender Berglandschaft; durch den Heringsboom Anfang des 20. Jahrhunderts fünftgrößte Stadt des Landes. Heringsmuseum Síldarminjasafnið in einer alten Heringshalle und Café Fríða.",
+          "pos": [
+            66.1517,
+            -18.9089
+          ]
         }
       ]
     },
@@ -605,44 +903,86 @@
           "name": "Dettifoss & Selfoss",
           "strasse": "Straße 862, ca. 35 km hinter Reykjahlíð",
           "text": "Kleine Wanderung zum mächtigsten Wasserfall Europas und weiter zum Selfoss, Wege gut markiert.",
-          "wanderung": { "gehzeit": "45 min", "hoehenmeter": "25 m", "distanz": "2,8 km" }
+          "wanderung": {
+            "gehzeit": "45 min",
+            "hoehenmeter": "25 m",
+            "distanz": "2,8 km"
+          },
+          "pos": [
+            65.8147,
+            -16.3844
+          ]
         },
         {
           "name": "Möðrudalur",
           "strasse": "Straße 901",
-          "text": "Höchstgelegener Bauernhof Islands (479 m) mit kleiner Kirche, die Bauer Jón Stefánsson 1949 in Erinnerung an seine Frau baute. Das Fjallakaffi am Campingplatz ist für sein Gebäck \"Ástarpungar\" (Liebeskugeln) bekannt, dazu Islands berühmteste Tankstelle. Die Strecke führt über die menschenleere Einöde Möðrudalsöræfi."
+          "text": "Höchstgelegener Bauernhof Islands (479 m) mit kleiner Kirche, die Bauer Jón Stefánsson 1949 in Erinnerung an seine Frau baute. Das Fjallakaffi am Campingplatz ist für sein Gebäck \"Ástarpungar\" (Liebeskugeln) bekannt, dazu Islands berühmteste Tankstelle. Die Strecke führt über die menschenleere Einöde Möðrudalsöræfi.",
+          "pos": [
+            65.3625,
+            -15.8875
+          ]
         },
         {
           "name": "Herðubreið",
           "strasse": null,
-          "text": "Bei günstigem Wetter sehr gute Aussicht auf das östliche Hochland und die \"Königin isländischer Berge\"."
+          "text": "Bei günstigem Wetter sehr gute Aussicht auf das östliche Hochland und die \"Königin isländischer Berge\".",
+          "pos": [
+            65.1783,
+            -16.3467
+          ]
         },
         {
           "name": "Schlucht Stuðlagil",
           "strasse": "Straße 923, ca. 50 km vor Egilsstaðir",
           "text": "Eines der jüngsten Naturwunder Islands: imposante Basaltsäulen, die zuvor unter dem Wasser eines Hochland-Stausees lagen. Zwei Zugänge: gebührenpflichtiger Parkplatz der Farm Grund mit Metalltreppe zur Aussichtsplattform, oder ab Hákonarstaðir/Klaustursel (beim Café/Bistro HAK links) über die Brücke auf die andere Seite - von dort 4,5 km oder 2,5 km Wanderung. Teils schmale, rutschige Wege, festes Schuhwerk nötig. Besonders eindrucksvoll: der Kontrast zwischen dem türkisblauen Fluss Jökla und den rötlich schimmernden Säulen.",
-          "wanderung": { "distanz": "4,5 km oder 2,5 km" }
+          "wanderung": {
+            "distanz": "4,5 km oder 2,5 km"
+          },
+          "pos": [
+            65.1381,
+            -15.5761
+          ]
         },
         {
           "name": "Rjúkandi Wasserfall",
           "strasse": "Ringstraße 1",
           "text": "Weg direkt vom Parkplatz zum Wasserfall; wer möchte, wandert 250 Höhenmeter hinauf auf die Hochfläche.",
-          "wanderung": { "gehzeit": "ca. 1,5 Std. hin und zurück", "hoehenmeter": "250 m" }
+          "wanderung": {
+            "gehzeit": "ca. 1,5 Std. hin und zurück",
+            "hoehenmeter": "250 m"
+          },
+          "pos": [
+            65.2233,
+            -15.3369
+          ]
         },
         {
           "name": "Egilsstaðir",
           "strasse": null,
-          "text": "Zentrum der Ostfjorde mit ca. 2300 Einwohnern: Einkaufsmöglichkeiten, ein sehr schönes Schwimmbad und Touristeninformation."
+          "text": "Zentrum der Ostfjorde mit ca. 2300 Einwohnern: Einkaufsmöglichkeiten, ein sehr schönes Schwimmbad und Touristeninformation.",
+          "pos": [
+            65.2669,
+            -14.3948
+          ]
         },
         {
           "name": "See Lagarfljót (Lögurinn)",
           "strasse": "Umrundung ca. 30 km",
-          "text": "Der Legende nach lebt hier ein großes, harmloses Seemonster - erwähnt in Schriften aus dem 14. Jh., wissenschaftlich unbelegt. Rund um den See: Islands größtes Waldgebiet Hallormsstaður und die Wasserfälle Lambafoss, Hengifoss und Fardagafoss."
+          "text": "Der Legende nach lebt hier ein großes, harmloses Seemonster - erwähnt in Schriften aus dem 14. Jh., wissenschaftlich unbelegt. Rund um den See: Islands größtes Waldgebiet Hallormsstaður und die Wasserfälle Lambafoss, Hengifoss und Fardagafoss.",
+          "pos": [
+            65.15,
+            -14.5
+          ],
+          "posUngenau": true
         },
         {
           "name": "Vök Baths",
           "strasse": "See Urriðavatn bei Egilsstaðir",
-          "text": "Neues Bad mit schwimmenden Becken im See."
+          "text": "Neues Bad mit schwimmenden Becken im See.",
+          "pos": [
+            65.2947,
+            -14.4569
+          ]
         }
       ]
     },
@@ -664,37 +1004,70 @@
         {
           "name": "Ebene des Hérað",
           "strasse": "Straße 94",
-          "text": "Kurz hinter Egilsstaðir öffnet sich die Ebene: links weite Wiesen, rechts in der Ferne die Hügelketten. Bei klarem Wetter lohnt ein kurzer Stopp mit Blick zurück über das Binnenland."
+          "text": "Kurz hinter Egilsstaðir öffnet sich die Ebene: links weite Wiesen, rechts in der Ferne die Hügelketten. Bei klarem Wetter lohnt ein kurzer Stopp mit Blick zurück über das Binnenland.",
+          "pos": [
+            65.35,
+            -14.5
+          ],
+          "posUngenau": true
         },
         {
           "name": "Eiðakirkja",
           "strasse": "bei Eiðar",
-          "text": "Kleine Kirche etwas abseits der Straße - nicht spektakulär, aber sehr typisch für die Region; kurze Schleife für Fotos."
+          "text": "Kleine Kirche etwas abseits der Straße - nicht spektakulär, aber sehr typisch für die Region; kurze Schleife für Fotos.",
+          "pos": [
+            65.3833,
+            -14.4667
+          ],
+          "posUngenau": true
         },
         {
           "name": "Niederung Héraðsflói",
           "strasse": "Straße 94",
-          "text": "Wasserläufe und Feuchtwiesen im Süden, kleine Gehöfte im Norden. Ruhige, wenig befahrene Strecke - auf Schafe achten, die im Sommer auf der Straße stehen."
+          "text": "Wasserläufe und Feuchtwiesen im Süden, kleine Gehöfte im Norden. Ruhige, wenig befahrene Strecke - auf Schafe achten, die im Sommer auf der Straße stehen.",
+          "pos": [
+            65.45,
+            -14.4
+          ],
+          "posUngenau": true
         },
         {
           "name": "Rhyolith- und Tuffberge / Passhöhe",
           "strasse": "Straße 94",
-          "text": "Die bunten Berge gehören zu den am häufigsten fotografierten Landschaften im Osten. Der schönste Abschnitt ist der Pass kurz vor dem Abstieg zur Küste mit Blick über das Tal und die Serpentinen. Nur in ausgewiesenen Ausweichen anhalten, die Kurven sind unübersichtlich - defensiv fahren."
+          "text": "Die bunten Berge gehören zu den am häufigsten fotografierten Landschaften im Osten. Der schönste Abschnitt ist der Pass kurz vor dem Abstieg zur Küste mit Blick über das Tal und die Serpentinen. Nur in ausgewiesenen Ausweichen anhalten, die Kurven sind unübersichtlich - defensiv fahren.",
+          "pos": [
+            65.475,
+            -13.95
+          ],
+          "posUngenau": true
         },
         {
           "name": "Grüne Talrinne zum Meer",
           "strasse": "Straße 94",
-          "text": "Beim Abstieg rücken die Berge zusammen, moosbewachsene feuchte Hänge und kleine, namenlose Wasserfälle direkt am Hang - hübsch für einen Foto-Stopp, besonders nach Regen."
+          "text": "Beim Abstieg rücken die Berge zusammen, moosbewachsene feuchte Hänge und kleine, namenlose Wasserfälle direkt am Hang - hübsch für einen Foto-Stopp, besonders nach Regen.",
+          "pos": [
+            65.51,
+            -13.85
+          ],
+          "posUngenau": true
         },
         {
           "name": "Hafnarhólmi",
           "strasse": "oft ausgeschildert",
-          "text": "Papageitaucher-Klippen. Saison laut Reiseplan zwischen Mai und Anfang August - Anfang September also voraussichtlich ohne Vögel."
+          "text": "Papageitaucher-Klippen. Saison laut Reiseplan zwischen Mai und Anfang August - Anfang September also voraussichtlich ohne Vögel.",
+          "pos": [
+            65.5322,
+            -13.7911
+          ]
         },
         {
           "name": "Bakkagerði",
           "strasse": null,
-          "text": "Ort in einem der schönsten Fjorde Islands, in dem es der Legende nach Elfen gibt; viele gut markierte Wanderwege."
+          "text": "Ort in einem der schönsten Fjorde Islands, in dem es der Legende nach Elfen gibt; viele gut markierte Wanderwege.",
+          "pos": [
+            65.5264,
+            -13.7981
+          ]
         }
       ]
     },
@@ -717,77 +1090,137 @@
         {
           "name": "Reyðarfjörður",
           "strasse": null,
-          "text": "Früher wichtiger Handelsort, im Zweiten Weltkrieg Militärbasis der Alliierten; seit dem Alcoa-Aluminiumwerk 2005 deutlich gewachsen."
+          "text": "Früher wichtiger Handelsort, im Zweiten Weltkrieg Militärbasis der Alliierten; seit dem Alcoa-Aluminiumwerk 2005 deutlich gewachsen.",
+          "pos": [
+            65.0292,
+            -14.2131
+          ]
         },
         {
           "name": "Fáskrúðsfjörður",
           "strasse": null,
-          "text": "Kleines Museum über die französischen Seeleute um 1900; die französisch-isländische Freundschaft zeigt sich an zweisprachigen Straßenschildern. Zahlreiche markierte Wanderwege."
+          "text": "Kleines Museum über die französischen Seeleute um 1900; die französisch-isländische Freundschaft zeigt sich an zweisprachigen Straßenschildern. Zahlreiche markierte Wanderwege.",
+          "pos": [
+            64.9281,
+            -14.0106
+          ]
         },
         {
           "name": "Steinsammlung von Petra",
           "strasse": "Stöðvarfjörður",
-          "text": "Seltene Steine und Mineralien aus den umliegenden Bergen - Petra Sveinsdóttir sammelte sie ihr ganzes Leben auf ihren Wanderungen. Überraschende Vielfalt an Farben und Formen."
+          "text": "Seltene Steine und Mineralien aus den umliegenden Bergen - Petra Sveinsdóttir sammelte sie ihr ganzes Leben auf ihren Wanderungen. Überraschende Vielfalt an Farben und Formen.",
+          "pos": [
+            64.8339,
+            -13.8722
+          ]
         },
         {
           "name": "Breiðdalsvík",
           "strasse": null,
-          "text": "Kleine Ortschaft am Fjord an der Nordseite des Tals Breiðdalur, umgeben von hohen, farbenfroh schimmernden Bergen; Fischerei und Schafzucht."
+          "text": "Kleine Ortschaft am Fjord an der Nordseite des Tals Breiðdalur, umgeben von hohen, farbenfroh schimmernden Bergen; Fischerei und Schafzucht.",
+          "pos": [
+            64.7917,
+            -14.0181
+          ]
         },
         {
           "name": "Djúpivogur",
           "strasse": null,
-          "text": "Eine der ältesten Gemeinden Islands; im Hafen die Kunstinstallation \"Eggin í Gleðivík\" (Die Eier in Gleðivík) von Sigurður Guðmundsson."
+          "text": "Eine der ältesten Gemeinden Islands; im Hafen die Kunstinstallation \"Eggin í Gleðivík\" (Die Eier in Gleðivík) von Sigurður Guðmundsson.",
+          "pos": [
+            64.6567,
+            -14.2833
+          ]
         },
         {
           "name": "Stokksnes, Vestrahorn & Brunnhorn",
           "strasse": "gebührenpflichtige Straße ab dem kleinen Café",
-          "text": "Landzunge mit glitzerndem schwarzem Sandstrand und riesigen Sanddünen - ein Paradies für Fotografen. Brunnhorn trägt Namen wie Engelsberg, Drachenberg und Batman-Berg und wirkt von Osten wie ein Kopf zwischen zwei Flügeln; Vestrahorn (756 m) glitzert bei Sonnenschein magisch."
+          "text": "Landzunge mit glitzerndem schwarzem Sandstrand und riesigen Sanddünen - ein Paradies für Fotografen. Brunnhorn trägt Namen wie Engelsberg, Drachenberg und Batman-Berg und wirkt von Osten wie ein Kopf zwischen zwei Flügeln; Vestrahorn (756 m) glitzert bei Sonnenschein magisch.",
+          "pos": [
+            64.2456,
+            -14.9878
+          ]
         },
         {
           "name": "Hvalnes",
           "strasse": "nahe Vestrahorn",
-          "text": "Verlassener Hof; die Grassodengebäude sind nicht historisch, sondern für die Verfilmung von Halldór Laxness' \"Das wiedergefundene Paradies\" gebaut."
+          "text": "Verlassener Hof; die Grassodengebäude sind nicht historisch, sondern für die Verfilmung von Halldór Laxness' \"Das wiedergefundene Paradies\" gebaut.",
+          "pos": [
+            64.4,
+            -14.5528
+          ]
         },
         {
           "name": "Gletscherlagune Jökulsárlón",
           "strasse": "Ringstraße 1",
           "text": "Bootsfahrt zwischen den Eisbergen oder Spaziergang entlang der Lagune bis zum Meer, mit Glück Seehunde. Kleines Restaurant mit Kaffee und Kuchen. Ab den Parkplätzen an beiden Brückenseiten führen gut ausgetretene Pfade nach Westen und Osten, Gehzeit beliebig zwischen 30 min und 3 Std., Höhenunterschied 30 m.",
           "buchen": true,
-          "buchenText": "Buchung der Bootsfahrt im Voraus - vor Reisebeginn - ist notwendig. Empfehlung: Nachmittagstermin, danach zur Unterkunft weiterfahren."
+          "buchenText": "Buchung der Bootsfahrt im Voraus - vor Reisebeginn - ist notwendig. Empfehlung: Nachmittagstermin, danach zur Unterkunft weiterfahren.",
+          "pos": [
+            64.0481,
+            -16.1794
+          ]
         },
         {
           "name": "Diamond Beach (Breiðamerkursandur)",
           "strasse": "bei Jökulsárlón",
-          "text": "Im schwarzen Sand liegen je nach Strömung zahlreiche Eisbrocken aus der Lagune - von winzigen \"Diamanten\" bis zu mannsgroßen Blöcken."
+          "text": "Im schwarzen Sand liegen je nach Strömung zahlreiche Eisbrocken aus der Lagune - von winzigen \"Diamanten\" bis zu mannsgroßen Blöcken.",
+          "pos": [
+            64.0431,
+            -16.175
+          ]
         },
         {
           "name": "Gletscherlagune Fjallsárlón",
           "strasse": "ca. 10 km westlich von Jökulsárlón",
           "text": "Kleinere Lagune mit Zodiak-Bootstouren und kleinem Café.",
-          "buchen": true
+          "buchen": true,
+          "pos": [
+            64.0133,
+            -16.3806
+          ]
         },
         {
           "name": "Skaftafell",
           "strasse": "kostenpflichtiger Parkplatz an der Straße am Campingplatz vorbei",
           "text": "Beliebtes Wandergebiet am Vatnajökull mit gut markierten Pfaden. Schönste Wanderungen: zum von schwarzen Basaltsäulen umgebenen Wasserfall Svartifoss (ca. 1,5 h) oder zur Gletscherzunge Svínafellsjökull. Wanderkarte und ein Film über den Vulkanausbruch unter dem Vatnajökull von Oktober 1996 in der Nationalpark-Information.",
-          "wanderung": { "gehzeit": "ca. 1,5 Std. (Svartifoss)" }
+          "wanderung": {
+            "gehzeit": "ca. 1,5 Std. (Svartifoss)"
+          },
+          "pos": [
+            64.0164,
+            -16.9664
+          ]
         },
         {
           "name": "Kirkjubæjarklaustur",
           "strasse": null,
-          "text": "Ausgangspunkt für Wanderungen und Busausflüge ins Hochland (nur im Sommer). Am Ortsende hinter dem Hotel führt ein Weg zu den Felsen Systrastapi und ein steiler, steiniger Pfad durch das Wäldchen hinauf zum See Systravatn mit herrlicher Aussicht. Bei der Tankstelle auf die Straße 203 abbiegen, nach ca. 200 m links die Basaltsäulenformation Kirkjugólf (Kirchenboden)."
+          "text": "Ausgangspunkt für Wanderungen und Busausflüge ins Hochland (nur im Sommer). Am Ortsende hinter dem Hotel führt ein Weg zu den Felsen Systrastapi und ein steiler, steiniger Pfad durch das Wäldchen hinauf zum See Systravatn mit herrlicher Aussicht. Bei der Tankstelle auf die Straße 203 abbiegen, nach ca. 200 m links die Basaltsäulenformation Kirkjugólf (Kirchenboden).",
+          "pos": [
+            63.7908,
+            -18.0603
+          ]
         },
         {
           "name": "Schlucht Fjaðrárgljúfur",
           "strasse": "Straße F206, ca. 6 km von der Ringstraße 1",
           "text": "Besonderer Tipp von Katla: bis zum Parkplatz fahren und eine Wanderung durch die beeindruckende Schlucht unternehmen.",
-          "wanderung": { "gehzeit": "ca. 1-2 Stunden" }
+          "wanderung": {
+            "gehzeit": "ca. 1-2 Stunden"
+          },
+          "pos": [
+            63.7714,
+            -18.1725
+          ]
         },
         {
           "name": "Skaftárstofa",
           "strasse": "Kirkjubæjarklaustur",
-          "text": "Besucherzentrum des Vatnajökull-Nationalparks mit Informationen, Kartenmaterial und Souvenirs. Die kostenlose Ausstellung \"Springtrip\" der Isländischen Glaziologischen Gesellschaft erklärt Hüttenbau auf dem Gletscher, Messungen der Gletscherzunge und Forschungsprojekte."
+          "text": "Besucherzentrum des Vatnajökull-Nationalparks mit Informationen, Kartenmaterial und Souvenirs. Die kostenlose Ausstellung \"Springtrip\" der Isländischen Glaziologischen Gesellschaft erklärt Hüttenbau auf dem Gletscher, Messungen der Gletscherzunge und Forschungsprojekte.",
+          "pos": [
+            63.7906,
+            -18.0617
+          ]
         }
       ]
     },
@@ -809,38 +1242,70 @@
         {
           "name": "Lavafeld Eldhraun",
           "strasse": "Ringstraße 1",
-          "text": "Riesiges, moosbewachsenes Lavafeld - das größte der Welt aus einem einzigen Ausbruch (1783)."
+          "text": "Riesiges, moosbewachsenes Lavafeld - das größte der Welt aus einem einzigen Ausbruch (1783).",
+          "pos": [
+            63.75,
+            -18.3
+          ],
+          "posUngenau": true
         },
         {
           "name": "Vík í Mýrdal",
           "strasse": "Ringstraße 1",
-          "text": "Südlichster Ort der Insel mit moderner Kirche auf einem Hügel und berühmtem schwarzen Strand; vom Strand sieht man die Felsgruppe Reynisdrangar - zu Stein erstarrte Trolle."
+          "text": "Südlichster Ort der Insel mit moderner Kirche auf einem Hügel und berühmtem schwarzen Strand; vom Strand sieht man die Felsgruppe Reynisdrangar - zu Stein erstarrte Trolle.",
+          "pos": [
+            63.4186,
+            -19.0061
+          ]
         },
         {
           "name": "Reynir / schwarzer Sandstrand",
           "strasse": "Straße 215",
-          "text": "Beim letzten Bauern rechts am Hof vorbei bis zum Parkplatz, von dort nur wenige Meter zum Strand. Links am Bergabhang zwei fantastische Höhlen aus Säulenbasalt und schöner Blick auf die Reynisdrangar. Achtung: nicht nah ans Meer gehen, die Wellen haben eine unglaubliche Saugkraft."
+          "text": "Beim letzten Bauern rechts am Hof vorbei bis zum Parkplatz, von dort nur wenige Meter zum Strand. Links am Bergabhang zwei fantastische Höhlen aus Säulenbasalt und schöner Blick auf die Reynisdrangar. Achtung: nicht nah ans Meer gehen, die Wellen haben eine unglaubliche Saugkraft.",
+          "pos": [
+            63.4064,
+            -19.0447
+          ]
         },
         {
           "name": "Kap Dyrhólaey",
           "strasse": "Straße 218",
-          "text": "Versandete Insel mit auffällig geformtem Felsen, auf dem Papageitaucher und andere Seevögel nisten. Während der Brutzeit (ca. Ende Mai bis Ende Juni) gesperrt. Nicht zu nah an den Rand: der Boden ist durch die Bruthöhlen locker und brüchig."
+          "text": "Versandete Insel mit auffällig geformtem Felsen, auf dem Papageitaucher und andere Seevögel nisten. Während der Brutzeit (ca. Ende Mai bis Ende Juni) gesperrt. Nicht zu nah an den Rand: der Boden ist durch die Bruthöhlen locker und brüchig.",
+          "pos": [
+            63.4022,
+            -19.1281
+          ]
         },
         {
           "name": "Skógafoss",
           "strasse": "bei Skógar",
-          "text": "60 m hoher Wasserfall, einer der schönsten Islands."
+          "text": "60 m hoher Wasserfall, einer der schönsten Islands.",
+          "pos": [
+            63.5319,
+            -19.5114
+          ]
         },
         {
           "name": "Heimatmuseum Skógasafn",
           "strasse": "Skógar",
-          "text": "Kulturerbe der Region: Arbeitsgeräte, Kunsthandwerk, Gebäude, Bücher und Fahrzeuge."
+          "text": "Kulturerbe der Region: Arbeitsgeräte, Kunsthandwerk, Gebäude, Bücher und Fahrzeuge.",
+          "pos": [
+            63.525,
+            -19.5203
+          ]
         },
         {
           "name": "Seljalandsfoss & Gljúfrabúi",
           "strasse": "Abzweigung Straße 249, ca. 2 km Richtung Þórsmörk",
           "text": "Hinter dem Seljalandsfoss führt ein kleiner Pfad durch. Ein weiterer Pfad (ca. 400 m) führt zum Wasserfall Gljúfrabúi am Bauernhof Hamragarðar, der von der Straße aus nicht zu sehen ist, weil er versteckt in einer Höhle liegt.",
-          "wanderung": { "gehzeit": "ca. 30 min - 1 Std. ab/bis Parkplatz", "hoehenmeter": "50 m" }
+          "wanderung": {
+            "gehzeit": "ca. 30 min - 1 Std. ab/bis Parkplatz",
+            "hoehenmeter": "50 m"
+          },
+          "pos": [
+            63.6156,
+            -19.9886
+          ]
         }
       ]
     },
@@ -862,59 +1327,108 @@
         {
           "name": "Nationalpark Þingvellir",
           "strasse": null,
-          "text": "Seit 2004 erste isländische UNESCO-Welterbestätte. Hier wurde 930 das erste demokratische Parlament der Welt ausgerufen; das Gebiet liegt auf dem mittelatlantischen Rücken, wo die eurasische und die nordamerikanische Platte auseinanderdriften. Bei der Almannagjá ein neues Kulturzentrum mit interaktiver Multimedia-Ausstellung. Mehrere gebührenpflichtige Parkplätze; um die Mittagszeit wegen der Nähe zu Reykjavík viele Besucher."
+          "text": "Seit 2004 erste isländische UNESCO-Welterbestätte. Hier wurde 930 das erste demokratische Parlament der Welt ausgerufen; das Gebiet liegt auf dem mittelatlantischen Rücken, wo die eurasische und die nordamerikanische Platte auseinanderdriften. Bei der Almannagjá ein neues Kulturzentrum mit interaktiver Multimedia-Ausstellung. Mehrere gebührenpflichtige Parkplätze; um die Mittagszeit wegen der Nähe zu Reykjavík viele Besucher.",
+          "pos": [
+            64.2558,
+            -21.13
+          ]
         },
         {
           "name": "Wanderung durch die Almannagjá",
           "strasse": "Þingvellir",
           "text": "Durch die Allmännerschlucht - geologisch besonders und früher politisch bedeutend.",
-          "wanderung": { "gehzeit": "2 Std.", "hoehenmeter": "100 m", "distanz": "8,1 km" }
+          "wanderung": {
+            "gehzeit": "2 Std.",
+            "hoehenmeter": "100 m",
+            "distanz": "8,1 km"
+          },
+          "pos": [
+            64.2583,
+            -21.125
+          ]
         },
         {
           "name": "Silfra-Spalte",
           "strasse": "Þingvellir",
           "text": "Schnorcheln oder Tauchen zwischen den Kontinentalplatten mit Dive.is. Vorab unbedingt über Tourenablauf, Verhältnisse vor Ort, Schwierigkeitsgrad und Voraussetzungen informieren.",
-          "buchen": true
+          "buchen": true,
+          "pos": [
+            64.2558,
+            -21.1189
+          ]
         },
         {
           "name": "Laugarvatn",
           "strasse": "Straße 365",
-          "text": "Ortschaft direkt am See, beliebt für Freizeitaktivitäten; markierte Wanderwege und ein natürliches Dampfbad."
+          "text": "Ortschaft direkt am See, beliebt für Freizeitaktivitäten; markierte Wanderwege und ein natürliches Dampfbad.",
+          "pos": [
+            64.2144,
+            -20.7286
+          ]
         },
         {
           "name": "Geysir & Strokkur",
           "strasse": "Straße 35, Gebiet Haukadalur",
-          "text": "Einzigartiges Geothermalgebiet mit vielen heißen Quellen. Die berühmteste ist Geysir, die derzeit aktivste Strokkur."
+          "text": "Einzigartiges Geothermalgebiet mit vielen heißen Quellen. Die berühmteste ist Geysir, die derzeit aktivste Strokkur.",
+          "pos": [
+            64.3108,
+            -20.3017
+          ]
         },
         {
           "name": "Gullfoss",
           "strasse": "Straße 35",
-          "text": "Der \"Goldene Wasserfall\" stürzt in zwei Stufen in den Canyon des Gletscherflusses Hvítá. Im Gullfoss-Café gibt es vorzügliche traditionelle Lammfleischsuppe und Souvenirs."
+          "text": "Der \"Goldene Wasserfall\" stürzt in zwei Stufen in den Canyon des Gletscherflusses Hvítá. Im Gullfoss-Café gibt es vorzügliche traditionelle Lammfleischsuppe und Souvenirs.",
+          "pos": [
+            64.3271,
+            -20.1214
+          ]
         },
         {
           "name": "Maar Kerið",
           "strasse": "Straße 35",
-          "text": "Wassergefüllter Krater des kleinsten Vulkansystems Grímsnes, mit Kerhóll unter Naturschutz; der grün-blaue See kontrastiert schön mit den rötlichen Hängen."
+          "text": "Wassergefüllter Krater des kleinsten Vulkansystems Grímsnes, mit Kerhóll unter Naturschutz; der grün-blaue See kontrastiert schön mit den rötlichen Hängen.",
+          "pos": [
+            64.0411,
+            -20.8853
+          ]
         },
         {
           "name": "Gamla Laugin / Secret Lagoon",
           "strasse": "bei Flúðir",
-          "text": "Ältestes Schwimmbad Islands, 1891 gebaut, erster Schwimmkurs 1909. Wasser ganzjährig 38-40 Grad, kleiner Geysir direkt vom Becken aus zu sehen."
+          "text": "Ältestes Schwimmbad Islands, 1891 gebaut, erster Schwimmkurs 1909. Wasser ganzjährig 38-40 Grad, kleiner Geysir direkt vom Becken aus zu sehen.",
+          "pos": [
+            64.1381,
+            -20.3097
+          ]
         },
         {
           "name": "Friðheimar Greenhouse",
           "strasse": "Straße 35, kurz hinter Reykholt",
-          "text": "Ganzjährig ökologisch angebaute Tomaten: über 300 Tonnen pro Jahr mit erneuerbarer Energie, reinem Wasser und ökologischer Schädlingsbekämpfung. Tomaten, Gurken, Chutneys, Soßen und Salsas zum Kaufen."
+          "text": "Ganzjährig ökologisch angebaute Tomaten: über 300 Tonnen pro Jahr mit erneuerbarer Energie, reinem Wasser und ökologischer Schädlingsbekämpfung. Tomaten, Gurken, Chutneys, Soßen und Salsas zum Kaufen.",
+          "pos": [
+            64.1567,
+            -20.5081
+          ]
         },
         {
           "name": "Skálholt",
           "strasse": "kurz bevor Straße 31 in Straße 35 übergeht",
-          "text": "Ehemaliger Bischofssitz mit sehenswerter Kirche - ein wichtiges kulturelles und historisches Zentrum des Landes."
+          "text": "Ehemaliger Bischofssitz mit sehenswerter Kirche - ein wichtiges kulturelles und historisches Zentrum des Landes.",
+          "pos": [
+            64.1281,
+            -20.5281
+          ]
         },
         {
           "name": "Laugarás Lagoon",
           "strasse": "nahe Skálholt",
-          "text": "Im Herbst 2025 eröffnetes geothermales Bad mit Blick auf den reißenden Fluss Hvítá."
+          "text": "Im Herbst 2025 eröffnetes geothermales Bad mit Blick auf den reißenden Fluss Hvítá.",
+          "pos": [
+            64.1439,
+            -20.51
+          ],
+          "posUngenau": true
         }
       ]
     },
@@ -938,54 +1452,99 @@
           "strasse": "Straße 34",
           "text": "Küstenstädtchen mit dem sehr guten Hummer-Restaurant Fjöruborðið; ab Stokkseyri sind Kajaktouren auf dem Meer möglich.",
           "buchen": true,
-          "buchenText": "Kajaktour vorab anfragen."
+          "buchenText": "Kajaktour vorab anfragen.",
+          "pos": [
+            63.8339,
+            -21.07
+          ]
         },
         {
           "name": "Eyrarbakki",
           "strasse": "Straße 34",
-          "text": "Jahrhundertelang der wichtigste Hafen der Südküste und Handelspunkt der Region; heute mit einem sehr schönen Heimatmuseum."
+          "text": "Jahrhundertelang der wichtigste Hafen der Südküste und Handelspunkt der Region; heute mit einem sehr schönen Heimatmuseum.",
+          "pos": [
+            63.8639,
+            -21.1522
+          ]
         },
         {
           "name": "Vogelschutzreservat Flói",
           "strasse": "Mündungsbereich des Ölfusá",
-          "text": "Zwei große Feuchtgebiete mit riesiger Vogelvielfalt. Charakteristisch ist der Sterntaucher (Lómur), außerdem Uferschnepfen, Graureiher und Stockenten."
+          "text": "Zwei große Feuchtgebiete mit riesiger Vogelvielfalt. Charakteristisch ist der Sterntaucher (Lómur), außerdem Uferschnepfen, Graureiher und Stockenten.",
+          "pos": [
+            63.8833,
+            -21.1833
+          ],
+          "posUngenau": true
         },
         {
           "name": "Lighthouse Route",
           "strasse": "Küstenstraße Stokkseyri - Þorlákshöfn",
-          "text": "Abschnitt der isländischen Leuchtturm-Route."
+          "text": "Abschnitt der isländischen Leuchtturm-Route.",
+          "pos": [
+            63.845,
+            -21.25
+          ],
+          "posUngenau": true
         },
         {
           "name": "Þorlákshöfn & Leuchtturm Hafnarnes",
           "strasse": null,
-          "text": "Kleines Fischerdorf und guter Ausgangspunkt für Küstenwanderungen; der bildschöne Leuchtturm liegt am Ortsrand zwischen Klippen und tosenden Wellen."
+          "text": "Kleines Fischerdorf und guter Ausgangspunkt für Küstenwanderungen; der bildschöne Leuchtturm liegt am Ortsrand zwischen Klippen und tosenden Wellen.",
+          "pos": [
+            63.8564,
+            -21.3833
+          ]
         },
         {
           "name": "Lavahöhle Raufarhólshellir",
           "strasse": "Straße 39",
           "text": "Farbenfrohe, beeindruckende Lavahöhle, Besichtigung mit Führung.",
-          "buchen": true
+          "buchen": true,
+          "pos": [
+            63.9433,
+            -21.3967
+          ]
         },
         {
           "name": "Krýsuvík & Seltún",
           "strasse": "Straße 42 / 427 (Alternativroute Reykjanes)",
-          "text": "Thermalquellengebiet mit heißen Quellen, Erdlöchern und brodelndem Schlamm; der See Grænavatn beeindruckt durch seine grüne Farbe, ab dem Parkplatz bei Seltún mehrere Wandermöglichkeiten."
+          "text": "Thermalquellengebiet mit heißen Quellen, Erdlöchern und brodelndem Schlamm; der See Grænavatn beeindruckt durch seine grüne Farbe, ab dem Parkplatz bei Seltún mehrere Wandermöglichkeiten.",
+          "pos": [
+            63.8931,
+            -22.0547
+          ]
         },
         {
           "name": "See Kleifarvatn",
           "strasse": "Straße 42",
-          "text": "Landschaftlich wunderschön gelegen, auch \"schwarzer See\" genannt - im Inneren soll ein Ungeheuer leben."
+          "text": "Landschaftlich wunderschön gelegen, auch \"schwarzer See\" genannt - im Inneren soll ein Ungeheuer leben.",
+          "pos": [
+            63.925,
+            -21.9833
+          ]
         },
         {
           "name": "Wanderung Reykjadalur",
           "strasse": "ab Hveragerði",
           "text": "Kurzweilige, einfache Wanderung über einen Bergrücken und an einem dampfenden Bach entlang in ein grünes, weites Tal - einer der schönsten Naturbadeplätze Islands, heiße Quellen sorgen für ideale Badetemperaturen im Bachbett.",
-          "wanderung": { "distanz": "8 km", "gehzeit": "4 Std." }
+          "wanderung": {
+            "distanz": "8 km",
+            "gehzeit": "4 Std."
+          },
+          "pos": [
+            64.0264,
+            -21.2158
+          ]
         },
         {
           "name": "Reiterhof Eldhestar",
           "strasse": "Hveragerði",
-          "text": "Kurze und längere Reittouren in verschiedenen Schwierigkeitsstufen, für Anfänger und erfahrene Reiter."
+          "text": "Kurze und längere Reittouren in verschiedenen Schwierigkeitsstufen, für Anfänger und erfahrene Reiter.",
+          "pos": [
+            63.995,
+            -21.244
+          ]
         }
       ]
     },
@@ -1008,44 +1567,81 @@
           "name": "Lange Wanderung Reykjadalur",
           "strasse": "Parkplatz ca. 3 km außerhalb Hveragerði hinter dem Golfplatz",
           "text": "Bergauf an einem dampfenden Bach entlang in ein grünes, weites Tal zu einem der schönsten Naturbadeplätze Islands - Badesachen nicht vergessen.",
-          "wanderung": { "gehzeit": "4,5 Std.", "hoehenmeter": "450 m", "distanz": "8,7 km" }
+          "wanderung": {
+            "gehzeit": "4,5 Std.",
+            "hoehenmeter": "450 m",
+            "distanz": "8,7 km"
+          },
+          "pos": [
+            64.0264,
+            -21.2158
+          ]
         },
         {
           "name": "Reiterhof Eldhestar",
           "strasse": "Hveragerði",
-          "text": "Reittouren in verschiedenen Schwierigkeitsstufen."
+          "text": "Reittouren in verschiedenen Schwierigkeitsstufen.",
+          "pos": [
+            63.995,
+            -21.244
+          ]
         },
         {
           "name": "Küstenroute Stokkseyri, Eyrarbakki, Þorlákshöfn",
           "strasse": "Straße 34 ab Selfoss",
-          "text": "Alternative zur Reykjadalur-Wanderung: Hummer-Restaurant Fjöruborðið und Kajaktouren in Stokkseyri, Heimatmuseum in Eyrarbakki, Vogelschutzreservat Flói (Mai bis August), Leuchtturm Hafnarnes bei Þorlákshöfn."
+          "text": "Alternative zur Reykjadalur-Wanderung: Hummer-Restaurant Fjöruborðið und Kajaktouren in Stokkseyri, Heimatmuseum in Eyrarbakki, Vogelschutzreservat Flói (Mai bis August), Leuchtturm Hafnarnes bei Þorlákshöfn.",
+          "pos": [
+            63.85,
+            -21.2
+          ],
+          "posUngenau": true
         },
         {
           "name": "Krýsuvík & Kleifarvatn",
           "strasse": "Straße 42 oder 427",
-          "text": "Hochtemperaturgebiet mit heißen Quellen, Erdlöchern und brodelndem Schlamm, der grüne See Grænavatn und der \"schwarze See\" Kleifarvatn."
+          "text": "Hochtemperaturgebiet mit heißen Quellen, Erdlöchern und brodelndem Schlamm, der grüne See Grænavatn und der \"schwarze See\" Kleifarvatn.",
+          "pos": [
+            63.8931,
+            -22.0547
+          ]
         },
         {
           "name": "Fagradalsfjall",
           "strasse": "Straße 427, Südseite Reykjanes",
-          "text": "Die vulkanischen und seismischen Aktivitäten der letzten Jahre haben eine völlig neue Landschaft geschaffen; Wanderwege führen entlang des neu entstandenen Lavafeldes. Zugänglichkeit tagesaktuell prüfen."
+          "text": "Die vulkanischen und seismischen Aktivitäten der letzten Jahre haben eine völlig neue Landschaft geschaffen; Wanderwege führen entlang des neu entstandenen Lavafeldes. Zugänglichkeit tagesaktuell prüfen.",
+          "pos": [
+            63.9019,
+            -22.2731
+          ]
         },
         {
           "name": "Grindavík",
           "strasse": null,
-          "text": "Einer der geschichtlich faszinierendsten Fischereihäfen Islands - im Mittelalter englische und deutsche Kaufleute, im 17. Jh. Opfer algerischer Piraten (Denkmal). Seit 2023 steht das Leben still: Vulkanausbrüche und Erdspalten haben den Ort zerstört, die Einwohner sind evakuiert. Seit Oktober 2024 unter strengen Sicherheitsbedingungen wieder zugänglich, sofern die Lage es erlaubt - bei Gefahr wird evakuiert und gesperrt. Aktuelle Informationen vorab prüfen."
+          "text": "Einer der geschichtlich faszinierendsten Fischereihäfen Islands - im Mittelalter englische und deutsche Kaufleute, im 17. Jh. Opfer algerischer Piraten (Denkmal). Seit 2023 steht das Leben still: Vulkanausbrüche und Erdspalten haben den Ort zerstört, die Einwohner sind evakuiert. Seit Oktober 2024 unter strengen Sicherheitsbedingungen wieder zugänglich, sofern die Lage es erlaubt - bei Gefahr wird evakuiert und gesperrt. Aktuelle Informationen vorab prüfen.",
+          "pos": [
+            63.8417,
+            -22.4333
+          ]
         },
         {
           "name": "Blaue Lagune (Bláa Lónið)",
           "strasse": "Straße 43",
           "text": "Islands bekanntester Badeort inmitten einer Mondlandschaft aus moosbewachsenem Lavagestein; mineral- und salzreiches Thermalwasser aus dem benachbarten Geothermalkraftwerk. Badesachen nicht vergessen.",
           "buchen": true,
-          "buchenText": "Wegen eingeschränkter Verfügbarkeit vor Reisebeginn buchen."
+          "buchenText": "Wegen eingeschränkter Verfügbarkeit vor Reisebeginn buchen.",
+          "pos": [
+            63.8804,
+            -22.4495
+          ]
         },
         {
           "name": "Rock'n'Roll-Museum",
           "strasse": "Konzertzentrum Reykjanesbær",
-          "text": "Isländische Musik von Björk über Sigur Rós und Of Monsters and Men bis Páll Óskar."
+          "text": "Isländische Musik von Björk über Sigur Rós und Of Monsters and Men bis Páll Óskar.",
+          "pos": [
+            64.0044,
+            -22.5628
+          ]
         }
       ]
     },
@@ -1067,12 +1663,21 @@
         {
           "name": "Volltanken",
           "strasse": "Straße 41",
-          "text": "Letzte Tankstelle auf dem Weg zum Flughafen am Kreisverkehr in Njarðvík (aus Reykjavík kommend); alternativ in der Ortschaft Keflavík oder am unbemannten Tankautomaten direkt an der Hertz-Rückgabestation."
+          "text": "Letzte Tankstelle auf dem Weg zum Flughafen am Kreisverkehr in Njarðvík (aus Reykjavík kommend); alternativ in der Ortschaft Keflavík oder am unbemannten Tankautomaten direkt an der Hertz-Rückgabestation.",
+          "pos": [
+            64.0042,
+            -22.545
+          ],
+          "posUngenau": true
         },
         {
           "name": "Check-in",
           "strasse": "Keflavík International Airport",
-          "text": "Empfehlung: ca. 2-3 Stunden vor Abflug am Check-in-Schalter eintreffen."
+          "text": "Empfehlung: ca. 2-3 Stunden vor Abflug am Check-in-Schalter eintreffen.",
+          "pos": [
+            63.985,
+            -22.6056
+          ]
         }
       ]
     }
