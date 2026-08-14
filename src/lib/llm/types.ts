@@ -1,7 +1,7 @@
 import { z } from 'zod';
 import { PosSchema } from '../schema';
 
-/** Die drei Fragen, die die Karte stellen kann. Mehr gibt es in v1 nicht. */
+/** Die zwei Fragen, die die Karte stellen kann. Mehr gibt es nicht. */
 export const FrageSchema = z.discriminatedUnion('art', [
   z.object({
     art: z.literal('ort'),
@@ -11,13 +11,6 @@ export const FrageSchema = z.discriminatedUnion('art', [
   z.object({
     art: z.literal('stopp'),
     stoppId: z.string(),
-    tagDatum: z.string(),
-  }),
-  z.object({
-    art: z.literal('flaeche'),
-    /** [west, süd, ost, nord] */
-    bbox: z.tuple([z.number(), z.number(), z.number(), z.number()]),
-    flaecheKm2: z.number().nonnegative(),
     tagDatum: z.string(),
   }),
 ]);

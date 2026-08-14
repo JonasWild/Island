@@ -153,8 +153,8 @@ auch nicht so:
 4. **Sammeleinträge** wie „Küstenroute Stokkseyri, Eyrarbakki, Þorlákshöfn"
    oder die „Lighthouse Route" — die Einzelziele haben eigene Stopps.
 
-In der Karte werden diese als offener, gestrichelter Ring gezeichnet, nicht
-als gefüllter Punkt. Der Unterschied ist sichtbar, nicht nur im Datensatz.
+Sie stehen im Datensatz als `genauigkeit: 'bereich'` und sind damit von den
+punktgenauen Positionen unterscheidbar.
 
 ### Zahlen
 

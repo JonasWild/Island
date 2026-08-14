@@ -70,21 +70,5 @@ export function nutzerPrompt(frage: Frage): string {
       if (s.pos) kopf.push(`Position: ${formatKoordinate(s.pos)} (${s.posMeta?.genauigkeit ?? 'unbelegt'})`);
       return `${kopf.join('\n')}\n\nFrage: Was sollte man zu diesem Stopp wissen, das nicht schon im Veranstaltertext steht? Aktueller Stand 2026, wenn relevant.`;
     }
-    case 'flaeche': {
-      const [w, s, o, n] = frage.bbox;
-      const mitte: Pos = [(s + n) / 2, (w + o) / 2];
-      const drin = alleStopps.filter(
-        (x) => x.stopp.pos && x.stopp.pos[0] >= s && x.stopp.pos[0] <= n && x.stopp.pos[1] >= w && x.stopp.pos[1] <= o,
-      );
-      kopf.push(
-        `Gezeichnete Fläche: ca. ${frage.flaecheKm2.toFixed(0)} km², Mitte ${formatKoordinate(mitte)}`,
-      );
-      kopf.push(
-        drin.length > 0
-          ? `Geplante Stopps in der Fläche: ${drin.map((x) => x.stopp.name).join(', ')}`
-          : 'In der Fläche liegt kein geplanter Stopp.',
-      );
-      return `${kopf.join('\n')}\n\nFrage: Was liegt in diesem Gebiet und was davon passt zu diesem Reisetag?`;
-    }
   }
 }

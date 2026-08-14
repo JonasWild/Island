@@ -63,11 +63,11 @@ export const kennzahlen = {
 } as const;
 
 export const TAG_FARBE: Record<Tag['typ'], string> = {
-  anreise: '#38bdf8',
-  standtag: '#34d399',
-  tagesausflug: '#fbbf24',
-  etappe: '#f472b6',
-  abreise: '#a78bfa',
+  anreise: '#0284c7',
+  standtag: '#059669',
+  tagesausflug: '#d97706',
+  etappe: '#db2777',
+  abreise: '#7c3aed',
 };
 
 export const TAG_LABEL: Record<Tag['typ'], string> = {

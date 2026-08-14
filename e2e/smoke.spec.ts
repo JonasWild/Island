@@ -1,23 +1,11 @@
 import { expect, test } from '@playwright/test';
 
-/**
- * Smoke: Karte lädt, ein Stopp ist anklickbar, der SSE-Stream kommt an.
- * Mehr will der Requirements-Punkt nicht — es geht um „läuft überhaupt".
- */
+/** Smoke: Karte lädt, Zeitachse wechselt den Tag, der SSE-Stream kommt an. */
 
-test('Karte lädt mit Terrain und Stopps', async ({ page }) => {
+test('Karte lädt', async ({ page }) => {
   await page.goto('/?tag=2026-08-31');
   await expect(page.getByTestId('map')).toBeVisible();
   await expect(page.locator('canvas.maplibregl-canvas')).toBeVisible();
-
-  // Warten, bis MapLibre den Style und das Terrain hat.
-  await page.waitForFunction(
-    () => document.querySelectorAll('.maplibregl-ctrl-attrib').length > 0,
-    null,
-    { timeout: 30_000 },
-  );
-
-  await expect(page.getByRole('heading', { name: /Island 2026/ })).toBeVisible();
   await expect(page.getByTestId('tag-2026-08-31')).toHaveAttribute('aria-selected', 'true');
 });
 
@@ -36,17 +24,22 @@ test('Tastatur blättert durch die Tage', async ({ page }) => {
   await expect(page).toHaveURL(/tag=2026-08-28/);
 });
 
-test('Deep Link öffnet das Kontextblatt und streamt eine LLM-Antwort', async ({ page }) => {
+test('Deep Link öffnet das Kontextblatt und streamt eine Antwort', async ({ page }) => {
   await page.goto('/?tag=2026-08-31&stopp=0');
   const blatt = page.getByTestId('kontextblatt');
   await expect(blatt).toBeVisible();
-  await expect(blatt.getByText('LLM-Ausgabe')).toBeVisible();
-  // Der Mock streamt Fixtures — irgendein Text muss ankommen.
-  await expect(blatt.getByText(/Lage|Im Reiseplan|Gebiet/)).toBeVisible({ timeout: 30_000 });
-  await expect(blatt.getByText(/Mock-Antwort aus Fixtures/)).toBeVisible({ timeout: 30_000 });
+  await expect(blatt.getByText(/Lage|Im Reiseplan/)).toBeVisible({ timeout: 30_000 });
 
   await page.locator('body').press('Escape');
   await expect(blatt).toBeHidden();
+});
+
+test('ohne API-Schlüssel wird die Antwort als Beispieltext gekennzeichnet', async ({ page }) => {
+  test.skip(!!process.env.OPENAI_API_KEY, 'läuft nur ohne Schlüssel');
+  await page.goto('/?tag=2026-08-31&stopp=0');
+  await expect(page.getByTestId('kontextblatt').getByText(/Kein OPENAI_API_KEY/)).toBeVisible({
+    timeout: 30_000,
+  });
 });
 
 test('API liefert einen SSE-Stream', async ({ request }) => {

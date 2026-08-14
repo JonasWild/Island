@@ -1,20 +1,12 @@
 @import 'tailwindcss';
 
-/* Tailwind v4 wird nur für Tokens und Utilities benutzt — keine Komponenten. */
-@theme {
-  --color-anreise: #38bdf8;
-  --color-standtag: #34d399;
-  --color-tagesausflug: #fbbf24;
-  --color-etappe: #f472b6;
-  --color-abreise: #a78bfa;
-}
-
+/* Tailwind v4 nur für Utilities — keine Komponentenbibliothek. */
 html,
 body {
   height: 100%;
   margin: 0;
-  background: #020617;
-  color: #e2e8f0;
+  background: #eaf1f6;
+  color: #0f172a;
   font-family:
     ui-sans-serif,
     system-ui,
@@ -23,28 +15,6 @@ body {
     Roboto,
     sans-serif;
   overscroll-behavior: none;
-}
-
-/* MapLibre-Controls an das dunkle Kartenbild angleichen. */
-.maplibregl-ctrl-group {
-  background: rgba(2, 6, 23, 0.8);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(8px);
-}
-.maplibregl-ctrl-group button + button {
-  border-top-color: rgba(255, 255, 255, 0.1);
-}
-.maplibregl-ctrl-group button .maplibregl-ctrl-icon {
-  filter: invert(1) brightness(1.6);
-}
-.maplibregl-ctrl-attrib,
-.maplibregl-ctrl-scale {
-  background: rgba(2, 6, 23, 0.7) !important;
-  color: #94a3b8;
-  border-color: rgba(255, 255, 255, 0.15);
-}
-.maplibregl-ctrl-attrib a {
-  color: #94a3b8;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -6,30 +6,16 @@ import { tage } from '@/lib/reise';
 
 export type Theme = 'hell' | 'dunkel';
 
-/** Was gerade im Kontextblatt steht. */
 export type Auswahl =
   | { art: 'keine' }
   | { art: 'stopp'; id: string }
   | { art: 'unterkunft'; id: string }
-  | { art: 'ort'; pos: Pos }
-  | {
-      art: 'flaeche';
-      featureId: string;
-      /** [west, süd, ost, nord] */
-      bbox: [number, number, number, number];
-      flaecheKm2: number;
-    };
+  | { art: 'ort'; pos: Pos };
 
 type State = {
   tagDatum: string;
   auswahl: Auswahl;
-  hoverStoppId: string | null;
-  tourLaeuft: boolean;
-  tourIndex: number;
   theme: Theme;
-  zeichenModus: boolean;
-  /** Wird von MapCanvas gesetzt, sobald Style + Terrain stehen. */
-  kartenBereit: boolean;
 };
 
 type Actions = {
@@ -38,32 +24,17 @@ type Actions = {
   tagZurueck: () => void;
   waehle: (a: Auswahl) => void;
   schliesse: () => void;
-  setHover: (id: string | null) => void;
-  tourStart: () => void;
-  tourStop: () => void;
-  setTourIndex: (i: number) => void;
-  toggleTour: () => void;
-  setTheme: (t: Theme) => void;
   toggleTheme: () => void;
-  setZeichenModus: (an: boolean) => void;
-  setKartenBereit: (bereit: boolean) => void;
 };
 
-const ERSTER_TAG = tage[0]!.datum;
-
 export const useMapStore = create<State & Actions>((set, get) => ({
-  tagDatum: ERSTER_TAG,
+  tagDatum: tage[0]!.datum,
   auswahl: { art: 'keine' },
-  hoverStoppId: null,
-  tourLaeuft: false,
-  tourIndex: 0,
-  theme: 'dunkel',
-  zeichenModus: false,
-  kartenBereit: false,
+  theme: 'hell',
 
   setTag: (datum) => {
     if (!tage.some((t) => t.datum === datum)) return;
-    set({ tagDatum: datum, auswahl: { art: 'keine' }, tourLaeuft: false, tourIndex: 0 });
+    set({ tagDatum: datum, auswahl: { art: 'keine' } });
   },
   tagVor: () => {
     const i = tage.findIndex((t) => t.datum === get().tagDatum);
@@ -78,15 +49,5 @@ export const useMapStore = create<State & Actions>((set, get) => ({
 
   waehle: (auswahl) => set({ auswahl }),
   schliesse: () => set({ auswahl: { art: 'keine' } }),
-  setHover: (hoverStoppId) => set({ hoverStoppId }),
-
-  tourStart: () => set({ tourLaeuft: true, tourIndex: 0 }),
-  tourStop: () => set({ tourLaeuft: false }),
-  setTourIndex: (tourIndex) => set({ tourIndex }),
-  toggleTour: () => (get().tourLaeuft ? get().tourStop() : get().tourStart()),
-
-  setTheme: (theme) => set({ theme }),
   toggleTheme: () => set({ theme: get().theme === 'dunkel' ? 'hell' : 'dunkel' }),
-  setZeichenModus: (zeichenModus) => set({ zeichenModus }),
-  setKartenBereit: (kartenBereit) => set({ kartenBereit }),
 }));
