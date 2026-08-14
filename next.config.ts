@@ -10,13 +10,15 @@ const MAP_HOSTS = [
   'https://tiles.openfreemap.org', // Basiskarte
   'https://s3.amazonaws.com', // DEM: AWS Terrain Tiles
 ];
+// Fotos aus Wikimedia Commons — nur Bilder, kein fetch.
+const BILD_HOSTS = ['https://upload.wikimedia.org'];
 
 const csp = [
   `default-src 'self'`,
   // Next injiziert Inline-Bootstrap-Skripte; 'unsafe-inline' ist dafür nötig.
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''}`,
   `style-src 'self' 'unsafe-inline'`,
-  `img-src 'self' data: blob: ${MAP_HOSTS.join(' ')}`,
+  `img-src 'self' data: blob: ${[...MAP_HOSTS, ...BILD_HOSTS].join(' ')}`,
   `font-src 'self' data:`,
   `connect-src 'self' ${MAP_HOSTS.join(' ')}`,
   `worker-src 'self' blob:`,

@@ -3,8 +3,9 @@
 Karte zum Reiseplan von Katla Travel (Vorgang 15412, 27.08.–10.09.2026,
 5 Personen, Mietwagen, Ferienhäuser). 15 Tage, 6 Unterkünfte, 128 Stopps.
 
-Die Karte ist die App. Daneben gibt es genau zwei Dinge: einen Tagesstreifen
-unten und ein Kontextblatt rechts, wenn man etwas anklickt.
+Die Karte ist die App: 3D-Gelände mit Schummerung, die Route als Ganzes, jeder
+Stopp als 3D-Modell seiner Art. Dazu ein Tagesstreifen unten und — auf Klick —
+eine Infobox am Marker, aus der sich eine ausführliche Leiste öffnen lässt.
 
 ## Loslegen
 
@@ -23,6 +24,7 @@ deutlich. Für echte Antworten den Schlüssel in `.env.local` setzen
 | `pnpm dev` | Entwicklungsserver |
 | `pnpm build` | validiert `reise.json` und baut |
 | `pnpm geocode` | Geocoding-Pipeline (Build-Zeit, nicht Laufzeit) |
+| `pnpm bilder` | ordnet Fotos aus Wikipedia zu (Build-Zeit) |
 | `pnpm test` | Vitest |
 | `pnpm e2e` | Playwright-Smoke |
 | `pnpm typecheck` / `pnpm lint` | statische Prüfung |
@@ -37,9 +39,10 @@ E2E-Tests den Pfad:
 |---|---|
 | Klick auf einen Tag | Kameraflug auf die Etappe |
 | `←` / `→` | Tag zurück / vor |
-| Klick auf einen Stopp | Kontextblatt rechts |
-| Klick auf leere Karte | „Was ist hier?" ans Modell, mit Koordinate, Reisetag und nächstem Stopp |
-| `Esc` | schließt das Kontextblatt |
+| Klick auf einen Marker | Infobox direkt am Marker |
+| „Details" in der Infobox | Detailleiste rechts, mit Foto und Modellantwort |
+| Klick auf leere Karte | „Was ist hier?" — Infobox mit Koordinate, von dort die Frage ans Modell |
+| `Esc` | schließt erst die Detailleiste, dann die Infobox |
 
 Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar und reload-fest.
 
@@ -52,8 +55,12 @@ einen echten Style-Wechsel statt eines CSS-Filters.
 **Terrain** über `raster-dem` + `setTerrain` mit den
 [AWS Terrain Tiles](https://registry.opendata.aws/terrain-tiles/) in
 Terrarium-Kodierung. Nicht `demotiles.maplibre.org`: dessen Terrain-Kachelsatz
-enthält nur einen Ausschnitt der Alpen und liefert über Island nichts — dort
-blieb die Karte flach.
+enthält nur einen Ausschnitt der Alpen und liefert über Island nichts.
+
+Dazu ein **Hillshade-Layer** aus derselben Quelle, eingehängt unter den
+Beschriftungen. Ohne ihn ist das Terrain praktisch unsichtbar: die
+Geländeverformung fällt im Landesmaßstab nicht auf, die Schummerung dagegen
+sofort.
 
 **Die Route ist durchgehend.** Ein Segment je Tag, aber jedes beginnt beim
 letzten Stopp des Vortags, sodass keine Lücke entsteht. Alle Tage sind immer
@@ -61,25 +68,52 @@ sichtbar; der gewählte Tag ist nur breiter und kräftiger. Die Farbe steht für
 die Art des Tages (Anreise, Standtag, Tagesausflug, Etappe, Abreise). Es ist
 eine Schematik, keine Navigationsroute — echtes Routing wäre v2.
 
-**Symbole statt Punkte.** Jeder Stopp bekommt ein Piktogramm für seine Art:
-Wasserfall, heiße Quelle, Vulkan, Gletscher, Schlucht, Höhle, Strand, Berg,
-See, Tiere, Museum, Historie, Wanderung, Ort, unterwegs, Unterkunft. Die
-Symbole werden zur Laufzeit auf ein Canvas gezeichnet — kein Sprite, kein
-weiterer Netzaufruf — und sitzen auf einer schattierten Platte, damit sie über
-dem Relief als Objekte lesbar sind.
+**Marker sind 3D-Modelle**, kein Bildchen: ein MapLibre-Custom-Layer
+(`renderingMode: '3d'`) mit three.js zeichnet je Zielart einen eigenen Körper —
+Vulkankegel, Berg mit Schneekappe, Gletscher, Wasserfall über einer Kante,
+Becken, Höhle, Wal, Museum mit Giebel, Kirche mit Turmkreuz, Haus, Fahrzeug.
+Sie stehen auf der Geländehöhe, neigen sich mit der Kamera und werden vom
+Terrain verdeckt.
 
-Echte 3D-Modelle (glTF) kann MapLibre nicht von sich aus: das wäre ein
-three.js- oder deck.gl-Custom-Layer, also ein zweiter Renderer im Bundle. Für
-den Zweck — erkennen, was für ein Ziel das ist — tragen die Piktogramme das
-genauso, zu einem Bruchteil der Komplexität.
+Die Formen entstehen im Code statt als glTF-Dateien: bei sechzehn einfachen
+Körpern ist das kleiner, schneller und braucht weder eine externe Datei noch
+eine CSP-Ausnahme. Sichtbare Größe und Deckkraft hängen am gewählten Tag, die
+Größe zusätzlich am Zoom, damit die Modelle auf dem Schirm gleich groß bleiben.
 
-Die Art wird in `src/lib/kategorie.ts` **allein aus dem Namen** abgeleitet,
+Weil `queryRenderedFeatures` einen Custom-Layer nicht kennt, liegt unter den
+Modellen ein unsichtbarer Kreis-Layer als Klick- und Hover-Ziel.
+
+Deshalb läuft die Karte in **Mercator statt als Globus**: Custom-Layer rechnen
+in Mercator-Weltkoordinaten.
+
+Die Zielart wird in `src/lib/kategorie.ts` **allein aus dem Namen** abgeleitet,
 nicht aus dem Beschreibungstext. Isländische Namen tragen ihre Art im Wort
 (`-foss`, `-jökull`, `hver`, `-gljúfur`, `-vatn`), während der Text in die
 Irre führt: Stykkishólmur hat ein Vulkanmuseum, Akranes einen Hot Pot,
 Egilsstaðir ein Schwimmbad. Für die Handvoll bekannter Ziele, deren Name
 nichts verrät (Dimmuborgir, Herðubreið, Ásbyrgi …), steht eine kurze Liste
 davor. Ohne Treffer bleibt es ein Ort — nichts wird geraten.
+
+## Zwei Stufen Detail
+
+Ein Klick auf einen Marker öffnet eine **Infobox direkt daneben**: Foto, Datum,
+Zielart, ein bis zwei Fakten. Das reicht meistens. Wer mehr will, klickt
+„Details" und bekommt die **Leiste am rechten Rand** mit großem Bild, vollem
+Veranstaltertext und der Modellantwort. `Esc` arbeitet sich rückwärts durch
+beide Stufen.
+
+## Bilder
+
+`pnpm bilder` ordnet jedem Stopp zur Build-Zeit ein Foto zu — Geosuche in der
+deutschen Wikipedia (Rückfall: englische) im Umkreis der belegten Position,
+Lizenzangaben aus Commons. Übernommen wird nur, was eindeutig passt:
+
+- der Artikeltitel passt zum Stoppnamen, **oder**
+- der Artikel liegt näher als 400 m und ist der einzige mit Bild.
+
+Sonst bleibt der Stopp ohne Bild; ein falsches Foto wäre schlimmer als keins.
+Stand: 82 von 128 Stopps und 4 von 6 Unterkünften haben eins. Urheber und
+Lizenz stehen unter jedem Bild, der Cache liegt in `data/bilder-cache.json`.
 
 ## Daten
 
@@ -143,10 +177,21 @@ das je Instanz, nicht global; als Kostenbremse reicht das.
 
 Framework-Preset Next.js, Region `fra1`, Production auf `main`, Preview pro
 Branch. Env: `OPENAI_API_KEY`, `OPENAI_MODEL`, optional `LLM_WEB_SEARCH`.
-Die CSP in `next.config.ts` öffnet gezielt nur `tiles.openfreemap.org` und
-`s3.amazonaws.com`; alles andere bleibt zu.
+Die CSP in `next.config.ts` öffnet gezielt nur `tiles.openfreemap.org`,
+`s3.amazonaws.com` (DEM) und `upload.wikimedia.org` (Bilder); alles andere
+bleibt zu.
+
+## Farben
+
+Die Farbe eines Routenabschnitts ist nicht zufällig, sondern steht für die Art
+des Tages: Anreise, Standtag, Tagesausflug, Etappe, Abreise. Dasselbe Wort
+steht in der Zusammenfassung unter dem Tagesstreifen neben dem farbigen Punkt,
+damit die Farbe selbsterklärend ist.
+
+Die Farbe der 3D-Modelle steht dagegen für die Zielart — Vulkane rot,
+Gletscher weiß, Bäder türkis, Wanderungen grün.
 
 ## Nicht enthalten
 
 Zeichnen/Editieren, Kamera-Tour, echtes Routing, Offline-Betrieb, Wetter- und
-Straßenzustandsfeeds, Fotos pro Stopp.
+Straßenzustandsfeeds.

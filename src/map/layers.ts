@@ -3,14 +3,16 @@ import type { FeatureCollection, LineString, Point } from 'geojson';
 import { alleStopps, TAG_FARBE, tage, unterkuenfte } from '@/lib/reise';
 import { kategorieVon } from '@/lib/kategorie';
 import { zuLngLat } from '@/lib/geo';
-import { iconName } from './icons';
+import { DEM_SOURCE_ID } from './style';
+import type { Modellpunkt } from './modelle';
 
 export const SRC_STOPPS = 'stopps';
 export const SRC_ROUTE = 'route';
 export const SRC_ORT = 'ort-marke';
 
+export const LYR_HILLSHADE = 'relief';
 export const LYR_ROUTE = 'route-linie';
-export const LYR_STOPP = 'stopp-symbol';
+export const LYR_STOPP = 'stopp-treffer';
 export const LYR_STOPP_LABEL = 'stopp-label';
 export const LYR_ORT = 'ort-symbol';
 
@@ -24,8 +26,7 @@ export function stoppFeatures(): FeatureCollection<Point> {
         id: s.id,
         name: s.stopp.name,
         datum: s.datum,
-        farbe: TAG_FARBE[tage.find((t) => t.datum === s.datum)?.typ ?? 'etappe'],
-        icon: iconName(kategorieVon(s.stopp)),
+        kategorie: kategorieVon(s.stopp),
       },
     }));
 
@@ -39,19 +40,27 @@ export function stoppFeatures(): FeatureCollection<Point> {
         id: `unterkunft:${u.id}`,
         name: u.name,
         datum: u.von,
-        farbe: '#0f766e',
-        icon: iconName('unterkunft'),
+        kategorie: 'unterkunft' as const,
       },
     }));
 
   return { type: 'FeatureCollection', features: [...stopps, ...haeuser] };
 }
 
+/** Dieselben Punkte als Eingabe für den 3D-Layer. */
+export function modellPunkte(aktivesDatum: string): Modellpunkt[] {
+  return stoppFeatures().features.map((f) => ({
+    id: f.properties!.id as string,
+    lngLat: f.geometry.coordinates as [number, number],
+    kategorie: f.properties!.kategorie as Modellpunkt['kategorie'],
+    aktiv: f.properties!.datum === aktivesDatum,
+  }));
+}
+
 /**
  * Die Route ist eine durchgehende Linie über die ganze Reise: jeder Tag beginnt
- * beim letzten Stopp des Vortags, damit keine Lücke entsteht. Die Segmente
- * tragen die Farbe ihres Tages — so ist die Reise als Ganzes sichtbar und die
- * Etappen bleiben trotzdem unterscheidbar.
+ * beim letzten Stopp des Vortags, damit keine Lücke entsteht. Die Farbe eines
+ * Segments steht für die Art des Tages, nicht für den Tag selbst.
  */
 export function routeFeatures(): FeatureCollection<LineString> {
   const features: FeatureCollection<LineString>['features'] = [];
@@ -89,10 +98,32 @@ export function quellenSetzen(map: MLMap): void {
   }
 }
 
+/** Erste Beschriftungsebene des Basisstils — darunter kommt das Relief. */
+function ersteLabelEbene(map: MLMap): string | undefined {
+  return map.getStyle().layers?.find((l) => l.type === 'symbol')?.id;
+}
+
 export function layerSetzen(map: MLMap, aktivesDatum: string): void {
-  const add = (spec: LayerSpecification) => {
-    if (!map.getLayer(spec.id)) map.addLayer(spec);
+  const add = (spec: LayerSpecification, vor?: string) => {
+    if (!map.getLayer(spec.id)) map.addLayer(spec, vor);
   };
+
+  // Ohne Schummerung ist das Terrain praktisch unsichtbar: die Geländeverformung
+  // fällt bei Landesmaßstab nicht auf, die Schattierung dagegen schon.
+  add(
+    {
+      id: LYR_HILLSHADE,
+      type: 'hillshade',
+      source: DEM_SOURCE_ID,
+      paint: {
+        'hillshade-exaggeration': 0.55,
+        'hillshade-shadow-color': '#3f4a5a',
+        'hillshade-highlight-color': '#ffffff',
+        'hillshade-accent-color': '#5b6472',
+      },
+    },
+    ersteLabelEbene(map),
+  );
 
   add({
     id: LYR_ROUTE,
@@ -103,21 +134,22 @@ export function layerSetzen(map: MLMap, aktivesDatum: string): void {
       'line-color': ['get', 'farbe'],
       // Alle Tage bleiben sichtbar; der gewählte tritt nur hervor.
       'line-width': ['case', aktiv(aktivesDatum), 5, 2.5],
-      'line-opacity': ['case', aktiv(aktivesDatum), 1, 0.55],
+      'line-opacity': ['case', aktiv(aktivesDatum), 1, 0.5],
     },
   });
 
+  // Unsichtbarer Trefferbereich: die sichtbaren Marker sind 3D-Modelle in einem
+  // Custom-Layer, den queryRenderedFeatures nicht kennt. Dieser Kreis ist das
+  // Klick- und Hover-Ziel dazu.
   add({
     id: LYR_STOPP,
-    type: 'symbol',
+    type: 'circle',
     source: SRC_STOPPS,
-    layout: {
-      'icon-image': ['get', 'icon'],
-      'icon-size': ['case', aktiv(aktivesDatum), 0.7, 0.44],
-      'icon-allow-overlap': true,
-      'symbol-sort-key': ['case', aktiv(aktivesDatum), 0, 1],
+    paint: {
+      'circle-radius': ['case', aktiv(aktivesDatum), 18, 12],
+      'circle-opacity': 0,
+      'circle-stroke-opacity': 0,
     },
-    paint: { 'icon-opacity': ['case', aktiv(aktivesDatum), 1, 0.72] },
   });
 
   add({
@@ -128,14 +160,14 @@ export function layerSetzen(map: MLMap, aktivesDatum: string): void {
     layout: {
       'text-field': ['get', 'name'],
       'text-size': 12,
-      'text-offset': [0, 1.4],
+      'text-offset': [0, 1.9],
       'text-anchor': 'top',
       'text-max-width': 12,
       'text-optional': true,
     },
     paint: {
       'text-color': '#0f172a',
-      'text-halo-color': 'rgba(255,255,255,0.9)',
+      'text-halo-color': 'rgba(255,255,255,0.92)',
       'text-halo-width': 1.8,
       'text-opacity': ['interpolate', ['linear'], ['zoom'], 6.5, 0, 7.5, 1],
     },
@@ -159,12 +191,10 @@ export function aktivenTagSetzen(map: MLMap, datum: string): void {
   const f = aktiv(datum);
   if (map.getLayer(LYR_ROUTE)) {
     map.setPaintProperty(LYR_ROUTE, 'line-width', ['case', f, 5, 2.5]);
-    map.setPaintProperty(LYR_ROUTE, 'line-opacity', ['case', f, 1, 0.55]);
+    map.setPaintProperty(LYR_ROUTE, 'line-opacity', ['case', f, 1, 0.5]);
   }
   if (map.getLayer(LYR_STOPP)) {
-    map.setLayoutProperty(LYR_STOPP, 'icon-size', ['case', f, 0.7, 0.44]);
-    map.setLayoutProperty(LYR_STOPP, 'symbol-sort-key', ['case', f, 0, 1]);
-    map.setPaintProperty(LYR_STOPP, 'icon-opacity', ['case', f, 1, 0.72]);
+    map.setPaintProperty(LYR_STOPP, 'circle-radius', ['case', f, 18, 12]);
   }
   if (map.getLayer(LYR_STOPP_LABEL)) map.setFilter(LYR_STOPP_LABEL, f);
 }

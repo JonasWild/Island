@@ -79,6 +79,13 @@
         "geprueftAm": "2026-08-13",
         "ref": "https://www.viatis.is/de/ferienhaus/westisland/birkiskogar",
         "hinweis": "Ferienhaussiedlung Birkiskógar bei Bifröst/Hreðavatn. Viatis nennt keine Hausnummer — Bereichsangabe."
+      },
+      "bild": {
+        "url": "https://upload.wikimedia.org/wikipedia/en/thumb/1/10/Bifrost_University_logo.svg/960px-Bifrost_University_logo.svg.png",
+        "titel": "Bifröst University",
+        "seite": "https://en.wikipedia.org/wiki/Bifr%C3%B6st_University",
+        "geprueftAm": "2026-08-14",
+        "grund": "einziger Artikel mit Bild unter 400 m"
       }
     },
     {
@@ -133,6 +140,15 @@
         "geprueftAm": "2026-08-13",
         "ref": "https://www.viatis.is/de/ferienhaus/ostisland/hlidarendi",
         "hinweis": "Ferienhaus im Umland von Egilsstaðir, keine öffentliche Adresse — Bereichsangabe."
+      },
+      "bild": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Ei%C3%B0ar01.jpg/960px-Ei%C3%B0ar01.jpg",
+        "titel": "Fljótsdalshérað",
+        "seite": "https://en.wikipedia.org/wiki/Flj%C3%B3tsdalsh%C3%A9ra%C3%B0",
+        "autor": "Christian Bickel",
+        "lizenz": "CC BY-SA 2.0 de",
+        "geprueftAm": "2026-08-14",
+        "grund": "einziger Artikel mit Bild unter 400 m"
       }
     },
     {
@@ -188,6 +204,15 @@
         "geprueftAm": "2026-08-13",
         "ref": "https://www.viatis.is/de/ferienhaus/suedisland/hlidarholt",
         "hinweis": "Ferienhaus bei Flúðir, keine öffentliche Adresse — Bereichsangabe."
+      },
+      "bild": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/eb/Fl%C3%BA%C3%B0ir_01.jpg/960px-Fl%C3%BA%C3%B0ir_01.jpg",
+        "titel": "Flúðir",
+        "seite": "https://de.wikipedia.org/wiki/Fl%C3%BA%C3%B0ir",
+        "autor": "Christian Bickel fingalo",
+        "lizenz": "CC BY-SA 2.0 de",
+        "geprueftAm": "2026-08-14",
+        "grund": "einziger Artikel mit Bild unter 400 m"
       }
     },
     {
@@ -215,6 +240,15 @@
         "genauigkeit": "punkt",
         "geprueftAm": "2026-08-13",
         "ref": "OSM tourism=hotel 'Konvin Hotel', 762 Keilisbraut, Ásbrú, Njarðvík"
+      },
+      "bild": {
+        "url": "https://upload.wikimedia.org/wikipedia/commons/b/b3/Keflavik_Kirche.jpg",
+        "titel": "Keflavík",
+        "seite": "https://de.wikipedia.org/wiki/Keflav%C3%ADk",
+        "autor": "varp",
+        "lizenz": "CC BY-SA 3.0",
+        "geprueftAm": "2026-08-14",
+        "grund": "Artikelname passt zum Stopp"
       }
     }
   ],
@@ -250,6 +284,13 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Bláa lónið, 9, Norðurljósavegur"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Blue_Lagoon_Main_Building.JPG/960px-Blue_Lagoon_Main_Building.JPG",
+            "titel": "Blue Lagoon (geothermal spa)",
+            "seite": "https://en.wikipedia.org/wiki/Blue_Lagoon_(geothermal_spa)",
+            "geprueftAm": "2026-08-14",
+            "grund": "einziger Artikel mit Bild unter 400 m"
           }
         },
         {
@@ -280,6 +321,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Mosfellsbær, Höfuðborgarsvæðið, Ísland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/ac/Mosfellsb%C3%A6r_Loc.svg/960px-Mosfellsb%C3%A6r_Loc.svg.png",
+            "titel": "Mosfellsbær",
+            "seite": "https://de.wikipedia.org/wiki/Mosfellsb%C3%A6r",
+            "autor": "Bjarki S",
+            "lizenz": "CC0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -295,6 +345,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Akraneskaupstaður, Vesturland, 300"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/9/9d/Akraneskaupstadur_map.png",
+            "titel": "Akranes",
+            "seite": "https://de.wikipedia.org/wiki/Akranes",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         }
       ]
@@ -321,6 +380,13 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Reykholt, Borgarbyggð, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/de/thumb/7/78/ReykholtNewAndOldChurch.jpg/960px-ReykholtNewAndOldChurch.jpg",
+            "titel": "Reykholt (Borgarbyggð)",
+            "seite": "https://de.wikipedia.org/wiki/Reykholt_(Borgarbygg%C3%B0)",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -336,6 +402,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Deildartunguhver, Kleppjárnsreykir, Borgarbyggð"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Islande_source_Deildartunguhver.jpg/960px-Islande_source_Deildartunguhver.jpg",
+            "titel": "Deildartunguhver",
+            "seite": "https://de.wikipedia.org/wiki/Deildartunguhver",
+            "autor": "Nojhan",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -355,6 +430,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Hraunfossar Barnafoss, Hraunsás, Borgarbyggð"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/Hraunfossar_2004.jpg/960px-Hraunfossar_2004.jpg",
+            "titel": "Hraunfossar",
+            "seite": "https://de.wikipedia.org/wiki/Hraunfossar",
+            "autor": "Reykholt",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -370,6 +454,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Húsafell, Borgarbyggð, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Iceland_Husafell.jpg/960px-Iceland_Husafell.jpg",
+            "titel": "Húsafell",
+            "seite": "https://de.wikipedia.org/wiki/H%C3%BAsafell",
+            "autor": "Aconcagua",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -385,6 +478,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Borgarbyggð, Vesturland, Ísland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Borgarnes02.jpg/960px-Borgarnes02.jpg",
+            "titel": "Borgarnes",
+            "seite": "https://de.wikipedia.org/wiki/Borgarnes",
+            "autor": "Eysteinn Guðni Guðnason",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -400,6 +502,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Landnámssetur Íslands, Brákarbraut, Borgarbyggð"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Borgarnes02.jpg/960px-Borgarnes02.jpg",
+            "titel": "Borgarnes",
+            "seite": "https://de.wikipedia.org/wiki/Borgarnes",
+            "autor": "Eysteinn Guðni Guðnason",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -417,6 +528,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Krauma, Deildartunga, Kleppjárnsreykir"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Islande_source_Deildartunguhver.jpg/960px-Islande_source_Deildartunguhver.jpg",
+            "titel": "Deildartunguhver",
+            "seite": "https://de.wikipedia.org/wiki/Deildartunguhver",
+            "autor": "Nojhan",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "einziger Artikel mit Bild unter 400 m"
           }
         },
         {
@@ -450,6 +570,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Vidgelmir, Víðgelmisvegur, Borgarbyggð"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/IS_cave_vidgelmir.jpeg/960px-IS_cave_vidgelmir.jpeg",
+            "titel": "Viðgelmir",
+            "seite": "https://de.wikipedia.org/wiki/Vi%C3%B0gelmir",
+            "autor": "Speleo 11:33, 21. Okt. 2006 (CEST)",
+            "lizenz": "CC BY-SA 2.0 de",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -532,6 +661,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Gerðuberg, Eyja- og Miklaholtshreppur, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/GerdubergSnaefellsnesIce.JPG/960px-GerdubergSnaefellsnesIce.JPG",
+            "titel": "Gerðuberg",
+            "seite": "https://de.wikipedia.org/wiki/Ger%C3%B0uberg",
+            "autor": "TommyBee",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -578,6 +716,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Búðir, Snæfellsbær, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/B%C3%BA%C3%B0ir_2024_%280748%29.jpg/960px-B%C3%BA%C3%B0ir_2024_%280748%29.jpg",
+            "titel": "Búðir",
+            "seite": "https://de.wikipedia.org/wiki/B%C3%BA%C3%B0ir",
+            "autor": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -593,6 +740,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Arnarstapi, Snæfellsbær, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Arnarstapi_2024_%280754%29.jpg/960px-Arnarstapi_2024_%280754%29.jpg",
+            "titel": "Arnarstapi",
+            "seite": "https://de.wikipedia.org/wiki/Arnarstapi",
+            "autor": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -670,6 +826,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Hellissandur, Snæfellsbær, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Hellissandur_5.jpg/960px-Hellissandur_5.jpg",
+            "titel": "Hellissandur",
+            "seite": "https://de.wikipedia.org/wiki/Hellissandur",
+            "autor": "Salvör Gissurardóttir",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -701,6 +866,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Ólafsvík, Snæfellsbær, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/%C3%93lafsv%C3%ADk.jpg/960px-%C3%93lafsv%C3%ADk.jpg",
+            "titel": "Ólafsvík",
+            "seite": "https://de.wikipedia.org/wiki/%C3%93lafsv%C3%ADk",
+            "autor": "Schorle",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -716,6 +890,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Kirkjufell, Grundarfjarðarbær, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/c/ce/Grundarfjardarbaer_map.png",
+            "titel": "Grundarfjörður",
+            "seite": "https://de.wikipedia.org/wiki/Grundarfj%C3%B6r%C3%B0ur",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -731,6 +914,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Stykkishólmur, Sveitarfélagið Stykkishólmur, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/7/77/Stykkisholmsbaer_map.png",
+            "titel": "Stykkishólmur",
+            "seite": "https://de.wikipedia.org/wiki/Stykkish%C3%B3lmur",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         }
       ]
@@ -764,6 +956,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Hvammstangi, Húnaþing vestra, Norðurland vestra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Hvammstangi.jpg/960px-Hvammstangi.jpg",
+            "titel": "Hvammstangi",
+            "seite": "https://de.wikipedia.org/wiki/Hvammstangi",
+            "autor": "Eysteinn Guðni Guðnason",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -779,6 +980,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Blönduós, Húnabyggð, Norðurland vestra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/f/ff/Blonduosbaer_map.png",
+            "titel": "Blönduós",
+            "seite": "https://de.wikipedia.org/wiki/Bl%C3%B6ndu%C3%B3s",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -794,6 +1004,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Glaumbær, Skagafjörður, Norðurland vestra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Glaumbaer-pjt2.jpg/960px-Glaumbaer-pjt2.jpg",
+            "titel": "Glaumbær",
+            "seite": "https://de.wikipedia.org/wiki/Glaumb%C3%A6r",
+            "autor": "Pjt56 --- If you use the picture outside Wikipedia I would appreciate a short e-mail to pjt56@gmx.net or a message on my",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -824,6 +1043,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Akureyrarbær, Norðurland eystra, Ísland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/0/06/Akureyri_map.png",
+            "titel": "Akureyri",
+            "seite": "https://de.wikipedia.org/wiki/Akureyri",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -857,6 +1085,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Goðafoss, Þingeyjarsveit, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Go%C3%B0afoss_July_2014.JPG/960px-Go%C3%B0afoss_July_2014.JPG",
+            "titel": "Goðafoss",
+            "seite": "https://de.wikipedia.org/wiki/Go%C3%B0afoss",
+            "autor": "Martin Falbisoner",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         }
       ]
@@ -892,6 +1129,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Skútustaðir, Mývatnssveitarvegur, Þingeyjarsveit"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/4/4e/Skutusta%C3%B0ahreppur_map.png",
+            "titel": "Skútustaðir",
+            "seite": "https://de.wikipedia.org/wiki/Sk%C3%BAtusta%C3%B0ir",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -922,6 +1168,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Námaskarð, Þingeyjarsveit, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Hverir.JPG/960px-Hverir.JPG",
+            "titel": "Námaskarð",
+            "seite": "https://de.wikipedia.org/wiki/N%C3%A1maskar%C3%B0",
+            "autor": "Bromr",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -942,6 +1197,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Námafjall, Þingeyjarsveit, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/N%C3%A1mafjall_Iceland_009.JPG/960px-N%C3%A1mafjall_Iceland_009.JPG",
+            "titel": "Námafjall",
+            "seite": "https://de.wikipedia.org/wiki/N%C3%A1mafjall",
+            "autor": "Hansueli Krapf (User:Simisa)",
+            "lizenz": "CC BY-SA 2.5",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -960,6 +1224,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Dimmuborgir, Þingeyjarsveit, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Dimmuborgir-st%C3%ADgur.jpg/960px-Dimmuborgir-st%C3%ADgur.jpg",
+            "titel": "Dimmuborgir",
+            "seite": "https://de.wikipedia.org/wiki/Dimmuborgir",
+            "autor": "No machine-readable author provided. Gesturpa~commonswiki assumed (based on copyright claims).",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -975,6 +1248,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Reykjahlíð, Þingeyjarsveit, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Reykjahl%C3%AD%C3%B0.3.jpg",
+            "titel": "Reykjahlíð",
+            "seite": "https://de.wikipedia.org/wiki/Reykjahl%C3%AD%C3%B0",
+            "autor": "Erik Christensen",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -990,6 +1272,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Leirhnjúkur, Þingeyjarsveit, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Aerial_View_of_Krafla_and_Leirhnj%C3%BAkur_21.05.2008_16-08-01.2008_16-08-01.JPG/960px-Aerial_View_of_Krafla_and_Leirhnj%C3%BAkur_21.05.2008_16-08-01.2008_16-08-01.JPG",
+            "titel": "Krafla",
+            "seite": "https://de.wikipedia.org/wiki/Krafla",
+            "autor": "Hansueli Krapf",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1037,6 +1328,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Grenjaðarstaður, Grenjaðarstaðarkirkja, Þingeyjarsveit"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Torfh%C3%A4user_in_Grenja%C3%B0arsta%C3%B0ur_2011.jpg/960px-Torfh%C3%A4user_in_Grenja%C3%B0arsta%C3%B0ur_2011.jpg",
+            "titel": "Grenjaðarstaður",
+            "seite": "https://de.wikipedia.org/wiki/Grenja%C3%B0arsta%C3%B0ur",
+            "autor": "JøMa",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1053,6 +1353,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Húsavík, Norðurþing, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/c/c4/Husavikwhalemuseum.jpg",
+            "titel": "Walmuseum in Húsavík",
+            "seite": "https://de.wikipedia.org/wiki/Walmuseum_in_H%C3%BAsav%C3%ADk",
+            "autor": "WhaleMuseum",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1102,6 +1411,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Aerial_View_of_%C3%81sbyrgi_21.05.2008_15-39-42.JPG/960px-Aerial_View_of_%C3%81sbyrgi_21.05.2008_15-39-42.JPG",
+            "titel": "Ásbyrgi",
+            "seite": "https://de.wikipedia.org/wiki/%C3%81sbyrgi",
+            "autor": "Hansueli Krapf",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1147,6 +1465,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Dettifoss, Selfoss, Hafragilsfoss"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Dettifoss_001.jpg/960px-Dettifoss_001.jpg",
+            "titel": "Dettifoss",
+            "seite": "https://de.wikipedia.org/wiki/Dettifoss",
+            "autor": "Superbass",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         }
       ]
@@ -1179,6 +1506,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Hauganes, Dalvíkurbyggð, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Hauganes_0041.jpg/960px-Hauganes_0041.jpg",
+            "titel": "Hauganes",
+            "seite": "https://de.wikipedia.org/wiki/Hauganes",
+            "autor": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1194,6 +1530,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Hr%C3%ADsey_0067.jpg/960px-Hr%C3%ADsey_0067.jpg",
+            "titel": "Hrísey",
+            "seite": "https://de.wikipedia.org/wiki/Hr%C3%ADsey",
+            "autor": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1224,6 +1569,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Dalvík, Dalvíkurbyggð, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/d/df/Dalvikurbyggd_map.png",
+            "titel": "Dalvíkurbyggð",
+            "seite": "https://de.wikipedia.org/wiki/Dalv%C3%ADkurbygg%C3%B0",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1290,6 +1644,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Siglufj%C3%B6r%C3%B0ur_%280859%29.jpg/960px-Siglufj%C3%B6r%C3%B0ur_%280859%29.jpg",
+            "titel": "Siglufjörður",
+            "seite": "https://de.wikipedia.org/wiki/Siglufj%C3%B6r%C3%B0ur",
+            "autor": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         }
       ]
@@ -1327,6 +1690,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Dettifoss, Selfoss, Hafragilsfoss"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Dettifoss_001.jpg/960px-Dettifoss_001.jpg",
+            "titel": "Dettifoss",
+            "seite": "https://de.wikipedia.org/wiki/Dettifoss",
+            "autor": "Superbass",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1342,6 +1714,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Möðrudalur, Múlaþing, Austurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/M%C3%B6%C3%B0rudalur_Sept_2020.jpg/960px-M%C3%B6%C3%B0rudalur_Sept_2020.jpg",
+            "titel": "Möðrudalur",
+            "seite": "https://de.wikipedia.org/wiki/M%C3%B6%C3%B0rudalur",
+            "autor": "Kasa Fue",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1357,6 +1738,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Herðubreið, Þingeyjarsveit, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Herdubreid.jpg",
+            "titel": "Herðubreið",
+            "seite": "https://de.wikipedia.org/wiki/Her%C3%B0ubrei%C3%B0",
+            "autor": "Hagen Trost (Hagent)",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1409,6 +1799,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Egilsstaðir, Múlaþing, Austurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/2014-05-04_12-31-18_Iceland_-_Egilsst%C3%B6%C3%B0um_Fellabaer.jpg/960px-2014-05-04_12-31-18_Iceland_-_Egilsst%C3%B6%C3%B0um_Fellabaer.jpg",
+            "titel": "Flughafen Egilsstaðir",
+            "seite": "https://de.wikipedia.org/wiki/Flughafen_Egilssta%C3%B0ir",
+            "autor": "Hansueli Krapf This file was uploaded with Commonist.",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1487,6 +1886,15 @@
             "geprueftAm": "2026-08-13",
             "ref": "OSM Ortslage Eiðar (65.37228/-14.35045) mit Alþýðuskólinn á Eiðum",
             "hinweis": "Korrigiert um ca. 12 km nach Südosten — die bisherige Näherung lag westlich der Straße 94 im freien Feld."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ei%C3%B0ar.JPG/960px-Ei%C3%B0ar.JPG",
+            "titel": "Eiðar",
+            "seite": "https://de.wikipedia.org/wiki/Ei%C3%B0ar",
+            "autor": "Bromr",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "einziger Artikel mit Bild unter 400 m"
           }
         },
         {
@@ -1562,6 +1970,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Bakkagerði, Múlaþing, Austurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Bakkagerdi5.JPG/960px-Bakkagerdi5.JPG",
+            "titel": "Bakkagerði",
+            "seite": "https://de.wikipedia.org/wiki/Bakkager%C3%B0i",
+            "autor": "TommyBee",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         }
       ]
@@ -1595,6 +2012,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Reyðarfjörður, Fjarðabyggð, Austurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Rey%C3%B0arfj%C3%B6r%C3%B0ur_6436.JPG/960px-Rey%C3%B0arfj%C3%B6r%C3%B0ur_6436.JPG",
+            "titel": "Reyðarfjörður (Fjord)",
+            "seite": "https://de.wikipedia.org/wiki/Rey%C3%B0arfj%C3%B6r%C3%B0ur_(Fjord)",
+            "autor": "Hedwig Storch",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1610,6 +2036,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Fáskrúðsfjörður, Fjarðabyggð, Austurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/F%C3%A1skr%C3%BA%C3%B0sfj%C3%B6r%C3%B0ur_bilingualroadsign.jpg/960px-F%C3%A1skr%C3%BA%C3%B0sfj%C3%B6r%C3%B0ur_bilingualroadsign.jpg",
+            "titel": "Fáskrúðsfjörður",
+            "seite": "https://de.wikipedia.org/wiki/F%C3%A1skr%C3%BA%C3%B0sfj%C3%B6r%C3%B0ur",
+            "autor": "Erdrokan",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1625,6 +2060,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Steinsammlung von Petra\" (Reiseplan nennt: Stöðvarfjörður). Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/St%C3%B6%C3%B0varfj%C3%B6r%C3%B0ur_2023_A.jpg/960px-St%C3%B6%C3%B0varfj%C3%B6r%C3%B0ur_2023_A.jpg",
+            "titel": "Stöðvarfjörður",
+            "seite": "https://en.wikipedia.org/wiki/St%C3%B6%C3%B0varfj%C3%B6r%C3%B0ur",
+            "autor": "Eysteinn Guðni Guðnason",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "einziger Artikel mit Bild unter 400 m"
           }
         },
         {
@@ -1640,6 +2084,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Brei%C3%B0dalsv%C3%ADk_2023_B.jpg/960px-Brei%C3%B0dalsv%C3%ADk_2023_B.jpg",
+            "titel": "Breiðdalsvík",
+            "seite": "https://en.wikipedia.org/wiki/Brei%C3%B0dalsv%C3%ADk",
+            "autor": "Eysteinn Guðni Guðnason",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1655,6 +2108,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Djúpivogur, Múlaþing, Austurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/f/fe/Djupavogshreppur_map.png",
+            "titel": "Djúpivogur",
+            "seite": "https://de.wikipedia.org/wiki/Dj%C3%BApivogur",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1671,6 +2133,15 @@
             "geprueftAm": "2026-08-13",
             "ref": "Zufahrt Stokksnes ab dem Viking Café, gebührenpflichtige Straße",
             "hinweis": "Der Eintrag nennt drei Objekte. Der Punkt liegt auf der Landzunge Stokksnes mit Strand und Dünen — Brunnhorn (64.285/-14.920) liegt 5 km nordöstlich und ist von hier aus das Motiv, nicht das Ziel."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/2008-05-23_27_Stokksnes.jpg/960px-2008-05-23_27_Stokksnes.jpg",
+            "titel": "Stokksnes",
+            "seite": "https://de.wikipedia.org/wiki/Stokksnes",
+            "autor": "Hansueli Krapf",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1704,6 +2175,15 @@
             "geprueftAm": "2026-08-13",
             "ref": "Parkplätze beidseits der Ringstraßenbrücke über die Jökulsá",
             "hinweis": "Bewusst nicht auf die Seemitte gesetzt: OSM verortet die Lagune 4 km weiter nördlich am Gletscher. Für die Anfahrt zählt die Brücke — dort liegen Parkplätze, Bootsanleger und Café."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/J%C3%B6kuls%C3%A1rl%C3%B3n_002.jpg/960px-J%C3%B6kuls%C3%A1rl%C3%B3n_002.jpg",
+            "titel": "Jökulsá (Breiðamerkursandur)",
+            "seite": "https://de.wikipedia.org/wiki/J%C3%B6kuls%C3%A1_(Brei%C3%B0amerkursandur)",
+            "autor": "Superbass",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1719,6 +2199,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Breiðamerkursandur, Sveitarfélagið Hornafjörður, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Is05004-Widok_na_parking_i_most.jpg/960px-Is05004-Widok_na_parking_i_most.jpg",
+            "titel": "Jökulsá (Breiðamerkursandur)",
+            "seite": "https://en.wikipedia.org/wiki/J%C3%B6kuls%C3%A1_(Brei%C3%B0amerkursandur)",
+            "autor": "PanWoyteczek",
+            "lizenz": "CC BY 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "einziger Artikel mit Bild unter 400 m"
           }
         },
         {
@@ -1735,6 +2224,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Fjallsárlón, Sveitarfélagið Hornafjörður, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Fjallsarlon20080805.jpg/960px-Fjallsarlon20080805.jpg",
+            "titel": "Fjallsárlón",
+            "seite": "https://de.wikipedia.org/wiki/Fjalls%C3%A1rl%C3%B3n",
+            "autor": "Wikiwadu",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1753,6 +2251,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Skaftafell, Sveitarfélagið Hornafjörður, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Skaftafell_glacierIceland_2.JPG/960px-Skaftafell_glacierIceland_2.JPG",
+            "titel": "Skaftafellsjökull",
+            "seite": "https://de.wikipedia.org/wiki/Skaftafellsj%C3%B6kull",
+            "autor": "Chris 73",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1768,6 +2275,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Kirkjubæjarklaustur, Skaftárhreppur, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/K-Klaustur.jpg/960px-K-Klaustur.jpg",
+            "titel": "Kirkjubæjarklaustur",
+            "seite": "https://de.wikipedia.org/wiki/Kirkjub%C3%A6jarklaustur",
+            "autor": "Gino maccanti",
+            "lizenz": "CC BY 2.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1786,6 +2302,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Fjaðrárgljúfur, Fjaðrárgljúfursvegur, Skaftárhreppur"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Iceland_adm_location_map.svg/960px-Iceland_adm_location_map.svg.png",
+            "titel": "Fjaðrárgljúfur",
+            "seite": "https://de.wikipedia.org/wiki/Fja%C3%B0r%C3%A1rglj%C3%BAfur",
+            "autor": "NordNordWest",
+            "lizenz": "CC BY-SA 3.0 de",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1848,6 +2373,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Vík, Mýrdalshreppur, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Iceland-Vik-Oct2009.jpg/960px-Iceland-Vik-Oct2009.jpg",
+            "titel": "Vík í Mýrdal",
+            "seite": "https://de.wikipedia.org/wiki/V%C3%ADk_%C3%AD_M%C3%BDrdal",
+            "autor": "Progresschrome",
+            "lizenz": "CC BY 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1878,6 +2412,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Dyrhólaey, Mýrdalshreppur, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Dyrh%C3%B3laey.jpg/960px-Dyrh%C3%B3laey.jpg",
+            "titel": "Dyrhólaey",
+            "seite": "https://de.wikipedia.org/wiki/Dyrh%C3%B3laey",
+            "autor": "Rosino",
+            "lizenz": "CC BY-SA 2.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1893,6 +2436,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Sk%C3%B3gafoss-pjt.jpg/960px-Sk%C3%B3gafoss-pjt.jpg",
+            "titel": "Skógafoss",
+            "seite": "https://de.wikipedia.org/wiki/Sk%C3%B3gafoss",
+            "autor": "pjt56",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1927,6 +2479,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Seljalandsfoss, Rangárþing eystra, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e9/Seljalandsfoss%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-17%2C_DD_114.JPG/960px-Seljalandsfoss%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-17%2C_DD_114.JPG",
+            "titel": "Seljalandsfoss",
+            "seite": "https://de.wikipedia.org/wiki/Seljalandsfoss",
+            "autor": "Diego Delso",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         }
       ]
@@ -1959,6 +2520,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/%C3%9Eingvellir01.jpg/960px-%C3%9Eingvellir01.jpg",
+            "titel": "Þingvellir",
+            "seite": "https://de.wikipedia.org/wiki/%C3%9Eingvellir",
+            "autor": "Christian Bickel",
+            "lizenz": "CC BY-SA 2.0 de",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -1979,6 +2549,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"durch die Almannagjá\" (Reiseplan nennt: Þingvellir). Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/36/%C3%96xar%C3%A1rfoss%2C_Parque_Nacional_de_%C3%9Eingvellir%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_028.JPG/960px-%C3%96xar%C3%A1rfoss%2C_Parque_Nacional_de_%C3%9Eingvellir%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_028.JPG",
+            "titel": "Öxará",
+            "seite": "https://en.wikipedia.org/wiki/%C3%96xar%C3%A1",
+            "autor": "Diego Delso",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "einziger Artikel mit Bild unter 400 m"
           }
         },
         {
@@ -1995,6 +2574,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Silfra-Spalte\" (Reiseplan nennt: Þingvellir). Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f9/Iceland_Mid-Atlantic_Ridge_map-de.svg/960px-Iceland_Mid-Atlantic_Ridge_map-de.svg.png",
+            "titel": "Silfra-Spalte",
+            "seite": "https://de.wikipedia.org/wiki/Silfra-Spalte",
+            "autor": "Iceland Mid-Atlantic Ridge map.svg: Beao this file: Furfur",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2010,6 +2598,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Laugarvatn, Bláskógabyggð, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Laugarvatn01.jpg/960px-Laugarvatn01.jpg",
+            "titel": "Laugarvatn",
+            "seite": "https://de.wikipedia.org/wiki/Laugarvatn",
+            "autor": "Christian Bickel",
+            "lizenz": "CC BY-SA 2.0 de",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2025,6 +2622,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Geysir Cottages, 4, Haukadalur"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Strokkur.jpeg/960px-Strokkur.jpeg",
+            "titel": "Strokkur",
+            "seite": "https://de.wikipedia.org/wiki/Strokkur",
+            "autor": "Halbmastwurf (Diskussion)",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2040,6 +2646,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Gullfoss%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_123.JPG/960px-Gullfoss%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_123.JPG",
+            "titel": "Gullfoss",
+            "seite": "https://de.wikipedia.org/wiki/Gullfoss",
+            "autor": "Diego Delso",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2055,6 +2670,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Kerið, Grímsnes- og Grafningshreppur, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Iceland2009-BradWeber-Kerid.jpg/960px-Iceland2009-BradWeber-Kerid.jpg",
+            "titel": "Kerið",
+            "seite": "https://de.wikipedia.org/wiki/Keri%C3%B0",
+            "autor": "Progresschrome",
+            "lizenz": "CC BY 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2100,6 +2724,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Skálholt, Bláskógabyggð, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/32_Skalholt_%283a%29.JPG/960px-32_Skalholt_%283a%29.JPG",
+            "titel": "Skálholt",
+            "seite": "https://de.wikipedia.org/wiki/Sk%C3%A1lholt",
+            "autor": "Ljuba brank at Slovenian Wikipedia",
+            "lizenz": "CC BY-SA 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2149,6 +2782,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Stokkseyri, Sveitarfélagið Árborg, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/StokkseyrikirkjaIce.JPG/960px-StokkseyrikirkjaIce.JPG",
+            "titel": "Stokkseyri",
+            "seite": "https://en.wikipedia.org/wiki/Stokkseyri",
+            "autor": "TommyBee",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2164,6 +2806,14 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Eyrarbakki, Sveitarfélagið Árborg, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Eyrarbakki_01.JPG/960px-Eyrarbakki_01.JPG",
+            "titel": "Eyrarbakki",
+            "seite": "https://de.wikipedia.org/wiki/Eyrarbakki",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2209,6 +2859,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Þorlákshöfn, Sveitarfélagið Ölfus, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/%C3%9Eorl%C3%A1ksh%C3%B6fn_0572.jpg/960px-%C3%9Eorl%C3%A1ksh%C3%B6fn_0572.jpg",
+            "titel": "Þorlákshöfn",
+            "seite": "https://de.wikipedia.org/wiki/%C3%9Eorl%C3%A1ksh%C3%B6fn",
+            "autor": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2225,6 +2884,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Raufarhólshellir, Þrengslavegur, Sveitarfélagið Ölfus"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Raufarh%C3%B3lshellir_icicles_2018d.jpg/960px-Raufarh%C3%B3lshellir_icicles_2018d.jpg",
+            "titel": "Raufarhólshellir",
+            "seite": "https://en.wikipedia.org/wiki/Raufarh%C3%B3lshellir",
+            "autor": "Antony-22",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2240,6 +2908,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/KrysuvikWinter.jpg/960px-KrysuvikWinter.jpg",
+            "titel": "Krýsuvík",
+            "seite": "https://de.wikipedia.org/wiki/Kr%C3%BDsuv%C3%ADk",
+            "autor": "Andreas Tille",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2255,6 +2932,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Kleifarvatn, Hafnarfjarðarkaupstaður, Grindavíkurbær"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Kleifarvatn_3.jpg/960px-Kleifarvatn_3.jpg",
+            "titel": "Kleifarvatn",
+            "seite": "https://de.wikipedia.org/wiki/Kleifarvatn",
+            "autor": "Christian Bickel",
+            "lizenz": "CC BY-SA 2.0 de",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2274,6 +2960,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Reykjadalur, Sveitarfélagið Ölfus, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Reykjadalsa_djupagil.jpg/960px-Reykjadalsa_djupagil.jpg",
+            "titel": "Reykjadalur (Ölfus)",
+            "seite": "https://de.wikipedia.org/wiki/Reykjadalur_(%C3%96lfus)",
+            "autor": "Gestumblindi",
+            "lizenz": "CC BY 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2326,6 +3021,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Reykjadalur, Sveitarfélagið Ölfus, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Reykjadalsa_djupagil.jpg/960px-Reykjadalsa_djupagil.jpg",
+            "titel": "Reykjadalur (Ölfus)",
+            "seite": "https://de.wikipedia.org/wiki/Reykjadalur_(%C3%96lfus)",
+            "autor": "Gestumblindi",
+            "lizenz": "CC BY 3.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2356,6 +3060,14 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Sammeleintrag für die Küstenstraße 34 — die Einzelziele haben eigene Stopps am 08.09."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Eyrarbakki_01.JPG/960px-Eyrarbakki_01.JPG",
+            "titel": "Eyrarbakki",
+            "seite": "https://de.wikipedia.org/wiki/Eyrarbakki",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2371,6 +3083,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/KrysuvikWinter.jpg/960px-KrysuvikWinter.jpg",
+            "titel": "Krýsuvík",
+            "seite": "https://de.wikipedia.org/wiki/Kr%C3%BDsuv%C3%ADk",
+            "autor": "Andreas Tille",
+            "lizenz": "CC BY-SA 4.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2386,6 +3107,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Langhóll, Grindavíkurbær, Suðurnes"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Reykjanes_volcanic_systems.png/960px-Reykjanes_volcanic_systems.png",
+            "titel": "Vulkanausbrüche beim Fagradalsfjall seit 2021",
+            "seite": "https://de.wikipedia.org/wiki/Vulkanausbr%C3%BCche_beim_Fagradalsfjall_seit_2021",
+            "autor": "National Land Survey of Iceland with annotations by User:Prioryman",
+            "lizenz": "Attribution",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2401,6 +3131,15 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Grindavík, Grindavíkurbær, Suðurnes"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/4/40/Grindavikurkaupstadur_map.png",
+            "titel": "Grindavík",
+            "seite": "https://de.wikipedia.org/wiki/Grindav%C3%ADk",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "Artikelname passt zum Stopp"
           }
         },
         {
@@ -2418,6 +3157,13 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Bláa lónið, 9, Norðurljósavegur"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/en/thumb/0/00/Blue_Lagoon_Main_Building.JPG/960px-Blue_Lagoon_Main_Building.JPG",
+            "titel": "Blue Lagoon (geothermal spa)",
+            "seite": "https://en.wikipedia.org/wiki/Blue_Lagoon_(geothermal_spa)",
+            "geprueftAm": "2026-08-14",
+            "grund": "einziger Artikel mit Bild unter 400 m"
           }
         },
         {
@@ -2465,6 +3211,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Tankstellen am Kreisverkehr Njarðvík an der Straße 41; mehrere Betreiber nebeneinander, deshalb Bereichsangabe."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/7/74/Reykjanesbaer_map.png",
+            "titel": "Reykjanesbær",
+            "seite": "https://de.wikipedia.org/wiki/Reykjanesb%C3%A6r",
+            "autor": "No machine-readable author provided. Bjarki S assumed (based on copyright claims).",
+            "lizenz": "Public domain",
+            "geprueftAm": "2026-08-14",
+            "grund": "einziger Artikel mit Bild unter 400 m"
           }
         },
         {
@@ -2480,6 +3235,15 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: kein Treffer in OSM für \"Check-in\" (Reiseplan nennt: Keflavík International Airport). Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/SSJ100_Keflavik_runways_%285160518757%29.jpg/960px-SSJ100_Keflavik_runways_%285160518757%29.jpg",
+            "titel": "Flughafen Keflavík",
+            "seite": "https://de.wikipedia.org/wiki/Flughafen_Keflav%C3%ADk",
+            "autor": "SuperJet International",
+            "lizenz": "CC BY-SA 2.0",
+            "geprueftAm": "2026-08-14",
+            "grund": "einziger Artikel mit Bild unter 400 m"
           }
         }
       ]

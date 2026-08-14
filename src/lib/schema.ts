@@ -32,6 +32,19 @@ export const PosMetaSchema = z.object({
 });
 export type PosMeta = z.infer<typeof PosMetaSchema>;
 
+/** Foto aus Wikipedia/Wikimedia Commons, zur Build-Zeit zugeordnet. */
+export const BildSchema = z.object({
+  url: z.string().url(),
+  titel: z.string(),
+  seite: z.string().url(),
+  autor: z.string().optional(),
+  lizenz: z.string().optional(),
+  geprueftAm: z.string(),
+  /** Warum dieses Bild zu diesem Stopp gehört — nachvollziehbar statt geraten. */
+  grund: z.string(),
+});
+export type Bild = z.infer<typeof BildSchema>;
+
 export const WanderungSchema = z.object({
   gehzeit: z.string().optional(),
   hoehenmeter: z.string().optional(),
@@ -49,6 +62,7 @@ export const StoppSchema = z.object({
   /** Fehlt der Schlüssel ganz, gilt die Position als unbekannt — nicht als 0/0. */
   pos: PosSchema.nullable().default(null),
   posMeta: PosMetaSchema.optional(),
+  bild: BildSchema.optional(),
 });
 export type Stopp = z.infer<typeof StoppSchema>;
 
@@ -101,6 +115,7 @@ export const UnterkunftSchema = z.object({
   hinweis: z.string().nullable().optional(),
   pos: PosSchema.nullable().default(null),
   posMeta: PosMetaSchema.optional(),
+  bild: BildSchema.optional(),
 });
 export type Unterkunft = z.infer<typeof UnterkunftSchema>;
 

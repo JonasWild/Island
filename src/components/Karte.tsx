@@ -23,6 +23,7 @@ export function Karte() {
   useTastatur();
   const theme = useMapStore((s) => s.theme);
   const toggleTheme = useMapStore((s) => s.toggleTheme);
+  const auswahl = useMapStore((s) => s.auswahl);
 
   return (
     <main className="relative h-dvh w-full overflow-hidden">
@@ -31,12 +32,15 @@ export function Karte() {
         type="button"
         onClick={toggleTheme}
         title={theme === 'hell' ? 'Dunkles Kartenbild' : 'Helles Kartenbild'}
-        className="absolute left-3 top-3 z-30 rounded-md bg-white/85 px-2.5 py-1.5 text-[11px] font-medium text-slate-700 shadow ring-1 ring-black/10 backdrop-blur transition hover:bg-white"
+        className="absolute left-3 top-3 z-40 rounded-md bg-white/85 px-2.5 py-1.5 text-[11px] font-medium text-slate-700 shadow ring-1 ring-black/10 backdrop-blur transition hover:bg-white"
       >
         {theme === 'hell' ? 'Dunkel' : 'Hell'}
       </button>
       <ContextSheet />
-      <Timeline />
+      {/* Die Detailleiste nimmt ein Drittel — der Tagesstreifen rückt dann nach links. */}
+      <div className={auswahl ? 'sm:pr-[33.333%]' : undefined}>
+        <Timeline />
+      </div>
     </main>
   );
 }

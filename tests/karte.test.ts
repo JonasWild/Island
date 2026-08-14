@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { kategorieVon, KATEGORIE_LABEL, type Kategorie } from '@/lib/kategorie';
-import { routeFeatures, stoppFeatures } from '@/map/layers';
+import { modellPunkte, routeFeatures, stoppFeatures } from '@/map/layers';
 import { alleStopps, tage, unterkuenfte } from '@/lib/reise';
 
 const stopp = (name: string) => ({ name, wanderung: undefined });
@@ -55,8 +55,15 @@ describe('Kartenquellen', () => {
     const haeuser = unterkuenfte.filter((u) => u.pos !== null).length;
     expect(fc.features).toHaveLength(stopps + haeuser);
     for (const f of fc.features) {
-      expect(f.properties?.icon).toMatch(/^sym-/);
+      expect(KATEGORIE_LABEL[f.properties?.kategorie as Kategorie], String(f.properties?.name)).toBeTruthy();
     }
+  });
+
+  it('markiert im 3D-Layer nur den gewählten Tag als aktiv', () => {
+    const punkte = modellPunkte('2026-08-31');
+    expect(punkte.length).toBeGreaterThan(100);
+    expect(punkte.some((p) => p.aktiv)).toBe(true);
+    expect(punkte.some((p) => !p.aktiv)).toBe(true);
   });
 
   it('zeichnet die Route durchgehend über alle Tage', () => {

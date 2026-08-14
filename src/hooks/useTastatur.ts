@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 import { useMapStore } from '@/store/mapStore';
 
-/** ←/→ blättert durch die Tage, Esc schließt das Kontextblatt. */
+/** ←/→ blättert durch die Tage, Esc schließt Detailleiste bzw. Infobox. */
 export function useTastatur() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -17,7 +17,8 @@ export function useTastatur() {
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
         s.tagZurueck();
-      } else if (e.key === 'Escape' && s.auswahl.art !== 'keine') {
+      } else if (e.key === 'Escape' && (s.auswahl || s.fokus)) {
+        // Erst die Detailleiste, dann die Infobox.
         e.preventDefault();
         s.schliesse();
       }
