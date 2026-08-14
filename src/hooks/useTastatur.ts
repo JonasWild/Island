@@ -3,42 +3,23 @@
 import { useEffect } from 'react';
 import { useMapStore } from '@/store/mapStore';
 
-/** ←/→ Tag, Esc schließt, Leertaste startet und stoppt die Tour. */
+/** ←/→ blättert durch die Tage, Esc schließt das Kontextblatt. */
 export function useTastatur() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       const ziel = e.target as HTMLElement | null;
-      if (ziel && /^(INPUT|TEXTAREA|SELECT)$/.test(ziel.tagName)) return;
-      if (ziel?.isContentEditable) return;
+      if (ziel && (/^(INPUT|TEXTAREA|SELECT)$/.test(ziel.tagName) || ziel.isContentEditable)) return;
 
       const s = useMapStore.getState();
-      switch (e.key) {
-        case 'ArrowRight':
-          e.preventDefault();
-          s.tagVor();
-          break;
-        case 'ArrowLeft':
-          e.preventDefault();
-          s.tagZurueck();
-          break;
-        case 'Escape':
-          if (s.auswahl.art !== 'keine') {
-            e.preventDefault();
-            s.schliesse();
-          } else if (s.tourLaeuft) {
-            e.preventDefault();
-            s.tourStop();
-          }
-          break;
-        case ' ':
-        case 'Spacebar':
-          // Buttons dürfen ihre eigene Leertaste behalten.
-          if (ziel?.tagName === 'BUTTON') return;
-          e.preventDefault();
-          s.toggleTour();
-          break;
-        default:
-          break;
+      if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        s.tagVor();
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        s.tagZurueck();
+      } else if (e.key === 'Escape' && s.auswahl.art !== 'keine') {
+        e.preventDefault();
+        s.schliesse();
       }
     };
     window.addEventListener('keydown', handler);

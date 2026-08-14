@@ -49,17 +49,6 @@ describe('Prompt', () => {
     expect(p).toContain('Text des Veranstalters');
   });
 
-  it('zählt die Stopps in einer Fläche auf', () => {
-    const p = nutzerPrompt({
-      art: 'flaeche',
-      bbox: [-17.1, 65.5, -16.7, 65.75],
-      flaecheKm2: 420,
-      tagDatum: '2026-08-31',
-    });
-    expect(p).toContain('420 km²');
-    expect(p).toMatch(/Stopps in der Fläche|kein geplanter Stopp/);
-  });
-
   it('verbietet dem Modell erfundene Sicherheitsaussagen', () => {
     expect(SYSTEM_PROMPT).toContain('safetravel.is');
     expect(SYSTEM_PROMPT).toContain('unsicher');
@@ -67,6 +56,13 @@ describe('Prompt', () => {
 });
 
 describe('Mock-Adapter', () => {
+  it('unterscheidet Orts- von Stoppfragen', async () => {
+    const ref = alleStopps.find((s) => s.stopp.name === 'Goðafoss')!;
+    const ort = await sammle(nutzerPrompt({ art: 'ort', pos: [64.5, -21.2], tagDatum: '2026-08-30' }));
+    const stopp = await sammle(nutzerPrompt({ art: 'stopp', stoppId: ref.id, tagDatum: ref.datum }));
+    expect(ort.text).not.toBe(stopp.text);
+  });
+
   it('streamt deterministisch', async () => {
     const nutzer = nutzerPrompt({ art: 'ort', pos: [64.5, -21.2], tagDatum: '2026-08-30' });
     const a = await sammle(nutzer);
@@ -74,19 +70,6 @@ describe('Mock-Adapter', () => {
     expect(a.text).toBe(b.text);
     expect(a.text.length).toBeGreaterThan(100);
     expect(a.quellen.length).toBeGreaterThan(0);
-  });
-
-  it('unterscheidet Flächen- von Ortsfragen', async () => {
-    const ort = await sammle(nutzerPrompt({ art: 'ort', pos: [64.5, -21.2], tagDatum: '2026-08-30' }));
-    const flaeche = await sammle(
-      nutzerPrompt({
-        art: 'flaeche',
-        bbox: [-17.1, 65.5, -16.7, 65.75],
-        flaecheKm2: 420,
-        tagDatum: '2026-08-31',
-      }),
-    );
-    expect(ort.text).not.toBe(flaeche.text);
   });
 
   it('bricht bei Abbruch ab', async () => {

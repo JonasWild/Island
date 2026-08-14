@@ -1,181 +1,152 @@
 # Island 2026 — Rund um die Insel
 
-Karten-App zum Reiseplan von Katla Travel (Vorgang 15412, 27.08.–10.09.2026,
-5 Personen, Mietwagen, Ferienhäuser).
+Karte zum Reiseplan von Katla Travel (Vorgang 15412, 27.08.–10.09.2026,
+5 Personen, Mietwagen, Ferienhäuser). 15 Tage, 6 Unterkünfte, 128 Stopps.
 
-**Die Karte ist die App.** Keine Sidebar-Listen, keine Tabs, keine
-Dokumentansicht. Was nicht an der Karte hängt, ist nicht v1.
-Die vollständige Begründung steht in [`REQUIREMENTS.md`](./REQUIREMENTS.md).
+Die Karte ist die App. Daneben gibt es genau zwei Dinge: einen Tagesstreifen
+unten und ein Kontextblatt rechts, wenn man etwas anklickt.
 
 ## Loslegen
 
 ```bash
 pnpm install
-pnpm dev            # http://localhost:3000 — LLM läuft gegen Fixtures
+pnpm dev            # http://localhost:3000
 ```
 
-Ohne `.env` läuft alles im Mock-Modus: kein Schlüssel, kein Netzaufruf ans
-Modell, deterministische Antworten. Für den echten Aufruf `.env.example` nach
-`.env.local` kopieren und `LLM_MODE=live` setzen.
+Ohne `OPENAI_API_KEY` läuft die App vollständig, antwortet aber mit festen
+Beispieltexten — und sagt das im Kontextblatt und in der Server-Konsole
+deutlich. Für echte Antworten den Schlüssel in `.env.local` setzen
+(siehe `.env.example`). Einen Modus-Schalter gibt es nicht.
 
 | Befehl | Wirkung |
 |---|---|
 | `pnpm dev` | Entwicklungsserver |
 | `pnpm build` | validiert `reise.json` und baut |
-| `pnpm validate` | prüft `reise.json` gegen das Zod-Schema |
 | `pnpm geocode` | Geocoding-Pipeline (Build-Zeit, nicht Laufzeit) |
 | `pnpm test` | Vitest |
 | `pnpm e2e` | Playwright-Smoke |
-| `pnpm typecheck` | `tsc --noEmit` |
+| `pnpm typecheck` / `pnpm lint` | statische Prüfung |
 
-In Umgebungen mit vorinstalliertem Chromium (Container, CI-Images) braucht
-`pnpm e2e` den Pfad: `PLAYWRIGHT_CHROMIUM_PATH=/opt/pw-browsers/chromium pnpm e2e`.
+Container und CI-Images mit vorinstalliertem Chromium brauchen für die
+E2E-Tests den Pfad:
+`PLAYWRIGHT_CHROMIUM_PATH=/opt/pw-browsers/chromium pnpm e2e`.
 
 ## Bedienung
 
 | Eingabe | Wirkung |
 |---|---|
-| Klick auf einen Tag der Zeitachse | Kameraflug auf die Etappe |
-| `Tour` / Leertaste | Kamera fährt die Stopps des Tages ab |
+| Klick auf einen Tag | Kameraflug auf die Etappe |
 | `←` / `→` | Tag zurück / vor |
-| Klick auf einen Stopp | Kontextblatt am rechten Rand |
-| Klick auf leere Karte | „Was ist hier?" ans Modell, mit Koordinate, Tag und nächstem Stopp |
-| `Zeichnen` → Fläche | Die Fläche ist die Frage: „Was liegt in diesem Gebiet?" |
+| Klick auf einen Stopp | Kontextblatt rechts |
+| Klick auf leere Karte | „Was ist hier?" ans Modell, mit Koordinate, Reisetag und nächstem Stopp |
 | `Esc` | schließt das Kontextblatt |
 
 Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar und reload-fest.
 
-## Aufbau
-
-```
-data/reise.json          Single Source of Truth (15 Tage, 6 Unterkünfte, 128 Stopps)
-data/kuratiert.json      handgeprüfte Positionen mit Beleg — gewinnt gegen die Automatik
-data/offen.json          was die Pipeline nicht eindeutig auflösen konnte
-data/geocode-cache.json  committet: reproduzierbare Builds, keine Rate-Limit-Überraschungen
-scripts/geocode.ts       Nominatim + Overpass, nur eindeutige Treffer
-scripts/validate.ts      Zod-Prüfung, läuft vor jedem Build
-src/map/                 Style, Terrain, Layer, Kamera, Icons — reines MapLibre
-src/components/          Karte, Zeitachse, Kontextblatt, Zeichnen, HUD
-src/lib/llm/             Adapter (Mock ⇄ OpenAI), Prompt, Typen
-src/app/api/ask/         SSE-Route, Node-Runtime
-```
-
-### Kartentechnik
+## Karte
 
 MapLibre GL JS v5 direkt, ohne `react-map-gl` — die Kamera bleibt imperativ.
-3D-Terrain über `raster-dem` + `setTerrain`, Sky-Layer, Globus-Projektion.
-Basiskarte OpenFreeMap, DEM von `demotiles.maplibre.org` (frei, kein Token).
-Zeichnen über Terra Draw (`@watergis/maplibre-gl-terradraw`) mit Undo/Redo und
-`localStorage`-Persistenz.
+Basiskarte OpenFreeMap (kein Key), hell als Standard, dunkel per Schalter über
+einen echten Style-Wechsel statt eines CSS-Filters.
 
-Stopps liegen in einem Symbol-Layer, nicht als DOM-Marker: bei 128 Punkten über
-15 Tage ist das der Unterschied zwischen flüssig und ruckelig. Die Icons werden
-zur Laufzeit auf ein Canvas gezeichnet — kein Sprite, kein weiterer Netzaufruf.
+**Terrain** über `raster-dem` + `setTerrain` mit den
+[AWS Terrain Tiles](https://registry.opendata.aws/terrain-tiles/) in
+Terrarium-Kodierung. Nicht `demotiles.maplibre.org`: dessen Terrain-Kachelsatz
+enthält nur einen Ausschnitt der Alpen und liefert über Island nichts — dort
+blieb die Karte flach.
 
-Hell/dunkel ist ein echter Style-Wechsel, kein CSS-Filter. Nach jedem Wechsel
-werden Terrain, Icons, Quellen und Layer neu aufgebaut.
+**Die Route ist durchgehend.** Ein Segment je Tag, aber jedes beginnt beim
+letzten Stopp des Vortags, sodass keine Lücke entsteht. Alle Tage sind immer
+sichtbar; der gewählte Tag ist nur breiter und kräftiger. Die Farbe steht für
+die Art des Tages (Anreise, Standtag, Tagesausflug, Etappe, Abreise). Es ist
+eine Schematik, keine Navigationsroute — echtes Routing wäre v2.
 
-**Etappenlinien sind Schematik, keine Route.** Sie verbinden die Stopps eines
-Tages in Reihenfolge, gestrichelt und am Weg als „schematisch — keine Route"
-beschriftet. Echtes Routing (OSRM/Valhalla) ist v2.
+**Symbole statt Punkte.** Jeder Stopp bekommt ein Piktogramm für seine Art:
+Wasserfall, heiße Quelle, Vulkan, Gletscher, Schlucht, Höhle, Strand, Berg,
+See, Tiere, Museum, Historie, Wanderung, Ort, unterwegs, Unterkunft. Die
+Symbole werden zur Laufzeit auf ein Canvas gezeichnet — kein Sprite, kein
+weiterer Netzaufruf — und sitzen auf einer schattierten Platte, damit sie über
+dem Relief als Objekte lesbar sind.
 
-MapLibre 6 ist inzwischen erschienen; die App bleibt bewusst auf 5, weil die
-Requirements darauf entschieden wurden und Terra Draw beide unterstützt.
+Echte 3D-Modelle (glTF) kann MapLibre nicht von sich aus: das wäre ein
+three.js- oder deck.gl-Custom-Layer, also ein zweiter Renderer im Bundle. Für
+den Zweck — erkennen, was für ein Ziel das ist — tragen die Piktogramme das
+genauso, zu einem Bruchteil der Komplexität.
 
-### Daten und Herkunft
+Die Art wird in `src/lib/kategorie.ts` **allein aus dem Namen** abgeleitet,
+nicht aus dem Beschreibungstext. Isländische Namen tragen ihre Art im Wort
+(`-foss`, `-jökull`, `hver`, `-gljúfur`, `-vatn`), während der Text in die
+Irre führt: Stykkishólmur hat ein Vulkanmuseum, Akranes einen Hot Pot,
+Egilsstaðir ein Schwimmbad. Für die Handvoll bekannter Ziele, deren Name
+nichts verrät (Dimmuborgir, Herðubreið, Ásbyrgi …), steht eine kurze Liste
+davor. Ohne Treffer bleibt es ein Ort — nichts wird geraten.
 
-Jede Position trägt ihren Nachweis:
+## Daten
+
+`data/reise.json` ist die einzige Quelle. Jede Position trägt ihren Nachweis:
 
 ```ts
 pos:     [lat, lon]
 posMeta: { quelle: 'osm'|'wikidata'|'anbieter'|'reiseplan'|'manuell',
            genauigkeit: 'punkt'|'bereich',
-           geprueftAm: '2026-08-13',
-           ref?: string, hinweis?: string }
+           geprueftAm: '2026-08-13', ref?: string, hinweis?: string }
 ```
 
-Ohne `posMeta` gilt eine Position als unbelegt, und die UI zeigt das an — sie
-erfindet keine Genauigkeit. Bereichsangaben werden als offener, gestrichelter
-Ring gezeichnet, punktgenaue als gefüllter Kreis.
-
-`pnpm geocode` löst Stopps gegen Nominatim (primär) und Overpass (Rückfall)
-auf, `countrycodes=is`. Übernommen wird nur, was eindeutig ist:
+`pnpm geocode` löst gegen Nominatim (primär) und Overpass (Rückfall) auf,
+`countrycodes=is`, und übernimmt nur Eindeutiges:
 
 - Treffer weiter als 25 km von der Planposition zählen nicht.
-- Eine kuratierte Position wird höchstens 8 km verschoben. Alles darüber ist
-  keine Verfeinerung mehr, sondern ein anderer Ort — in Island heißen
-  Wasserfälle und Höfe oft mehrfach gleich (Rjúkandi, Reykholt, Laugarvatn).
-- Liegen mehrere getrennte Orte gleichen Namens in Reichweite, wird nur
-  übernommen, wenn genau einer davon die kuratierte Planposition auf 3 km
-  bestätigt — das ist Prüfung, nicht Raten.
+- Eine kuratierte Position wird höchstens 8 km verschoben — alles darüber ist
+  ein anderer Ort, nicht eine Verfeinerung (Rjúkandi, Reykholt und Laugarvatn
+  gibt es in Island mehrfach).
+- Bei mehreren gleichnamigen Orten nur, wenn genau einer die Planposition auf
+  3 km bestätigt.
 - Alles andere landet mit seinen Kandidaten in `data/offen.json`.
 
-`data/kuratiert.json` gewinnt immer. Dort stehen die von Hand belegten Fälle
-mit Quelle und Begründung — vor allem die Ferienhäuser (viatis.is nennt keine
-Adresse, also `genauigkeit: 'bereich'`) und die Landschaftsräume, bei denen ein
-Punkt ohnehin nur ein Schwerpunkt ist.
+`data/kuratiert.json` gewinnt immer und enthält die von Hand belegten Fälle mit
+Quelle und Begründung. Der Cache wird mitcommittet: reproduzierbare Builds,
+keine Rate-Limit-Überraschungen.
 
 Stand: **128 von 128 Stopps mit Beleg** — 89 punktgenau aus OSM, 39 als
-Bereich, keiner mehr ohne Position. 22 Stopps stehen zusätzlich in
-`offen.json`, weil OSM ihre Planposition nicht eindeutig bestätigt; sie
-behalten die Koordinate aus dem Reiseplan, aber mit `quelle: 'reiseplan'`.
-
-Datenstand, Korrekturen und die geklärten Streitfälle aus den PDFs:
+Bereich, keiner ohne Position. 22 stehen zusätzlich in `offen.json` zur
+manuellen Klärung. Korrekturen und die geklärten Streitfälle aus den PDFs:
 [`DATENSTAND.md`](./DATENSTAND.md).
 
-### LLM
+## LLM
 
 Alles serverseitig in `app/api/ask/route.ts`, Node-Runtime, SSE-Stream. Der
-Schlüssel liegt in der Vercel-Env und kommt nie in den Client.
+Schlüssel kommt nie in den Client.
 
-Der Kontext kommt ausschließlich aus `reise.json`: Reisetag, Etappe,
-Unterkunft, Koordinate, Veranstaltertext, nächstgelegene Stopps. Das Antwort­format
-ist eng geführt — höchstens sechs Punkte, Zahlen wenn vorhanden, Unsicherheit
-benennen, für Vulkane und Straßen auf safetravel.is / vedur.is / road.is
-verweisen. Jede Antwort ist in der UI als LLM-Ausgabe markiert.
+Der Kontext stammt ausschließlich aus `reise.json`: Reisetag, Etappe,
+Unterkunft, Koordinate, Veranstaltertext, nächstgelegene Stopps. Das
+Antwortformat ist eng geführt — höchstens sechs Punkte, Zahlen wenn vorhanden,
+Unsicherheit benennen, für Vulkane und Straßen auf safetravel.is, vedur.is und
+road.is verweisen.
 
-**`LLM_MODE=mock` ist der Standard.** Die ganze UI wurde gegen deterministische
-Fixtures gebaut und getestet; der echte Aufruf ist ein Adapter-Tausch, kein
-UI-Umbau.
+Ist `OPENAI_API_KEY` gesetzt, läuft der echte Aufruf über `ChatOpenAI`. Fehlt
+er, antwortet ein fester Beispieltext, die Server-Konsole schreibt eine
+Warnung, und das Kontextblatt sagt es dem Leser direkt.
 
 **Bekannte Einschränkung:** Streaming zusammen mit dem eingebauten
 `web_search`-Tool der Responses-API ist in LangChain JS fehleranfällig
 ([langchainjs#8283](https://github.com/langchain-ai/langchainjs/issues/8283)).
-Der Adapter geht deshalb zwei Wege:
-
-| `LLM_WEB_SEARCH` | Weg |
-|---|---|
-| `1` (Standard) | `invoke()` ohne Stream, Antwort wird serverseitig nachgestreamt |
-| `0` | echtes Token-Streaming über `.stream()`, ohne Live-Suche |
-
-Schlägt der Suchpfad fehl, wiederholt der Adapter ohne Suche. Der Client sieht
-in beiden Fällen dieselben SSE-Ereignisse. Ein Tavily-Tool als dritter Weg ist
-vorgesehen (`TAVILY_API_KEY`), aber nicht gebaut — erst der Spike, dann der Code.
+Der Adapter geht deshalb zwei Wege — mit `LLM_WEB_SEARCH=1` (Standard) per
+`invoke()` und serverseitigem Nachstreamen, mit `LLM_WEB_SEARCH=0` per echtem
+Token-Streaming ohne Suche. Schlägt der Suchpfad fehl, wiederholt er ohne
+Suche. Der Client sieht in beiden Fällen dieselben SSE-Ereignisse. Verifiziert
+ist der Suchpfad nicht — dafür fehlt ein Schlüssel.
 
 Rate Limit: 10 Anfragen pro IP und Minute, im Prozessspeicher. Auf Vercel gilt
-das je Instanz, nicht global; als Kostenbremse für eine Familien-App reicht das.
-Jede Anfrage wird mit Modus, Modell, Art, Zeichenzahl und Dauer geloggt.
+das je Instanz, nicht global; als Kostenbremse reicht das.
 
 ## Vercel
 
 Framework-Preset Next.js, Region `fra1`, Production auf `main`, Preview pro
-Branch. Env: `OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_MODE`, optional
-`TAVILY_API_KEY`.
+Branch. Env: `OPENAI_API_KEY`, `OPENAI_MODEL`, optional `LLM_WEB_SEARCH`.
+Die CSP in `next.config.ts` öffnet gezielt nur `tiles.openfreemap.org` und
+`s3.amazonaws.com`; alles andere bleibt zu.
 
-Die CSP in `next.config.ts` ist restriktiv und öffnet gezielt nur die Hosts für
-Tiles, Glyphs und DEM (`connect-src`, `img-src`, `worker-src blob:`).
+## Nicht enthalten
 
-## Stand der Meilensteine
-
-| # | Inhalt | Stand |
-|---|---|---|
-| 0 | Next.js + Zod-Schema + Validierung im Build | fertig |
-| 1 | MapLibre + Terrain + Stopps + Zeitachse | fertig |
-| 2 | Kamera-Tour, Kontextblatt, Deep Links | fertig |
-| 3 | Geocoding-Pipeline, Näherungen ersetzt | fertig |
-| 4 | LLM gemockt, SSE-Stream, Kartenklick-Frage | fertig |
-| 5 | LangChain echt + `web_search` | Adapter gebaut, Spike offen |
-| 6 | Terra Draw + Flächen-Frage | fertig |
-
-v2, nicht jetzt: echtes Routing, Offline/Service Worker, Wetter- und
-Straßenzustandsfeeds (vedur.is, road.is), Fotos pro Stopp, deck.gl-Arcs.
+Zeichnen/Editieren, Kamera-Tour, echtes Routing, Offline-Betrieb, Wetter- und
+Straßenzustandsfeeds, Fotos pro Stopp.

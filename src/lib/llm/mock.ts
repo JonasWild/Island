@@ -23,18 +23,9 @@ const FIXTURES: Record<string, string[]> = {
     '- **Anfang September** — Tageslicht rund 14 Stunden, Wetterumschwünge häufig. Wind ist der begrenzende Faktor, nicht die Temperatur.',
     '- **Unsicher** — Öffnungszeiten und Preise für 2026 sind nicht Teil der Reiseunterlagen und müssen beim Anbieter geprüft werden.',
   ],
-  flaeche: [
-    '- **Gebiet** — Die gezeichnete Fläche liegt im Umfeld der Tagesetappe; die Karte listet die geplanten Stopps darin.',
-    '- **Landschaft** — In dieser Größenordnung wechseln in Island Küste, Lavafeld und Hochlandrand oft innerhalb weniger Kilometer.',
-    '- **Zusätzliche Ziele** — Was hier sonst noch liegt, ist meist über Stichstraßen erreichbar; jede Stichstraße kostet Hin- und Rückweg.',
-    '- **Fahrzeit** — Als Faustregel 60–70 km/h auf der Ringstraße, 40 km/h auf Schotter der Nummern 500+.',
-    '- **Unsicher** — Ohne Routingdienst sind die Entfernungen in der App Luftlinien, keine Fahrstrecken.',
-    '- **Vor Ort prüfen** — Bei Hochlandnähe die Öffnung der F-Straßen auf road.is verifizieren.',
-  ],
 };
 
 function fixtureFuer(nutzer: string): string[] {
-  if (nutzer.includes('Gezeichnete Fläche')) return FIXTURES.flaeche!;
   if (nutzer.includes('Angeklickte Koordinate')) return FIXTURES.ort!;
   return FIXTURES.stopp!;
 }

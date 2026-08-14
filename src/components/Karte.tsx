@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic';
 import { Timeline } from './Timeline';
 import { ContextSheet } from './ContextSheet';
-import { Hud } from './Hud';
+import { useMapStore } from '@/store/mapStore';
 import { useDeepLink } from '@/hooks/useDeepLink';
 import { useTastatur } from '@/hooks/useTastatur';
 
@@ -11,24 +11,30 @@ import { useTastatur } from '@/hooks/useTastatur';
 const MapCanvas = dynamic(() => import('./MapCanvas').then((m) => m.MapCanvas), {
   ssr: false,
   loading: () => (
-    <div className="absolute inset-0 grid place-items-center bg-slate-950 text-sm text-slate-500">
+    <div className="absolute inset-0 grid place-items-center text-sm text-slate-400">
       Karte wird geladen …
     </div>
   ),
 });
 
-/**
- * Die ganze App: eine Karte, eine Zeitachse, ein Kontextblatt.
- * Keine Sidebar-Liste, keine Tabs, keine Dokumentansicht.
- */
+/** Die ganze App: eine Karte, ein Tagesstreifen, ein Kontextblatt. */
 export function Karte() {
   useDeepLink();
   useTastatur();
+  const theme = useMapStore((s) => s.theme);
+  const toggleTheme = useMapStore((s) => s.toggleTheme);
 
   return (
     <main className="relative h-dvh w-full overflow-hidden">
       <MapCanvas />
-      <Hud />
+      <button
+        type="button"
+        onClick={toggleTheme}
+        title={theme === 'hell' ? 'Dunkles Kartenbild' : 'Helles Kartenbild'}
+        className="absolute left-3 top-3 z-30 rounded-md bg-white/85 px-2.5 py-1.5 text-[11px] font-medium text-slate-700 shadow ring-1 ring-black/10 backdrop-blur transition hover:bg-white"
+      >
+        {theme === 'hell' ? 'Dunkel' : 'Hell'}
+      </button>
       <ContextSheet />
       <Timeline />
     </main>

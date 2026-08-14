@@ -7,11 +7,8 @@ import type { NextConfig } from 'next';
  * die MapLibre-Worker (blob:).
  */
 const MAP_HOSTS = [
-  'https://tiles.openfreemap.org',
-  'https://demotiles.maplibre.org',
-  'https://*.maplibre.org',
-  'https://api.mapterhorn.com',
-  'https://*.basemaps.cartocdn.com',
+  'https://tiles.openfreemap.org', // Basiskarte
+  'https://s3.amazonaws.com', // DEM: AWS Terrain Tiles
 ];
 
 const csp = [
