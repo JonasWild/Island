@@ -26,3 +26,59 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+  MapLibre setzt seine Bedienelemente hart an den Kartenrand. Auf dem Handy
+  liegt dort der Tagesstreifen, deshalb werden sie darüber gehoben — gegen die
+  von Timeline gemessene `--streifen-hoehe`, nicht gegen eine geratene Zahl.
+
+  Die Stapelung von unten nach oben: Tagesstreifen, eigene Schalter,
+  Herkunftsangabe. Die Herkunftsangabe steht ganz oben, weil sie als einzige
+  mit dem Inhalt wächst (mit eingeschaltetem Relief kommt der DEM-Anbieter
+  dazu und sie bricht um). Am unteren Rand verankert wächst sie nach oben und
+  kann nichts darunter erreichen. Verdeckt werden darf sie nicht: sie ist
+  Bedingung der Kartennutzung, kein Zierrat.
+
+  Der Selektor ist bewusst über `.maplibregl-map` verschachtelt: maplibre-gl.css
+  wird erst in MapCanvas importiert und käme sonst nach dieser Datei — bei
+  gleicher Spezifität gewinnt dann die Bibliothek, und die Bedienelemente lägen
+  wieder unter dem Streifen. Dasselbe Muster wie beim `position: relative` auf
+  `.maplibregl-map`.
+*/
+.maplibregl-map .maplibregl-ctrl-bottom-right {
+  bottom: calc(var(--streifen-hoehe, 7rem) + 0.5rem + env(safe-area-inset-bottom));
+}
+
+.maplibregl-map .maplibregl-ctrl-bottom-left {
+  bottom: calc(var(--streifen-hoehe, 7rem) + 4rem + env(safe-area-inset-bottom));
+}
+
+/*
+  Und sie bleibt aus der rechten Spalte heraus, in der die Zoom-Knöpfe stehen.
+  Ohne die Begrenzung zieht sich die Angabe über die volle Breite und legt sich
+  quer über sie. Lieber eine Zeile mehr als ein verdeckter Knopf.
+*/
+.maplibregl-map .maplibregl-ctrl-bottom-left .maplibregl-ctrl-attrib {
+  /* maplibre-gl.css gibt der Angabe seitliches Padding; ohne `border-box`
+     zählt `max-width` nur den Inhalt und die Box wird trotzdem zu breit. */
+  box-sizing: border-box;
+  max-width: calc(100vw - 6rem);
+}
+
+@media (min-width: 640px) {
+  .maplibregl-map .maplibregl-ctrl-bottom-right,
+  .maplibregl-map .maplibregl-ctrl-bottom-left {
+    bottom: 0;
+  }
+
+  .maplibregl-map .maplibregl-ctrl-bottom-left .maplibregl-ctrl-attrib {
+    max-width: none;
+  }
+}
+
+/* Trefferfläche der Zoom-Knöpfe auf Touch-Größe. */
+.maplibregl-map .maplibregl-ctrl button.maplibregl-ctrl-zoom-in,
+.maplibregl-map .maplibregl-ctrl button.maplibregl-ctrl-zoom-out {
+  width: 44px;
+  height: 44px;
+}

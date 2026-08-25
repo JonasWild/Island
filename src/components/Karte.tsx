@@ -29,7 +29,15 @@ export function Karte() {
   return (
     <main className="relative h-dvh w-full overflow-hidden">
       <MapCanvas />
-      <div className="absolute left-3 top-3 z-30 flex gap-2">
+      {/*
+        Auf dem Handy sitzen die Schalter unten links, über dem Tagesstreifen —
+        oben links ist auf einem 844 px hohen Gerät kein Daumenziel. Sie sitzen
+        direkt über dem Tagesstreifen — dessen gemessene Höhe steht in
+        `--streifen-hoehe`, damit hier keine Zahl geraten werden muss. Darüber
+        liegt die Herkunftsangabe (siehe globals.css). Ab `sm:` wieder oben, wo
+        sie die Karte am wenigsten verdecken.
+      */}
+      <div className="absolute bottom-[calc(var(--streifen-hoehe,7rem)+0.5rem)] left-3 z-30 flex gap-2 sm:bottom-auto sm:top-3">
         <button
           type="button"
           onClick={toggleTheme}

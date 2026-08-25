@@ -4,7 +4,9 @@ Karte zum Reiseplan von Katla Travel (Vorgang 15412, 27.08.–10.09.2026,
 5 Personen, Mietwagen, Ferienhäuser). 15 Tage, 6 Unterkünfte, 128 Stopps.
 
 Die Karte ist die App. Daneben gibt es genau zwei Dinge: einen Tagesstreifen
-unten und ein Kontextblatt rechts, wenn man etwas anklickt.
+unten und ein Kontextblatt, wenn man etwas antippt.
+
+**Gebaut fürs Handy.** Der Desktop ist der Sonderfall, nicht umgekehrt.
 
 ## Loslegen
 
@@ -20,7 +22,7 @@ pnpm dev            # http://localhost:3000
 | `pnpm geocode` | Geocoding-Pipeline (Build-Zeit, nicht Laufzeit) |
 | `pnpm wissen` | Wikipedia-Hintergrundtexte (Build-Zeit, nicht Laufzeit) |
 | `pnpm test` | Vitest |
-| `pnpm e2e` | Playwright-Smoke |
+| `pnpm e2e` | Playwright-Smoke, in zwei Breiten (Pixel 7 und Desktop) |
 | `pnpm typecheck` / `pnpm lint` | statische Prüfung |
 
 Container und CI-Images mit vorinstalliertem Chromium brauchen für die
@@ -100,6 +102,36 @@ Irre führt: Stykkishólmur hat ein Vulkanmuseum, Akranes einen Hot Pot,
 Egilsstaðir ein Schwimmbad. Für die Handvoll bekannter Ziele, deren Name
 nichts verrät (Dimmuborgir, Herðubreið, Ásbyrgi …), steht eine kurze Liste
 davor. Ohne Treffer bleibt es ein Ort — nichts wird geraten.
+
+## Mobile first
+
+Fünfzehn Tage nebeneinander ergeben auf 390 px Breite je 26 px — unter jeder
+brauchbaren Trefferfläche. Der Tagesstreifen scrollt deshalb horizontal mit
+`snap-x snap-mandatory`, die Ziele sind mindestens 44 px breit, und der
+gewählte Tag rückt per `scrollIntoView({ inline: 'center' })` von selbst ins
+Bild — auch, wenn er über die Tastatur oder einen Deep Link gesetzt wurde. Ab
+`sm:` bleibt derselbe Streifen die kompakte Pille von vorher.
+
+Das Wischen ist damit die native Scroll-Geste des Streifens. Auf der Karte
+selbst wäre ein horizontaler Wisch das Schwenken — die wichtigere Geste, die
+nicht überschrieben wird.
+
+Das Kontextblatt ist auf dem Handy ein Bottom-Sheet über die volle Breite mit
+Ziehgriff; ab `sm:` wieder die Spalte rechts. Der Schließen-Knopf hat 44 px
+Trefferfläche bei kleinem Kreuz.
+
+Unten stapeln sich drei Dinge, von unten nach oben: Tagesstreifen, eigene
+Schalter, Herkunftsangabe der Basiskarte. Der Streifen meldet seine gemessene
+Höhe als CSS-Variable `--streifen-hoehe`, alles darüber rechnet damit statt mit
+geratenen Zahlen. Die Herkunftsangabe steht ganz oben, weil sie als einzige mit
+dem Inhalt wächst — mit eingeschaltetem Relief kommt der DEM-Anbieter dazu und
+sie bricht um. Verdeckt werden darf sie nicht.
+
+Zwei Fallen, die dabei aufgefallen sind und die ein E2E-Test festhält:
+`maplibre-gl.css` wird erst in `MapCanvas` importiert und gewinnt bei gleicher
+Spezifität gegen `globals.css` — deshalb sind die Regeln über `.maplibregl-map`
+verschachtelt. Und die Herkunftsangabe hat seitliches Padding ohne
+`border-box`, sodass `max-width` allein sie nicht schmal genug hält.
 
 ## Daten
 

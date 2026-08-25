@@ -23,7 +23,12 @@ export default defineConfig({
         : {}),
     },
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  // Zwei Breiten, damit die Smoke-Tests beide Fälle abdecken: die App ist für
+  // das Handy gebaut, der Desktop ist der Sonderfall — nicht umgekehrt.
+  projects: [
+    { name: 'handy', use: { ...devices['Pixel 7'] } },
+    { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
+  ],
   webServer: {
     command: `pnpm build && pnpm start -p ${PORT}`,
     url: `http://127.0.0.1:${PORT}`,

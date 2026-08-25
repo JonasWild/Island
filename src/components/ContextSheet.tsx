@@ -39,21 +39,33 @@ export function ContextSheet() {
     unter = formatKoordinate(auswahl.pos);
   }
 
+  // Auf dem Handy ein Bottom-Sheet über die volle Breite: eine Drittel-Spalte
+  // neben dem Marker gibt es dort nicht, und der Daumen erreicht den unteren
+  // Rand. Ab `sm:` wieder die Spalte rechts. z-40 liegt über dem Tagesstreifen
+  // — auf dem Handy überdeckt das Blatt ihn, statt mit ihm zu ringen.
   return (
     <aside
       data-testid="kontextblatt"
-      className="pointer-events-auto absolute right-0 top-0 z-30 flex h-full w-full min-w-[300px] max-w-[33.333%] flex-col overflow-y-auto bg-white/95 p-5 pb-28 shadow-xl ring-1 ring-black/10 backdrop-blur sm:w-1/3"
+      className="pointer-events-auto absolute inset-x-0 bottom-0 z-40 flex max-h-[75dvh] flex-col overflow-y-auto rounded-t-2xl bg-white/95 px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-2 shadow-xl ring-1 ring-black/10 backdrop-blur sm:inset-x-auto sm:inset-y-0 sm:right-0 sm:max-h-none sm:w-1/3 sm:min-w-[320px] sm:max-w-[33.333%] sm:rounded-none sm:p-5 sm:pb-28"
     >
+      {/* Ziehgriff: macht auf dem Handy sichtbar, dass hier ein Blatt liegt. */}
+      <div
+        aria-hidden
+        className="mx-auto mb-3 h-1.5 w-10 shrink-0 rounded-full bg-slate-300 sm:hidden"
+      />
+
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
           <p className="text-[11px] text-slate-500">{unter}</p>
           <h2 className="mt-0.5 text-lg font-semibold leading-tight text-slate-900">{titel}</h2>
         </div>
+        {/* 44 px Trefferfläche — der Rahmen ist unsichtbar, das Kreuz bleibt klein. */}
         <button
           type="button"
           onClick={schliesse}
           aria-label="Schließen"
-          className="-mr-1 -mt-1 shrink-0 rounded p-1.5 text-slate-400 transition hover:bg-black/5 hover:text-slate-700"
+          data-testid="kontextblatt-schliessen"
+          className="-mr-2.5 -mt-2.5 flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-slate-400 transition hover:bg-black/5 hover:text-slate-700"
         >
           <svg viewBox="0 0 16 16" className="h-4 w-4" aria-hidden fill="none" stroke="currentColor">
             <path d="M3 3l10 10M13 3L3 13" strokeWidth="1.6" strokeLinecap="round" />

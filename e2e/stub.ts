@@ -14,7 +14,15 @@ export const STUB_STYLE = {
   version: 8,
   name: 'stub',
   sources: {
-    leer: { type: 'geojson', data: { type: 'FeatureCollection', features: [] } },
+    // Mit Herkunftsangabe, damit das Attribution-Bedienelement auch im Stub
+    // eine Ausdehnung hat — sonst lässt sich nicht prüfen, dass die eigenen
+    // Schalter es nicht verdecken. Sie ist so lang wie die echte, weil genau
+    // die Länge den Fall erzeugt: auf 390 px bricht sie um.
+    leer: {
+      type: 'geojson',
+      attribution: 'OpenFreeMap © OpenMapTiles Data from OpenStreetMap',
+      data: { type: 'FeatureCollection', features: [] },
+    },
   },
   layers: [
     { id: 'hintergrund', type: 'background', paint: { 'background-color': '#eef2f6' } },

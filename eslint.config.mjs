@@ -11,6 +11,8 @@ const config = [
       'playwright-report/**',
       'test-results/**',
       'next-env.d.ts',
+      // Entwicklungswerkzeug, läuft in Node und nicht im Bundle.
+      'scripts/screenshot.mjs',
     ],
   },
 ];

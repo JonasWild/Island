@@ -18,6 +18,25 @@ import {
 import { fliegeZuPunkt, fliegeZuTag } from '@/map/camera';
 import { START_KAMERA, STYLE_URL } from '@/map/style';
 
+/**
+ * MapLibre nimmt Layer und Layer-Änderungen erst an, wenn der Style geladen
+ * ist. Wer eine Änderung währenddessen anstößt, verliert sie sonst still —
+ * ein früher Klick auf „Relief" bliebe wirkungslos, und nichts würde es je
+ * nachholen. Deshalb wird sie einmalig nachgezogen, sobald die Karte zur Ruhe
+ * kommt. `once` und ohne eigenen Repaint: sonst entsteht die Schleife
+ * idle → triggerRepaint → idle.
+ */
+function wennStilBereit(map: MLMap, tun: () => void): () => void {
+  if (map.isStyleLoaded()) {
+    tun();
+    return () => {};
+  }
+  map.once('idle', tun);
+  return () => {
+    map.off('idle', tun);
+  };
+}
+
 export function MapCanvas() {
   const container = useRef<HTMLDivElement>(null);
   const mapRef = useRef<MLMap | null>(null);
@@ -51,12 +70,18 @@ export function MapCanvas() {
       style: STYLE_URL[useMapStore.getState().theme],
       center: START_KAMERA.center,
       zoom: START_KAMERA.zoom,
-      attributionControl: { compact: true },
+      // Eigene Herkunftsangabe unten links statt der eingebauten unten rechts:
+      // sie wird mit eingeschaltetem Relief zweizeilig und griffe sonst quer
+      // über die Karte in die Zoom-Knöpfe und die eigenen Schalter.
+      attributionControl: false,
       ...({ projection: { type: 'globe' } } as Record<string, unknown>),
     });
     mapRef.current = map;
-    // Ohne Neigung braucht das Bedienelement keine Pitch-Anzeige.
-    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+    // Ohne Neigung braucht das Bedienelement keine Pitch-Anzeige. Unten rechts
+    // statt oben rechts: dort erreicht der Daumen es. Der Abstand zum
+    // Tagesstreifen steht in globals.css.
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'bottom-right');
+    map.addControl(new maplibregl.AttributionControl({ compact: true }), 'bottom-left');
 
     // Griff für E2E-Tests und die Konsole; die App selbst nutzt den Ref.
     (window as unknown as { __islandKarte?: MLMap }).__islandKarte = map;
@@ -129,10 +154,12 @@ export function MapCanvas() {
   /** Tageswechsel: Layer umschalten und hinfliegen. */
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !map.isStyleLoaded()) return;
-    aktivenTagSetzen(map, tagDatum);
-    const tag = tagNach(tagDatum);
-    if (tag) fliegeZuTag(map, tag);
+    if (!map) return;
+    return wennStilBereit(map, () => {
+      aktivenTagSetzen(map, tagDatum);
+      const tag = tagNach(tagDatum);
+      if (tag) fliegeZuTag(map, tag);
+    });
   }, [tagDatum, karte]);
 
   /** Theme = echter Style-Wechsel, kein CSS-Filter. */
@@ -143,8 +170,8 @@ export function MapCanvas() {
   /** Relief an/aus — Quelle und Layer entstehen und verschwinden mit dem Schalter. */
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || !map.isStyleLoaded()) return;
-    reliefSetzen(map, relief, theme);
+    if (!map) return;
+    return wennStilBereit(map, () => reliefSetzen(map, relief, theme));
   }, [relief, theme, karte]);
 
   /** Auswahl eines Stopps → hinfliegen. */
