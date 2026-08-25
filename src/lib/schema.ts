@@ -38,6 +38,20 @@ export const WanderungSchema = z.object({
   distanz: z.string().optional(),
 });
 
+/**
+ * Recherchierter Hintergrundtext zu einem Stopp. Kommt aus der deutschen
+ * Wikipedia und trägt seine Herkunft mit: ohne Quelle und Link kein Wissen.
+ * Fehlt der Schlüssel, hat die Pipeline keinen eindeutigen Artikel gefunden —
+ * dann steht dort nichts, statt etwas Falsches.
+ */
+export const WissenSchema = z.object({
+  text: z.string().min(1),
+  quelle: z.string().min(1),
+  url: z.string().url(),
+  geprueftAm: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'ISO-Datum erwartet'),
+});
+export type Wissen = z.infer<typeof WissenSchema>;
+
 export const StoppSchema = z.object({
   name: z.string().min(1),
   strasse: z.string().nullable().optional(),
@@ -49,6 +63,7 @@ export const StoppSchema = z.object({
   /** Fehlt der Schlüssel ganz, gilt die Position als unbekannt — nicht als 0/0. */
   pos: PosSchema.nullable().default(null),
   posMeta: PosMetaSchema.optional(),
+  wissen: WissenSchema.optional(),
 });
 export type Stopp = z.infer<typeof StoppSchema>;
 

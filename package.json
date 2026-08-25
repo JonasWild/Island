@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit",
     "validate": "tsx scripts/validate.ts",
     "geocode": "tsx scripts/geocode.ts",
+    "wissen": "tsx scripts/wissen.ts",
     "test": "vitest run",
     "test:watch": "vitest",
     "e2e": "playwright test"

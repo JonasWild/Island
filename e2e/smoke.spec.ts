@@ -32,3 +32,16 @@ test('Deep Link öffnet das Kontextblatt', async ({ page }) => {
   await page.locator('body').press('Escape');
   await expect(blatt).toBeHidden();
 });
+
+test('Hintergrundtext nennt Quelle und Link', async ({ page }) => {
+  // 27.08., Stopp 0 ist die Blaue Lagune — dort hat die Pipeline einen
+  // eindeutigen Artikel gefunden.
+  await page.goto('/?tag=2026-08-27&stopp=0');
+  const blatt = page.getByTestId('kontextblatt');
+  await expect(blatt.getByRole('heading', { name: 'Hintergrund' })).toBeVisible();
+  await expect(blatt.getByText(/Wikipedia \(de\):/)).toBeVisible();
+  await expect(blatt.getByRole('link', { name: 'Artikel öffnen' })).toHaveAttribute(
+    'href',
+    /de\.wikipedia\.org\/wiki\//,
+  );
+});

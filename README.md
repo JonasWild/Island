@@ -18,6 +18,7 @@ pnpm dev            # http://localhost:3000
 | `pnpm dev` | Entwicklungsserver |
 | `pnpm build` | validiert `reise.json` und baut |
 | `pnpm geocode` | Geocoding-Pipeline (Build-Zeit, nicht Laufzeit) |
+| `pnpm wissen` | Wikipedia-Hintergrundtexte (Build-Zeit, nicht Laufzeit) |
 | `pnpm test` | Vitest |
 | `pnpm e2e` | Playwright-Smoke |
 | `pnpm typecheck` / `pnpm lint` | statische Prüfung |
@@ -102,7 +103,32 @@ posMeta: { quelle: 'osm'|'wikidata'|'anbieter'|'reiseplan'|'manuell',
 Quelle und Begründung. Der Cache wird mitcommittet: reproduzierbare Builds,
 keine Rate-Limit-Überraschungen.
 
-Stand: **128 von 128 Stopps mit Beleg** — 89 punktgenau aus OSM, 39 als
+## Hintergrundtexte
+
+`pnpm wissen` holt zu jedem Stopp den Einleitungsabsatz des passenden Artikels
+aus der deutschen Wikipedia (`prop=extracts&exintro=1&explaintext=1`) und legt
+ihn als `wissen: { text, quelle, url, geprueftAm }` in `reise.json` ab. Das
+Kontextblatt zeigt ihn mit Quelle, Link und Prüfdatum.
+
+Der Artikel wird über die Geosuche im Umkreis von 10 km gefunden — mehr lässt
+die API nicht zu, und weiter weg beschreibt ein Artikel ohnehin ein anderes
+Objekt. Übernommen wird er nur, wenn er eindeutig ist:
+
+- Sein Name stimmt (normalisiert, ohne Diakritika) mit dem Stopp überein und er
+  ist der einzige Artikel dieses Namens im Umkreis, **oder**
+- er ist der einzige Artikel unter 400 m — und der Stopp ist punktgenau
+  verortet. Bei `genauigkeit: 'bereich'` ist die Position selbst auf 400 m nicht
+  belastbar, dort zählt allein die Namensregel.
+
+Begriffsklärungsseiten und Artikel ohne Einleitungstext fallen raus.
+
+Stand: **69 von 128 Stopps mit Hintergrundtext.** Die übrigen 59 stehen mit
+Begründung und Kandidatenliste in `data/wissen-offen.json` — darunter Einträge,
+zu denen es korrekterweise keinen Artikel gibt („Volltanken", „Check-in",
+„Lighthouse Route") und Landschaftsräume ohne Punktposition. Lieber eine leere
+Stelle als ein Text über das Nachbardorf.
+
+Stand Positionen: **128 von 128 Stopps mit Beleg** — 89 punktgenau aus OSM, 39 als
 Bereich, keiner ohne Position. 22 stehen zusätzlich in `offen.json` zur
 manuellen Klärung. Korrekturen und die geklärten Streitfälle aus den PDFs:
 [`DATENSTAND.md`](./DATENSTAND.md).

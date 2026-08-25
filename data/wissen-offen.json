@@ -1,0 +1,649 @@
+{
+  "erzeugtAm": "2026-08-25",
+  "eintraege": [
+    {
+      "tag": "2026-08-27",
+      "name": "Halbinsel Reykjanes",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Vulkanausbrüche an der Sundhnúkur-Kraterkette seit 2023 (1689 m)",
+        "Vulkanausbrüche beim Fagradalsfjall seit 2021 (3939 m)",
+        "Fagradalsfjall (Reykjanesskagi) (4396 m)",
+        "Svartsengi (4874 m)",
+        "Bláa Lónið (4878 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-28",
+      "name": "Reykholt",
+      "hinweis": "2 Artikel unter 400 m — nicht eindeutig",
+      "kandidaten": [
+        "Snorralaug (195 m)",
+        "Reykholt (Borgarbyggð) (288 m)",
+        "Deildartunguhver (5805 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-28",
+      "name": "Hraunfossar & Barnafoss",
+      "hinweis": "2 Artikel gleichen Namens im Umkreis — nicht eindeutig",
+      "kandidaten": [
+        "Barnafoss (21 m)",
+        "Hraunfossar (183 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-28",
+      "name": "Gletschertunnel Langjökull",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Prestahnúkur (6165 m)",
+        "Geitlandsjökull (6165 m)",
+        "Hafrafell (Kaldidalur) (7177 m)",
+        "Syðra-Hádegisfell (9298 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-28",
+      "name": "Hot Pot Krosslaug",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Englandsfoss (757 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Moorgebiet Mýrar",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Flugplatz Kaldármelar (9179 m)",
+        "Fagraskógarfjall (9400 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Krater Eldborg",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Flugplatz Kaldármelar (3622 m)",
+        "Hnappadalur (4327 m)",
+        "Gerðuberg (7399 m)",
+        "Fagraskógarfjall (7474 m)",
+        "Ljósufjöll (9261 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Hof Ölkelda",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Snæfellsnes (6953 m)",
+        "Staðarsveit (8199 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Strand Ytri Tunga",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Staðarsveit (3258 m)",
+        "Snæfellsnes (5979 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Vatnshellir Lava Cave",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Lóndrangar (2718 m)",
+        "Flugplatz Dagverðará (4429 m)",
+        "Bárðarlaug (6617 m)",
+        "Snæfellsjökull-Nationalpark (6685 m)",
+        "Snæfellsjökull (6699 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Djúpalónssandur",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Lóndrangar (5801 m)",
+        "Flugplatz Dagverðará (8082 m)",
+        "Snæfellsjökull-Nationalpark (8523 m)",
+        "Snæfellsjökull (8535 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Öndverðarnes",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Sender Gufuskálar (6186 m)",
+        "Hellissandur (8112 m)",
+        "Klukkufoss (8698 m)",
+        "Ingjaldshóll (9218 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Rif",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Flugplatz Rif (1156 m)",
+        "Ingjaldshóll (1892 m)",
+        "Hellissandur (2744 m)",
+        "Svöðufoss (3057 m)",
+        "Kerlingarfoss (3577 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-29",
+      "name": "Grundarfjörður & Kirkjufell",
+      "hinweis": "2 Artikel gleichen Namens im Umkreis — nicht eindeutig",
+      "kandidaten": [
+        "Kirkjufell (290 m)",
+        "Grundarfjörður (2735 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-30",
+      "name": "Skagafjörður & Öxnadalsheiði",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Varmahlíð (Skagafjörður) (6822 m)",
+        "Reykjafoss (7234 m)",
+        "Víðimýri (7401 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-30",
+      "name": "Tunnel Vaðlaheiðargöng",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Vaðlaheiði (889 m)",
+        "Fnjóskadalur (3445 m)",
+        "Vaglaskógur (4732 m)",
+        "Eyjafjarðarbrú (5741 m)",
+        "Eyjafjarðará (5741 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-31",
+      "name": "Park Höfði / Kálfaströnd",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Dimmuborgir (3307 m)",
+        "Skútustaðir (3973 m)",
+        "Norðurland eystra (4117 m)",
+        "Mývatn (4158 m)",
+        "Hverfjall (5267 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-31",
+      "name": "Krafla & Leirhnjúkur",
+      "hinweis": "2 Artikel gleichen Namens im Umkreis — nicht eindeutig",
+      "kandidaten": [
+        "Leirhnjúkur (60 m)",
+        "Krafla (1395 m)"
+      ]
+    },
+    {
+      "tag": "2026-08-31",
+      "name": "Earth Lagoon Mývatn",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Námafjall (1604 m)",
+        "Grjótagjá (1744 m)",
+        "Bjarnarflag-Kraftwerk (1826 m)",
+        "Námaskarð (2243 m)",
+        "Stóragjá (2985 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-01",
+      "name": "Saltvík Reiterhof",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Laxá í Aðaldal (2805 m)",
+        "Æðarfossar (3069 m)",
+        "Húsavík (4664 m)",
+        "Walmuseum in Húsavík (5180 m)",
+        "Norðurþing (5213 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-01",
+      "name": "Geothermal Sea Baths GeoSea",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Norðurþing (998 m)",
+        "Walmuseum in Húsavík (1035 m)",
+        "Húsavík (1725 m)",
+        "Húsavíkurfjall (2047 m)",
+        "Lundey (Skjálfandi) (6371 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-01",
+      "name": "Nationalpark Jökulsárgljúfur",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Rauðhólar (Jökulsárgljúfur) (1108 m)",
+        "Jökulsárgljúfur-Nationalpark (4003 m)",
+        "Ásbyrgi (7168 m)",
+        "Vígabjargsfoss (7562 m)",
+        "Réttarfoss (8235 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-01",
+      "name": "Echofelsen Hljóðaklettar",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Rauðhólar (Jökulsárgljúfur) (760 m)",
+        "Jökulsárgljúfur-Nationalpark (3085 m)",
+        "Vígabjargsfoss (7652 m)",
+        "Ásbyrgi (7903 m)",
+        "Réttarfoss (8347 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-02",
+      "name": "Bjórböðin Bier-Spa",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Árskógssandur (4272 m)",
+        "Hauganes (4272 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-02",
+      "name": "Wanderung Böggvisstaðadalur",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Dalvík (4112 m)",
+        "Dalvíkurbyggð (4134 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-02",
+      "name": "Arctic Sea Tours",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Dalvík (262 m)",
+        "Dalvíkurbyggð (379 m)",
+        "Hrísey (7332 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-03",
+      "name": "Schlucht Stuðlagil",
+      "hinweis": "kein Wikipedia-Artikel im Umkreis von 10 km",
+      "kandidaten": []
+    },
+    {
+      "tag": "2026-09-03",
+      "name": "Rjúkandi Wasserfall",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Jökuldalsheiði (7293 m)",
+        "Sænautasel (9578 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-03",
+      "name": "Vök Baths",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Urriðavatn (971 m)",
+        "Eyvindará (2176 m)",
+        "Fellabær (2498 m)",
+        "Lagarfljótsbrú (2771 m)",
+        "Flughafen Egilsstaðir (3066 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-04",
+      "name": "Ebene des Hérað",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Urriðavatn (5586 m)",
+        "Eyvindará (7404 m)",
+        "Eiðar (7503 m)",
+        "Sender Eiðar (7807 m)",
+        "Fellabær (8258 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-04",
+      "name": "Niederung Héraðsflói",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Lagarfoss (6105 m)",
+        "Geirsstaðakirkja (8180 m)",
+        "Eiðar (8848 m)",
+        "Sender Eiðar (8988 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-04",
+      "name": "Rhyolith- und Tuffberge / Passhöhe",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Dyrfjöll (4633 m)",
+        "Flugplatz Borgarfjörður (8118 m)",
+        "Bakkagerði (8524 m)",
+        "Borgarfjörður (Gemeinde) (8524 m)",
+        "Borgarfjörður (Austurland) (8764 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-04",
+      "name": "Grüne Talrinne zum Meer",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Flugplatz Borgarfjörður (2192 m)",
+        "Bakkagerði (2498 m)",
+        "Borgarfjörður (Gemeinde) (2498 m)",
+        "Borgarfjörður (Austurland) (2795 m)",
+        "Dyrfjöll (4668 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-04",
+      "name": "Hafnarhólmi",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Borgarfjörður (Austurland) (3002 m)",
+        "Bakkagerði (3135 m)",
+        "Borgarfjörður (Gemeinde) (3135 m)",
+        "Flugplatz Borgarfjörður (3653 m)",
+        "Dyrfjöll (9351 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-05",
+      "name": "Steinsammlung von Petra",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Stöðvarfjörður (84 m)",
+        "Breiðdalsvík (84 m)",
+        "Stöðvarfjörður (Fjord) (1706 m)",
+        "Kambanes (3557 m)",
+        "Fáskrúðsfjörður (Fjord) (7466 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-05",
+      "name": "Stokksnes, Vestrahorn & Brunnhorn",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Stokksnes (1301 m)",
+        "Klifatindur (4468 m)",
+        "Almannaskarð (5148 m)",
+        "Skarðsfjörður (5383 m)",
+        "Papafjörður (8194 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-05",
+      "name": "Hvalnes",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Krossanesfjall (3969 m)",
+        "Lón (5543 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-05",
+      "name": "Diamond Beach (Breiðamerkursandur)",
+      "hinweis": "2 Artikel unter 400 m — nicht eindeutig",
+      "kandidaten": [
+        "Jökulsá (Breiðamerkursandur) (132 m)",
+        "Jökulsárlónsbrú (302 m)",
+        "Jökulsárlón (3582 m)",
+        "Breiðárlón (9237 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-05",
+      "name": "Skaftárstofa",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Kirkjubæjarklaustur (443 m)",
+        "Skaftárhreppur (443 m)",
+        "Systrafoss (533 m)",
+        "Flugplatz Kirkjubæjarklaustur (2962 m)",
+        "Fjaðrárgljúfur (5828 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-06",
+      "name": "Lavafeld Eldhraun",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Fjaðrárgljúfur (6724 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-06",
+      "name": "Reynir / schwarzer Sandstrand",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Gedenkstein Islandfischerei (1732 m)",
+        "Reynisfjall (1903 m)",
+        "Vík í Mýrdal (1962 m)",
+        "Mýrdalur (1962 m)",
+        "Reynisfjara (2047 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-06",
+      "name": "Heimatmuseum Skógasafn",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Kvernufoss (696 m)",
+        "Flugplatz Skógasandur (1015 m)",
+        "Skógafoss (1118 m)",
+        "Skógá (5078 m)",
+        "Seljavallalaug (7199 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-06",
+      "name": "Seljalandsfoss & Gljúfrabúi",
+      "hinweis": "2 Artikel gleichen Namens im Umkreis — nicht eindeutig",
+      "kandidaten": [
+        "Seljalandsfoss (21 m)",
+        "Gljúfrabúi (631 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-07",
+      "name": "Wanderung durch die Almannagjá",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Þingvellir (202 m)",
+        "Öxará (305 m)",
+        "Silfra-Spalte (495 m)",
+        "Öxarárfoss (915 m)",
+        "Arnarfell við Þingvallavatn (5238 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-07",
+      "name": "Gamla Laugin / Secret Lagoon",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Flúðir (880 m)",
+        "Flugplatz Flúðir (1036 m)",
+        "Hrunamannahreppur (2714 m)",
+        "Tungufljót (Árnessýsla) (7803 m)",
+        "Laugarás (9544 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-07",
+      "name": "Friðheimar Greenhouse",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Tungufljót (Árnessýsla) (2093 m)",
+        "Reykholt (Bláskógabyggð) (2374 m)",
+        "Skálholt (3312 m)",
+        "Skálholtsdómkirkja (3483 m)",
+        "Laugarás (4510 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-07",
+      "name": "Laugarás Lagoon",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Skálholt (1925 m)",
+        "Skálholtsdómkirkja (2093 m)",
+        "Tungufljót (Árnessýsla) (2388 m)",
+        "Laugarás (3109 m)",
+        "Reykholt (Bláskógabyggð) (3638 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-08",
+      "name": "Vogelschutzreservat Flói",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Ölfusá (1361 m)",
+        "Óseyrarbrú (1383 m)",
+        "Eyrarbakki (2326 m)",
+        "Litla-Hraun (3770 m)",
+        "Tjarnabyggð (4686 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-08",
+      "name": "Lighthouse Route",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Ölfusá (4164 m)",
+        "Óseyrarbrú (4263 m)",
+        "Eyrarbakki (4989 m)",
+        "Þorlákshöfn (5745 m)",
+        "Litla-Hraun (6258 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-08",
+      "name": "Krýsuvík & Seltún",
+      "hinweis": "2 Artikel gleichen Namens im Umkreis — nicht eindeutig",
+      "kandidaten": [
+        "Seltún (341 m)",
+        "Krýsuvík (926 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-08",
+      "name": "Wanderung Reykjadalur",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Reykjadalur (Ölfus) (808 m)",
+        "Grensdalur (1509 m)",
+        "Hrómundartindur (2172 m)",
+        "Álútur (3655 m)",
+        "Hveragerði (5397 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-08",
+      "name": "Reiterhof Eldhestar",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Flóahreppur (889 m)",
+        "Hveragerði (2031 m)",
+        "Flugplatz Kaldaðarnes (6024 m)",
+        "Álútur (6266 m)",
+        "Reykjadalur (Ölfus) (6588 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-09",
+      "name": "Lange Wanderung Reykjadalur",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Reykjadalur (Ölfus) (808 m)",
+        "Grensdalur (1509 m)",
+        "Hrómundartindur (2172 m)",
+        "Álútur (3655 m)",
+        "Hveragerði (5397 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-09",
+      "name": "Reiterhof Eldhestar",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Flóahreppur (889 m)",
+        "Hveragerði (2031 m)",
+        "Flugplatz Kaldaðarnes (6024 m)",
+        "Álútur (6266 m)",
+        "Reykjadalur (Ölfus) (6588 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-09",
+      "name": "Küstenroute Stokkseyri, Eyrarbakki, Þorlákshöfn",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Eyrarbakki (2625 m)",
+        "Ölfusá (3082 m)",
+        "Óseyrarbrú (3260 m)",
+        "Litla-Hraun (3751 m)",
+        "Tjarnabyggð (7278 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-09",
+      "name": "Krýsuvík & Kleifarvatn",
+      "hinweis": "2 Artikel gleichen Namens im Umkreis — nicht eindeutig",
+      "kandidaten": [
+        "Krýsuvík (926 m)",
+        "Kleifarvatn (4365 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-09",
+      "name": "Rock'n'Roll-Museum",
+      "hinweis": "kein Artikel dieses Namens und keiner unter 400 m",
+      "kandidaten": [
+        "Keflavíkurvöllur (991 m)",
+        "Keflavík (1248 m)",
+        "Reykjanesbær (1250 m)",
+        "Flughafen Keflavík (2751 m)",
+        "Vogar (8250 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-10",
+      "name": "Volltanken",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Reykjanesbær (357 m)",
+        "Keflavíkurvöllur (476 m)",
+        "Keflavík (550 m)",
+        "Flughafen Keflavík (2984 m)",
+        "Sandgerði (8034 m)"
+      ]
+    },
+    {
+      "tag": "2026-09-10",
+      "name": "Check-in",
+      "hinweis": "kein Artikel dieses Namens; die Position ist nur ein Bereich, deshalb zählt die Nähe hier nicht",
+      "kandidaten": [
+        "Flughafen Keflavík (2 m)",
+        "Keflavík (2441 m)",
+        "Keflavíkurvöllur (2706 m)",
+        "Reykjanesbær (3171 m)",
+        "Hafnir (6837 m)"
+      ]
+    }
+  ]
+}
