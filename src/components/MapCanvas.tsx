@@ -45,7 +45,7 @@ export function MapCanvas() {
   const tagDatum = useMapStore((s) => s.tagDatum);
   const theme = useMapStore((s) => s.theme);
   const auswahl = useMapStore((s) => s.auswahl);
-  const gruppen = useMapStore((s) => s.gruppen);
+  const kategorien = useMapStore((s) => s.kategorien);
   const nurTag = useMapStore((s) => s.nurTag);
   const waehle = useMapStore((s) => s.waehle);
 
@@ -57,7 +57,7 @@ export function MapCanvas() {
     const s = useMapStore.getState();
     iconsRegistrieren(map);
     quellenSetzen(map);
-    layerSetzen(map, s.tagDatum, s.gruppen, s.nurTag);
+    layerSetzen(map, s.tagDatum, s.kategorien, s.nurTag);
   }, []);
 
   useEffect(() => {
@@ -154,7 +154,7 @@ export function MapCanvas() {
     if (!map) return;
     return wennStilBereit(map, () => {
       const s = useMapStore.getState();
-      aktivenTagSetzen(map, tagDatum, s.gruppen, s.nurTag);
+      aktivenTagSetzen(map, tagDatum, s.kategorien, s.nurTag);
       const tag = tagNach(tagDatum);
       if (tag) fliegeZuTag(map, tag);
     });
@@ -165,9 +165,9 @@ export function MapCanvas() {
     const map = mapRef.current;
     if (!map) return;
     return wennStilBereit(map, () =>
-      sichtbarkeitSetzen(map, gruppen, nurTag, useMapStore.getState().tagDatum),
+      sichtbarkeitSetzen(map, kategorien, nurTag, useMapStore.getState().tagDatum),
     );
-  }, [gruppen, nurTag, karte]);
+  }, [kategorien, nurTag, karte]);
 
   /** Theme = echter Style-Wechsel, kein CSS-Filter. */
   useEffect(() => {

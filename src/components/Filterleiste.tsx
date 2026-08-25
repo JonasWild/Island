@@ -1,48 +1,54 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { useMapStore } from '@/store/mapStore';
 import { alleStopps } from '@/lib/reise';
-import { kategorieVon } from '@/lib/kategorie';
-import { gruppeVon, GRUPPE_FARBE, GRUPPE_INHALT, GRUPPE_LABEL, GRUPPEN } from '@/lib/gruppe';
+import { KATEGORIE_LABEL, kategorieVon, type Kategorie } from '@/lib/kategorie';
+import { GRUPPE_ARTEN, GRUPPE_FARBE, GRUPPE_LABEL, GRUPPEN, type Gruppe } from '@/lib/gruppe';
+import { kategorieFarbe } from '@/map/icons';
 
 /**
  * Filter direkt auf der Karte.
  *
  * 128 Symbole gleichzeitig sind auf einem Handy keine Karte mehr, sondern ein
- * Teppich. Zwei Achsen entlasten sie, beide mit einem Tippen erreichbar:
+ * Teppich. Drei Achsen entlasten sie:
  *
  * - **Nur dieser Tag** blendet die Ziele der anderen vierzehn Tage aus. Das
  *   ist die stärkste Entlastung und steht deshalb vorn, abgesetzt durch einen
  *   Trenner — es ist eine andere Frage als die nach der Zielart.
- * - **Sechs Überkategorien** statt sechzehn Zielarten: eine Leiste mit
- *   sechzehn Schaltflächen wäre so unbrauchbar wie die volle Karte.
+ * - **Drei Gruppen** statt sechzehn Zielarten in der Leiste: Natur, Aktiv,
+ *   Orte. Mehr passt nicht nebeneinander, ohne dass man scrollen muss, um
+ *   überhaupt zu sehen, was es gibt.
+ * - **Die Zielart im Aufklapper.** Wer nur Wasserfälle will, bekommt sie —
+ *   aber die Leiste bleibt schmal. Der Aufklapper zeigt zu jeder Art, wie
+ *   viele Ziele dahinterstehen; eine Zeile ohne Zahl lässt offen, ob sich das
+ *   Tippen lohnt.
  *
- * Keine Auswahl heißt *alles sichtbar*. Der Normalfall braucht also keinen
+ * Keine Auswahl heißt *alles sichtbar*. Der Normalfall braucht damit keinen
  * Zustand, und „Alle" bringt jederzeit mit einem Tippen zurück.
- *
- * Die Leiste sitzt oben: unten ist auf dem Handy jeder Platz vergeben, und
- * oben verdeckt sie nichts, was man beim Filtern ansieht.
  */
 export function Filterleiste() {
-  const gruppen = useMapStore((s) => s.gruppen);
+  const kategorien = useMapStore((s) => s.kategorien);
   const nurTag = useMapStore((s) => s.nurTag);
+  const toggleKategorie = useMapStore((s) => s.toggleKategorie);
   const toggleGruppe = useMapStore((s) => s.toggleGruppe);
   const alleGruppen = useMapStore((s) => s.alleGruppen);
   const toggleNurTag = useMapStore((s) => s.toggleNurTag);
+  const [offen, setOffen] = useState<Gruppe | null>(null);
 
-  // Wie viele Ziele hinter jeder Gruppe stecken. Eine Schaltfläche ohne Zahl
-  // lässt offen, ob sich das Tippen lohnt.
   const anzahl = useMemo(() => {
-    const zaehler = new Map<string, number>();
+    const zaehler = new Map<Kategorie, number>();
     for (const { stopp } of alleStopps) {
-      const g = gruppeVon(kategorieVon(stopp));
-      if (g) zaehler.set(g, (zaehler.get(g) ?? 0) + 1);
+      const k = kategorieVon(stopp);
+      zaehler.set(k, (zaehler.get(k) ?? 0) + 1);
     }
     return zaehler;
   }, []);
 
-  const alleAn = gruppen.length === 0;
+  const alleAn = kategorien.length === 0;
+  const gewaehlt = (g: Gruppe) => GRUPPE_ARTEN[g].filter((k) => kategorien.includes(k)).length;
+  const summe = (g: Gruppe) =>
+    GRUPPE_ARTEN[g].reduce((n, k) => n + (anzahl.get(k) ?? 0), 0);
 
   return (
     <div className="pointer-events-none absolute inset-x-0 top-0 z-30 pt-[env(safe-area-inset-top)]">
@@ -57,10 +63,8 @@ export function Filterleiste() {
           data-testid="filter-nurtag"
           aria-pressed={nurTag}
           title="Nur die Ziele des gewählten Tages zeigen"
-          className={`flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 text-xs font-medium shadow ring-1 backdrop-blur transition ${
-            nurTag
-              ? 'bg-slate-800/90 text-white ring-black/10'
-              : 'bg-white/90 text-slate-700 ring-black/10 hover:bg-white'
+          className={`flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 text-xs font-medium shadow ring-1 ring-black/10 backdrop-blur transition ${
+            nurTag ? 'bg-slate-800/90 text-white' : 'bg-white/90 text-slate-700 hover:bg-white'
           }`}
         >
           <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0" aria-hidden fill="currentColor">
@@ -74,7 +78,10 @@ export function Filterleiste() {
 
         <button
           type="button"
-          onClick={alleGruppen}
+          onClick={() => {
+            alleGruppen();
+            setOffen(null);
+          }}
           data-testid="filter-alle"
           aria-pressed={alleAn}
           className={`flex h-11 shrink-0 items-center whitespace-nowrap rounded-full px-3.5 text-xs font-medium shadow ring-1 ring-black/10 backdrop-blur transition ${
@@ -85,15 +92,16 @@ export function Filterleiste() {
         </button>
 
         {GRUPPEN.map((g) => {
-          const an = gruppen.includes(g);
+          const n = gewaehlt(g);
+          const an = n > 0;
           return (
             <button
               key={g}
               type="button"
-              onClick={() => toggleGruppe(g)}
+              onClick={() => setOffen((o) => (o === g ? null : g))}
               data-testid={`filter-${g}`}
               aria-pressed={an}
-              title={GRUPPE_INHALT[g]}
+              aria-expanded={offen === g}
               className={`flex h-11 shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full px-3.5 text-xs font-medium shadow ring-1 ring-black/10 backdrop-blur transition ${
                 an ? 'text-white' : 'bg-white/90 text-slate-700 hover:bg-white'
               }`}
@@ -106,12 +114,92 @@ export function Filterleiste() {
               />
               {GRUPPE_LABEL[g]}
               <span className={`tabular-nums ${an ? 'text-white/70' : 'text-slate-400'}`}>
-                {anzahl.get(g) ?? 0}
+                {an ? `${n}/${GRUPPE_ARTEN[g].length}` : summe(g)}
               </span>
+              <svg
+                viewBox="0 0 16 16"
+                className={`h-3 w-3 shrink-0 transition ${offen === g ? 'rotate-180' : ''}`}
+                aria-hidden
+                fill="none"
+                stroke="currentColor"
+              >
+                <path d="M3 6l5 5 5-5" strokeWidth="2" strokeLinecap="round" />
+              </svg>
             </button>
           );
         })}
       </div>
+
+      {/*
+        Der Aufklapper hängt am Wrapper, nicht in der scrollenden Leiste: sonst
+        wandert er beim Scrollen mit und wird am Rand abgeschnitten.
+      */}
+      {offen && (
+        <div
+          data-testid={`aufklapper-${offen}`}
+          className="pointer-events-auto absolute left-3 right-3 top-full max-h-[60dvh] overflow-y-auto rounded-xl bg-white/97 p-2 shadow-xl ring-1 ring-black/10 backdrop-blur sm:right-auto sm:w-72"
+        >
+          <button
+            type="button"
+            onClick={() => toggleGruppe(offen)}
+            data-testid={`aufklapper-alles-${offen}`}
+            className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-xs font-semibold text-slate-800 transition hover:bg-slate-50"
+          >
+            <Haken an={gewaehlt(offen) === GRUPPE_ARTEN[offen].length} farbe={GRUPPE_FARBE[offen]} />
+            Alles in {GRUPPE_LABEL[offen]}
+            <span className="ml-auto text-[11px] font-normal tabular-nums text-slate-400">
+              {summe(offen)}
+            </span>
+          </button>
+
+          <ul className="mt-1 border-t border-slate-100 pt-1">
+            {GRUPPE_ARTEN[offen].map((k) => {
+              const an = kategorien.includes(k);
+              return (
+                <li key={k}>
+                  <button
+                    type="button"
+                    onClick={() => toggleKategorie(k)}
+                    data-testid={`kategorie-${k}`}
+                    aria-pressed={an}
+                    className="flex w-full items-center gap-2 rounded-lg px-2.5 py-2 text-left text-xs text-slate-700 transition hover:bg-slate-50"
+                  >
+                    <Haken an={an} farbe={kategorieFarbe(k)} />
+                    <span
+                      aria-hidden
+                      className="inline-block h-2.5 w-2.5 shrink-0 rounded-full"
+                      style={{ backgroundColor: kategorieFarbe(k) }}
+                    />
+                    {KATEGORIE_LABEL[k]}
+                    <span className="ml-auto text-[11px] tabular-nums text-slate-400">
+                      {anzahl.get(k) ?? 0}
+                    </span>
+                  </button>
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
     </div>
+  );
+}
+
+/** Kästchen mit Haken — 20 px, damit die Zeile als Ganzes das Touch-Ziel bleibt. */
+function Haken({ an, farbe }: { an: boolean; farbe: string }) {
+  return (
+    <span
+      aria-hidden
+      className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-[5px] ring-1 transition ${
+        an ? 'ring-transparent' : 'bg-white ring-slate-300'
+      }`}
+      style={an ? { backgroundColor: farbe } : undefined}
+    >
+      {an && (
+        <svg viewBox="0 0 16 16" className="h-3 w-3 text-white" fill="none" stroke="currentColor">
+          <path d="M3 8.5l3.5 3.5L13 5" strokeWidth="2.5" strokeLinecap="round" />
+        </svg>
+      )}
+    </span>
   );
 }

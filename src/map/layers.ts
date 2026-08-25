@@ -3,7 +3,7 @@ import type { FeatureCollection, LineString, Point } from 'geojson';
 import { alleStopps, TAG_FARBE, tage, unterkuenfte } from '@/lib/reise';
 import { routeNach } from '@/lib/route';
 import { kategorieVon } from '@/lib/kategorie';
-import { gruppeVon, type Gruppe } from '@/lib/gruppe';
+import type { Kategorie } from '@/lib/kategorie';
 import { zuLngLat } from '@/lib/geo';
 import { ICON_FUSSWEG, ICON_PFEIL, iconName, unterkunftIconName } from './icons';
 
@@ -43,7 +43,8 @@ export function stoppFeatures(): FeatureCollection<Point> {
         datumBis: s.datum,
         farbe: TAG_FARBE[tage.find((t) => t.datum === s.datum)?.typ ?? 'etappe'],
         icon: iconName(kategorieVon(s.stopp)),
-        gruppe: gruppeVon(kategorieVon(s.stopp)) ?? '',
+        kategorie: kategorieVon(s.stopp),
+        istHaus: false,
         // Wandern ist keine Zielart, sondern eine Eigenschaft: Dettifoss
         // bleibt ein Wasserfall, auch wenn man 2,8 km hinläuft. Deshalb ein
         // eigenes Abzeichen statt einer eigenen Kategorie.
@@ -75,8 +76,9 @@ export function stoppFeatures(): FeatureCollection<Point> {
         naechte: u.naechte,
         farbe: '#be123c',
         icon: unterkunftIconName(u.naechte),
-        // Kein Gruppenschlüssel: Unterkünfte lassen sich nicht wegfiltern.
-        gruppe: '',
+        kategorie: 'unterkunft',
+        // Unterkünfte lassen sich nicht wegfiltern und liegen immer obenauf.
+        istHaus: true,
         wanderung: false,
       },
     }));
@@ -158,22 +160,22 @@ const aktiv = (datum: string): ExpressionSpecification => ['==', ['get', 'datum'
  * Handy keine Karte mehr, sondern ein Teppich.
  *
  * Zwei Achsen, beide optional:
- * - **Gruppen**: eine leere Liste heißt *alle* — der Normalfall braucht keinen
- *   Zustand. Unterkünfte tragen keinen Gruppenschlüssel und bleiben deshalb
- *   immer stehen: wo man schläft, ist der Anker des Tages.
+ * - **Zielarten**: eine leere Liste heißt *alle* — der Normalfall braucht
+ *   keinen Zustand. Unterkünfte sind ausgenommen und bleiben immer stehen: wo
+ *   man schläft, ist der Anker des Tages.
  * - **Nur dieser Tag**: blendet die Ziele der anderen vierzehn Tage aus.
  */
 export function stoppFilter(
-  gruppen: readonly Gruppe[],
+  kategorien: readonly Kategorie[],
   nurTag: boolean,
   datum: string,
 ): ExpressionSpecification {
   const bedingungen: ExpressionSpecification[] = [];
-  if (gruppen.length > 0) {
+  if (kategorien.length > 0) {
     bedingungen.push([
       'any',
-      ['==', ['get', 'gruppe'], ''],
-      ['in', ['get', 'gruppe'], ['literal', [...gruppen]]],
+      ['==', ['get', 'istHaus'], true],
+      ['in', ['get', 'kategorie'], ['literal', [...kategorien]]],
     ]);
   }
   if (nurTag) {
@@ -207,7 +209,7 @@ export function quellenSetzen(map: MLMap): void {
 export function layerSetzen(
   map: MLMap,
   aktivesDatum: string,
-  gruppen: readonly Gruppe[],
+  kategorien: readonly Kategorie[],
   nurTag: boolean,
 ): void {
   const add = (spec: LayerSpecification) => {
@@ -323,7 +325,7 @@ export function layerSetzen(
     id: LYR_STOPP,
     type: 'symbol',
     source: SRC_STOPPS,
-    filter: stoppFilter(gruppen, nurTag, aktivesDatum),
+    filter: stoppFilter(kategorien, nurTag, aktivesDatum),
     layout: {
       'icon-image': ['get', 'icon'],
       'icon-size': ['case', aktiv(aktivesDatum), 0.7, 0.44],
@@ -335,7 +337,7 @@ export function layerSetzen(
       */
       'symbol-sort-key': [
         'case',
-        ['==', ['get', 'gruppe'], ''],
+        ['get', 'istHaus'],
         -1,
         ['case', aktiv(aktivesDatum), 0, 1],
       ],
@@ -357,7 +359,7 @@ export function layerSetzen(
     id: LYR_WANDERUNG,
     type: 'symbol',
     source: SRC_STOPPS,
-    filter: ['all', ['==', ['get', 'wanderung'], true], stoppFilter(gruppen, nurTag, aktivesDatum)],
+    filter: ['all', ['==', ['get', 'wanderung'], true], stoppFilter(kategorien, nurTag, aktivesDatum)],
     layout: {
       'icon-image': ICON_FUSSWEG,
       'icon-size': ['case', aktiv(aktivesDatum), 0.4, 0.26],
@@ -374,7 +376,7 @@ export function layerSetzen(
     source: SRC_STOPPS,
     // Beschriftet wird nur der gewählte Tag, und auch dort nur, was der
     // Filter stehen lässt.
-    filter: ['all', aktiv(aktivesDatum), stoppFilter(gruppen, nurTag, aktivesDatum)],
+    filter: ['all', aktiv(aktivesDatum), stoppFilter(kategorien, nurTag, aktivesDatum)],
     layout: {
       'text-field': ['get', 'name'],
       'text-size': 12,
@@ -408,7 +410,7 @@ export function layerSetzen(
 export function aktivenTagSetzen(
   map: MLMap,
   datum: string,
-  gruppen: readonly Gruppe[],
+  kategorien: readonly Kategorie[],
   nurTag: boolean,
 ): void {
   const f = aktiv(datum);
@@ -439,7 +441,7 @@ export function aktivenTagSetzen(
     map.setLayoutProperty(LYR_STOPP, 'icon-size', ['case', f, 0.7, 0.44]);
     map.setLayoutProperty(LYR_STOPP, 'symbol-sort-key', [
       'case',
-      ['==', ['get', 'gruppe'], ''],
+      ['get', 'istHaus'],
       -1,
       ['case', f, 0, 1],
     ]);
@@ -449,7 +451,7 @@ export function aktivenTagSetzen(
     map.setLayoutProperty(LYR_WANDERUNG, 'icon-size', ['case', f, 0.4, 0.26]);
     map.setPaintProperty(LYR_WANDERUNG, 'icon-opacity', ['case', f, 1, 0.72]);
   }
-  sichtbarkeitSetzen(map, gruppen, nurTag, datum);
+  sichtbarkeitSetzen(map, kategorien, nurTag, datum);
 }
 
 /**
@@ -459,11 +461,11 @@ export function aktivenTagSetzen(
  */
 export function sichtbarkeitSetzen(
   map: MLMap,
-  gruppen: readonly Gruppe[],
+  kategorien: readonly Kategorie[],
   nurTag: boolean,
   datum: string,
 ): void {
-  const sichtbar = stoppFilter(gruppen, nurTag, datum);
+  const sichtbar = stoppFilter(kategorien, nurTag, datum);
   if (map.getLayer(LYR_STOPP)) map.setFilter(LYR_STOPP, sichtbar);
   if (map.getLayer(LYR_WANDERUNG)) {
     map.setFilter(LYR_WANDERUNG, ['all', ['==', ['get', 'wanderung'], true], sichtbar]);

@@ -1,88 +1,51 @@
 import type { Kategorie } from './kategorie';
 
 /**
- * Sechzehn Zielarten sind zum Ansehen richtig und zum Filtern zu viel: eine
- * Leiste mit sechzehn Schaltflächen ist auf dem Handy genauso unbrauchbar wie
- * 128 Symbole gleichzeitig auf der Karte. Deshalb sechs Überkategorien —
- * gebündelt danach, wonach man unterwegs sucht, nicht danach, was
- * geologisch verwandt ist.
+ * Sechs Filter waren immer noch zu viele für eine Leiste, die auf 390 px
+ * lesbar bleiben soll — und sie zwangen zu Bündelungen, die niemand von
+ * aussen errät („Baden" bei den Vulkanen).
  *
- * „Baden" liegt bei den Vulkanen, weil in Island jede heiße Quelle
- * vulkanischen Ursprungs ist und beides am selben Ort liegt (Námaskarð und
- * Mývatn Nature Baths sind Nachbarn). Wer „heiße Quellen" sucht, findet sie
- * dort, wo er sie erwartet.
+ * Deshalb **drei** Gruppen, die die eigentliche Frage stellen: Landschaft
+ * anschauen, etwas tun, oder Orte und Gebautes. Die genaue Zielart wählt man
+ * darin aus — die Leiste bleibt schmal, die Feinauswahl bleibt möglich.
  *
- * Unterkünfte stehen bewusst in **keiner** Gruppe: sie lassen sich nicht
- * wegfiltern. Wo man schläft, ist der Anker des Tages und muss immer sichtbar
- * bleiben — auch wenn man gerade nur nach Wasserfällen sucht.
+ * Unterkünfte stehen in **keiner** Gruppe: sie lassen sich nicht wegfiltern.
+ * Wo man schläft, ist der Anker des Tages und muss sichtbar bleiben, auch
+ * wenn man gerade nur nach Wasserfällen sucht.
  */
-export type Gruppe = 'wasser' | 'thermal' | 'berge' | 'aktiv' | 'orte' | 'unterwegs';
+export type Gruppe = 'natur' | 'aktiv' | 'orte';
 
-export const GRUPPE_VON: Record<Kategorie, Gruppe | null> = {
-  wasserfall: 'wasser',
-  see: 'wasser',
-  strand: 'wasser',
+export const GRUPPEN: readonly Gruppe[] = ['natur', 'aktiv', 'orte'];
 
-  vulkan: 'thermal',
-  bad: 'thermal',
-
-  berg: 'berge',
-  gletscher: 'berge',
-  schlucht: 'berge',
-  hoehle: 'berge',
-
-  wanderung: 'aktiv',
-  tier: 'aktiv',
-
-  ort: 'orte',
-  museum: 'orte',
-  kirche: 'orte',
-
-  verkehr: 'unterwegs',
-
-  // Die Unterkunft ist der Anker des Tages und wird nie ausgeblendet.
-  unterkunft: null,
-};
-
-export const GRUPPEN: readonly Gruppe[] = [
-  'wasser',
-  'thermal',
-  'berge',
-  'aktiv',
-  'orte',
-  'unterwegs',
-];
-
-/** Kurz genug für eine Schaltfläche auf 390 px Breite. */
 export const GRUPPE_LABEL: Record<Gruppe, string> = {
-  wasser: 'Wasser',
-  thermal: 'Vulkanisch',
-  berge: 'Berge & Eis',
+  natur: 'Natur',
   aktiv: 'Aktiv',
   orte: 'Orte',
-  unterwegs: 'Unterwegs',
 };
 
-/** Was genau drinsteckt — für Titel und Legende, damit nichts geraten wird. */
-export const GRUPPE_INHALT: Record<Gruppe, string> = {
-  wasser: 'Wasserfälle, Seen, Strände',
-  thermal: 'Vulkane, Krater, heiße Quellen, Bäder',
-  berge: 'Berge, Gletscher, Schluchten, Höhlen',
-  aktiv: 'Wanderungen, Tierbeobachtung',
-  orte: 'Ortschaften, Museen, Kirchen',
-  unterwegs: 'Tunnel, Tankstellen, Flughafen, Leuchttürme',
+/**
+ * Die Zielarten je Gruppe, in der Reihenfolge, in der sie im Aufklapper
+ * stehen: das Häufigste zuerst.
+ */
+export const GRUPPE_ARTEN: Record<Gruppe, readonly Kategorie[]> = {
+  natur: ['wasserfall', 'vulkan', 'berg', 'see', 'gletscher', 'schlucht', 'strand', 'hoehle'],
+  aktiv: ['wanderung', 'bad', 'tier'],
+  orte: ['ort', 'museum', 'kirche', 'verkehr'],
 };
 
-/** Ein Farbton je Gruppe, aus der stärksten Zielart der Gruppe. */
 export const GRUPPE_FARBE: Record<Gruppe, string> = {
-  wasser: '#0284c7',
-  thermal: '#dc2626',
-  berge: '#57534e',
+  natur: '#0284c7',
   aktiv: '#16a34a',
   orte: '#a16207',
-  unterwegs: '#0f766e',
 };
 
+const ZU_GRUPPE = new Map<Kategorie, Gruppe>(
+  GRUPPEN.flatMap((g) => GRUPPE_ARTEN[g].map((k) => [k, g] as const)),
+);
+
 export function gruppeVon(kategorie: Kategorie): Gruppe | null {
-  return GRUPPE_VON[kategorie];
+  return ZU_GRUPPE.get(kategorie) ?? null;
 }
+
+/** Alle filterbaren Zielarten — alles ausser der Unterkunft. */
+export const FILTERBAR: readonly Kategorie[] = GRUPPEN.flatMap((g) => GRUPPE_ARTEN[g]);

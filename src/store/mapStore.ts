@@ -3,7 +3,8 @@
 import { create } from 'zustand';
 import type { Pos } from '@/lib/schema';
 import { tage } from '@/lib/reise';
-import type { Gruppe } from '@/lib/gruppe';
+import { GRUPPE_ARTEN, type Gruppe } from '@/lib/gruppe';
+import type { Kategorie } from '@/lib/kategorie';
 
 export type Theme = 'hell' | 'dunkel';
 
@@ -18,11 +19,11 @@ type State = {
   auswahl: Auswahl;
   theme: Theme;
   /**
-   * Sichtbare Zielgruppen. **Leer heißt alle** — nicht keine. So braucht der
+   * Sichtbare Zielarten. **Leer heißt alle** — nicht keine. So braucht der
    * Normalfall keinen Zustand, und „alles anzeigen" ist immer nur ein Tippen
    * entfernt.
    */
-  gruppen: Gruppe[];
+  kategorien: Kategorie[];
   /** Nur die Ziele des gewählten Tages zeigen. Die stärkste Entlastung der Karte. */
   nurTag: boolean;
   /** Der Tagesablauf als Vollbild. */
@@ -36,6 +37,8 @@ type Actions = {
   waehle: (a: Auswahl) => void;
   schliesse: () => void;
   toggleTheme: () => void;
+  toggleKategorie: (k: Kategorie) => void;
+  /** Eine ganze Gruppe an- oder abwählen. */
   toggleGruppe: (g: Gruppe) => void;
   alleGruppen: () => void;
   toggleNurTag: () => void;
@@ -47,7 +50,7 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   tagDatum: tage[0]!.datum,
   auswahl: { art: 'keine' },
   theme: 'hell',
-  gruppen: [],
+  kategorien: [],
   nurTag: false,
   detailsOffen: false,
 
@@ -69,11 +72,26 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   waehle: (auswahl) => set({ auswahl }),
   schliesse: () => set({ auswahl: { art: 'keine' } }),
   toggleTheme: () => set({ theme: get().theme === 'dunkel' ? 'hell' : 'dunkel' }),
-  toggleGruppe: (g) => {
-    const jetzt = get().gruppen;
-    set({ gruppen: jetzt.includes(g) ? jetzt.filter((x) => x !== g) : [...jetzt, g] });
+  toggleKategorie: (k) => {
+    const jetzt = get().kategorien;
+    set({ kategorien: jetzt.includes(k) ? jetzt.filter((x) => x !== k) : [...jetzt, k] });
   },
-  alleGruppen: () => set({ gruppen: [] }),
+  /*
+    Eine Gruppe schaltet alle ihre Zielarten. Ist schon eine davon gewählt,
+    nimmt der Griff sie heraus — sonst kommen alle dazu. Das ist die Regel,
+    die man von einem Kästchen mit gemischtem Inhalt erwartet.
+  */
+  toggleGruppe: (g) => {
+    const arten = GRUPPE_ARTEN[g];
+    const jetzt = get().kategorien;
+    const teilweise = arten.some((k) => jetzt.includes(k));
+    set({
+      kategorien: teilweise
+        ? jetzt.filter((k) => !arten.includes(k))
+        : [...jetzt, ...arten.filter((k) => !jetzt.includes(k))],
+    });
+  },
+  alleGruppen: () => set({ kategorien: [] }),
   toggleNurTag: () => set({ nurTag: !get().nurTag }),
   zeigeDetails: () => set({ detailsOffen: true }),
   schliesseDetails: () => set({ detailsOffen: false }),

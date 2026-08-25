@@ -219,8 +219,8 @@ test('die Route liegt auf Straßen, getrennt nach Pflicht und Kür', async ({ pa
   */
   expect(daten.punkte.reduce((a, b) => a + b, 0)).toBeGreaterThan(3000);
 
-  // Der Tagestitel zeigt die gefahrene Strecke, nicht die Plan-Etappe.
-  await expect(page.getByTestId('tagestitel')).toContainText(/\d+ km/);
+  // Die Zusammenfassung zeigt die gefahrene Strecke, nicht die Plan-Etappe.
+  await expect(page.getByTestId('tageszusammenfassung')).toContainText(/\d+ km/);
 });
 
 test('Unterkünfte tragen ihr eigenes Symbol mit der Zahl der Nächte', async ({ page }) => {
@@ -273,10 +273,13 @@ test('Wanderungen sind am Ziel gekennzeichnet und beziffert', async ({ page }) =
   expect(daten.filter).toContain('wanderung');
 
   // Die Gehzeit des Tages steht im Streifen, nicht nur im Kontextblatt.
-  await expect(page.getByTestId('tagestitel')).toContainText(/zu Fuß/);
-  // Ein Standtag hat keine Pflichtstrecke — start und Ziel sind dieselbe Unterkunft.
-  await expect(page.getByTestId('tagestitel')).toContainText('alles freiwillig');
-  await expect(page.getByTestId('tagestitel')).toContainText('Standtag');
+  const zusammenfassung = page.getByTestId('tageszusammenfassung');
+  await expect(zusammenfassung).toContainText(/zu Fuß/);
+  await expect(zusammenfassung).toContainText('Standtag');
+  // Ein Standtag hat keine Pflichtstrecke — Start und Ziel sind dieselbe
+  // Unterkunft. Der Tagesablauf sagt es in Worten.
+  await page.getByTestId('tagestitel').click();
+  await expect(page.getByTestId('tagesdetails')).toContainText('alles freiwillig');
 });
 
 test('das Kontextblatt zeigt Nächte und Wanderdaten', async ({ page }) => {
@@ -340,8 +343,9 @@ test('der Filter entlastet die Karte und lässt die Unterkünfte stehen', async 
   const einTag = await sichtbar();
   expect(einTag.gesamt).toBeLessThan(alle.gesamt);
 
-  // Zusätzlich nach Zielart.
-  await page.getByTestId('filter-wasser').click();
+  // Zusätzlich nach Zielart — über den Aufklapper der Gruppe.
+  await page.getByTestId('filter-natur').click();
+  await page.getByTestId('kategorie-wasserfall').click();
   await page.waitForTimeout(400);
   const nurWasser = await sichtbar();
   expect(nurWasser.gesamt).toBeLessThan(einTag.gesamt);
@@ -356,7 +360,8 @@ test('der Filter entlastet die Karte und lässt die Unterkünfte stehen', async 
     wegfiltern lassen — wo man schläft, ist der Anker des Tages.
   */
   await page.getByTestId('filter-nurtag').click(); // Tagesfilter wieder aus
-  await page.getByTestId('filter-berge').click();
+  await page.getByTestId('filter-natur').click();
+  await page.getByTestId('kategorie-berg').click();
   await page.waitForTimeout(400);
   expect((await sichtbar()).haeuser).toBe(alle.haeuser);
 
@@ -389,7 +394,8 @@ test('der Filter bewegt die Kamera nicht', async ({ page }) => {
       return { ...m.getCenter(), zoom: m.getZoom() };
     });
   const vorher = await kamera();
-  await page.getByTestId('filter-wasser').click();
+  await page.getByTestId('filter-natur').click();
+  await page.getByTestId('kategorie-wasserfall').click();
   await page.waitForTimeout(1200);
   const nachher = await kamera();
 
@@ -475,4 +481,98 @@ test('der Tagesablauf trennt gefahrene Ziele von blossen Vorschlägen', async ({
   await expect(details).toBeVisible();
   await page.locator('body').press('Escape');
   await expect(details).toBeHidden();
+});
+
+test('der Aufklapper wählt einzelne Zielarten', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/');
+  const aufklapper = page.getByTestId('aufklapper-natur');
+  await expect(aufklapper).toBeHidden();
+
+  await page.getByTestId('filter-natur').click();
+  await expect(aufklapper).toBeVisible();
+  // Alle acht Zielarten der Gruppe stehen einzeln darin, jede mit ihrer Zahl.
+  for (const k of ['wasserfall', 'vulkan', 'berg', 'see', 'gletscher', 'schlucht', 'strand', 'hoehle']) {
+    await expect(aufklapper.getByTestId(`kategorie-${k}`)).toBeVisible();
+  }
+
+  // Eine Art wählen: der Chip zeigt danach 1 von 8.
+  await page.getByTestId('kategorie-wasserfall').click();
+  await expect(page.getByTestId('filter-natur')).toContainText('1/8');
+  await expect(page.getByTestId('filter-natur')).toHaveAttribute('aria-pressed', 'true');
+
+  // „Alles in Natur" nimmt bei gemischter Auswahl die ganze Gruppe heraus.
+  await page.getByTestId('aufklapper-alles-natur').click();
+  await expect(page.getByTestId('filter-natur')).toHaveAttribute('aria-pressed', 'false');
+
+  // Und wählt sie beim nächsten Tippen komplett.
+  await page.getByTestId('aufklapper-alles-natur').click();
+  await expect(page.getByTestId('filter-natur')).toContainText('8/8');
+
+  // Der Aufklapper muss ins Bild passen — sonst wählt man nichts aus.
+  const seite = page.viewportSize()!;
+  const kasten = (await aufklapper.boundingBox())!;
+  expect(kasten.x).toBeGreaterThanOrEqual(0);
+  expect(kasten.x + kasten.width).toBeLessThanOrEqual(seite.width + 1);
+
+  await page.getByTestId('filter-alle').click();
+  await expect(aufklapper).toBeHidden();
+  await expect(page.getByTestId('filter-alle')).toHaveAttribute('aria-pressed', 'true');
+});
+
+test('der Streifen gliedert die Reise in Standzeiten', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-31');
+
+  /*
+    Sechs Unterkünfte plus der Abreisetag ohne Bett: sieben Blöcke. Jeder
+    trägt den Namen seines Quartiers und die Zahl der Nächte — das ist die
+    Klammer, ohne die fünfzehn Tage zusammenhanglose Kästchen sind.
+  */
+  const bloecke = page.locator('[data-testid^="etappe-"]');
+  await expect(bloecke).toHaveCount(7);
+
+  const thrasastadir = page.getByTestId('etappe-thrasastadir');
+  await expect(thrasastadir).toContainText('Þrasastaðir');
+  await expect(thrasastadir).toContainText('4');
+  // Die vier Tage dieser Standzeit liegen in ihrem Block, kein anderer.
+  for (const d of ['2026-08-30', '2026-08-31', '2026-09-01', '2026-09-02']) {
+    await expect(thrasastadir.getByTestId(`tag-${d}`)).toBeVisible();
+  }
+  await expect(thrasastadir.getByTestId('tag-2026-09-03')).toHaveCount(0);
+
+  // Der gewählte Tag sagt, die wievielte Nacht das ist.
+  await expect(page.getByTestId('tageszusammenfassung')).toContainText('Nacht 2 von 4');
+});
+
+test('der Tagesablauf ist ohne Suchen erreichbar und blättert in der Standzeit', async ({
+  page,
+}) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-31');
+
+  // Eine beschriftete Schaltfläche, keine versteckte Titelzeile.
+  const knopf = page.getByTestId('tagestitel');
+  await expect(knopf).toContainText('Tagesablauf');
+  const box = (await knopf.boundingBox())!;
+  expect(box.height).toBeGreaterThanOrEqual(44);
+
+  await knopf.click();
+  const details = page.getByTestId('tagesdetails');
+  await expect(details).toBeVisible();
+  // Zuerst die Standzeit, dann der Tag darin.
+  await expect(details).toContainText('Þrasastaðir');
+  await expect(details).toContainText('Nacht 2 von 4');
+  await expect(details).toContainText('2 / 4');
+
+  // Blättern bleibt innerhalb der Standzeit.
+  await page.getByTestId('tagesdetails-vor').click();
+  await expect(details).toContainText('3 / 4');
+  await expect(details).toContainText('Nacht 3 von 4');
+  await page.getByTestId('tagesdetails-zurueck').click();
+  await page.getByTestId('tagesdetails-zurueck').click();
+  await expect(details).toContainText('1 / 4');
+  // Am Anfang der Standzeit ist Schluss — der Sprung ins nächste Quartier ist
+  // ein anderer Schritt.
+  await expect(page.getByTestId('tagesdetails-zurueck')).toBeDisabled();
 });

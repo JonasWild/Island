@@ -48,8 +48,8 @@ Layer-Ausdrücke, verdeckte Bedienelemente.
 | Eingabe | Wirkung |
 |---|---|
 | Klick auf einen Tag | Kameraflug auf die Etappe |
-| Klick auf die Titelzeile unten | Tagesablauf mit Zeitstrahl |
-| Filterleiste oben | nach Tag und Zielart filtern |
+| `Tagesablauf` unten rechts | der Tag als Zeitstrahl von Bett zu Bett |
+| Filterleiste oben | nach Tag und Zielart filtern, Gruppe tippen öffnet die Zielarten |
 | `←` / `→` | Tag zurück / vor |
 | Klick auf einen Stopp | Kontextblatt (auf dem Handy unten, sonst rechts) |
 | Klick auf leere Karte | Koordinate im Kontextblatt |
@@ -143,9 +143,13 @@ Tippen:
 
 - **Nur dieser Tag** blendet die Ziele der anderen vierzehn Tage aus — die
   stärkste Entlastung, deshalb vorn und durch einen Trenner abgesetzt.
-- **Sechs Überkategorien** statt sechzehn Zielarten: Wasser, Vulkanisch,
-  Berge & Eis, Aktiv, Orte, Unterwegs. Eine Leiste mit sechzehn
-  Schaltflächen wäre so unbrauchbar wie die volle Karte.
+- **Drei Gruppen** in der Leiste: Natur, Aktiv, Orte. Mehr passt nicht
+  nebeneinander, ohne dass man scrollen muss, um überhaupt zu sehen, was es
+  gibt.
+- **Die Zielart im Aufklapper.** Tippen auf eine Gruppe öffnet die Liste ihrer
+  Zielarten, jede einzeln wählbar und mit der Zahl der Ziele dahinter. Wer nur
+  Wasserfälle will, bekommt sie — und die Leiste bleibt trotzdem schmal.
+  „Alles in Natur" schaltet die ganze Gruppe.
 
 Keine Auswahl heißt alles sichtbar — der Normalfall braucht keinen Zustand,
 und „Alle" bringt jederzeit zurück. Gemessen: aus 43 sichtbaren Markern
@@ -156,10 +160,27 @@ des Tages; sie tragen deshalb keinen Gruppenschlüssel und bleiben immer
 stehen — auch über die ganze Standzeit, nicht nur am Anreisetag. Am 28.08.
 schläft man in dem Haus, das man am 27.08. bezogen hat.
 
+## Etappen statt fünfzehn Tage
+
+Die Reise besteht nicht aus fünfzehn gleichrangigen Tagen, sondern aus **sechs
+Standzeiten**: Zeiträumen zwischen zwei Unterkünften. Man packt einmal aus,
+bleibt eine bis vier Nächte, packt wieder ein. Daran hängt, was ein Tag
+überhaupt sein kann — ein Umzugstag mit Gepäck im Auto oder ein Tag, an dem
+man abends ins selbe Bett zurückkehrt.
+
+Der Streifen unten ist deshalb kein Band aus fünfzehn Kästchen, sondern nach
+Standzeiten gegliedert: jeder Block trägt den Namen seines Quartiers und die
+Zahl der Nächte, die Tage sitzen darin. Der gewählte Tag sagt dazu, die
+wievielte Nacht das ist. Ein Tag gehört zu der Unterkunft, in der man an
+seinem **Abend** schläft; der Abreisetag hat keine und bildet den letzten
+Block.
+
 ## Der Tag als Ablauf
 
-Ein Tippen auf die Titelzeile im Tagesstreifen öffnet den **Tagesablauf**: die
-Ziele als Zeitstrahl von Bett zu Bett, in der **gefahrenen** Reihenfolge.
+Der Knopf **Tagesablauf** unten rechts öffnet die Ziele als Zeitstrahl von
+Bett zu Bett, in der **gefahrenen** Reihenfolge. Darin blättert man durch die
+Tage **derselben Standzeit** — der Sprung ins nächste Quartier ist ein anderer
+Schritt und passiert über den Streifen.
 
 Die ist nicht die aus `reise.json` — dort stehen die Vorschläge des
 Veranstalters, teils mehrfach genannt, teils in beliebiger Folge. Die

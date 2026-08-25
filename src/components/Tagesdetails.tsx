@@ -3,6 +3,7 @@
 import { useMapStore } from '@/store/mapStore';
 import { ablaufVon } from '@/lib/ablauf';
 import { datumKurz, gehzeitTag, TAG_FARBE, TAG_LABEL, tagNach } from '@/lib/reise';
+import { etappeName, etappeVon, nachtNummer } from '@/lib/etappe';
 import { routeNach } from '@/lib/route';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
 import { kategorieFarbe } from '@/map/icons';
@@ -30,13 +31,31 @@ export function Tagesdetails() {
   const offen = useMapStore((s) => s.detailsOffen);
   const schliesse = useMapStore((s) => s.schliesseDetails);
   const waehle = useMapStore((s) => s.waehle);
+  const setTag = useMapStore((s) => s.setTag);
+  const zeigeDetails = useMapStore((s) => s.zeigeDetails);
 
   const tag = tagNach(datum);
   const ablauf = ablaufVon(datum);
   const gefahren = routeNach(datum);
   const gehzeit = gehzeitTag(datum);
+  const etappe = etappeVon(datum);
+  const nacht = nachtNummer(datum);
 
-  if (!offen || !tag || !ablauf) return null;
+  if (!offen || !tag || !ablauf || !etappe) return null;
+
+  /*
+    Blättern **innerhalb der Etappe**, nicht über die ganze Reise: die Tage
+    einer Standzeit gehören zusammen, der Sprung ins nächste Quartier ist ein
+    anderer Schritt. `setTag` schliesst die Details, deshalb werden sie danach
+    wieder geöffnet.
+  */
+  const stelle = etappe.tage.findIndex((t) => t.datum === datum);
+  const wechsle = (richtung: -1 | 1) => {
+    const ziel = etappe.tage[stelle + richtung];
+    if (!ziel) return;
+    setTag(ziel.datum);
+    zeigeDetails();
+  };
 
   const kuer = gefahren ? Math.round(gefahren.km - gefahren.pflichtKm) : 0;
 
@@ -119,12 +138,28 @@ export function Tagesdetails() {
         <div className="flex items-start gap-3">
           <div className="min-w-0 flex-1">
             {/*
+              Zuerst die Standzeit, dann der Tag darin. Ein Tag allein sagt
+              nicht, ob man Gepäck im Auto hat oder abends ins selbe Bett
+              zurückkehrt — die Etappe sagt es.
+            */}
+            <p className="flex flex-wrap items-center gap-x-1.5 text-[11px] text-slate-500">
+              <span className="font-medium text-rose-700">{etappeName(etappe)}</span>
+              {etappe.unterkunft && nacht > 0 && (
+                <span>
+                  · Nacht {nacht} von {etappe.unterkunft.naechte}
+                </span>
+              )}
+              <span>
+                · {datumKurz(etappe.von)}–{datumKurz(etappe.bis)}
+              </span>
+            </p>
+            {/*
               Die Tagesart als Pille in ihrer Farbe — dieselbe, die auf der
               Karte die Linie trägt. Ein Farbpunkt ohne Wort erklärt nichts,
               ein Wort ohne Farbe verbindet nichts.
             */}
             <span
-              className="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold text-white"
+              className="mt-1.5 inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold text-white"
               style={{ backgroundColor: TAG_FARBE[tag.typ] }}
             >
               {TAG_LABEL[tag.typ]}
@@ -155,6 +190,39 @@ export function Tagesdetails() {
             </svg>
           </button>
         </div>
+
+        {/* Blättern durch die Tage dieser Standzeit. */}
+        {etappe.tage.length > 1 && (
+          <div className="mt-3 flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => wechsle(-1)}
+              disabled={stelle === 0}
+              data-testid="tagesdetails-zurueck"
+              className="flex h-9 flex-1 items-center justify-center gap-1 rounded-lg bg-slate-100 text-xs font-medium text-slate-700 transition hover:bg-slate-200 disabled:opacity-40 disabled:hover:bg-slate-100"
+            >
+              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden fill="none" stroke="currentColor">
+                <path d="M10 3L5 8l5 5" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+              {stelle > 0 ? datumKurz(etappe.tage[stelle - 1]!.datum) : 'Tag zurück'}
+            </button>
+            <span className="shrink-0 text-[11px] tabular-nums text-slate-400">
+              {stelle + 1} / {etappe.tage.length}
+            </span>
+            <button
+              type="button"
+              onClick={() => wechsle(1)}
+              disabled={stelle === etappe.tage.length - 1}
+              data-testid="tagesdetails-vor"
+              className="flex h-9 flex-1 items-center justify-center gap-1 rounded-lg bg-slate-100 text-xs font-medium text-slate-700 transition hover:bg-slate-200 disabled:opacity-40 disabled:hover:bg-slate-100"
+            >
+              {stelle < etappe.tage.length - 1 ? datumKurz(etappe.tage[stelle + 1]!.datum) : 'Tag vor'}
+              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden fill="none" stroke="currentColor">
+                <path d="M6 3l5 5-5 5" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+        )}
 
         {/* Die Kennzahlen des Tages, alle vier auf einen Blick. */}
         {gefahren?.art === 'strasse' && (

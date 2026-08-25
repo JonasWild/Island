@@ -136,7 +136,10 @@ Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
 
 ## 5. Interaktion
 
-- **Tagesstreifen** unten: 15 Tage, farbcodiert nach Typ. Auf dem Handy
+- **Tagesstreifen** unten: nach **Standzeiten** gegliedert — Zeiträumen
+  zwischen zwei Unterkünften, mit Quartier und Nächtezahl als Klammer. Die
+  Reise besteht aus sechs solchen Abschnitten, nicht aus fünfzehn
+  gleichrangigen Tagen. Tage farbcodiert nach Typ. Auf dem Handy
   horizontal scrollbar mit Snap, Ziele ab 44 px, der gewählte Tag zentriert
   sich selbst. Ab `sm:` die kompakte Pille. Klick = Kameraflug auf die Etappe.
   Das Wischen ist die native Scroll-Geste des Streifens; auf der Karte selbst
@@ -153,8 +156,9 @@ Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
   gestrichelt = Luftlinie ohne saubere Route. Pfeile zeigen die Fahrtrichtung.
   Farbe trägt **nur der gewählte Tag** — fünfzehn bunte Linien gleichzeitig
   sind Konfetti, in dem die Farbcodierung nichts mehr aussagt.
-- **Filterleiste** oben: „Nur dieser Tag" plus sechs Überkategorien. 128
-  Symbole gleichzeitig sind keine Karte mehr. Unterkünfte lassen sich nicht
+- **Filterleiste** oben: „Nur dieser Tag" plus drei Gruppen (Natur, Aktiv,
+  Orte), die beim Tippen die einzelnen Zielarten aufklappen. 128 Symbole
+  gleichzeitig sind keine Karte mehr. Unterkünfte lassen sich nicht
   wegfiltern.
 - **Tagesablauf** als Vollbild: die Ziele als Zeitstrahl von Bett zu Bett, in
   der gefahrenen Reihenfolge aus `route.json`. Ziele ohne Wegpunkt stehen
