@@ -1,28 +1,18 @@
 import type { Theme } from '@/store/mapStore';
 
-/** Basiskarte: OpenFreeMap — kostenlos, kein Key, kein Load-Limit. Hell ist der Standard. */
+/**
+ * Basiskarte: OpenFreeMap — kostenlos, kein Key, kein Load-Limit. Hell ist der
+ * Standard.
+ *
+ * Mehr lädt die Karte nicht. Es gab einmal eine DEM-Quelle für eine
+ * zuschaltbare Schummerung; sie ist wieder raus, weil sie niemand gebraucht
+ * hat. Damit ist `tiles.openfreemap.org` der einzige Kartenhost, den die CSP
+ * öffnen muss.
+ */
 export const STYLE_URL: Record<Theme, string> = {
   hell: 'https://tiles.openfreemap.org/styles/bright',
   dunkel: 'https://tiles.openfreemap.org/styles/dark',
 };
-
-/**
- * DEM: AWS Terrain Tiles (Terrarium-Kodierung), global und ohne Key.
- * Nicht demotiles.maplibre.org — dessen Kachelsatz deckt nur einen Ausschnitt
- * der Alpen ab und liefert über Island gar nichts.
- *
- * Die Quelle trägt **nur noch die Schummerung**. `setTerrain` ist raus: das
- * 3D-Mesh war der teure Teil (Mesh-Aufbau, Depth-Buffer, je Bild eine
- * Höhenabfrage pro Marker) und sah dabei nicht gut aus. Ein Hillshade-Layer
- * liest dieselben Kacheln, ohne Geometrie daraus zu bauen.
- *
- * Die Quelle wird erst angelegt, wenn der Nutzer auf Relief umschaltet — im
- * Normalmodus geht keine einzige Anfrage an s3.amazonaws.com.
- */
-export const DEM_SOURCE_ID = 'terrain-dem';
-export const DEM_TILES = ['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'];
-export const DEM_ATTRIBUTION =
-  '<a href="https://registry.opendata.aws/terrain-tiles/">AWS Terrain Tiles</a>';
 
 export const ISLAND_BOUNDS: [number, number, number, number] = [-24.6, 63.2, -13.3, 66.6];
 

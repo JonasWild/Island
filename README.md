@@ -50,8 +50,6 @@ Layer-Ausdrücke, verdeckte Bedienelemente.
 | Klick auf einen Tag | Kameraflug auf die Etappe |
 | Klick auf die Titelzeile unten | Tagesablauf mit Zeitstrahl |
 | Filterleiste oben | nach Tag und Zielart filtern |
-| `Relief` | Schummerung an/aus — lädt das DEM erst dann |
-| `Legende` | erklärt Linienarten, Tagesfarben und Marker |
 | `←` / `→` | Tag zurück / vor |
 | Klick auf einen Stopp | Kontextblatt (auf dem Handy unten, sonst rechts) |
 | Klick auf leere Karte | Koordinate im Kontextblatt |
@@ -65,34 +63,17 @@ MapLibre GL JS v5 direkt, ohne `react-map-gl` — die Kamera bleibt imperativ.
 Basiskarte OpenFreeMap (kein Key), hell als Standard, dunkel per Schalter über
 einen echten Style-Wechsel statt eines CSS-Filters.
 
-**Kein Terrain.** `setTerrain` ist raus. Das 3D-Gelände war der teure Teil —
-Mesh-Aufbau, Depth-Buffer und je Bild eine Höhenabfrage pro Marker — und sah
-dabei nicht gut aus. Mit ihm fielen `setSky`, `maxPitch` und der Kamera-Pitch:
-die Karte ist 2D, Norden bleibt oben. Die Drehung in Fahrtrichtung ging
-gleich mit; sie trug nur, solange es ein Relief zu betrachten gab, und kostet
-auf einer flachen Karte bloß Orientierung.
+**Kein Terrain, kein Relief.** `setTerrain` ist raus. Das 3D-Gelände war der
+teure Teil — Mesh-Aufbau, Depth-Buffer und je Bild eine Höhenabfrage pro
+Marker — und sah dabei nicht gut aus. Mit ihm fielen `setSky`, `maxPitch` und
+der Kamera-Pitch: die Karte ist 2D, Norden bleibt oben. Die Drehung in
+Fahrtrichtung ging gleich mit; sie trug nur, solange es ein Relief zu
+betrachten gab, und kostet auf einer flachen Karte bloß Orientierung.
 
-**Relief als Schalter.** Ein `hillshade`-Layer auf denselben
-[AWS Terrain Tiles](https://registry.opendata.aws/terrain-tiles/)
-(Terrarium-Kodierung) liest die Höhendaten, baut daraus aber keine Geometrie.
-Quelle und Layer entstehen erst beim Einschalten und verschwinden beim
-Ausschalten — im Normalmodus geht **keine einzige Anfrage** an den DEM-Host.
-Die Farben sind weich gehalten: eine Schummerung soll das Gelände andeuten,
-nicht die Basiskarte überschreiben.
-
-Die beiden Alternativen wurden geprüft und verworfen:
-
-- **Esri World Hillshade** liefert zwar Kacheln (HTTP 200, echte JPEGs), über
-  Island aber ein nahezu weißes Bild. Es ist ein Multiply-Overlay für ArcGIS;
-  MapLibre-Raster-Layer kennen keinen Multiply-Blendmodus, das Ergebnis wäre
-  ein weißer Schleier statt Relief.
-- **OpenTopoMap** ist keine Schummerung, sondern eine vollständige Basiskarte
-  mit eigenen Farben, Gewässern und Beschriftungen. Sie würde OpenFreeMap
-  ersetzen statt ergänzen, kollidiert mit dem Hell/Dunkel-Wechsel und ist
-  ausdrücklich nicht für beliebige Last gedacht.
-
-Nicht `demotiles.maplibre.org`: dessen Kachelsatz deckt nur einen Ausschnitt
-der Alpen ab und liefert über Island nichts.
+Eine zuschaltbare Schummerung auf denselben DEM-Kacheln gab es danach noch
+eine Weile. Sie ist ebenfalls raus — sie wurde nicht gebraucht. Damit lädt die
+Karte genau einen fremden Host, `tiles.openfreemap.org`, und die CSP hat einen
+Eintrag weniger.
 
 **Die Route liegt auf echten Straßen** und ist durchgehend: jeder Tag beginnt
 beim Endpunkt des Vortags. Sie sagt vier Dinge gleichzeitig:
@@ -108,10 +89,7 @@ beim Endpunkt des Vortags. Sie sagt vier Dinge gleichzeitig:
 Standtag, Tagesausflug, Etappe, Abreise) — aber fünfzehn bunte Linien
 gleichzeitig sind Konfetti, in dem die Farbe nichts mehr bedeutet. Die übrigen
 Tage bleiben neutral grau als Zusammenhang stehen, und der Tagesstreifen nennt
-die Art des gewählten Tages im Klartext neben seinem Farbpunkt. Der Schalter
-**Legende** erklärt die ganze Zeichensprache.
-
-Details: [Routing](#routing).
+die Art des gewählten Tages im Klartext neben seinem Farbpunkt. Details: [Routing](#routing).
 
 **Symbole statt Punkte, und jede Art in ihrer Farbe.** Jeder Stopp bekommt ein
 Piktogramm für seine Art — Wasserfall, heiße Quelle, Vulkan, Gletscher,
@@ -167,8 +145,7 @@ Tippen:
   stärkste Entlastung, deshalb vorn und durch einen Trenner abgesetzt.
 - **Sechs Überkategorien** statt sechzehn Zielarten: Wasser, Vulkanisch,
   Berge & Eis, Aktiv, Orte, Unterwegs. Eine Leiste mit sechzehn
-  Schaltflächen wäre so unbrauchbar wie die volle Karte. Was in jeder Gruppe
-  steckt, sagt die Legende.
+  Schaltflächen wäre so unbrauchbar wie die volle Karte.
 
 Keine Auswahl heißt alles sichtbar — der Normalfall braucht keinen Zustand,
 und „Alle" bringt jederzeit zurück. Gemessen: aus 43 sichtbaren Markern
@@ -371,7 +348,8 @@ manuellen Klärung. Korrekturen und die geklärten Streitfälle aus den PDFs:
 Framework-Preset Next.js, Region `fra1`, Production auf `main`, Preview pro
 Branch. Die App braucht keine Umgebungsvariablen — es gibt kein Geheimnis
 mehr zu verwalten. Die CSP in `next.config.ts` öffnet gezielt nur
-`tiles.openfreemap.org` und `s3.amazonaws.com`; alles andere bleibt zu.
+`tiles.openfreemap.org` für die Karte und `upload.wikimedia.org` für die
+Bilder; alles andere bleibt zu.
 
 ## Nicht enthalten
 

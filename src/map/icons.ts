@@ -562,7 +562,7 @@ export function iconsRegistrieren(map: MLMap): void {
   }
 }
 
-/** Farbe einer Zielart — für Legende und Kontextblatt, damit beide dieselbe sprechen. */
+/** Farbe einer Zielart — Karte, Filter und Kontextblatt sprechen dieselbe. */
 export function kategorieFarbe(kategorie: Kategorie): string {
   return FARBE[kategorie];
 }

@@ -7,8 +7,8 @@ import type { Page } from '@playwright/test';
  * Umgebung ohne Netz nie — und dann werden die eigenen Layer nie angelegt,
  * was jede Layer-Prüfung wertlos macht.
  *
- * Der Stil enthält einen Symbol-Layer, damit `reliefSetzen` seine Einfügemarke
- * unter den Beschriftungen findet — wie im echten Stil auch.
+ * Der Stil enthält einen Symbol-Layer, damit Layer, die unter die
+ * Beschriftungen gehören, ihre Einfügemarke finden — wie im echten Stil auch.
  */
 export const STUB_STYLE = {
   version: 8,
@@ -30,18 +30,9 @@ export const STUB_STYLE = {
   ],
 } as const;
 
-/** Basiskarte und DEM abfangen: hell wie dunkel liefern denselben Stubstil. */
+/** Basiskarte abfangen: hell wie dunkel liefern denselben Stubstil. */
 export async function stilStubben(page: Page): Promise<void> {
   await page.route(/tiles\.openfreemap\.org\/styles\/.*/, (route) =>
     route.fulfill({ contentType: 'application/json', body: JSON.stringify(STUB_STYLE) }),
-  );
-  // Ein 1x1-PNG genügt: geprüft wird, dass der Layer existiert und Kacheln
-  // anfordert, nicht wie die Schummerung aussieht.
-  const png = Buffer.from(
-    'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==',
-    'base64',
-  );
-  await page.route(/elevation-tiles-prod/, (route) =>
-    route.fulfill({ contentType: 'image/png', body: png }),
   );
 }

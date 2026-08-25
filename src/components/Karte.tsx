@@ -3,7 +3,6 @@
 import dynamic from 'next/dynamic';
 import { Timeline } from './Timeline';
 import { ContextSheet } from './ContextSheet';
-import { Legende } from './Legende';
 import { Filterleiste } from './Filterleiste';
 import { Tagesdetails } from './Tagesdetails';
 import { useMapStore } from '@/store/mapStore';
@@ -26,8 +25,6 @@ export function Karte() {
   useTastatur();
   const theme = useMapStore((s) => s.theme);
   const toggleTheme = useMapStore((s) => s.toggleTheme);
-  const relief = useMapStore((s) => s.relief);
-  const toggleRelief = useMapStore((s) => s.toggleRelief);
 
   return (
     <main className="relative h-dvh w-full overflow-hidden">
@@ -51,26 +48,6 @@ export function Karte() {
         >
           {theme === 'hell' ? 'Dunkel' : 'Hell'}
         </button>
-        {/*
-          Relief lädt das DEM erst beim Einschalten. Deshalb ein echter
-          Schalter und keine Dauerlast: wer die Schummerung nicht braucht,
-          bezahlt sie auch nicht.
-        */}
-        <button
-          type="button"
-          onClick={toggleRelief}
-          data-testid="schalter-relief"
-          aria-pressed={relief}
-          title={relief ? 'Schummerung aus' : 'Schummerung an'}
-          className={`flex h-11 min-w-11 items-center justify-center rounded-md px-3 text-xs font-medium shadow ring-1 ring-black/10 backdrop-blur transition ${
-            relief
-              ? 'bg-slate-800/90 text-white hover:bg-slate-800'
-              : 'bg-white/85 text-slate-700 hover:bg-white'
-          }`}
-        >
-          Relief
-        </button>
-        <Legende />
       </div>
       <ContextSheet />
       <Timeline />

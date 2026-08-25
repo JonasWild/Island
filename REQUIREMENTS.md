@@ -50,19 +50,18 @@ Drehung in Fahrtrichtung ging mit: sie trug nur, solange es ein Relief zu
 betrachten gab, und kostet auf einer flachen Karte bloß Orientierung. Norden
 bleibt oben.
 
-### Geblieben: Relief als Schalter
+### Zurückgenommen: die Relief-Schummerung
 
-Ein `hillshade`-Layer auf denselben AWS Terrain Tiles liest die Höhendaten,
-ohne Geometrie daraus zu bauen. Quelle und Layer entstehen erst beim
-Einschalten — im Normalmodus geht **keine einzige Anfrage** an den DEM-Host.
+Nach dem Terrain blieb eine zuschaltbare Schummerung übrig — ein
+`hillshade`-Layer auf denselben AWS Terrain Tiles, der die Höhendaten liest,
+ohne Geometrie daraus zu bauen. Auch die ist wieder raus: sie wurde nicht
+gebraucht. Damit lädt die Karte genau einen fremden Host.
 
-Geprüft und verworfen:
-
-| Option | Warum nicht |
-|---|---|
-| **Esri World Hillshade** | Liefert Kacheln (HTTP 200, echte JPEGs), über Island aber ein nahezu weißes Bild. Es ist ein Multiply-Overlay für ArcGIS; MapLibre-Raster-Layer kennen keinen Multiply-Blendmodus. |
-| **OpenTopoMap** | Keine Schummerung, sondern eine vollständige Basiskarte mit eigenen Farben und Beschriftungen. Würde OpenFreeMap ersetzen statt ergänzen, kollidiert mit Hell/Dunkel, nicht für beliebige Last gedacht. |
-| **`demotiles.maplibre.org`** | Kachelsatz deckt nur einen Ausschnitt der Alpen ab, über Island nichts. |
+Für die Nachwelt, falls die Frage wiederkommt: Esri World Hillshade liefert
+über Island ein nahezu weißes Multiply-Overlay, das MapLibre ohne
+Multiply-Blendmodus nicht verwerten kann; OpenTopoMap ist keine Schummerung,
+sondern eine vollständige Basiskarte; `demotiles.maplibre.org` deckt nur einen
+Ausschnitt der Alpen ab.
 
 ### Zurückgenommen: 3D-Modelle
 
@@ -154,8 +153,6 @@ Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
   gestrichelt = Luftlinie ohne saubere Route. Pfeile zeigen die Fahrtrichtung.
   Farbe trägt **nur der gewählte Tag** — fünfzehn bunte Linien gleichzeitig
   sind Konfetti, in dem die Farbcodierung nichts mehr aussagt.
-- **Legende**: erklärt Linienarten, Tagesfarben, Filter und Marker. Ohne sie
-  ist jede Farbcodierung Dekoration.
 - **Filterleiste** oben: „Nur dieser Tag" plus sechs Überkategorien. 128
   Symbole gleichzeitig sind keine Karte mehr. Unterkünfte lassen sich nicht
   wegfiltern.
@@ -167,8 +164,6 @@ Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
   **Anzahl der Nächte als Zahl** — das ist die wichtigste Angabe des Tages.
   Stopps mit Wanderung tragen ein Abzeichen; der Wegverlauf wird nicht
   gezeichnet, weil er in keiner Quelle dieses Projekts steht.
-- **Relief**: Schalter, der die Schummerung zuschaltet und dabei erst das DEM
-  lädt.
 - Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar, reload-fest.
 - Tastatur: ←/→ Tag, Esc schließt. Reduced-Motion respektieren.
 - Hell/dunkel über MapLibre-Style-Wechsel, nicht per CSS-Filter.
@@ -237,9 +232,9 @@ mehr und braucht keine Umgebungsvariablen.
 - Repo → Vercel-Projekt, Framework-Preset Next.js, Region `fra1`.
 - Keine Umgebungsvariablen — die App hat keine Geheimnisse.
 - Preview-Deploy pro Branch, Production auf `main`.
-- Basiskarte/DEM extern → CSP `connect-src`/`img-src` öffnen genau
-  `tiles.openfreemap.org` und `s3.amazonaws.com`, sonst restriktiv. Die
-  Routing- und Wikipedia-Dienste stehen bewusst **nicht** darin: sie werden nur
+- Basiskarte extern → CSP öffnet genau `tiles.openfreemap.org` (Karte) und
+  `upload.wikimedia.org` (Bilder, nur `img-src`), sonst restriktiv. Die
+  Routing- und Wikipedia-APIs stehen bewusst **nicht** darin: sie werden nur
   zur Build-Zeit angefragt.
 
 ## 9. Meilensteine

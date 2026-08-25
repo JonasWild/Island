@@ -12,7 +12,6 @@ import {
   layerSetzen,
   LYR_STOPP,
   quellenSetzen,
-  reliefSetzen,
   sichtbarkeitSetzen,
   SRC_ORT,
 } from '@/map/layers';
@@ -22,7 +21,7 @@ import { START_KAMERA, STYLE_URL } from '@/map/style';
 /**
  * MapLibre nimmt Layer und Layer-Änderungen erst an, wenn der Style geladen
  * ist. Wer eine Änderung währenddessen anstößt, verliert sie sonst still —
- * ein früher Klick auf „Relief" bliebe wirkungslos, und nichts würde es je
+ * ein früher Klick auf einen Filter bliebe wirkungslos, und nichts würde es je
  * nachholen. Deshalb wird sie einmalig nachgezogen, sobald die Karte zur Ruhe
  * kommt. `once` und ohne eigenen Repaint: sonst entsteht die Schleife
  * idle → triggerRepaint → idle.
@@ -46,7 +45,6 @@ export function MapCanvas() {
   const tagDatum = useMapStore((s) => s.tagDatum);
   const theme = useMapStore((s) => s.theme);
   const auswahl = useMapStore((s) => s.auswahl);
-  const relief = useMapStore((s) => s.relief);
   const gruppen = useMapStore((s) => s.gruppen);
   const nurTag = useMapStore((s) => s.nurTag);
   const waehle = useMapStore((s) => s.waehle);
@@ -57,7 +55,6 @@ export function MapCanvas() {
    */
   const styleAufbauen = useCallback((map: MLMap) => {
     const s = useMapStore.getState();
-    reliefSetzen(map, s.relief, s.theme);
     iconsRegistrieren(map);
     quellenSetzen(map);
     layerSetzen(map, s.tagDatum, s.gruppen, s.nurTag);
@@ -72,8 +69,8 @@ export function MapCanvas() {
       center: START_KAMERA.center,
       zoom: START_KAMERA.zoom,
       // Eigene Herkunftsangabe unten links statt der eingebauten unten rechts:
-      // sie wird mit eingeschaltetem Relief zweizeilig und griffe sonst quer
-      // über die Karte in die Zoom-Knöpfe und die eigenen Schalter.
+      // sie wird auf Handybreite zweizeilig und griffe sonst quer über die
+      // Karte in die Zoom-Knöpfe und die eigenen Schalter.
       attributionControl: false,
       ...({ projection: { type: 'globe' } } as Record<string, unknown>),
     });
@@ -176,13 +173,6 @@ export function MapCanvas() {
   useEffect(() => {
     mapRef.current?.setStyle(STYLE_URL[theme], { diff: false });
   }, [theme]);
-
-  /** Relief an/aus — Quelle und Layer entstehen und verschwinden mit dem Schalter. */
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
-    return wennStilBereit(map, () => reliefSetzen(map, relief, theme));
-  }, [relief, theme, karte]);
 
   /** Auswahl eines Stopps → hinfliegen. */
   useEffect(() => {

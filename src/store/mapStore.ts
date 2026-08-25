@@ -17,8 +17,6 @@ type State = {
   tagDatum: string;
   auswahl: Auswahl;
   theme: Theme;
-  /** Schummerung. Aus, solange niemand danach fragt — dann lädt auch kein DEM. */
-  relief: boolean;
   /**
    * Sichtbare Zielgruppen. **Leer heißt alle** — nicht keine. So braucht der
    * Normalfall keinen Zustand, und „alles anzeigen" ist immer nur ein Tippen
@@ -38,7 +36,6 @@ type Actions = {
   waehle: (a: Auswahl) => void;
   schliesse: () => void;
   toggleTheme: () => void;
-  toggleRelief: () => void;
   toggleGruppe: (g: Gruppe) => void;
   alleGruppen: () => void;
   toggleNurTag: () => void;
@@ -50,7 +47,6 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   tagDatum: tage[0]!.datum,
   auswahl: { art: 'keine' },
   theme: 'hell',
-  relief: false,
   gruppen: [],
   nurTag: false,
   detailsOffen: false,
@@ -73,8 +69,6 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   waehle: (auswahl) => set({ auswahl }),
   schliesse: () => set({ auswahl: { art: 'keine' } }),
   toggleTheme: () => set({ theme: get().theme === 'dunkel' ? 'hell' : 'dunkel' }),
-  toggleRelief: () => set({ relief: !get().relief }),
-
   toggleGruppe: (g) => {
     const jetzt = get().gruppen;
     set({ gruppen: jetzt.includes(g) ? jetzt.filter((x) => x !== g) : [...jetzt, g] });

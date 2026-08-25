@@ -6,10 +6,7 @@ import type { NextConfig } from 'next';
  * fetch-Aufrufe von MapLibre ab, `img-src` die Raster-Kacheln, `worker-src`
  * die MapLibre-Worker (blob:).
  */
-const MAP_HOSTS = [
-  'https://tiles.openfreemap.org', // Basiskarte
-  'https://s3.amazonaws.com', // DEM: AWS Terrain Tiles
-];
+const MAP_HOSTS = ['https://tiles.openfreemap.org']; // Basiskarte
 
 /**
  * Bilder zu den Stopps liegen auf Wikimedia Commons und werden von dort

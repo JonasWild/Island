@@ -47,7 +47,7 @@ test('Hintergrundtext nennt Quelle und Link', async ({ page }) => {
   );
 });
 
-test('alle erwarteten Layer entstehen — und Relief nur auf Wunsch', async ({ page }) => {
+test('alle erwarteten Layer entstehen', async ({ page }) => {
   // Ungültige Layer-Ausdrücke schlagen in MapLibre still fehl: der Layer wird
   // nicht hinzugefügt, es erscheint nur eine Konsolenmeldung. Deshalb wird die
   // Existenz geprüft, nicht das Aussehen.
@@ -55,32 +55,38 @@ test('alle erwarteten Layer entstehen — und Relief nur auf Wunsch', async ({ p
   await page.goto('/?tag=2026-08-31');
   await page.waitForFunction(() => window.__islandKarte?.getLayer('stopp-symbol') != null);
 
-  const vorher = await page.evaluate(() => ({
-    layer: ['route-linie', 'stopp-symbol', 'stopp-label', 'ort-symbol'].filter(
-      (id) => window.__islandKarte!.getLayer(id) != null,
-    ),
-    relief: window.__islandKarte!.getLayer('relief') != null,
-    dem: window.__islandKarte!.getSource('terrain-dem') != null,
+  const zustand = await page.evaluate(() => ({
+    layer: [
+      'route-linie',
+      'route-wahlweise',
+      'route-luftlinie',
+      'route-pfeil',
+      'stopp-symbol',
+      'stopp-wanderung',
+      'stopp-label',
+      'ort-symbol',
+    ].filter((id) => window.__islandKarte!.getLayer(id) != null),
     terrain: window.__islandKarte!.getTerrain() != null,
     pitch: window.__islandKarte!.getPitch(),
+    // Die Karte lädt genau einen fremden Kartenhost. Es gab einmal eine
+    // DEM-Quelle für eine zuschaltbare Schummerung; sie ist wieder raus.
+    quellen: Object.keys(window.__islandKarte!.getStyle().sources).sort(),
   }));
-  expect(vorher.layer).toEqual(['route-linie', 'stopp-symbol', 'stopp-label', 'ort-symbol']);
+
+  expect(zustand.layer).toEqual([
+    'route-linie',
+    'route-wahlweise',
+    'route-luftlinie',
+    'route-pfeil',
+    'stopp-symbol',
+    'stopp-wanderung',
+    'stopp-label',
+    'ort-symbol',
+  ]);
   // Kein Terrain, keine Neigung — die Karte ist 2D.
-  expect(vorher.terrain).toBe(false);
-  expect(vorher.pitch).toBe(0);
-  // Ausgeschaltet heißt: die DEM-Quelle existiert gar nicht erst.
-  expect(vorher.relief).toBe(false);
-  expect(vorher.dem).toBe(false);
-
-  await page.getByTestId('schalter-relief').click();
-  await page.waitForFunction(() => window.__islandKarte?.getLayer('relief') != null);
-  expect(await page.evaluate(() => window.__islandKarte!.getSource('terrain-dem') != null)).toBe(
-    true,
-  );
-
-  // Und wieder weg, samt Quelle.
-  await page.getByTestId('schalter-relief').click();
-  await page.waitForFunction(() => window.__islandKarte?.getSource('terrain-dem') == null);
+  expect(zustand.terrain).toBe(false);
+  expect(zustand.pitch).toBe(0);
+  expect(zustand.quellen).not.toContain('terrain-dem');
 });
 
 test('Tagesauswahl ist auf jeder Breite bedienbar', async ({ page }) => {
@@ -136,47 +142,39 @@ test('die Bedienelemente überlagern einander nicht', async ({ page }) => {
   const ueberlappt = (a: Awaited<ReturnType<typeof kasten>>, b: typeof a) =>
     a.x < b.x + b.width && a.x + a.width > b.x && a.y < b.y + b.height && a.y + a.height > b.y;
 
-  const pruefen = async (wo: string) => {
+  const pruefen = async () => {
     const teile = {
       theme: await kasten(page.getByTestId('schalter-theme')),
-      relief: await kasten(page.getByTestId('schalter-relief')),
       zoom: await kasten(page.locator('.maplibregl-ctrl-zoom-in')),
       herkunft: await kasten(page.locator('.maplibregl-ctrl-attrib')),
       streifen: await kasten(page.getByRole('tablist', { name: 'Reisetage' })),
     };
 
     // Trefferflächen groß genug und vollständig im Bild.
-    for (const id of ['theme', 'relief', 'zoom'] as const) {
+    for (const id of ['theme', 'zoom'] as const) {
       const b = teile[id];
-      expect(b.height, `${id} ${wo}`).toBeGreaterThanOrEqual(44);
-      expect(b.width, `${id} ${wo}`).toBeGreaterThanOrEqual(44);
-      expect(b.y + b.height, `${id} ${wo}`).toBeLessThanOrEqual(seite.height);
-      expect(b.x, `${id} ${wo}`).toBeGreaterThanOrEqual(0);
+      expect(b.height, id).toBeGreaterThanOrEqual(44);
+      expect(b.width, id).toBeGreaterThanOrEqual(44);
+      expect(b.y + b.height, id).toBeLessThanOrEqual(seite.height);
+      expect(b.x, id).toBeGreaterThanOrEqual(0);
     }
 
     // Nichts verdeckt etwas anderes. Die Herkunftsangabe der Basiskarte ist
     // Bedingung der Nutzung, kein Zierrat — sie muss lesbar bleiben.
     const paare: Array<[keyof typeof teile, keyof typeof teile]> = [
       ['herkunft', 'theme'],
-      ['herkunft', 'relief'],
       ['herkunft', 'zoom'],
       ['herkunft', 'streifen'],
       ['zoom', 'streifen'],
       ['zoom', 'theme'],
       ['theme', 'streifen'],
-      ['relief', 'streifen'],
     ];
     for (const [a, b] of paare) {
-      expect(ueberlappt(teile[a], teile[b]), `${a} überlappt ${b} ${wo}`).toBe(false);
+      expect(ueberlappt(teile[a], teile[b]), `${a} überlappt ${b}`).toBe(false);
     }
   };
 
-  await pruefen('(Relief aus)');
-  // Mit Relief wächst die Herkunftsangabe um den DEM-Anbieter und bricht um —
-  // genau der Fall, der die Stapelung vorher zerlegt hat.
-  await page.getByTestId('schalter-relief').click();
-  await page.waitForFunction(() => window.__islandKarte?.getLayer('relief') != null);
-  await pruefen('(Relief an)');
+  await pruefen();
 });
 
 test('die Route liegt auf Straßen, getrennt nach Pflicht und Kür', async ({ page }) => {
@@ -294,29 +292,6 @@ test('das Kontextblatt zeigt Nächte und Wanderdaten', async ({ page }) => {
   await expect(blatt.getByText('Übernachtung')).toBeVisible();
   await expect(blatt.getByText('Nächte')).toBeVisible();
   await expect(blatt.getByText('4', { exact: true })).toBeVisible();
-});
-
-test('die Legende erklärt Linien, Farben und Marker', async ({ page }) => {
-  await stilStubben(page);
-  await page.goto('/');
-  const legende = page.getByTestId('legende');
-  await expect(legende).toBeHidden();
-
-  await page.getByTestId('schalter-legende').click();
-  await expect(legende).toBeVisible();
-  for (const text of ['Pflicht', 'Abstecher', 'Luftlinie', 'Fahrtrichtung', 'Standtag']) {
-    await expect(legende.getByText(text, { exact: false }).first()).toBeVisible();
-  }
-
-  // Sie muss ins Bild passen — sonst erklärt sie nichts.
-  const seite = page.viewportSize()!;
-  const kasten = (await legende.boundingBox())!;
-  expect(kasten.x).toBeGreaterThanOrEqual(0);
-  expect(kasten.x + kasten.width).toBeLessThanOrEqual(seite.width + 1);
-  if (seite.width < 640) expect(kasten.width).toBe(seite.width);
-
-  await legende.getByRole('button', { name: 'Legende schließen' }).click();
-  await expect(legende).toBeHidden();
 });
 
 test('der Filter entlastet die Karte und lässt die Unterkünfte stehen', async ({ page }) => {
