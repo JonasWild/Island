@@ -178,3 +178,36 @@ test('die Bedienelemente überlagern einander nicht', async ({ page }) => {
   await page.waitForFunction(() => window.__islandKarte?.getLayer('relief') != null);
   await pruefen('(Relief an)');
 });
+
+test('die Route liegt auf Straßen und beide Routen-Layer entstehen', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-30');
+  await page.waitForFunction(() => window.__islandKarte?.getLayer('route-linie') != null);
+
+  const daten = await page.evaluate(() => {
+    const map = window.__islandKarte!;
+    const quelle = map.getStyle().sources['route'] as { data?: GeoJSON.FeatureCollection };
+    const fc = quelle.data as GeoJSON.FeatureCollection<GeoJSON.LineString>;
+    return {
+      luftlinienLayer: map.getLayer('route-luftlinie') != null,
+      segmente: fc.features.length,
+      punkte: fc.features.map((f) => f.geometry.coordinates.length),
+      arten: [...new Set(fc.features.map((f) => f.properties?.art))],
+    };
+  });
+
+  expect(daten.luftlinienLayer).toBe(true);
+  expect(daten.segmente).toBe(15);
+  /*
+    Eine Luftlinie über die Stopps eines Tages hätte höchstens eine Handvoll
+    Stützpunkte — über alle 15 Tage keine 150. Eine gefahrene Route hat
+    Tausende. Der kürzeste Tag ist der 10.09.: 3 km vom Tanken zum Terminal,
+    und selbst der hat mehr Stützpunkte als er Stopps hat.
+  */
+  expect(daten.punkte.reduce((a, b) => a + b, 0)).toBeGreaterThan(3000);
+  expect(Math.min(...daten.punkte)).toBeGreaterThan(10);
+  for (const art of daten.arten) expect(['strasse', 'luftlinie']).toContain(art);
+
+  // Der Tagestitel zeigt die gefahrene Strecke, nicht die Plan-Etappe.
+  await expect(page.getByTestId('tagestitel')).toContainText(/\d+ km · \d+ h \d+ min/);
+});

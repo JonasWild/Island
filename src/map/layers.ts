@@ -6,6 +6,7 @@ import type {
 } from 'maplibre-gl';
 import type { FeatureCollection, LineString, Point } from 'geojson';
 import { alleStopps, TAG_FARBE, tage, unterkuenfte } from '@/lib/reise';
+import { routeNach } from '@/lib/route';
 import { DEM_ATTRIBUTION, DEM_SOURCE_ID, DEM_TILES } from './style';
 import { kategorieVon } from '@/lib/kategorie';
 import { zuLngLat } from '@/lib/geo';
@@ -16,6 +17,7 @@ export const SRC_ROUTE = 'route';
 export const SRC_ORT = 'ort-marke';
 
 export const LYR_ROUTE = 'route-linie';
+export const LYR_ROUTE_LUFT = 'route-luftlinie';
 export const LYR_STOPP = 'stopp-symbol';
 export const LYR_STOPP_LABEL = 'stopp-label';
 export const LYR_ORT = 'ort-symbol';
@@ -55,26 +57,53 @@ export function stoppFeatures(): FeatureCollection<Point> {
 }
 
 /**
- * Die Route ist eine durchgehende Linie über die ganze Reise: jeder Tag beginnt
- * beim letzten Stopp des Vortags, damit keine Lücke entsteht. Die Segmente
- * tragen die Farbe ihres Tages — so ist die Reise als Ganzes sichtbar und die
- * Etappen bleiben trotzdem unterscheidbar.
+ * Die Route je Tag, gefahren über echte Straßen. Die Geometrie kommt aus
+ * `data/route.json` und damit von `pnpm route` zur Build-Zeit — zur Laufzeit
+ * geht keine Anfrage an einen Routing-Dienst.
+ *
+ * Die Kette über alle Tage bleibt durchgehend: jeder Tag beginnt dort, wo der
+ * Vortag geendet hat; die Pipeline routet genau so. Die Farbe steht weiter für
+ * die Art des Tages — das ist Information, keine Dekoration.
+ *
+ * Tage, die sich nicht sauber routen ließen, tragen `art: 'luftlinie'` und
+ * werden gestrichelt gezeichnet. Eine falsche Straßenroute stillschweigend als
+ * echte auszugeben wäre schlimmer als eine erkennbare Schematik.
  */
 export function routeFeatures(): FeatureCollection<LineString> {
   const features: FeatureCollection<LineString>['features'] = [];
   let vorheriger: [number, number] | null = null;
 
   for (const tag of tage) {
-    const punkte = tag.highlights.filter((h) => h.pos !== null).map((h) => zuLngLat(h.pos!));
-    const kette = vorheriger ? [vorheriger, ...punkte] : punkte;
+    const gefahren = routeNach(tag.datum);
+    const koordinaten: [number, number][] = gefahren
+      ? gefahren.geometrie.map(([lon, lat]) => [lon, lat])
+      : // Ohne Eintrag in route.json bleibt die Schematik über die Stopps —
+        // dann aber ebenfalls als Luftlinie gekennzeichnet.
+        tag.highlights.filter((h) => h.pos !== null).map((h) => zuLngLat(h.pos!));
+
+    // Der erste Punkt eines Tages ist normalerweise schon der letzte des
+    // Vortags — die Pipeline routet so. Weicht er ab (Rückfall auf die
+    // Schematik), wird der Übergang ergänzt, damit keine Lücke entsteht.
+    const anfang = koordinaten[0];
+    const kette: [number, number][] =
+      vorheriger && anfang && (vorheriger[0] !== anfang[0] || vorheriger[1] !== anfang[1])
+        ? [vorheriger, ...koordinaten]
+        : koordinaten;
+
     if (kette.length >= 2) {
       features.push({
         type: 'Feature',
         geometry: { type: 'LineString', coordinates: kette },
-        properties: { datum: tag.datum, farbe: TAG_FARBE[tag.typ] },
+        properties: {
+          datum: tag.datum,
+          farbe: TAG_FARBE[tag.typ],
+          art: gefahren?.art ?? 'luftlinie',
+          km: gefahren?.km ?? null,
+          fahrzeitMin: gefahren?.fahrzeitMin ?? null,
+        },
       });
     }
-    vorheriger = punkte[punkte.length - 1] ?? vorheriger;
+    vorheriger = kette[kette.length - 1] ?? vorheriger;
   }
   return { type: 'FeatureCollection', features };
 }
@@ -105,12 +134,33 @@ export function layerSetzen(map: MLMap, aktivesDatum: string): void {
     id: LYR_ROUTE,
     type: 'line',
     source: SRC_ROUTE,
+    filter: ['==', ['get', 'art'], 'strasse'],
     layout: { 'line-cap': 'round', 'line-join': 'round' },
     paint: {
       'line-color': ['get', 'farbe'],
       // Alle Tage bleiben sichtbar; der gewählte tritt nur hervor.
       'line-width': ['case', aktiv(aktivesDatum), 5, 2.5],
       'line-opacity': ['case', aktiv(aktivesDatum), 1, 0.55],
+    },
+  });
+
+  /*
+    Tage ohne saubere Straßenroute gestrichelt. Der Unterschied muss sichtbar
+    sein: eine Luftlinie ist eine Schematik, keine Fahrempfehlung.
+    `line-dasharray` skaliert mit der Linienbreite, deshalb bleiben die Werte
+    klein.
+  */
+  add({
+    id: LYR_ROUTE_LUFT,
+    type: 'line',
+    source: SRC_ROUTE,
+    filter: ['==', ['get', 'art'], 'luftlinie'],
+    layout: { 'line-cap': 'butt', 'line-join': 'round' },
+    paint: {
+      'line-color': ['get', 'farbe'],
+      'line-width': ['case', aktiv(aktivesDatum), 3, 2],
+      'line-opacity': ['case', aktiv(aktivesDatum), 0.9, 0.45],
+      'line-dasharray': [2, 2],
     },
   });
 
@@ -167,6 +217,10 @@ export function aktivenTagSetzen(map: MLMap, datum: string): void {
   if (map.getLayer(LYR_ROUTE)) {
     map.setPaintProperty(LYR_ROUTE, 'line-width', ['case', f, 5, 2.5]);
     map.setPaintProperty(LYR_ROUTE, 'line-opacity', ['case', f, 1, 0.55]);
+  }
+  if (map.getLayer(LYR_ROUTE_LUFT)) {
+    map.setPaintProperty(LYR_ROUTE_LUFT, 'line-width', ['case', f, 3, 2]);
+    map.setPaintProperty(LYR_ROUTE_LUFT, 'line-opacity', ['case', f, 0.9, 0.45]);
   }
   if (map.getLayer(LYR_STOPP)) {
     map.setLayoutProperty(LYR_STOPP, 'icon-size', ['case', f, 0.7, 0.44]);

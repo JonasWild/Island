@@ -3,6 +3,7 @@
 import { useEffect, useRef } from 'react';
 import { useMapStore } from '@/store/mapStore';
 import { datumKurz, TAG_FARBE, TAG_LABEL, tage } from '@/lib/reise';
+import { routeNach } from '@/lib/route';
 
 /**
  * Fünfzehn Tage als Streifen. Klick = Kameraflug auf die Etappe.
@@ -20,6 +21,7 @@ export function Timeline() {
   const tagDatum = useMapStore((s) => s.tagDatum);
   const setTag = useMapStore((s) => s.setTag);
   const aktiv = tage.find((t) => t.datum === tagDatum);
+  const gefahren = routeNach(tagDatum);
   const aktivRef = useRef<HTMLButtonElement>(null);
   const leiste = useRef<HTMLDivElement>(null);
 
@@ -94,10 +96,25 @@ export function Timeline() {
           })}
         </ol>
         {aktiv && (
-          <p className="truncate px-3 pb-2 pt-1 text-center text-xs text-slate-600 sm:px-1 sm:pb-0 sm:text-[11px]">
-            {aktiv.titel}
-            {aktiv.etappe?.km ? ` · ${aktiv.etappe.km} km` : ''}
-          </p>
+          <div
+            className="flex items-baseline justify-center gap-1.5 px-3 pb-2 pt-1 text-xs text-slate-600 sm:px-1 sm:pb-0 sm:text-[11px]"
+            data-testid="tagestitel"
+          >
+            <span className="truncate">{aktiv.titel}</span>
+            {/*
+              Die gefahrenen Kilometer, nicht die des Reiseplans: `etappe.km`
+              ist die direkte Fahrt von A nach B, die Route fährt zusätzlich
+              die vorgeschlagenen Ziele an. Die Zahl wird nie abgeschnitten —
+              sie ist der Grund, warum hier überhaupt eine Zeile steht.
+            */}
+            {gefahren && (
+              <span className="shrink-0 whitespace-nowrap tabular-nums text-slate-500">
+                {gefahren.art === 'strasse'
+                  ? `· ${Math.round(gefahren.km)} km · ${Math.floor(gefahren.fahrzeitMin / 60)} h ${gefahren.fahrzeitMin % 60} min`
+                  : '· Luftlinie'}
+              </span>
+            )}
+          </div>
         )}
       </div>
     </div>

@@ -186,6 +186,40 @@ export function istVerortet(s: Stopp): s is VerorteterStopp {
   return s.pos !== null;
 }
 
+/**
+ * Schema für data/route.json — erzeugt von scripts/route.ts zur Build-Zeit.
+ * Zur Laufzeit wird nur noch geladen; es geht keine Anfrage an einen
+ * Routing-Dienst.
+ */
+export const TagRouteSchema = z.object({
+  datum: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  /**
+   * 'strasse': über echte Straßen geroutet.
+   * 'luftlinie': Routing nicht sauber gelungen — Schematik, keine
+   * Fahrempfehlung. Der Grund steht dabei und die Karte zeichnet den Tag
+   * gestrichelt. Eine falsche Straßenroute stillschweigend zu zeigen wäre
+   * schlimmer.
+   */
+  art: z.enum(['strasse', 'luftlinie']),
+  grund: z.string().optional(),
+  km: z.number().nonnegative(),
+  fahrzeitMin: z.number().int().nonnegative(),
+  /** Die direkte Etappe aus dem Reiseplan — ohne Abstecher. */
+  planKm: z.number().nullable(),
+  wegpunkte: z.number().int().nonnegative(),
+  /** [lon, lat] wie in GeoJSON, nicht wie `pos`. */
+  geometrie: z.array(z.tuple([z.number(), z.number()])).min(2),
+});
+export type TagRoute = z.infer<typeof TagRouteSchema>;
+
+export const RouteSchema = z.object({
+  erzeugtAm: z.string(),
+  dienst: z.string(),
+  hinweis: z.string(),
+  tage: z.array(TagRouteSchema),
+});
+export type Route = z.infer<typeof RouteSchema>;
+
 export const OffenEintragSchema = z.object({
   tag: z.string().nullable(),
   name: z.string(),
