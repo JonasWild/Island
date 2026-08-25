@@ -439,3 +439,65 @@ test('das Kontextblatt zeigt das Bild mit Urheber und Lizenz', async ({ page }) 
     blatt.locator('figcaption').getByRole('link', { name: 'Wikimedia Commons' }),
   ).toHaveAttribute('href', /commons\.wikimedia\.org/);
 });
+
+test('der Tagesablauf zeigt die gefahrene Reihenfolge und die Übernachtung', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-30');
+  const details = page.getByTestId('tagesdetails');
+  await expect(details).toBeHidden();
+
+  await page.getByTestId('tagestitel').click();
+  await expect(details).toBeVisible();
+
+  // Kennzahlen des Tages, dieselben wie im Streifen.
+  await expect(details).toContainText('Etappe');
+  await expect(details).toContainText(/\d+ km/);
+  await expect(details).toContainText('Davon Pflicht');
+
+  /*
+    Die Reihenfolge ist die gefahrene, nicht die aus reise.json. Am 30.08.
+    fährt man von West nach Ost: Blönduós liegt vor Akureyri, Akureyri vor
+    Goðafoss. In reise.json stehen sie in derselben Folge nicht garantiert.
+  */
+  const schritte = await details.locator('ol > li').allInnerTexts();
+  const text = schritte.join('\n');
+  const vor = (a: string, b: string) => text.indexOf(a) < text.indexOf(b);
+  expect(text).toContain('Start:');
+  expect(vor('Blönduós', 'Akureyri'), 'Blönduós vor Akureyri').toBe(true);
+  expect(vor('Akureyri', 'Goðafoss'), 'Akureyri vor Goðafoss').toBe(true);
+
+  // Die Übernachtung schliesst den Tag ab, mit der Zahl der Nächte.
+  const bett = page.getByTestId('tagesdetails-unterkunft');
+  await expect(bett).toContainText('Þrasastaðir');
+  await expect(bett).toContainText('4');
+  await expect(bett).toContainText('Nächte');
+
+  // Ein Schritt führt zurück auf die Karte.
+  await details.getByRole('button', { name: /Goðafoss/ }).click();
+  await expect(details).toBeHidden();
+  await expect(page.getByTestId('kontextblatt')).toContainText('Goðafoss');
+});
+
+test('der Tagesablauf trennt gefahrene Ziele von blossen Vorschlägen', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-30');
+  await page.getByTestId('tagestitel').click();
+  const details = page.getByTestId('tagesdetails');
+
+  /*
+    „Skagafjörður & Öxnadalsheiði" ist ein Landschaftsraum ohne punktgenaue
+    Position — die Route fährt ihn nicht an. Er steht im Reiseplan und gehört
+    deshalb in die Liste, aber nicht als Halt, den es so nicht gibt.
+  */
+  const ohneHalt = details.locator('section', { hasText: 'Ohne festen Halt' });
+  await expect(ohneHalt).toContainText('Skagafjörður');
+
+  await page.getByTestId('tagesdetails-schliessen').click();
+  await expect(details).toBeHidden();
+
+  // Esc schliesst ihn ebenfalls, und der Tageswechsel auch.
+  await page.getByTestId('tagestitel').click();
+  await expect(details).toBeVisible();
+  await page.locator('body').press('Escape');
+  await expect(details).toBeHidden();
+});

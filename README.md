@@ -21,6 +21,7 @@ pnpm dev            # http://localhost:3000
 | `pnpm build` | validiert `reise.json` und baut |
 | `pnpm geocode` | Geocoding-Pipeline (Build-Zeit, nicht Laufzeit) |
 | `pnpm wissen` | Wikipedia-Hintergrundtexte (Build-Zeit, nicht Laufzeit) |
+| `pnpm bilder` | Fotos mit Lizenz von Wikipedia/Commons (Build-Zeit) |
 | `pnpm route` | Straßenrouten je Tag (Build-Zeit, nicht Laufzeit) |
 | `pnpm test` | Vitest |
 | `pnpm e2e` | Playwright-Smoke, in zwei Breiten (Pixel 7 und Desktop) |
@@ -47,6 +48,8 @@ Layer-Ausdrücke, verdeckte Bedienelemente.
 | Eingabe | Wirkung |
 |---|---|
 | Klick auf einen Tag | Kameraflug auf die Etappe |
+| Klick auf die Titelzeile unten | Tagesablauf mit Zeitstrahl |
+| Filterleiste oben | nach Tag und Zielart filtern |
 | `Relief` | Schummerung an/aus — lädt das DEM erst dann |
 | `Legende` | erklärt Linienarten, Tagesfarben und Marker |
 | `←` / `→` | Tag zurück / vor |
@@ -122,10 +125,12 @@ Gezeichnet wird zur Laufzeit auf ein Canvas — kein Sprite, kein weiterer
 Netzaufruf.
 
 **Die Unterkunft ist die Ausnahme.** Wo man schläft und wie lange ist die
-wichtigste Angabe des Tages, also bekommt sie eine eigene Silhouette: ein
-rotes abgerundetes Rechteck mit Bett **und der Anzahl der Nächte als Zahl**.
-Schon die Form unterscheidet sie von jedem Ziel, auch stark verkleinert. Das
-Kontextblatt wiederholt die Zahl groß, mit Zeitraum und Verpflegung.
+wichtigste Angabe des Tages, also bekommt sie eine eigene Silhouette: eine
+rote **Nadel** mit Bett, deren Spitze auf den Ort zeigt, und der Anzahl der
+Nächte als Abzeichen an der Ecke. Schon die Form unterscheidet sie von jedem
+runden Zielsymbol, auch stark verkleinert; sie liegt immer über den anderen
+Markern und lässt sich nicht wegfiltern. Kontextblatt und Tagesablauf
+wiederholen die Zahl groß, mit Zeitraum und Verpflegung.
 
 **Wandern ist keine Zielart, sondern eine Eigenschaft.** Dettifoss bleibt ein
 Wasserfall, auch wenn man 2,8 km hinläuft. Die 16 Stopps mit Wanderung tragen
@@ -151,6 +156,44 @@ Irre führt: Stykkishólmur hat ein Vulkanmuseum, Akranes einen Hot Pot,
 Egilsstaðir ein Schwimmbad. Für die Handvoll bekannter Ziele, deren Name
 nichts verrät (Dimmuborgir, Herðubreið, Ásbyrgi …), steht eine kurze Liste
 davor. Ohne Treffer bleibt es ein Ort — nichts wird geraten.
+
+## Filtern
+
+128 Symbole gleichzeitig sind auf einem Handy keine Karte mehr, sondern ein
+Teppich. Die Leiste oben entlastet sie über zwei Achsen, beide mit einem
+Tippen:
+
+- **Nur dieser Tag** blendet die Ziele der anderen vierzehn Tage aus — die
+  stärkste Entlastung, deshalb vorn und durch einen Trenner abgesetzt.
+- **Sechs Überkategorien** statt sechzehn Zielarten: Wasser, Vulkanisch,
+  Berge & Eis, Aktiv, Orte, Unterwegs. Eine Leiste mit sechzehn
+  Schaltflächen wäre so unbrauchbar wie die volle Karte. Was in jeder Gruppe
+  steckt, sagt die Legende.
+
+Keine Auswahl heißt alles sichtbar — der Normalfall braucht keinen Zustand,
+und „Alle" bringt jederzeit zurück. Gemessen: aus 43 sichtbaren Markern
+werden 6.
+
+**Unterkünfte lassen sich nicht wegfiltern.** Wo man schläft, ist der Anker
+des Tages; sie tragen deshalb keinen Gruppenschlüssel und bleiben immer
+stehen — auch über die ganze Standzeit, nicht nur am Anreisetag. Am 28.08.
+schläft man in dem Haus, das man am 27.08. bezogen hat.
+
+## Der Tag als Ablauf
+
+Ein Tippen auf die Titelzeile im Tagesstreifen öffnet den **Tagesablauf**: die
+Ziele als Zeitstrahl von Bett zu Bett, in der **gefahrenen** Reihenfolge.
+
+Die ist nicht die aus `reise.json` — dort stehen die Vorschläge des
+Veranstalters, teils mehrfach genannt, teils in beliebiger Folge. Die
+Fahrreihenfolge entsteht erst in `pnpm route` und steht dort als
+`reihenfolge`. Jeder Schritt zeigt Bild, Zielart und, wenn es eine gibt, die
+Wanderung. Am Ende die Übernachtung mit der Zahl der Nächte.
+
+Ziele, die die Route nicht anfährt — Landschaftsräume ohne Punktposition,
+Streckenabschnitte, Doppelnennungen — stehen darunter unter **„Ohne festen
+Halt"**. Sie stehen im Reiseplan und gehören deshalb dazu, aber nicht als
+Halt, den es so nicht gibt.
 
 ## Mobile first
 
@@ -263,6 +306,35 @@ Abstecher"). Die Route fährt zusätzlich die vorgeschlagenen Ziele an. Der
 Tagesstreifen zeigt die gefahrene Strecke, weil sie die Frage beantwortet, wie
 lang der Tag wird. Auffällige Tage listet `pnpm route` in einer Prüfausgabe,
 statt sie stillschweigend in die Daten zu schreiben.
+
+## Bilder
+
+`pnpm bilder` sucht zu jedem Stopp ein Foto. Zwei Wege, in dieser Reihenfolge:
+
+1. **Das Leitbild des Wikipedia-Artikels**, den `pnpm wissen` bereits eindeutig
+   zugeordnet hat. Damit gehören Text und Bild garantiert zum selben Objekt.
+2. **Georeferenzierte Bilder auf Commons** im Umkreis von 1,5 km — übernommen
+   wird aber nur, wessen **Dateiname den Namen des Stopps enthält**.
+   „Stokksnes" hat keinen eigenen Artikel, aber
+   `File:2008-05-23 24 Stokksnes.jpg` liegt 480 m entfernt und trägt den
+   Namen. Das ist ein Beleg, kein Zufallsfund.
+
+Ohne Namensbeleg bleibt der Stopp ohne Bild: ein hübsches Foto vom Nachbartal
+ist schlechter als gar keins, weil es etwas behauptet.
+
+Nicht jedes Leitbild ist ein Foto — die deutsche Wikipedia setzt bei
+Gemeinden gern eine Lagekarte oder ein Wappen an den Anfang. Ein
+Kartenausschnitt in einer Karten-App ist nutzlos, solche Dateien fallen
+deshalb raus und der Stopp geht auf die Geosuche.
+
+Stand: **84 von 128 Stopps mit Bild** — 55 aus dem Artikel, 29 über die
+Geosuche. Die übrigen 44 stehen mit Begründung in `data/bilder-offen.json`.
+
+Urheber und Lizenz stehen an jedem Bild; bei CC-BY-SA ist die Nennung
+Bedingung, nicht Höflichkeit. Die Dateien liegen auf `upload.wikimedia.org`
+und werden von dort geladen statt ins Repo kopiert — das wären rund 70 MB
+Fotos in der Versionsverwaltung. Der Host steht dafür in der CSP, aber nur
+unter `img-src`.
 
 ## Hintergrundtexte
 

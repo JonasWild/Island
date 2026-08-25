@@ -335,7 +335,17 @@ export function layerSetzen(
       'icon-image': ['get', 'icon'],
       'icon-size': ['case', aktiv(aktivesDatum), 0.7, 0.44],
       'icon-allow-overlap': true,
-      'symbol-sort-key': ['case', aktiv(aktivesDatum), 0, 1],
+      /*
+        Unterkünfte liegen immer oben: sie sind der Anker des Tages und dürfen
+        nicht unter einem Zielsymbol verschwinden. Danach der gewählte Tag,
+        dann der Rest. Kleinere Werte werden später — also darüber — gezeichnet.
+      */
+      'symbol-sort-key': [
+        'case',
+        ['==', ['get', 'gruppe'], ''],
+        -1,
+        ['case', aktiv(aktivesDatum), 0, 1],
+      ],
     },
     paint: { 'icon-opacity': ['case', aktiv(aktivesDatum), 1, 0.72] },
   });
@@ -434,7 +444,12 @@ export function aktivenTagSetzen(
   }
   if (map.getLayer(LYR_STOPP)) {
     map.setLayoutProperty(LYR_STOPP, 'icon-size', ['case', f, 0.7, 0.44]);
-    map.setLayoutProperty(LYR_STOPP, 'symbol-sort-key', ['case', f, 0, 1]);
+    map.setLayoutProperty(LYR_STOPP, 'symbol-sort-key', [
+      'case',
+      ['==', ['get', 'gruppe'], ''],
+      -1,
+      ['case', f, 0, 1],
+    ]);
     map.setPaintProperty(LYR_STOPP, 'icon-opacity', ['case', f, 1, 0.72]);
   }
   if (map.getLayer(LYR_WANDERUNG)) {

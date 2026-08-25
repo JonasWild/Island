@@ -128,6 +128,11 @@ im Umkreis, oder er ist der einzige Artikel unter 400 m bei punktgenauer
 Position. 69 von 128 Stopps haben Text; die übrigen stehen mit Begründung in
 `data/wissen-offen.json`.
 
+**Bilder** (`pnpm bilder`, Build-Zeit): Leitbild des zugeordneten
+Wikipedia-Artikels, sonst ein georeferenziertes Commons-Bild, dessen
+Dateiname den Stopp nennt. Lagekarten und Wappen fallen raus. 84 von 128
+Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
+
 **Routing** (`pnpm route`, Build-Zeit): siehe Abschnitt 6.
 
 ## 5. Interaktion
@@ -149,8 +154,14 @@ Position. 69 von 128 Stopps haben Text; die übrigen stehen mit Begründung in
   gestrichelt = Luftlinie ohne saubere Route. Pfeile zeigen die Fahrtrichtung.
   Farbe trägt **nur der gewählte Tag** — fünfzehn bunte Linien gleichzeitig
   sind Konfetti, in dem die Farbcodierung nichts mehr aussagt.
-- **Legende**: erklärt Linienarten, Tagesfarben und Marker. Ohne sie ist jede
-  Farbcodierung Dekoration.
+- **Legende**: erklärt Linienarten, Tagesfarben, Filter und Marker. Ohne sie
+  ist jede Farbcodierung Dekoration.
+- **Filterleiste** oben: „Nur dieser Tag" plus sechs Überkategorien. 128
+  Symbole gleichzeitig sind keine Karte mehr. Unterkünfte lassen sich nicht
+  wegfiltern.
+- **Tagesablauf** als Vollbild: die Ziele als Zeitstrahl von Bett zu Bett, in
+  der gefahrenen Reihenfolge aus `route.json`. Ziele ohne Wegpunkt stehen
+  getrennt unter „Ohne festen Halt" — sie sind Vorschläge, kein Halt.
 - **Marker**: eine Farbe je Zielart, damit sich sechzehn Arten auf Markergröße
   unterscheiden. Die Unterkunft hat eine eigene Silhouette und trägt die
   **Anzahl der Nächte als Zahl** — das ist die wichtigste Angabe des Tages.

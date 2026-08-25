@@ -388,6 +388,8 @@ type TagRoute = {
   pflichtKm: number;
   planKm: number | null;
   wegpunkte: number;
+  /** Stopp-IDs in Fahrreihenfolge, ohne Start und Ziel. */
+  reihenfolge: string[];
   abschnitte: Abschnitt[];
 };
 
@@ -404,6 +406,7 @@ function luftlinie(datum: string, punkte: Pos[], planKm: number | null, grund: s
     pflichtKm: 0,
     planKm,
     wegpunkte: punkte.length,
+    reihenfolge: [],
     abschnitte: [{ art: 'optional', punkte: geometrie }],
   };
 }
@@ -426,9 +429,16 @@ async function main() {
   for (const tag of reise.tage) {
     const planKm = tag.etappe?.km ?? null;
     const start = vorherigesZiel;
-    const stopps = tag.highlights.filter((h) => h.pos !== null);
+    // Index mitführen: die Fahrreihenfolge soll später als Stopp-ID in
+    // route.json landen, damit die UI den Tag als Ablauf zeigen kann.
+    const stopps = tag.highlights
+      .map((h, index) => ({ h, index }))
+      .filter(({ h }) => h.pos !== null);
     // Der letzte Tag endet am Flughafen, sonst an der Unterkunft der Nacht.
-    const ziel = tag.typ === 'abreise' ? flughafen : (unterkunft(tag.unterkunft) ?? stopps[stopps.length - 1]?.pos ?? start);
+    const ziel =
+      tag.typ === 'abreise'
+        ? flughafen
+        : (unterkunft(tag.unterkunft) ?? stopps[stopps.length - 1]?.h.pos ?? start);
 
     /*
       Nur punktgenaue Stopps werden angefahren. Ein Landschaftsraum oder ein
@@ -437,15 +447,17 @@ async function main() {
       Als Marker bleiben diese Stopps selbstverständlich auf der Karte.
     */
     const zwischen = stopps
-      .filter((h) => h.posMeta?.genauigkeit === 'punkt')
-      .map((h) => h.pos!)
-      .filter((p) => distanzM(p, start) > 300 && distanzM(p, ziel) > 300);
-    const einmalig: Pos[] = [];
-    for (const p of zwischen) {
-      if (!einmalig.some((q) => distanzM(p, q) < 300)) einmalig.push(p);
+      .filter(({ h }) => h.posMeta?.genauigkeit === 'punkt')
+      .map(({ h, index }) => ({ pos: h.pos!, id: `${tag.datum}#${index}` }))
+      .filter(({ pos }) => distanzM(pos, start) > 300 && distanzM(pos, ziel) > 300);
+    const einmalig: Array<{ pos: Pos; id: string }> = [];
+    for (const z of zwischen) {
+      if (!einmalig.some((q) => distanzM(z.pos, q.pos) < 300)) einmalig.push(z);
     }
 
-    let punkte = [start, ...sortieren(start, einmalig, ziel), ziel];
+    const idVon = new Map(einmalig.map((z) => [`${z.pos[0]},${z.pos[1]}`, z.id]));
+    const sortiert = sortieren(start, einmalig.map((z) => z.pos), ziel);
+    let punkte = [start, ...sortiert, ziel];
     vorherigesZiel = ziel;
 
     if (punkte.length < 2 || distanzM(start, ziel) < 200) {
@@ -559,6 +571,13 @@ async function main() {
       pflichtKm,
       planKm,
       wegpunkte: punkte.length,
+      // Die tatsächlich gefahrene Reihenfolge, ohne Start und Ziel. Sie
+      // entsteht hier und nirgends sonst — die Reihenfolge in reise.json ist
+      // eine Vorschlagsliste, keine Fahrreihenfolge.
+      reihenfolge: punkte
+        .slice(1, -1)
+        .map((p) => idVon.get(`${p[0]},${p[1]}`))
+        .filter((id): id is string => id !== undefined),
       abschnitte,
     });
     gespart.roh += roh.length;

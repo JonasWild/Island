@@ -372,60 +372,82 @@ function zeichneUnterkunft(naechte: number, ratio: number): StyleImageInterface 
   const c = leinwand(px, ratio);
   if (!c) return null;
 
-  const m = S / 2;
-  const r = S * 0.4;
   const ton = FARBE.unterkunft;
+  const b = S * 0.62; // Breite des Schilds
+  const h = S * 0.52; // Höhe des Schilds
+  const x = (S - b) / 2;
+  const y = S * 0.12;
+  const spitze = S * 0.11;
 
-  // Abgerundetes Quadrat statt Kreis — schon die Silhouette unterscheidet die
-  // Unterkunft von jedem Ziel, auch bei starker Verkleinerung.
+  /*
+    Eine Nadel, kein Punkt: die Spitze zeigt auf den Ort, und schon die
+    Silhouette unterscheidet die Unterkunft von jedem runden Zielsymbol —
+    auch dann noch, wenn beides nur zwanzig Pixel gross ist. Alles andere auf
+    dieser Karte sind Ziele, die man ansteuert und wieder verlässt; hier
+    bleibt man.
+  */
+  const nadel = () => {
+    c.beginPath();
+    c.moveTo(x + b * 0.5 - spitze * 0.7, y + h);
+    c.lineTo(S / 2, y + h + spitze);
+    c.lineTo(x + b * 0.5 + spitze * 0.7, y + h);
+    c.closePath();
+    c.roundRect(x, y, b, h, S * 0.11);
+  };
+
   c.save();
   c.shadowColor = 'rgba(15, 23, 42, 0.5)';
-  c.shadowBlur = S * 0.14;
-  c.shadowOffsetY = S * 0.06;
+  c.shadowBlur = S * 0.13;
+  c.shadowOffsetY = S * 0.05;
   c.fillStyle = ton;
-  c.beginPath();
-  c.roundRect(m - r, m - r * 0.86, r * 2, r * 1.72, r * 0.42);
+  nadel();
   c.fill();
   c.restore();
 
-  c.strokeStyle = 'rgba(255, 255, 255, 0.9)';
+  c.strokeStyle = '#ffffff';
   c.lineWidth = S * 0.035;
-  c.beginPath();
-  c.roundRect(m - r, m - r * 0.86, r * 2, r * 1.72, r * 0.42);
+  nadel();
   c.stroke();
 
-  // Bett, links.
+  // Bett, mittig im Schild und leicht nach links versetzt — rechts oben sitzt
+  // das Abzeichen mit der Zahl.
   c.save();
-  c.translate(m - r * 0.98, m - r * 0.62);
-  c.scale((r * 1.2) / 100, (r * 1.2) / 100);
+  const feld = b * 0.62;
+  c.translate(x + b * 0.42 - feld / 2, y + h * 0.52 - feld / 2);
+  c.scale(feld / 100, feld / 100);
   c.strokeStyle = '#ffffff';
-  c.lineWidth = 9;
+  c.lineWidth = 10;
   c.lineCap = 'round';
   c.lineJoin = 'round';
   c.beginPath();
-  c.moveTo(14, 74);
-  c.lineTo(14, 30);
-  c.moveTo(14, 56);
-  c.lineTo(86, 56);
-  c.lineTo(86, 74);
+  c.moveTo(10, 22);
+  c.lineTo(10, 78);
+  c.moveTo(10, 56);
+  c.lineTo(90, 56);
+  c.lineTo(90, 78);
   c.stroke();
   c.beginPath();
   c.moveTo(30, 56);
-  c.bezierCurveTo(30, 40, 56, 40, 56, 56);
+  c.bezierCurveTo(30, 36, 58, 36, 58, 56);
   c.stroke();
   c.restore();
 
-  // Zahlenscheibe, rechts.
-  const zx = m + r * 0.44;
-  const zy = m;
-  const zr = r * 0.5;
+  // Zahlenabzeichen, oben rechts über der Ecke — wie ein Anhänger am Schlüssel.
+  const zr = S * 0.17;
+  const zx = x + b - zr * 0.35;
+  const zy = y + zr * 0.35;
   c.fillStyle = '#ffffff';
   c.beginPath();
   c.arc(zx, zy, zr, 0, Math.PI * 2);
   c.fill();
+  c.strokeStyle = ton;
+  c.lineWidth = S * 0.03;
+  c.beginPath();
+  c.arc(zx, zy, zr, 0, Math.PI * 2);
+  c.stroke();
 
   c.fillStyle = ton;
-  c.font = `700 ${zr * 1.5}px ui-sans-serif, system-ui, sans-serif`;
+  c.font = `700 ${zr * 1.45}px ui-sans-serif, system-ui, sans-serif`;
   c.textAlign = 'center';
   c.textBaseline = 'middle';
   c.fillText(String(naechte), zx, zy + zr * 0.06);

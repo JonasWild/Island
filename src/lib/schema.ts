@@ -237,6 +237,13 @@ export const TagRouteSchema = z.object({
   planKm: z.number().nullable(),
   wegpunkte: z.number().int().nonnegative(),
   /**
+   * Stopp-IDs in **Fahrreihenfolge**, ohne Start und Ziel. Die Reihenfolge in
+   * reise.json ist eine Vorschlagsliste des Veranstalters; erst die
+   * Routing-Pipeline legt fest, in welcher Folge man die Ziele sinnvoll
+   * abfährt. Nur punktgenau verortete Stopps stehen darin.
+   */
+  reihenfolge: z.array(z.string()),
+  /**
    * Die Route in Abschnitten. 'pflicht' liegt auf der direkten Etappe,
    * 'optional' ist ein Abstecher zu einem vorgeschlagenen Ziel. Benachbarte
    * Abschnitte teilen sich ihren Grenzpunkt, damit keine Lücke klafft.

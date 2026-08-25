@@ -27,6 +27,8 @@ type State = {
   gruppen: Gruppe[];
   /** Nur die Ziele des gewählten Tages zeigen. Die stärkste Entlastung der Karte. */
   nurTag: boolean;
+  /** Der Tagesablauf als Vollbild. */
+  detailsOffen: boolean;
 };
 
 type Actions = {
@@ -40,6 +42,8 @@ type Actions = {
   toggleGruppe: (g: Gruppe) => void;
   alleGruppen: () => void;
   toggleNurTag: () => void;
+  zeigeDetails: () => void;
+  schliesseDetails: () => void;
 };
 
 export const useMapStore = create<State & Actions>((set, get) => ({
@@ -49,10 +53,11 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   relief: false,
   gruppen: [],
   nurTag: false,
+  detailsOffen: false,
 
   setTag: (datum) => {
     if (!tage.some((t) => t.datum === datum)) return;
-    set({ tagDatum: datum, auswahl: { art: 'keine' } });
+    set({ tagDatum: datum, auswahl: { art: 'keine' }, detailsOffen: false });
   },
   tagVor: () => {
     const i = tage.findIndex((t) => t.datum === get().tagDatum);
@@ -76,4 +81,6 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   },
   alleGruppen: () => set({ gruppen: [] }),
   toggleNurTag: () => set({ nurTag: !get().nurTag }),
+  zeigeDetails: () => set({ detailsOffen: true }),
+  schliesseDetails: () => set({ detailsOffen: false }),
 }));

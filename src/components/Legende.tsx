@@ -135,15 +135,20 @@ export function Legende() {
           <h3 className="mt-4 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
             Die Farbe der Linie: Art des Tages
           </h3>
-          <ul className="mt-1.5 flex flex-wrap gap-x-3 gap-y-1 text-xs text-slate-700">
+          {/*
+            Als Pillen in der Farbe selbst, nicht als Punkt neben Text: so
+            steht dieselbe Marke hier wie im Tagesstreifen und im Tagesablauf.
+            Drei Stellen, eine Form.
+          */}
+          <ul className="mt-2 flex flex-wrap gap-1.5">
             {(Object.keys(TAG_LABEL) as Array<keyof typeof TAG_LABEL>).map((typ) => (
-              <li key={typ} className="flex items-center gap-1.5">
+              <li key={typ}>
                 <span
-                  aria-hidden
-                  className="inline-block h-2.5 w-2.5 shrink-0 rounded-full"
+                  className="inline-flex items-center rounded-full px-2 py-0.5 text-[11px] font-semibold text-white"
                   style={{ backgroundColor: TAG_FARBE[typ] }}
-                />
-                {TAG_LABEL[typ]}
+                >
+                  {TAG_LABEL[typ]}
+                </span>
               </li>
             ))}
           </ul>

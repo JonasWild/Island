@@ -23,6 +23,7 @@ export function Timeline() {
   const aktiv = tage.find((t) => t.datum === tagDatum);
   const gefahren = routeNach(tagDatum);
   const gehzeit = gehzeitTag(tagDatum);
+  const zeigeDetails = useMapStore((s) => s.zeigeDetails);
   const aktivRef = useRef<HTMLButtonElement>(null);
   const leiste = useRef<HTMLDivElement>(null);
 
@@ -97,31 +98,47 @@ export function Timeline() {
           })}
         </ol>
         {aktiv && (
-          <div
-            className="px-3 pb-2 pt-1 text-xs text-slate-600 sm:px-1 sm:pb-0 sm:text-[11px]"
+          /*
+            Die Titelzeile ist die Tür zum Tagesablauf. Sie ist ohnehin die
+            Stelle, auf die man tippt, wenn man wissen will, was der Tag
+            bringt — also macht sie das auch.
+          */
+          <button
+            type="button"
+            onClick={zeigeDetails}
             data-testid="tagestitel"
+            aria-label={`Ablauf am ${datumKurz(tagDatum)} ansehen`}
+            className="flex w-full flex-col items-center gap-0.5 px-3 pb-2 pt-1 text-xs text-slate-600 transition hover:bg-black/5 sm:px-2 sm:pb-1 sm:text-[11px]"
           >
-            <p className="flex items-baseline justify-center gap-1.5">
+            <span className="flex w-full items-center justify-center gap-1.5">
               {/*
-                Die Tagesart benennen, nicht nur einfärben. Die Farbe der Route
-                steht für genau das — ohne Wort daneben bleibt sie Dekoration.
+                Die Tagesart als Pille in ihrer Farbe — dieselbe, die auf der
+                Karte die Linie trägt. Farbe allein erklärt nichts, ein Wort
+                allein verbindet nichts.
               */}
               <span
-                aria-hidden
-                className="inline-block h-2 w-2 shrink-0 translate-y-px rounded-full"
+                className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold leading-tight text-white"
                 style={{ backgroundColor: TAG_FARBE[aktiv.typ] }}
-              />
-              <span className="shrink-0 font-medium text-slate-700">{TAG_LABEL[aktiv.typ]}</span>
-              <span className="truncate text-slate-500">{aktiv.titel}</span>
-            </p>
+              >
+                {TAG_LABEL[aktiv.typ]}
+              </span>
+              <span className="truncate text-slate-600">{aktiv.titel}</span>
+              <svg
+                viewBox="0 0 16 16"
+                className="h-3 w-3 shrink-0 text-slate-400"
+                aria-hidden
+                fill="none"
+                stroke="currentColor"
+              >
+                <path d="M6 3l5 5-5 5" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </span>
             {/*
               Die gefahrenen Kilometer, nicht die des Reiseplans: `etappe.km`
               ist die direkte Fahrt von A nach B, die Route fährt zusätzlich
-              die vorgeschlagenen Ziele an. Getrennt nach dem, was man fahren
-              muss, und dem, was man sich aussuchen kann — plus die Zeit, die
-              gar nicht im Auto vergeht.
+              die vorgeschlagenen Ziele an.
             */}
-            <p className="mt-0.5 flex flex-wrap items-baseline justify-center gap-x-2 whitespace-nowrap tabular-nums text-slate-500">
+            <span className="flex flex-wrap items-baseline justify-center gap-x-2 whitespace-nowrap tabular-nums text-slate-500">
               {gefahren?.art === 'strasse' ? (
                 <>
                   <span className="font-medium text-slate-700">
@@ -131,12 +148,12 @@ export function Timeline() {
                     {Math.floor(gefahren.fahrzeitMin / 60)} h {gefahren.fahrzeitMin % 60} min
                   </span>
                   {gefahren.pflichtKm > 0 ? (
-                    <span title="Auf der direkten Etappe · Abstecher">
+                    <span>
                       {Math.round(gefahren.pflichtKm)} Pflicht ·{' '}
                       {Math.round(gefahren.km - gefahren.pflichtKm)} Kür
                     </span>
                   ) : (
-                    <span title="Start und Ziel sind dieselbe Unterkunft">alles freiwillig</span>
+                    <span>alles freiwillig</span>
                   )}
                 </>
               ) : (
@@ -147,8 +164,8 @@ export function Timeline() {
                   {Math.floor(gehzeit / 60)} h {gehzeit % 60} min zu Fuß
                 </span>
               )}
-            </p>
-          </div>
+            </span>
+          </button>
         )}
       </div>
     </div>

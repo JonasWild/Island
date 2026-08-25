@@ -30,7 +30,11 @@ const ctx = await browser.newContext({ viewport, deviceScaleFactor: 2 });
 
 await ctx.route(/(openfreemap|amazonaws|wikimedia)/, async (route) => {
   try {
-    const r = await fetch(route.request().url());
+    // Eigener User-Agent: Wikimedia antwortet sonst mit 429, und die Bilder
+    // fehlen im Screenshot, obwohl die App sie im echten Browser lädt.
+    const r = await fetch(route.request().url(), {
+      headers: { 'User-Agent': 'island-2026-screenshot/1.0 (+https://github.com/JonasWild/Island)' },
+    });
     await route.fulfill({
       status: r.status,
       body: Buffer.from(await r.arrayBuffer()),

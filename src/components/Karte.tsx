@@ -5,6 +5,7 @@ import { Timeline } from './Timeline';
 import { ContextSheet } from './ContextSheet';
 import { Legende } from './Legende';
 import { Filterleiste } from './Filterleiste';
+import { Tagesdetails } from './Tagesdetails';
 import { useMapStore } from '@/store/mapStore';
 import { useDeepLink } from '@/hooks/useDeepLink';
 import { useTastatur } from '@/hooks/useTastatur';
@@ -73,6 +74,7 @@ export function Karte() {
       </div>
       <ContextSheet />
       <Timeline />
+      <Tagesdetails />
     </main>
   );
 }
