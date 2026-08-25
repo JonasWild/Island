@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { TAG_FARBE, TAG_LABEL } from '@/lib/reise';
 import { KATEGORIE_LABEL, type Kategorie } from '@/lib/kategorie';
+import { GRUPPE_FARBE, GRUPPE_INHALT, GRUPPE_LABEL, GRUPPEN } from '@/lib/gruppe';
 import { kategorieFarbe } from '@/map/icons';
 
 /**
@@ -61,7 +62,7 @@ export function Legende() {
         */
         <div
           data-testid="legende"
-          className="pointer-events-auto fixed inset-x-0 bottom-0 z-50 max-h-[80dvh] overflow-y-auto rounded-t-2xl bg-white/95 px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-4 shadow-xl ring-1 ring-black/10 backdrop-blur sm:inset-x-auto sm:bottom-auto sm:left-3 sm:top-16 sm:max-h-[calc(100dvh-6rem)] sm:w-80 sm:rounded-xl sm:p-4"
+          className="pointer-events-auto fixed inset-x-0 bottom-0 z-50 max-h-[80dvh] overflow-y-auto rounded-t-2xl bg-white/95 px-5 pb-[calc(1.5rem+env(safe-area-inset-bottom))] pt-4 shadow-xl ring-1 ring-black/10 backdrop-blur sm:inset-x-auto sm:bottom-auto sm:left-3 sm:top-[7.25rem] sm:max-h-[calc(100dvh-9rem)] sm:w-80 sm:rounded-xl sm:p-4"
         >
           <div className="flex items-start justify-between gap-3">
             <h2 className="text-sm font-semibold text-slate-900">Legende</h2>
@@ -177,6 +178,28 @@ export function Legende() {
           <p className="mt-1.5 text-[11px] leading-snug text-slate-500">
             Der Verlauf der Wanderwege steht in keiner Quelle dieses Projekts und wird deshalb
             nicht gezeichnet. Gehzeit, Strecke und Anstieg stehen im Kontextblatt.
+          </p>
+
+          <h3 className="mt-4 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+            Die Filter oben
+          </h3>
+          <ul className="mt-1.5 space-y-1 text-xs text-slate-700">
+            {GRUPPEN.map((g) => (
+              <li key={g} className="flex items-baseline gap-2">
+                <span
+                  aria-hidden
+                  className="mt-1 inline-block h-2.5 w-2.5 shrink-0 self-start rounded-full"
+                  style={{ backgroundColor: GRUPPE_FARBE[g] }}
+                />
+                <span>
+                  <span className="font-medium">{GRUPPE_LABEL[g]}</span>
+                  <span className="text-slate-500"> — {GRUPPE_INHALT[g]}</span>
+                </span>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-1.5 text-[11px] leading-snug text-slate-500">
+            Unterkünfte lassen sich nicht wegfiltern: wo man schläft, ist der Anker des Tages.
           </p>
 
           <h3 className="mt-4 text-[11px] font-semibold uppercase tracking-wide text-slate-500">

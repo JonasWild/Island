@@ -3,6 +3,7 @@
 import { create } from 'zustand';
 import type { Pos } from '@/lib/schema';
 import { tage } from '@/lib/reise';
+import type { Gruppe } from '@/lib/gruppe';
 
 export type Theme = 'hell' | 'dunkel';
 
@@ -18,6 +19,14 @@ type State = {
   theme: Theme;
   /** Schummerung. Aus, solange niemand danach fragt — dann lädt auch kein DEM. */
   relief: boolean;
+  /**
+   * Sichtbare Zielgruppen. **Leer heißt alle** — nicht keine. So braucht der
+   * Normalfall keinen Zustand, und „alles anzeigen" ist immer nur ein Tippen
+   * entfernt.
+   */
+  gruppen: Gruppe[];
+  /** Nur die Ziele des gewählten Tages zeigen. Die stärkste Entlastung der Karte. */
+  nurTag: boolean;
 };
 
 type Actions = {
@@ -28,6 +37,9 @@ type Actions = {
   schliesse: () => void;
   toggleTheme: () => void;
   toggleRelief: () => void;
+  toggleGruppe: (g: Gruppe) => void;
+  alleGruppen: () => void;
+  toggleNurTag: () => void;
 };
 
 export const useMapStore = create<State & Actions>((set, get) => ({
@@ -35,6 +47,8 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   auswahl: { art: 'keine' },
   theme: 'hell',
   relief: false,
+  gruppen: [],
+  nurTag: false,
 
   setTag: (datum) => {
     if (!tage.some((t) => t.datum === datum)) return;
@@ -55,4 +69,11 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   schliesse: () => set({ auswahl: { art: 'keine' } }),
   toggleTheme: () => set({ theme: get().theme === 'dunkel' ? 'hell' : 'dunkel' }),
   toggleRelief: () => set({ relief: !get().relief }),
+
+  toggleGruppe: (g) => {
+    const jetzt = get().gruppen;
+    set({ gruppen: jetzt.includes(g) ? jetzt.filter((x) => x !== g) : [...jetzt, g] });
+  },
+  alleGruppen: () => set({ gruppen: [] }),
+  toggleNurTag: () => set({ nurTag: !get().nurTag }),
 }));

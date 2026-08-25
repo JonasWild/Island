@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { Timeline } from './Timeline';
 import { ContextSheet } from './ContextSheet';
 import { Legende } from './Legende';
+import { Filterleiste } from './Filterleiste';
 import { useMapStore } from '@/store/mapStore';
 import { useDeepLink } from '@/hooks/useDeepLink';
 import { useTastatur } from '@/hooks/useTastatur';
@@ -30,6 +31,7 @@ export function Karte() {
   return (
     <main className="relative h-dvh w-full overflow-hidden">
       <MapCanvas />
+      <Filterleiste />
       {/*
         Auf dem Handy sitzen die Schalter unten links, über dem Tagesstreifen —
         oben links ist auf einem 844 px hohen Gerät kein Daumenziel. Sie sitzen
@@ -38,7 +40,7 @@ export function Karte() {
         liegt die Herkunftsangabe (siehe globals.css). Ab `sm:` wieder oben, wo
         sie die Karte am wenigsten verdecken.
       */}
-      <div className="absolute bottom-[calc(var(--streifen-hoehe,7rem)+0.5rem)] left-3 z-30 flex gap-2 sm:bottom-auto sm:top-3">
+      <div className="absolute bottom-[calc(var(--streifen-hoehe,7rem)+0.5rem)] left-3 z-30 flex gap-2 sm:bottom-auto sm:top-16">
         <button
           type="button"
           onClick={toggleTheme}

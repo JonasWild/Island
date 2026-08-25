@@ -9,6 +9,7 @@ import { alleStopps, TAG_FARBE, tage, unterkuenfte } from '@/lib/reise';
 import { routeNach } from '@/lib/route';
 import { DEM_ATTRIBUTION, DEM_SOURCE_ID, DEM_TILES } from './style';
 import { kategorieVon } from '@/lib/kategorie';
+import { gruppeVon, type Gruppe } from '@/lib/gruppe';
 import { zuLngLat } from '@/lib/geo';
 import { ICON_FUSSWEG, ICON_PFEIL, iconName, unterkunftIconName } from './icons';
 
@@ -44,8 +45,12 @@ export function stoppFeatures(): FeatureCollection<Point> {
         id: s.id,
         name: s.stopp.name,
         datum: s.datum,
+        // Ein Stopp gilt genau an seinem Tag. `datumBis` gleich `datum` macht
+        // die Regel für Stopps und Unterkünfte identisch — siehe stoppFilter.
+        datumBis: s.datum,
         farbe: TAG_FARBE[tage.find((t) => t.datum === s.datum)?.typ ?? 'etappe'],
         icon: iconName(kategorieVon(s.stopp)),
+        gruppe: gruppeVon(kategorieVon(s.stopp)) ?? '',
         // Wandern ist keine Zielart, sondern eine Eigenschaft: Dettifoss
         // bleibt ein Wasserfall, auch wenn man 2,8 km hinläuft. Deshalb ein
         // eigenes Abzeichen statt einer eigenen Kategorie.
@@ -59,9 +64,10 @@ export function stoppFeatures(): FeatureCollection<Point> {
     lange ist die wichtigste Angabe des Tages und gehört auf den Marker, nicht
     erst ins Kontextblatt.
 
-    `datum` ist der Anreisetag, damit die Unterkunft am Tag des Einzugs
-    hervorgehoben wird; `datumBis` und `naechte` erlauben es, sie über die
-    ganze Standzeit hervorzuheben.
+    `datum` ist der Anreisetag, `datumBis` der Abreisetag. Über diese Spanne
+    bleibt die Unterkunft sichtbar, auch wenn nur ein Tag gezeigt wird: man
+    schläft am 28.08. in dem Haus, das man am 27.08. bezogen hat. Ohne das
+    verschwände der Anker des Tages genau dann, wenn man aufräumt.
   */
   const haeuser = unterkuenfte
     .filter((u) => u.pos !== null)
@@ -76,6 +82,8 @@ export function stoppFeatures(): FeatureCollection<Point> {
         naechte: u.naechte,
         farbe: '#be123c',
         icon: unterkunftIconName(u.naechte),
+        // Kein Gruppenschlüssel: Unterkünfte lassen sich nicht wegfiltern.
+        gruppe: '',
         wanderung: false,
       },
     }));
@@ -152,6 +160,42 @@ export function routeFeatures(): FeatureCollection<LineString> {
 
 const aktiv = (datum: string): ExpressionSpecification => ['==', ['get', 'datum'], datum];
 
+/**
+ * Was auf der Karte sichtbar bleibt. 128 Symbole gleichzeitig sind auf einem
+ * Handy keine Karte mehr, sondern ein Teppich.
+ *
+ * Zwei Achsen, beide optional:
+ * - **Gruppen**: eine leere Liste heißt *alle* — der Normalfall braucht keinen
+ *   Zustand. Unterkünfte tragen keinen Gruppenschlüssel und bleiben deshalb
+ *   immer stehen: wo man schläft, ist der Anker des Tages.
+ * - **Nur dieser Tag**: blendet die Ziele der anderen vierzehn Tage aus.
+ */
+export function stoppFilter(
+  gruppen: readonly Gruppe[],
+  nurTag: boolean,
+  datum: string,
+): ExpressionSpecification {
+  const bedingungen: ExpressionSpecification[] = [];
+  if (gruppen.length > 0) {
+    bedingungen.push([
+      'any',
+      ['==', ['get', 'gruppe'], ''],
+      ['in', ['get', 'gruppe'], ['literal', [...gruppen]]],
+    ]);
+  }
+  if (nurTag) {
+    // Gilt der Eintrag an diesem Tag? Für Stopps ist die Spanne ein Tag lang,
+    // für Unterkünfte die ganze Standzeit.
+    bedingungen.push([
+      'all',
+      ['<=', ['get', 'datum'], datum],
+      ['>=', ['get', 'datumBis'], datum],
+    ]);
+  }
+  if (bedingungen.length === 0) return ['literal', true];
+  return bedingungen.length === 1 ? bedingungen[0]! : ['all', ...bedingungen];
+}
+
 export function quellenSetzen(map: MLMap): void {
   if (!map.getSource(SRC_STOPPS)) {
     map.addSource(SRC_STOPPS, { type: 'geojson', data: stoppFeatures() });
@@ -167,7 +211,12 @@ export function quellenSetzen(map: MLMap): void {
   }
 }
 
-export function layerSetzen(map: MLMap, aktivesDatum: string): void {
+export function layerSetzen(
+  map: MLMap,
+  aktivesDatum: string,
+  gruppen: readonly Gruppe[],
+  nurTag: boolean,
+): void {
   const add = (spec: LayerSpecification) => {
     if (!map.getLayer(spec.id)) map.addLayer(spec);
   };
@@ -281,6 +330,7 @@ export function layerSetzen(map: MLMap, aktivesDatum: string): void {
     id: LYR_STOPP,
     type: 'symbol',
     source: SRC_STOPPS,
+    filter: stoppFilter(gruppen, nurTag, aktivesDatum),
     layout: {
       'icon-image': ['get', 'icon'],
       'icon-size': ['case', aktiv(aktivesDatum), 0.7, 0.44],
@@ -304,7 +354,7 @@ export function layerSetzen(map: MLMap, aktivesDatum: string): void {
     id: LYR_WANDERUNG,
     type: 'symbol',
     source: SRC_STOPPS,
-    filter: ['==', ['get', 'wanderung'], true],
+    filter: ['all', ['==', ['get', 'wanderung'], true], stoppFilter(gruppen, nurTag, aktivesDatum)],
     layout: {
       'icon-image': ICON_FUSSWEG,
       'icon-size': ['case', aktiv(aktivesDatum), 0.4, 0.26],
@@ -319,7 +369,9 @@ export function layerSetzen(map: MLMap, aktivesDatum: string): void {
     id: LYR_STOPP_LABEL,
     type: 'symbol',
     source: SRC_STOPPS,
-    filter: aktiv(aktivesDatum),
+    // Beschriftet wird nur der gewählte Tag, und auch dort nur, was der
+    // Filter stehen lässt.
+    filter: ['all', aktiv(aktivesDatum), stoppFilter(gruppen, nurTag, aktivesDatum)],
     layout: {
       'text-field': ['get', 'name'],
       'text-size': 12,
@@ -350,7 +402,12 @@ export function layerSetzen(map: MLMap, aktivesDatum: string): void {
 }
 
 /** Tageswechsel: nur die datumsabhängigen Ausdrücke neu setzen, kein Reload. */
-export function aktivenTagSetzen(map: MLMap, datum: string): void {
+export function aktivenTagSetzen(
+  map: MLMap,
+  datum: string,
+  gruppen: readonly Gruppe[],
+  nurTag: boolean,
+): void {
   const f = aktiv(datum);
   const tagesFarbe: ExpressionSpecification = ['case', f, ['get', 'farbe'], NEUTRAL];
   const obenAuf: ExpressionSpecification = ['case', f, 1, 0];
@@ -384,7 +441,28 @@ export function aktivenTagSetzen(map: MLMap, datum: string): void {
     map.setLayoutProperty(LYR_WANDERUNG, 'icon-size', ['case', f, 0.4, 0.26]);
     map.setPaintProperty(LYR_WANDERUNG, 'icon-opacity', ['case', f, 1, 0.72]);
   }
-  if (map.getLayer(LYR_STOPP_LABEL)) map.setFilter(LYR_STOPP_LABEL, f);
+  sichtbarkeitSetzen(map, gruppen, nurTag, datum);
+}
+
+/**
+ * Filterwechsel. Bewusst getrennt vom Tageswechsel: ein Filter darf die Kamera
+ * nicht bewegen. Wer nach Wasserfällen filtert, will nicht, dass die Karte
+ * dabei wegspringt.
+ */
+export function sichtbarkeitSetzen(
+  map: MLMap,
+  gruppen: readonly Gruppe[],
+  nurTag: boolean,
+  datum: string,
+): void {
+  const sichtbar = stoppFilter(gruppen, nurTag, datum);
+  if (map.getLayer(LYR_STOPP)) map.setFilter(LYR_STOPP, sichtbar);
+  if (map.getLayer(LYR_WANDERUNG)) {
+    map.setFilter(LYR_WANDERUNG, ['all', ['==', ['get', 'wanderung'], true], sichtbar]);
+  }
+  if (map.getLayer(LYR_STOPP_LABEL)) {
+    map.setFilter(LYR_STOPP_LABEL, ['all', aktiv(datum), sichtbar]);
+  }
 }
 
 

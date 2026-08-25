@@ -318,3 +318,124 @@ test('die Legende erklärt Linien, Farben und Marker', async ({ page }) => {
   await legende.getByRole('button', { name: 'Legende schließen' }).click();
   await expect(legende).toBeHidden();
 });
+
+test('der Filter entlastet die Karte und lässt die Unterkünfte stehen', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-28');
+  /*
+    Erst den Kameraflug abwarten. `queryRenderedFeatures` liefert nur, was
+    gerade im Bild ist — misst man währenddessen, vergleicht man hinterher
+    verschiedene Ausschnitte statt verschiedener Filter. Und auf den Layer
+    allein zu warten reicht nicht: Symbole werden erst beim nächsten Bild
+    platziert.
+  */
+  await page.waitForFunction(() => window.__islandKarte?.getLayer('stopp-symbol') != null);
+  await page.waitForTimeout(2500);
+  // Danach die ganze Insel ins Bild setzen: sonst zählt der Test den
+  // Kartenausschnitt mit, und der ist auf dem Handy ein anderer als auf dem
+  // Desktop. Ab hier ändert sich nur noch der Filter.
+  await page.evaluate(() => window.__islandKarte!.jumpTo({ center: [-18.9, 64.9], zoom: 5.2 }));
+  await page.waitForTimeout(1200);
+  await page.waitForFunction(
+    () =>
+      (window.__islandKarte?.queryRenderedFeatures(undefined, { layers: ['stopp-symbol'] })
+        ?.length ?? 0) > 0,
+  );
+
+  const sichtbar = () =>
+    page.evaluate(() => {
+      const f = window.__islandKarte!.queryRenderedFeatures(undefined, { layers: ['stopp-symbol'] });
+      return {
+        gesamt: f.length,
+        haeuser: f.filter((x) => String(x.properties?.id ?? '').startsWith('unterkunft:')).length,
+      };
+    });
+
+  /*
+    Keine absolute Zahl: `queryRenderedFeatures` liefert nur den sichtbaren
+    Ausschnitt, und der ist auf dem Handy ein anderer als auf dem Desktop.
+    Geprüft wird, dass die Filter die Zahl **verringern** — darum geht es.
+  */
+  const alle = await sichtbar();
+  expect(alle.gesamt).toBeGreaterThan(5);
+
+  // Nur dieser Tag — die stärkste Entlastung.
+  await page.getByTestId('filter-nurtag').click();
+  await page.waitForTimeout(400);
+  const einTag = await sichtbar();
+  expect(einTag.gesamt).toBeLessThan(alle.gesamt);
+
+  // Zusätzlich nach Zielart.
+  await page.getByTestId('filter-wasser').click();
+  await page.waitForTimeout(400);
+  const nurWasser = await sichtbar();
+  expect(nurWasser.gesamt).toBeLessThan(einTag.gesamt);
+
+  // „Alle" nimmt die Zielart-Auswahl zurück, nicht den Tagesfilter.
+  await page.getByTestId('filter-alle').click();
+  await page.waitForTimeout(400);
+  expect((await sichtbar()).gesamt).toBe(einTag.gesamt);
+
+  /*
+    Unterkünfte tragen keinen Gruppenschlüssel und dürfen sich nicht
+    wegfiltern lassen — wo man schläft, ist der Anker des Tages.
+  */
+  await page.getByTestId('filter-nurtag').click(); // Tagesfilter wieder aus
+  await page.getByTestId('filter-berge').click();
+  await page.waitForTimeout(400);
+  expect((await sichtbar()).haeuser).toBe(alle.haeuser);
+
+  /*
+    Und mit Tagesfilter bleibt die Unterkunft der Nacht stehen, obwohl man sie
+    am Vortag bezogen hat: sie gilt über ihre ganze Standzeit, nicht nur am
+    Anreisetag.
+  */
+  await page.getByTestId('filter-nurtag').click();
+  await page.waitForTimeout(400);
+  const dieseNacht = await page.evaluate(() =>
+    window
+      .__islandKarte!.queryRenderedFeatures(undefined, { layers: ['stopp-symbol'] })
+      .filter((x) => String(x.properties?.id ?? '').startsWith('unterkunft:'))
+      .map((x) => x.properties?.id),
+  );
+  expect(dieseNacht).toContain('unterkunft:birkiskogar');
+});
+
+test('der Filter bewegt die Kamera nicht', async ({ page }) => {
+  // Wer nach Wasserfällen filtert, will nicht, dass die Karte wegspringt.
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-28');
+  await page.waitForFunction(() => window.__islandKarte?.getLayer('stopp-symbol') != null);
+  await page.waitForTimeout(2500);
+
+  const kamera = () =>
+    page.evaluate(() => {
+      const m = window.__islandKarte!;
+      return { ...m.getCenter(), zoom: m.getZoom() };
+    });
+  const vorher = await kamera();
+  await page.getByTestId('filter-wasser').click();
+  await page.waitForTimeout(1200);
+  const nachher = await kamera();
+
+  expect(Math.abs(nachher.lng - vorher.lng)).toBeLessThan(0.001);
+  expect(Math.abs(nachher.lat - vorher.lat)).toBeLessThan(0.001);
+  expect(Math.abs(nachher.zoom - vorher.zoom)).toBeLessThan(0.001);
+});
+
+test('das Kontextblatt zeigt das Bild mit Urheber und Lizenz', async ({ page }) => {
+  await stilStubben(page);
+  // 28.08., Stopp 2 ist Hraunfossar — dort hat die Pipeline ein Bild gefunden.
+  await page.goto('/?tag=2026-08-28&stopp=2');
+  const blatt = page.getByTestId('kontextblatt');
+  const bild = blatt.locator('figure img');
+  await expect(bild).toHaveAttribute('src', /^https:\/\/upload\.wikimedia\.org\//);
+  // Ohne Grössenangaben springt das Blatt beim Laden.
+  await expect(bild).toHaveAttribute('width', /^\d+$/);
+  await expect(bild).toHaveAttribute('height', /^\d+$/);
+  // Bei CC-BY-SA ist die Nennung Bedingung, nicht Höflichkeit.
+  await expect(blatt.locator('figcaption')).toContainText(/CC|Public domain/);
+  await expect(
+    blatt.locator('figcaption').getByRole('link', { name: 'Wikimedia Commons' }),
+  ).toHaveAttribute('href', /commons\.wikimedia\.org/);
+});

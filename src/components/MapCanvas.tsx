@@ -13,6 +13,7 @@ import {
   LYR_STOPP,
   quellenSetzen,
   reliefSetzen,
+  sichtbarkeitSetzen,
   SRC_ORT,
 } from '@/map/layers';
 import { fliegeZuPunkt, fliegeZuTag } from '@/map/camera';
@@ -46,21 +47,21 @@ export function MapCanvas() {
   const theme = useMapStore((s) => s.theme);
   const auswahl = useMapStore((s) => s.auswahl);
   const relief = useMapStore((s) => s.relief);
+  const gruppen = useMapStore((s) => s.gruppen);
+  const nurTag = useMapStore((s) => s.nurTag);
   const waehle = useMapStore((s) => s.waehle);
 
   /**
    * Eigene Layer nach jedem Style-Wechsel erneut. Kein Terrain und kein Sky
    * mehr: die Karte ist 2D. Die Schummerung kommt nur dazu, wenn sie an ist.
    */
-  const styleAufbauen = useCallback(
-    (map: MLMap, datum: string, thema: 'hell' | 'dunkel', mitRelief: boolean) => {
-      reliefSetzen(map, mitRelief, thema);
-      iconsRegistrieren(map);
-      quellenSetzen(map);
-      layerSetzen(map, datum);
-    },
-    [],
-  );
+  const styleAufbauen = useCallback((map: MLMap) => {
+    const s = useMapStore.getState();
+    reliefSetzen(map, s.relief, s.theme);
+    iconsRegistrieren(map);
+    quellenSetzen(map);
+    layerSetzen(map, s.tagDatum, s.gruppen, s.nurTag);
+  }, []);
 
   useEffect(() => {
     if (!container.current || mapRef.current) return;
@@ -87,8 +88,7 @@ export function MapCanvas() {
     (window as unknown as { __islandKarte?: MLMap }).__islandKarte = map;
 
     map.on('style.load', () => {
-      const s = useMapStore.getState();
-      styleAufbauen(map, s.tagDatum, s.theme, s.relief);
+      styleAufbauen(map);
       setKarte(map);
     });
     map.once('load', () => {
@@ -156,11 +156,21 @@ export function MapCanvas() {
     const map = mapRef.current;
     if (!map) return;
     return wennStilBereit(map, () => {
-      aktivenTagSetzen(map, tagDatum);
+      const s = useMapStore.getState();
+      aktivenTagSetzen(map, tagDatum, s.gruppen, s.nurTag);
       const tag = tagNach(tagDatum);
       if (tag) fliegeZuTag(map, tag);
     });
   }, [tagDatum, karte]);
+
+  /** Filterwechsel — nur Sichtbarkeit, die Kamera bleibt, wo sie ist. */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map) return;
+    return wennStilBereit(map, () =>
+      sichtbarkeitSetzen(map, gruppen, nurTag, useMapStore.getState().tagDatum),
+    );
+  }, [gruppen, nurTag, karte]);
 
   /** Theme = echter Style-Wechsel, kein CSS-Filter. */
   useEffect(() => {
