@@ -1,6 +1,12 @@
-import type { ExpressionSpecification, LayerSpecification, Map as MLMap } from 'maplibre-gl';
+import type {
+  ExpressionSpecification,
+  HillshadeLayerSpecification,
+  LayerSpecification,
+  Map as MLMap,
+} from 'maplibre-gl';
 import type { FeatureCollection, LineString, Point } from 'geojson';
 import { alleStopps, TAG_FARBE, tage, unterkuenfte } from '@/lib/reise';
+import { DEM_ATTRIBUTION, DEM_SOURCE_ID, DEM_TILES } from './style';
 import { kategorieVon } from '@/lib/kategorie';
 import { zuLngLat } from '@/lib/geo';
 import { iconName } from './icons';
@@ -13,6 +19,7 @@ export const LYR_ROUTE = 'route-linie';
 export const LYR_STOPP = 'stopp-symbol';
 export const LYR_STOPP_LABEL = 'stopp-label';
 export const LYR_ORT = 'ort-symbol';
+export const LYR_RELIEF = 'relief';
 
 export function stoppFeatures(): FeatureCollection<Point> {
   const stopps = alleStopps
@@ -167,4 +174,74 @@ export function aktivenTagSetzen(map: MLMap, datum: string): void {
     map.setPaintProperty(LYR_STOPP, 'icon-opacity', ['case', f, 1, 0.72]);
   }
   if (map.getLayer(LYR_STOPP_LABEL)) map.setFilter(LYR_STOPP_LABEL, f);
+}
+
+/**
+ * Schummerung ohne 3D. Liest dieselben DEM-Kacheln wie früher `setTerrain`,
+ * baut daraus aber kein Mesh: kein Depth-Buffer, keine Höhenabfrage je Bild
+ * und Marker. Quelle und Layer entstehen erst beim Einschalten und
+ * verschwinden beim Ausschalten wieder — im Normalmodus stellt die App keine
+ * einzige Anfrage an den DEM-Host.
+ *
+ * Die Farben sind bewusst weich: eine Schummerung soll das Gelände andeuten,
+ * nicht die Basiskarte überschreiben. Harte Schatten machen Islands Hochland
+ * zu einer schwarzen Fläche, in der die Route verschwindet.
+ */
+type ReliefPaint = NonNullable<HillshadeLayerSpecification['paint']>;
+
+const RELIEF_FARBE: Record<'hell' | 'dunkel', ReliefPaint> = {
+  hell: {
+    'hillshade-shadow-color': '#8a93a3',
+    'hillshade-highlight-color': '#ffffff',
+    'hillshade-accent-color': '#aab3c0',
+    'hillshade-exaggeration': 0.3,
+  },
+  dunkel: {
+    'hillshade-shadow-color': '#050a12',
+    'hillshade-highlight-color': '#6d7f94',
+    'hillshade-accent-color': '#16202f',
+    'hillshade-exaggeration': 0.36,
+  },
+};
+
+/**
+ * Unter die Beschriftungen der Basiskarte: der erste Symbol-Layer des Styles
+ * ist die Grenze zwischen Flächen und Schrift. Ohne das läge die Schummerung
+ * über den Ortsnamen.
+ */
+function unterDenBeschriftungen(map: MLMap): string | undefined {
+  return map.getStyle().layers?.find((l) => l.type === 'symbol')?.id;
+}
+
+export function reliefSetzen(map: MLMap, an: boolean, thema: 'hell' | 'dunkel'): void {
+  if (!an) {
+    if (map.getLayer(LYR_RELIEF)) map.removeLayer(LYR_RELIEF);
+    if (map.getSource(DEM_SOURCE_ID)) map.removeSource(DEM_SOURCE_ID);
+    return;
+  }
+  if (!map.getSource(DEM_SOURCE_ID)) {
+    map.addSource(DEM_SOURCE_ID, {
+      type: 'raster-dem',
+      tiles: DEM_TILES,
+      encoding: 'terrarium',
+      tileSize: 256,
+      maxzoom: 13,
+      attribution: DEM_ATTRIBUTION,
+    });
+  }
+  if (!map.getLayer(LYR_RELIEF)) {
+    map.addLayer(
+      {
+        id: LYR_RELIEF,
+        type: 'hillshade',
+        source: DEM_SOURCE_ID,
+        paint: RELIEF_FARBE[thema],
+      },
+      unterDenBeschriftungen(map),
+    );
+  } else {
+    for (const [k, v] of Object.entries(RELIEF_FARBE[thema])) {
+      map.setPaintProperty(LYR_RELIEF, k, v);
+    }
+  }
 }

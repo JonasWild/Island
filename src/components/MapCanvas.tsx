@@ -12,18 +12,11 @@ import {
   layerSetzen,
   LYR_STOPP,
   quellenSetzen,
+  reliefSetzen,
   SRC_ORT,
 } from '@/map/layers';
 import { fliegeZuPunkt, fliegeZuTag } from '@/map/camera';
-import {
-  DEM_ATTRIBUTION,
-  DEM_SOURCE_ID,
-  DEM_TILES,
-  SKY,
-  START_KAMERA,
-  STYLE_URL,
-  TERRAIN_EXAGGERATION,
-} from '@/map/style';
+import { START_KAMERA, STYLE_URL } from '@/map/style';
 
 export function MapCanvas() {
   const container = useRef<HTMLDivElement>(null);
@@ -33,26 +26,22 @@ export function MapCanvas() {
   const tagDatum = useMapStore((s) => s.tagDatum);
   const theme = useMapStore((s) => s.theme);
   const auswahl = useMapStore((s) => s.auswahl);
+  const relief = useMapStore((s) => s.relief);
   const waehle = useMapStore((s) => s.waehle);
 
-  /** Terrain, Himmel und eigene Layer — nach jedem Style-Wechsel erneut. */
-  const styleAufbauen = useCallback((map: MLMap, datum: string, thema: 'hell' | 'dunkel') => {
-    if (!map.getSource(DEM_SOURCE_ID)) {
-      map.addSource(DEM_SOURCE_ID, {
-        type: 'raster-dem',
-        tiles: DEM_TILES,
-        encoding: 'terrarium',
-        tileSize: 256,
-        maxzoom: 13,
-        attribution: DEM_ATTRIBUTION,
-      });
-    }
-    map.setTerrain({ source: DEM_SOURCE_ID, exaggeration: TERRAIN_EXAGGERATION });
-    map.setSky(SKY[thema]);
-    iconsRegistrieren(map);
-    quellenSetzen(map);
-    layerSetzen(map, datum);
-  }, []);
+  /**
+   * Eigene Layer nach jedem Style-Wechsel erneut. Kein Terrain und kein Sky
+   * mehr: die Karte ist 2D. Die Schummerung kommt nur dazu, wenn sie an ist.
+   */
+  const styleAufbauen = useCallback(
+    (map: MLMap, datum: string, thema: 'hell' | 'dunkel', mitRelief: boolean) => {
+      reliefSetzen(map, mitRelief, thema);
+      iconsRegistrieren(map);
+      quellenSetzen(map);
+      layerSetzen(map, datum);
+    },
+    [],
+  );
 
   useEffect(() => {
     if (!container.current || mapRef.current) return;
@@ -62,20 +51,19 @@ export function MapCanvas() {
       style: STYLE_URL[useMapStore.getState().theme],
       center: START_KAMERA.center,
       zoom: START_KAMERA.zoom,
-      pitch: START_KAMERA.pitch,
-      maxPitch: 80,
       attributionControl: { compact: true },
       ...({ projection: { type: 'globe' } } as Record<string, unknown>),
     });
     mapRef.current = map;
-    map.addControl(new maplibregl.NavigationControl({ visualizePitch: true }), 'top-right');
+    // Ohne Neigung braucht das Bedienelement keine Pitch-Anzeige.
+    map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
 
     // Griff für E2E-Tests und die Konsole; die App selbst nutzt den Ref.
     (window as unknown as { __islandKarte?: MLMap }).__islandKarte = map;
 
     map.on('style.load', () => {
       const s = useMapStore.getState();
-      styleAufbauen(map, s.tagDatum, s.theme);
+      styleAufbauen(map, s.tagDatum, s.theme, s.relief);
       setKarte(map);
     });
     map.once('load', () => {
@@ -151,6 +139,13 @@ export function MapCanvas() {
   useEffect(() => {
     mapRef.current?.setStyle(STYLE_URL[theme], { diff: false });
   }, [theme]);
+
+  /** Relief an/aus — Quelle und Layer entstehen und verschwinden mit dem Schalter. */
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !map.isStyleLoaded()) return;
+    reliefSetzen(map, relief, theme);
+  }, [relief, theme, karte]);
 
   /** Auswahl eines Stopps → hinfliegen. */
   useEffect(() => {

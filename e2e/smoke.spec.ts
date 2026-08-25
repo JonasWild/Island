@@ -1,4 +1,5 @@
 import { expect, test } from '@playwright/test';
+import { stilStubben } from './stub';
 
 /** Smoke: Karte lädt, Zeitachse wechselt den Tag, Deep Links greifen. */
 
@@ -44,4 +45,40 @@ test('Hintergrundtext nennt Quelle und Link', async ({ page }) => {
     'href',
     /de\.wikipedia\.org\/wiki\//,
   );
+});
+
+test('alle erwarteten Layer entstehen — und Relief nur auf Wunsch', async ({ page }) => {
+  // Ungültige Layer-Ausdrücke schlagen in MapLibre still fehl: der Layer wird
+  // nicht hinzugefügt, es erscheint nur eine Konsolenmeldung. Deshalb wird die
+  // Existenz geprüft, nicht das Aussehen.
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-31');
+  await page.waitForFunction(() => window.__islandKarte?.getLayer('stopp-symbol') != null);
+
+  const vorher = await page.evaluate(() => ({
+    layer: ['route-linie', 'stopp-symbol', 'stopp-label', 'ort-symbol'].filter(
+      (id) => window.__islandKarte!.getLayer(id) != null,
+    ),
+    relief: window.__islandKarte!.getLayer('relief') != null,
+    dem: window.__islandKarte!.getSource('terrain-dem') != null,
+    terrain: window.__islandKarte!.getTerrain() != null,
+    pitch: window.__islandKarte!.getPitch(),
+  }));
+  expect(vorher.layer).toEqual(['route-linie', 'stopp-symbol', 'stopp-label', 'ort-symbol']);
+  // Kein Terrain, keine Neigung — die Karte ist 2D.
+  expect(vorher.terrain).toBe(false);
+  expect(vorher.pitch).toBe(0);
+  // Ausgeschaltet heißt: die DEM-Quelle existiert gar nicht erst.
+  expect(vorher.relief).toBe(false);
+  expect(vorher.dem).toBe(false);
+
+  await page.getByTestId('schalter-relief').click();
+  await page.waitForFunction(() => window.__islandKarte?.getLayer('relief') != null);
+  expect(await page.evaluate(() => window.__islandKarte!.getSource('terrain-dem') != null)).toBe(
+    true,
+  );
+
+  // Und wieder weg, samt Quelle.
+  await page.getByTestId('schalter-relief').click();
+  await page.waitForFunction(() => window.__islandKarte?.getSource('terrain-dem') == null);
 });

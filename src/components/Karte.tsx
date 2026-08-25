@@ -23,18 +23,42 @@ export function Karte() {
   useTastatur();
   const theme = useMapStore((s) => s.theme);
   const toggleTheme = useMapStore((s) => s.toggleTheme);
+  const relief = useMapStore((s) => s.relief);
+  const toggleRelief = useMapStore((s) => s.toggleRelief);
 
   return (
     <main className="relative h-dvh w-full overflow-hidden">
       <MapCanvas />
-      <button
-        type="button"
-        onClick={toggleTheme}
-        title={theme === 'hell' ? 'Dunkles Kartenbild' : 'Helles Kartenbild'}
-        className="absolute left-3 top-3 z-30 rounded-md bg-white/85 px-2.5 py-1.5 text-[11px] font-medium text-slate-700 shadow ring-1 ring-black/10 backdrop-blur transition hover:bg-white"
-      >
-        {theme === 'hell' ? 'Dunkel' : 'Hell'}
-      </button>
+      <div className="absolute left-3 top-3 z-30 flex gap-2">
+        <button
+          type="button"
+          onClick={toggleTheme}
+          data-testid="schalter-theme"
+          title={theme === 'hell' ? 'Dunkles Kartenbild' : 'Helles Kartenbild'}
+          className="flex h-11 min-w-11 items-center justify-center rounded-md bg-white/85 px-3 text-xs font-medium text-slate-700 shadow ring-1 ring-black/10 backdrop-blur transition hover:bg-white"
+        >
+          {theme === 'hell' ? 'Dunkel' : 'Hell'}
+        </button>
+        {/*
+          Relief lädt das DEM erst beim Einschalten. Deshalb ein echter
+          Schalter und keine Dauerlast: wer die Schummerung nicht braucht,
+          bezahlt sie auch nicht.
+        */}
+        <button
+          type="button"
+          onClick={toggleRelief}
+          data-testid="schalter-relief"
+          aria-pressed={relief}
+          title={relief ? 'Schummerung aus' : 'Schummerung an'}
+          className={`flex h-11 min-w-11 items-center justify-center rounded-md px-3 text-xs font-medium shadow ring-1 ring-black/10 backdrop-blur transition ${
+            relief
+              ? 'bg-slate-800/90 text-white hover:bg-slate-800'
+              : 'bg-white/85 text-slate-700 hover:bg-white'
+          }`}
+        >
+          Relief
+        </button>
+      </div>
       <ContextSheet />
       <Timeline />
     </main>

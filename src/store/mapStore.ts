@@ -16,6 +16,8 @@ type State = {
   tagDatum: string;
   auswahl: Auswahl;
   theme: Theme;
+  /** Schummerung. Aus, solange niemand danach fragt — dann lädt auch kein DEM. */
+  relief: boolean;
 };
 
 type Actions = {
@@ -25,12 +27,14 @@ type Actions = {
   waehle: (a: Auswahl) => void;
   schliesse: () => void;
   toggleTheme: () => void;
+  toggleRelief: () => void;
 };
 
 export const useMapStore = create<State & Actions>((set, get) => ({
   tagDatum: tage[0]!.datum,
   auswahl: { art: 'keine' },
   theme: 'hell',
+  relief: false,
 
   setTag: (datum) => {
     if (!tage.some((t) => t.datum === datum)) return;
@@ -50,4 +54,5 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   waehle: (auswahl) => set({ auswahl }),
   schliesse: () => set({ auswahl: { art: 'keine' } }),
   toggleTheme: () => set({ theme: get().theme === 'dunkel' ? 'hell' : 'dunkel' }),
+  toggleRelief: () => set({ relief: !get().relief }),
 }));
