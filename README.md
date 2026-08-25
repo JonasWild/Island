@@ -21,6 +21,7 @@ pnpm dev            # http://localhost:3000
 | `pnpm build` | validiert `reise.json` und baut |
 | `pnpm geocode` | Geocoding-Pipeline (Build-Zeit, nicht Laufzeit) |
 | `pnpm wissen` | Wikipedia-Hintergrundtexte (Build-Zeit, nicht Laufzeit) |
+| `pnpm route` | Straßenrouten je Tag (Build-Zeit, nicht Laufzeit) |
 | `pnpm test` | Vitest |
 | `pnpm e2e` | Playwright-Smoke, in zwei Breiten (Pixel 7 und Desktop) |
 | `pnpm typecheck` / `pnpm lint` | statische Prüfung |
@@ -29,6 +30,18 @@ Container und CI-Images mit vorinstalliertem Chromium brauchen für die
 E2E-Tests den Pfad:
 `PLAYWRIGHT_CHROMIUM_PATH=/opt/pw-browsers/chromium pnpm e2e`.
 
+Um die gebaute App wirklich anzusehen — auch dort, wo der Browser die
+Kachel-Hosts nicht erreicht, Node über `HTTPS_PROXY` aber schon:
+
+```bash
+pnpm build && npx next start -p 3210
+VP=mobil RELIEF=1 NODE_USE_ENV_PROXY=1 node scripts/screenshot.mjs
+```
+
+Das lohnt sich. In diesem Projekt sind mehrere Fehler ausschließlich im
+Screenshot aufgefallen — eine tote Karte durch Höhe 0, ungültige
+Layer-Ausdrücke, verdeckte Bedienelemente.
+
 ## Bedienung
 
 | Eingabe | Wirkung |
@@ -36,7 +49,7 @@ E2E-Tests den Pfad:
 | Klick auf einen Tag | Kameraflug auf die Etappe |
 | `Relief` | Schummerung an/aus — lädt das DEM erst dann |
 | `←` / `→` | Tag zurück / vor |
-| Klick auf einen Stopp | Kontextblatt rechts |
+| Klick auf einen Stopp | Kontextblatt (auf dem Handy unten, sonst rechts) |
 | Klick auf leere Karte | Koordinate im Kontextblatt |
 | `Esc` | schließt das Kontextblatt |
 
@@ -77,11 +90,11 @@ Die beiden Alternativen wurden geprüft und verworfen:
 Nicht `demotiles.maplibre.org`: dessen Kachelsatz deckt nur einen Ausschnitt
 der Alpen ab und liefert über Island nichts.
 
-**Die Route ist durchgehend.** Ein Segment je Tag, aber jedes beginnt beim
-letzten Stopp des Vortags, sodass keine Lücke entsteht. Alle Tage sind immer
-sichtbar; der gewählte Tag ist nur breiter und kräftiger. Die Farbe steht für
-die Art des Tages (Anreise, Standtag, Tagesausflug, Etappe, Abreise). Es ist
-eine Schematik, keine Navigationsroute — echtes Routing wäre v2.
+**Die Route liegt auf echten Straßen** und ist durchgehend. Ein Segment je Tag,
+aber jedes beginnt beim Endpunkt des Vortags, sodass keine Lücke entsteht. Alle
+Tage sind immer sichtbar; der gewählte Tag ist nur breiter und kräftiger. Die
+Farbe steht für die Art des Tages (Anreise, Standtag, Tagesausflug, Etappe,
+Abreise) — Information, keine Dekoration. Details: [Routing](#routing).
 
 **Symbole statt Punkte.** Jeder Stopp bekommt ein Piktogramm für seine Art:
 Wasserfall, heiße Quelle, Vulkan, Gletscher, Schlucht, Höhle, Strand, Berg,
@@ -159,6 +172,54 @@ posMeta: { quelle: 'osm'|'wikidata'|'anbieter'|'reiseplan'|'manuell',
 Quelle und Begründung. Der Cache wird mitcommittet: reproduzierbare Builds,
 keine Rate-Limit-Überraschungen.
 
+## Routing
+
+`pnpm route` legt je Tag eine Route über echte Straßen und schreibt sie nach
+`data/route.json`. **Zur Build-Zeit, nicht zur Laufzeit:** beide infrage
+kommenden Dienste sind Demo-Instanzen mit Fair-Use-Auflagen, ein Aufruf pro
+Seitenaufruf wäre respektlos und langsam. Zur Laufzeit lädt die App nur die
+Datei — dieselbe Regel wie beim Geocoding.
+
+**Valhalla (FOSSGIS), nicht OSRM** — wegen der F-Straßen. Die Gruppe fährt einen
+9-Sitzer **ohne Allrad**; führt eine Route über eine F-Straße, ist sie falsch.
+Nachgemessen für Gullfoss → Blönduós:
+
+| Dienst | Ergebnis |
+|---|---|
+| OSRM-Demo, Profil `driving` | 251 km über **F338 und F578**, quer durchs Hochland |
+| Valhalla, `costing_options.auto.use_tracks = 0` | 327 km über die Ringstraße, keine F-Straße |
+
+`use_tracks` deckt nur `highway=track` ab, und viele F-Straßen sind anders
+getaggt. Das Ergebnis wird deshalb zusätzlich auf F-Nummern in den
+Straßennamen geprüft, ebenso auf Fähren — Gürtel und Hosenträger.
+
+Weiter gilt:
+
+- **Die Reihenfolge der Stopps in `reise.json` ist keine Fahrreihenfolge**,
+  sondern die Vorschlagsliste des Veranstalters. Sie wird vor dem Routen
+  sortiert (nächster Nachbar, dann 2-opt); Start und Ziel bleiben fest.
+- Nur punktgenaue Stopps werden angefahren. Ein Landschaftsraum ist kein Ziel,
+  das man ansteuert — sein Schwerpunkt landet auf einer beliebigen Straße. Als
+  Marker bleiben diese Stopps natürlich auf der Karte.
+- Wegpunkte, die weiter als 2 km auf eine Straße gezogen werden, fliegen raus
+  und der Tag wird neu geroutet.
+- Ein Tag, der nicht sauber gelingt, fällt auf die Luftlinie zurück **und wird
+  als solche gekennzeichnet**: gestrichelte Linie, „Luftlinie" im
+  Tagesstreifen, Begründung in `route.json`. Eine falsche Straßenroute
+  stillschweigend als echte auszugeben wäre schlimmer. Aktuell betrifft das
+  keinen Tag — 15 von 15 sind geroutet.
+- Die Geometrie wird mit Douglas-Peucker auf 25 m vereinfacht: aus 53 000
+  Stützpunkten und 1,2 MB werden 6 600 und 139 KB. Bei maximalem Zoom 10,5 ist
+  ein Pixel gut 100 m breit, die Toleranz also unsichtbar.
+
+**Zu den Kilometern:** geroutet sind es 3648 km, im Reiseplan stehen 2292 km.
+Beide Zahlen stimmen, sie messen Verschiedenes. `etappe.km` ist die direkte
+Fahrt von A nach B — der Reiseplan sagt das selbst („ca. 2 Stunden ohne
+Abstecher"). Die Route fährt zusätzlich die vorgeschlagenen Ziele an. Der
+Tagesstreifen zeigt die gefahrene Strecke, weil sie die Frage beantwortet, wie
+lang der Tag wird. Auffällige Tage listet `pnpm route` in einer Prüfausgabe,
+statt sie stillschweigend in die Daten zu schreiben.
+
 ## Hintergrundtexte
 
 `pnpm wissen` holt zu jedem Stopp den Einleitungsabsatz des passenden Artikels
@@ -198,5 +259,9 @@ mehr zu verwalten. Die CSP in `next.config.ts` öffnet gezielt nur
 
 ## Nicht enthalten
 
-Zeichnen/Editieren, Kamera-Tour, echtes Routing, Offline-Betrieb, Wetter- und
-Straßenzustandsfeeds, Fotos pro Stopp.
+Zeichnen/Editieren, Kamera-Tour, Offline-Betrieb, Wetter- und
+Straßenzustandsfeeds (vedur.is, road.is), Fotos pro Stopp, 3D-Gelände.
+
+Warum die drei zuletzt entfernten Dinge nicht wiederkommen sollten — Terrain,
+3D-Modelle und das LLM — steht mit Begründung in
+[`REQUIREMENTS.md`](./REQUIREMENTS.md).

@@ -1,43 +1,86 @@
 # Island 2026 — Requirements
 
-Interaktive 3D-Karten-App für den Reiseplan „Rund um die Insel" (Katla Travel,
-Vorgang 15412, 27.08.–10.09.2026, 5 Personen).
-Quelle: `data/reise.json` — 15 Tage, 6 Unterkünfte, 128 Stopps, ~2.450 km.
+Karten-App für den Reiseplan „Rund um die Insel" (Katla Travel, Vorgang 15412,
+27.08.–10.09.2026, 5 Personen).
+Quelle: `data/reise.json` — 15 Tage, 6 Unterkünfte, 128 Stopps.
+
+Dieses Dokument trägt die Entscheidungen **mit ihren Begründungen** — auch die
+zurückgenommenen. Was einmal falsch war, soll nicht ein zweites Mal gebaut
+werden.
 
 ---
 
 ## 1. Leitsatz
 
 Die Karte **ist** die App. Kein Sidebar-Listen-Layout, keine Tabs, keine
-Dokumentansicht. Alles Weitere ist minimal: Zeitachse, Kartenlabels, ein
+Dokumentansicht. Alles Weitere ist minimal: Tagesstreifen, Kartenlabels, ein
 Kontextblatt. Wenn eine Information nicht auf oder an der Karte hängt, gehört
-sie nicht in v1.
+sie nicht hinein.
+
+**Gebaut fürs Handy.** Der Desktop ist der Sonderfall. Die App wird unterwegs
+im Auto benutzt, nicht am Schreibtisch — Trefferflächen ab 44 px, alles
+Bedienbare in Daumenreichweite, `h-dvh` gegen die Adressleiste.
+
+**Nichts wird geraten.** Jede Position, jeder Hintergrundtext und jede Route
+trägt ihre Herkunft. Was sich nicht eindeutig belegen lässt, bleibt leer und
+steht mit Begründung in einer Datei daneben. Eine Lücke ist ehrlich, eine
+erfundene Angabe nicht.
 
 ## 2. Kartentechnik — Entscheidung
 
-**MapLibre GL JS v5** + **3D-Terrain**. Ersetzt Leaflet vollständig.
+**MapLibre GL JS v5**, direkt und in **2D**. Kein `react-map-gl` — die Kamera
+bleibt imperativ. Basiskarte OpenFreeMap (kostenlos, kein Key), hell und dunkel
+über einen echten Style-Wechsel statt eines CSS-Filters.
 
-Begründung: WebGL-Vektorkarte, echtes DEM-Terrain (`raster-dem` + `setTerrain`),
-Globus-Projektion, Pitch/Bearing/Kamera-Animation, Sky-Layer — kostenlos, kein
-Token, kein Anbieter-Lock-in. Island ist Relief: Gletscher, Schluchten,
-Vulkane. In 2D geht genau das verloren.
+### Zurückgenommen: 3D-Terrain
 
-Zeichnen: **Terra Draw** über `@watergis/maplibre-gl-terradraw` (Toolbar-Control,
-Undo/Redo, Snapping). Ersetzt leaflet-geoman.
+Ursprünglich war 3D-Terrain (`raster-dem` + `setTerrain`) der Kern der
+Entscheidung: „Island ist Relief, in 2D geht das verloren." Gebaut und wieder
+ausgebaut. Die Begründung stimmte in der Sache, das Ergebnis nicht:
 
-Verworfene Alternativen:
+- `setTerrain` ist der teure Teil — Mesh-Aufbau, Depth-Buffer und **je Bild
+  eine Höhenabfrage pro Marker**. Auf dem Handy ist das der Unterschied
+  zwischen flüssig und zäh.
+- Es sah nicht gut aus. Die Symbole standen schief im Gelände, die Route
+  verschwand hinter Hügeln, und der Nutzen — erkennen, wo man langfährt — war
+  in 2D größer.
+
+Mit dem Terrain fielen `setSky`, `maxPitch` und der Kamera-Pitch. Auch die
+Drehung in Fahrtrichtung ging mit: sie trug nur, solange es ein Relief zu
+betrachten gab, und kostet auf einer flachen Karte bloß Orientierung. Norden
+bleibt oben.
+
+### Geblieben: Relief als Schalter
+
+Ein `hillshade`-Layer auf denselben AWS Terrain Tiles liest die Höhendaten,
+ohne Geometrie daraus zu bauen. Quelle und Layer entstehen erst beim
+Einschalten — im Normalmodus geht **keine einzige Anfrage** an den DEM-Host.
+
+Geprüft und verworfen:
 
 | Option | Warum nicht |
 |---|---|
-| **CesiumJS / Resium** | Echter 3D-Globus, aber Ion-Token, schweres Bundle, eigene Styling-Welt. Overkill für 128 Punkte. |
-| **Mapbox GL JS v3** | Technisch top (Standard-Style, 3D-Gebäude), aber Token + Preis pro Load. |
-| **Google Photorealistic 3D Tiles** | Schönste Bilder, teuer, braucht Cesium als Renderer. |
-| **deck.gl** | Kein Kartenrenderer, sondern Layer darüber. Optional in v2 für Etappen-Arcs. |
-| **Leaflet + Geoman** | Solide, aber 2D. Erledigt.
+| **Esri World Hillshade** | Liefert Kacheln (HTTP 200, echte JPEGs), über Island aber ein nahezu weißes Bild. Es ist ein Multiply-Overlay für ArcGIS; MapLibre-Raster-Layer kennen keinen Multiply-Blendmodus. |
+| **OpenTopoMap** | Keine Schummerung, sondern eine vollständige Basiskarte mit eigenen Farben und Beschriftungen. Würde OpenFreeMap ersetzen statt ergänzen, kollidiert mit Hell/Dunkel, nicht für beliebige Last gedacht. |
+| **`demotiles.maplibre.org`** | Kachelsatz deckt nur einen Ausschnitt der Alpen ab, über Island nichts. |
 
-DEM-Quelle: `https://demotiles.maplibre.org/terrain-tiles/tiles.json` (Start) →
-Mapterhorn oder MapTiler-Terrain, wenn Auflösung/Kontingent nicht reicht.
-Basiskarte: MapLibre-Demo-Style oder OpenFreeMap (kostenlos, kein Key).
+### Zurückgenommen: 3D-Modelle
+
+Ein three.js-Custom-Layer mit glTF-Modellen je Zielart war einmal angedacht und
+ist es nicht mehr wert: ein zweiter Renderer im Bundle für einen Effekt, den
+2D-Piktogramme besser tragen. Die Symbole werden zur Laufzeit auf ein Canvas
+gezeichnet (`src/map/icons.ts`) — kein Sprite, kein weiterer Netzaufruf.
+
+### Nicht gebaut
+
+| Option | Warum nicht |
+|---|---|
+| **CesiumJS / Resium** | Ion-Token, schweres Bundle, eigene Styling-Welt. Overkill für 128 Punkte. |
+| **Mapbox GL JS v3** | Technisch top, aber Token und Preis pro Load. |
+| **Google Photorealistic 3D Tiles** | Schönste Bilder, teuer, braucht Cesium als Renderer. |
+| **deck.gl** | Kein Kartenrenderer, sondern Layer darüber. |
+| **Terra Draw** | Zeichnen war an die LLM-Flächenfrage gebunden. Ohne die trägt es nichts. |
+| **Leaflet + Geoman** | Solide, aber ohne Vektorstyling und Kamerakontrolle. |
 
 ## 3. Stack
 
@@ -47,7 +90,11 @@ Basiskarte: MapLibre-Demo-Style oder OpenFreeMap (kostenlos, kein Key).
 - **Tailwind CSS v4** — nur Tokens + Utilities, keine Komponenten-Bibliothek
 - **Zustand** für Kartenzustand (Tag, Stopp, Kameramodus, Zeichnung)
 - **Zod** — Schema für `reise.json`, validiert beim Build
-- **Vitest** + **Playwright** (Smoke: Karte lädt, Marker klickbar, Tag wechselt)
+- **Vitest** + **Playwright** in zwei Breiten (Pixel 7 und Desktop). Die
+  E2E-Tests ersetzen den Basisstil durch einen minimalen lokalen Stil und
+  laufen ohne Netz: geprüft wird der eigene Code, nicht die Erreichbarkeit
+  fremder Server.
+- **Keine LLM-Abhängigkeit**, kein Serverpfad, keine Umgebungsvariablen
 - **pnpm**, ESLint, Prettier
 - Deployment **Vercel**
 
@@ -68,37 +115,114 @@ posMeta:  { quelle: 'osm'|'wikidata'|'manuell', genauigkeit: 'punkt'|'bereich', 
    und manuell klären. Kein stilles Raten.
 3. Ergebnis mit Quelle und Prüfdatum zurückschreiben, Cache committen (Rate
    Limits, reproduzierbare Builds).
-4. Aktueller Stand: 127 von 128 kuratiert, 1 offen (Hot Pot Krosslaug), 18 als
-   Näherung markiert. Die Pipeline ersetzt alle Näherungen durch belegte Werte.
+4. Stand: 128 von 128 belegt — 89 punktgenau aus OSM, 39 als Bereich.
 
 Ferienhäuser (viatis.is) haben keine öffentliche Adresse → bleiben
 `genauigkeit: 'bereich'` und werden in der UI als solche gezeichnet.
 
-## 5. Interaktion (das eigentliche Produkt)
+**Hintergrundtexte** (`pnpm wissen`, Build-Zeit): Einleitungsabsatz des
+passenden Artikels aus der deutschen Wikipedia, abgelegt als
+`wissen: { text, quelle, url, geprueftAm }`. Übernommen wird nur Eindeutiges —
+der Artikelname stimmt mit dem Stopp überein und ist der einzige dieses Namens
+im Umkreis, oder er ist der einzige Artikel unter 400 m bei punktgenauer
+Position. 69 von 128 Stopps haben Text; die übrigen stehen mit Begründung in
+`data/wissen-offen.json`.
 
-- **Zeitachse** unten über der Karte: 15 Tage, farbcodiert nach Typ. Klick =
-  Kameraflug auf die Etappe (`fitBounds` mit `pitch`, `bearing`).
-- **Kamera-Tour**: Play fährt die Tagesetappe ab (`easeTo`-Kette entlang der
-  Stopps, Terrain sichtbar). Der Ersatz für jede Textliste.
-- **Stopps** als MapLibre-Symbol-Layer, nicht als DOM-Marker. Hover = Label +
-  Höhenprofil-Tooltip, Klick = Kontextblatt am Kartenrand (max. 1/3 Breite).
+**Routing** (`pnpm route`, Build-Zeit): siehe Abschnitt 6.
+
+## 5. Interaktion
+
+- **Tagesstreifen** unten: 15 Tage, farbcodiert nach Typ. Auf dem Handy
+  horizontal scrollbar mit Snap, Ziele ab 44 px, der gewählte Tag zentriert
+  sich selbst. Ab `sm:` die kompakte Pille. Klick = Kameraflug auf die Etappe.
+  Das Wischen ist die native Scroll-Geste des Streifens; auf der Karte selbst
+  bleibt der horizontale Wisch das Schwenken.
+- **Stopps** als MapLibre-Symbol-Layer, nicht als DOM-Marker. Die Zielart wird
+  **allein aus dem Namen** abgeleitet (`src/lib/kategorie.ts`) — isländische
+  Namen tragen ihre Art im Wort, der Beschreibungstext führt in die Irre.
+- **Kontextblatt**: auf dem Handy ein Bottom-Sheet über die volle Breite mit
+  Ziehgriff, ab `sm:` die Spalte rechts. Zeigt Veranstaltertext und, wenn
+  vorhanden, den Wikipedia-Hintergrund mit Quelle, Link und Prüfdatum.
 - **Klick auf leere Karte** → Koordinate und Reisetag im Kontextblatt.
-- **Etappenlinien** als GeoJSON-Line-Layer, gestrichelt, klar als Schematik
-  gelabelt — keine Navigationsroute. Echtes Routing erst, wenn ein
-  Routing-Dienst dazukommt (v2, OSRM/Valhalla).
+- **Routenlinien**: gefahrene Straßenrouten aus `data/route.json`, ein Segment
+  je Tag, durchgehend verkettet. Tage ohne saubere Route werden gestrichelt
+  gezeichnet und als Luftlinie gekennzeichnet.
+- **Relief**: Schalter, der die Schummerung zuschaltet und dabei erst das DEM
+  lädt.
 - Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar, reload-fest.
-- Tastatur: ←/→ Tag, Esc schließt, Leertaste Tour. Reduced-Motion respektieren.
+- Tastatur: ←/→ Tag, Esc schließt. Reduced-Motion respektieren.
 - Hell/dunkel über MapLibre-Style-Wechsel, nicht per CSS-Filter.
 
-## 7. Vercel
+## 6. Routing — Entscheidung
+
+Die Linien waren zuerst Luftlinien zwischen den Stopps und liefen entsprechend
+kreuz und quer über Seen und Gletscher. Ersetzt durch echte Straßenrouten.
+
+**Zur Build-Zeit, nicht zur Laufzeit.** Beide infrage kommenden Dienste sind
+Demo-Instanzen mit Fair-Use-Auflagen; ein Aufruf pro Seitenaufruf wäre
+respektlos und langsam. `pnpm route` schreibt `data/route.json`, die App lädt
+nur noch die Datei. Dasselbe Muster wie beim Geocoding.
+
+**Valhalla (FOSSGIS), nicht OSRM** — wegen der F-Straßen. Die Gruppe fährt
+einen 9-Sitzer **ohne Allrad**; führt eine Route über eine F-Straße, ist sie
+falsch. Nachgemessen für Gullfoss → Blönduós:
+
+| Dienst | Ergebnis |
+|---|---|
+| OSRM-Demo, Profil `driving` | 251 km über **F338 und F578**, quer durchs Hochland |
+| Valhalla, `costing_options.auto.use_tracks = 0` | 327 km über die Ringstraße, keine F-Straße |
+
+`use_tracks` deckt nur `highway=track` ab; viele F-Straßen sind anders getaggt.
+Deshalb wird das Ergebnis zusätzlich auf F-Nummern in den Straßennamen geprüft,
+ebenso auf Fähren.
+
+Weitere Regeln der Pipeline:
+
+- Die Reihenfolge der Stopps in `reise.json` ist **keine Fahrreihenfolge**,
+  sondern die Vorschlagsliste des Veranstalters. Sie wird vor dem Routen
+  sortiert (nächster Nachbar, dann 2-opt); Start und Ziel bleiben fest.
+- Nur punktgenaue Stopps werden angefahren. Ein Landschaftsraum ist kein Ziel,
+  das man ansteuert — sein Schwerpunkt würde auf eine beliebige Straße gezogen.
+- Wegpunkte, die weiter als 2 km auf eine Straße gezogen werden, fliegen raus
+  und der Tag wird neu geroutet.
+- Die Kette über alle Tage bleibt durchgehend: jeder Tag beginnt beim
+  Endpunkt des Vortags.
+- Ein Tag, der nicht sauber gelingt, fällt auf die Luftlinie zurück **und wird
+  als solche gekennzeichnet**. Eine falsche Straßenroute stillschweigend zu
+  zeigen wäre schlimmer.
+- Geometrie mit Douglas-Peucker auf 25 m vereinfacht: aus 53 000 Stützpunkten
+  und 1,2 MB werden 6 600 und 139 KB. Bei maximalem Zoom 10,5 ist ein Pixel gut
+  100 m breit.
+
+Die gerouteten Kilometer liegen über `etappe.km` — 3648 gegen 2292. Das ist
+kein Fehler: der Reiseplan zählt die direkte Fahrt von A nach B und sagt das
+selbst („ca. 2 Stunden ohne Abstecher"), die Route fährt zusätzlich die
+vorgeschlagenen Ziele an. Auffällige Tage stehen in der Prüfausgabe des
+Skripts.
+
+## 7. Zurückgenommen: das LLM
+
+Ursprünglich Kern des Konzepts: eine SSE-Route mit `ChatOpenAI`, „Was ist
+hier?" auf Kartenklick, Flächenfragen über Terra Draw. Vollständig entfernt.
+
+Die Inhalte lassen sich direkt recherchieren, und das Ergebnis ist besser:
+`pnpm wissen` liefert nachprüfbaren Text mit Quelle, Link und Prüfdatum, statt
+einer generierten Antwort, die niemand belegen kann. Dazu entfielen ein
+Serverpfad, ein Schlüssel, ein Rate Limit und eine bekannt fehlerhafte
+Streaming-Variante (langchainjs#8283). Die App hat damit keine Geheimnisse
+mehr und braucht keine Umgebungsvariablen.
+
+## 8. Vercel
 
 - Repo → Vercel-Projekt, Framework-Preset Next.js, Region `fra1`.
 - Keine Umgebungsvariablen — die App hat keine Geheimnisse.
 - Preview-Deploy pro Branch, Production auf `main`.
-- Basiskarte/DEM extern → CSP `connect-src`/`img-src` entsprechend öffnen,
-  sonst restriktiv.
+- Basiskarte/DEM extern → CSP `connect-src`/`img-src` öffnen genau
+  `tiles.openfreemap.org` und `s3.amazonaws.com`, sonst restriktiv. Die
+  Routing- und Wikipedia-Dienste stehen bewusst **nicht** darin: sie werden nur
+  zur Build-Zeit angefragt.
 
-## 8. Meilensteine
+## 9. Meilensteine
 
 | # | Inhalt | Ergebnis |
 |---|---|---|
@@ -106,16 +230,20 @@ Ferienhäuser (viatis.is) haben keine öffentliche Adresse → bleiben
 | 1 | MapLibre + Terrain + Stopps + Zeitachse | Karte trägt die Daten |
 | 2 | Kamera-Tour, Kontextblatt, Deep Links | navigierbar ohne Listen |
 | 3 | Geocoding-Pipeline, Näherungen ersetzt | belegte Positionen |
+| 4 | LLM entfernt, Wikipedia-Pipeline | belegte Hintergrundtexte |
+| 5 | Terrain und 3D-Modelle ausgebaut | schnelle 2D-Karte, Relief zuschaltbar |
+| 6 | Mobile first | auf dem Handy bedienbar |
+| 7 | Routing zur Build-Zeit | Linien auf echten Straßen |
 
-v2, nicht jetzt: echtes Routing, Offline/Service Worker, Wetter- und
-Straßenzustand-Feeds (vedur.is, road.is), Fotos pro Stopp, deck.gl-Arcs.
+Nicht enthalten: Zeichnen/Editieren, Kamera-Tour, Offline-Betrieb, Wetter- und
+Straßenzustand-Feeds (vedur.is, road.is), Fotos pro Stopp.
 
-## 9. Offen — vor Reisebeginn klären
+## 10. Offen — vor Reisebeginn klären
 
 1. **Þrasastaðir**: Übernachtungsplan sagt Akureyri, Reiseplan behandelt die
    Station als Basis im Mývatngebiet. Tagesausflüge sind ab Mývatn gerechnet
-   (Diamond Circle 207 km, Siglufjörður 150 km je Strecke). Position bis dahin
-   `null` — die App zeigt das als Lücke, statt sie zu erfinden.
+   (Diamond Circle 207 km, Siglufjörður 150 km je Strecke). Die Position steht
+   als Bereich im Mývatngebiet; alle Routen dieser vier Tage hängen daran.
 2. **Hafnarhólmi** (04.09.): Papageitaucher-Saison endet laut Reiseplan Anfang
    August.
 3. **Hlíðarendi**: für 5 Personen ausgelegt, 5 Reisende, 1 Appartement.
