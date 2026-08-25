@@ -256,6 +256,17 @@
             "quelle": "Wikipedia (de): Bláa Lónið",
             "url": "https://de.wikipedia.org/wiki/Bl%C3%A1a_L%C3%B3ni%C3%B0",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Blue_Lagoon-1-.JPG/960px-Blue_Lagoon-1-.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "(SketchUp)",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+            "seite": "https://commons.wikimedia.org/wiki/File:Blue_Lagoon-1-.JPG",
+            "quelle": "Leitbild des Artikels „Bláa Lónið\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -292,6 +303,17 @@
             "quelle": "Wikipedia (de): Mosfellsbær",
             "url": "https://de.wikipedia.org/wiki/Mosfellsb%C3%A6r",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/2014-04-27_12-14-31_Iceland_-_Mosfellsb%C3%A6_Mosfellsb%C3%A6r.JPG/960px-2014-04-27_12-14-31_Iceland_-_Mosfellsb%C3%A6_Mosfellsb%C3%A6r.JPG",
+            "breite": 800,
+            "hoehe": 450,
+            "urheber": "Hansueli Krapf",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:2014-04-27_12-14-31_Iceland_-_Mosfellsb%C3%A6_Mosfellsb%C3%A6r.JPG",
+            "quelle": "georeferenziertes Bild auf Commons, 1309 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -312,6 +334,17 @@
             "text": "Akranes ['aːkraˌnɛˑs] ist eine Hafenstadt in Island nördlich von Reykjavík in der Region Vesturland. Am 1. Januar 2023 hatte die Stadt 7997 Einwohner. Sie ist damit die größte Stadt Westislands.",
             "quelle": "Wikipedia (de): Akranes",
             "url": "https://de.wikipedia.org/wiki/Akranes",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/5a/Akranes_16.05.2008_16-43-38.jpg/960px-Akranes_16.05.2008_16-43-38.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Hansueli Krapf",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Akranes_16.05.2008_16-43-38.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 41 m entfernt, Dateiname nennt den Stopp",
             "geprueftAm": "2026-08-25"
           }
         }
@@ -339,6 +372,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Reykholt, Borgarbyggð, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cf/Fossh%C3%B3tel_Reykholt_2025_0989.jpg/960px-Fossh%C3%B3tel_Reykholt_2025_0989.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Fossh%C3%B3tel_Reykholt_2025_0989.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 227 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -360,6 +404,17 @@
             "quelle": "Wikipedia (de): Deildartunguhver",
             "url": "https://de.wikipedia.org/wiki/Deildartunguhver",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Islande_source_Deildartunguhver.jpg/960px-Islande_source_Deildartunguhver.jpg",
+            "breite": 800,
+            "hoehe": 1200,
+            "urheber": "Nojhan",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+            "seite": "https://commons.wikimedia.org/wiki/File:Islande_source_Deildartunguhver.jpg",
+            "quelle": "Leitbild des Artikels „Deildartunguhver\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -379,6 +434,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Hraunfossar Barnafoss, Hraunsás, Borgarbyggð"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Hraunfossar_%286797224519%29.jpg/960px-Hraunfossar_%286797224519%29.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Arian Zwegers",
+            "lizenz": "CC BY 2.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/2.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Hraunfossar_(6797224519).jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 24 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -400,6 +466,17 @@
             "quelle": "Wikipedia (de): Húsafell",
             "url": "https://de.wikipedia.org/wiki/H%C3%BAsafell",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/Iceland_Husafell.jpg/960px-Iceland_Husafell.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Aconcagua",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Iceland_Husafell.jpg",
+            "quelle": "Leitbild des Artikels „Húsafell\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -420,6 +497,17 @@
             "text": "Borgarnes [ˈpɔrkarˌnɛˑs] (deutsch „Felsenhalbinsel“) am Borgarfjörður ist eine isländische Stadt in der Gemeinde Borgarbyggð in der Region Vesturland. Am 1. Januar 2023 hatte die Stadt 2165 Einwohner. Mit seinen Geschäften und Einkaufspassagen, Schulen und Ämtern sowie einem Gesundheitszentrum bildet der Ort den Mittelpunkt der Region.",
             "quelle": "Wikipedia (de): Borgarnes",
             "url": "https://de.wikipedia.org/wiki/Borgarnes",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Borgarnes02.jpg/960px-Borgarnes02.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Eysteinn Guðni Guðnason",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Borgarnes02.jpg",
+            "quelle": "Leitbild des Artikels „Borgarnes\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -465,6 +553,17 @@
             "quelle": "Wikipedia (de): Deildartunguhver",
             "url": "https://de.wikipedia.org/wiki/Deildartunguhver",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Islande_source_Deildartunguhver.jpg/960px-Islande_source_Deildartunguhver.jpg",
+            "breite": 800,
+            "hoehe": 1200,
+            "urheber": "Nojhan",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+            "seite": "https://commons.wikimedia.org/wiki/File:Islande_source_Deildartunguhver.jpg",
+            "quelle": "Leitbild des Artikels „Deildartunguhver\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -503,6 +602,17 @@
             "text": "Die Lavahöhle Viðgelmir liegt 2 Kilometer vom Hof Fljótstunga entfernt im Lavagebiet Hallmundarhraun im Westen Islands. Mit einer Gesamtganglänge von 1585 Metern und einem Volumen von 148.000 Kubikmeter zählt sie neben der Surtshellir zu einer der größten Höhlen Islands. Die Höhle ist zum Teil touristisch erschlossen und kann im Rahmen einer Führung besichtigt werden.",
             "quelle": "Wikipedia (de): Viðgelmir",
             "url": "https://de.wikipedia.org/wiki/Vi%C3%B0gelmir",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/IS_cave_vidgelmir.jpeg/960px-IS_cave_vidgelmir.jpeg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Speleo",
+            "lizenz": "CC BY-SA 2.0 de",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:IS_cave_vidgelmir.jpeg",
+            "quelle": "Leitbild des Artikels „Viðgelmir\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -571,6 +681,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Eldborg, Borgarbyggð, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Eldborg-pjt.jpg/960px-Eldborg-pjt.jpg",
+            "breite": 800,
+            "hoehe": 201,
+            "urheber": "pjt56 --- If you use the picture outside Wikipedia I would …",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Eldborg-pjt.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 82 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -591,6 +712,16 @@
             "text": "Gerðuberg (transkribiert auch Gerduberg) ist eine unter Naturschutz stehende Klippe aus Dolerit, einem grobkörnigen Basaltgestein. Sie liegt auf der westisländischen Halbinsel Snæfellsnes am Westrand des Tals Hnappadalur, 46 km nördlich von der Stadt Borgarnes und 115 km von Reykjavík entfernt. Gerðuberg ist aus geflossener basaltischen Lava entstanden, die vom Meer abgekühlt, in sehr gleichmäßig verlaufenden Säulen erstarrt ist. Diese sind zwischen 1 und 1,5 m breit und 7 bis 14 m hoch.",
             "quelle": "Wikipedia (de): Gerðuberg",
             "url": "https://de.wikipedia.org/wiki/Ger%C3%B0uberg",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/46/GerdubergSnaefellsnesIce.JPG/960px-GerdubergSnaefellsnesIce.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "TommyBee",
+            "lizenz": "Public domain",
+            "seite": "https://commons.wikimedia.org/wiki/File:GerdubergSnaefellsnesIce.JPG",
+            "quelle": "Leitbild des Artikels „Gerðuberg\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -623,6 +754,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Ytri-Tunga, Snæfellsbær, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Ytri_Tunga_Beach%2C_Iceland%2C_20230505_0950_5019.jpg/960px-Ytri_Tunga_Beach%2C_Iceland%2C_20230505_0950_5019.jpg",
+            "breite": 800,
+            "hoehe": 534,
+            "urheber": "Jakub Hałun",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Ytri_Tunga_Beach,_Iceland,_20230505_0950_5019.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 539 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -643,6 +785,17 @@
             "text": "Búðir liegt auf der Südseite der Halbinsel Snæfellsnes in Island. Es handelt sich um einen Weiler, der heute nur noch aus einer Kirche und einem Hotel besteht, jedoch in der Vergangenheit eine wichtige Rolle als Handelsplatz spielte.",
             "quelle": "Wikipedia (de): Búðir",
             "url": "https://de.wikipedia.org/wiki/B%C3%BA%C3%B0ir",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/B%C3%BA%C3%B0ir_2024_%280748%29.jpg/960px-B%C3%BA%C3%B0ir_2024_%280748%29.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:B%C3%BA%C3%B0ir_2024_(0748).jpg",
+            "quelle": "Leitbild des Artikels „Búðir\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -665,6 +818,17 @@
             "quelle": "Wikipedia (de): Arnarstapi",
             "url": "https://de.wikipedia.org/wiki/Arnarstapi",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cc/Arnarstapi_2024_%280754%29.jpg/960px-Arnarstapi_2024_%280754%29.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Arnarstapi_2024_(0754).jpg",
+            "quelle": "Leitbild des Artikels „Arnarstapi\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -685,6 +849,17 @@
             "text": "Der Snæfellsjökull ['snaiːfɛlsˌjœkʏtl˳] (isländisch für „Schneeberggletscher“) ist ein 1446 m hoher Stratovulkan am westlichen Ende der Halbinsel Snæfellsnes auf Island. Der Berg hieß ursprünglich Snæfell oder Snjófell, zur Unterscheidung von zwei anderen Bergen dieses Namens wird aber bei ihm die isländische Bezeichnung für Gletscher (jökull) an den Namen gehängt. Er liegt auf dem Gebiet der Gemeinde Snæfellsbær.",
             "quelle": "Wikipedia (de): Snæfellsjökull",
             "url": "https://de.wikipedia.org/wiki/Sn%C3%A6fellsj%C3%B6kull",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/3/3a/Sn%C3%A6fellsj%C3%B6kull-kfk-1.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "kfk",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+            "seite": "https://commons.wikimedia.org/wiki/File:Sn%C3%A6fellsj%C3%B6kull-kfk-1.jpg",
+            "quelle": "Leitbild des Artikels „Snæfellsjökull\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -718,6 +893,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Djúpalónssandur, Dritvíkurvegur, Snæfellsbær"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Djupalonssandur_snaefellsnes_peninsula-1.jpg/960px-Djupalonssandur_snaefellsnes_peninsula-1.jpg",
+            "breite": 800,
+            "hoehe": 534,
+            "urheber": "Emstrur",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Djupalonssandur_snaefellsnes_peninsula-1.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 142 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -733,6 +919,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Öndverðarnes, Snæfellsbær, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Ondverdarnes_Lighthouse_%2823384965645%29.jpg/960px-Ondverdarnes_Lighthouse_%2823384965645%29.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Navin75",
+            "lizenz": "CC BY-SA 2.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Ondverdarnes_Lighthouse_(23384965645).jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 282 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -753,6 +950,16 @@
             "text": "Das Dorf Hellissandur liegt im Westen von Island und gehört zur Gemeinde Snæfellsbær.",
             "quelle": "Wikipedia (de): Hellissandur",
             "url": "https://de.wikipedia.org/wiki/Hellissandur",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c5/Hellissandur_5.jpg/960px-Hellissandur_5.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Salvör Gissurardóttir",
+            "lizenz": "Public domain",
+            "seite": "https://commons.wikimedia.org/wiki/File:Hellissandur_5.jpg",
+            "quelle": "Leitbild des Artikels „Hellissandur\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -791,6 +998,17 @@
             "quelle": "Wikipedia (de): Ólafsvík",
             "url": "https://de.wikipedia.org/wiki/%C3%93lafsv%C3%ADk",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/%C3%93lafsv%C3%ADk.jpg/960px-%C3%93lafsv%C3%ADk.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Schorle",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+            "seite": "https://commons.wikimedia.org/wiki/File:%C3%93lafsv%C3%ADk.jpg",
+            "quelle": "Leitbild des Artikels „Ólafsvík\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -806,6 +1024,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Kirkjufell, Grundarfjarðarbær, Vesturland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Kirkjufell_Stevage.jpg/960px-Kirkjufell_Stevage.jpg",
+            "breite": 800,
+            "hoehe": 493,
+            "urheber": "Steve Bennett (stevage)",
+            "lizenz": "CC BY 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Kirkjufell_Stevage.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 148 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -826,6 +1055,17 @@
             "text": "Die Stadtgemeinde Stykkishólmur [ˈstɪhcɪsˌhoulmʏr] (isl. Stykkishólmsbær) liegt im Westen Islands in der Region Vesturland an der Nordseite der Halbinsel Snæfellsnes. Am 1. Januar 2023 hatte die Gemeinde 1308 Einwohner und ist damit für isländische Verhältnisse einer der größeren Orte außerhalb der Hauptstadtregion rund um Reykjavík. Bis zum Jahre 1892 gehörte die Gemeinde zur Gemeinde Helgafellssveit. Seit dem 29. Mai 2022 hingegen gehört Helgafellssveit zur Gemeinde Stykkishólmur.",
             "quelle": "Wikipedia (de): Stykkishólmur",
             "url": "https://de.wikipedia.org/wiki/Stykkish%C3%B3lmur",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Stykkisholmur_2023_aerial.jpg/960px-Stykkisholmur_2023_aerial.jpg",
+            "breite": 800,
+            "hoehe": 462,
+            "urheber": "Eysteinn Guðni Guðnason",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Stykkisholmur_2023_aerial.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 59 m entfernt, Dateiname nennt den Stopp",
             "geprueftAm": "2026-08-25"
           }
         }
@@ -866,6 +1106,17 @@
             "quelle": "Wikipedia (de): Hvammstangi",
             "url": "https://de.wikipedia.org/wiki/Hvammstangi",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Hvammstangi.jpg/960px-Hvammstangi.jpg",
+            "breite": 800,
+            "hoehe": 501,
+            "urheber": "Eysteinn Guðni Guðnason",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Hvammstangi.jpg",
+            "quelle": "Leitbild des Artikels „Hvammstangi\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -887,6 +1138,17 @@
             "quelle": "Wikipedia (de): Blönduós",
             "url": "https://de.wikipedia.org/wiki/Bl%C3%B6ndu%C3%B3s",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/aa/Bl%C3%B6ndu%C3%B3s_banner.jpg/960px-Bl%C3%B6ndu%C3%B3s_banner.jpg",
+            "breite": 800,
+            "hoehe": 114,
+            "urheber": "Yvonne Lin from Melbourne, Australia",
+            "lizenz": "CC BY-SA 2.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Bl%C3%B6ndu%C3%B3s_banner.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 82 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -907,6 +1169,17 @@
             "text": "Glaumbær ['klœympair] ist eine Ortschaft und ein altes Kirchdorf in der isländischen Gemeinde Skagafjörður.",
             "quelle": "Wikipedia (de): Glaumbær",
             "url": "https://de.wikipedia.org/wiki/Glaumb%C3%A6r",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/21/Glaumbaer-pjt2.jpg/960px-Glaumbaer-pjt2.jpg",
+            "breite": 800,
+            "hoehe": 589,
+            "urheber": "Pjt56 --- If you use the picture outside Wikipedia I would …",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Glaumbaer-pjt2.jpg",
+            "quelle": "Leitbild des Artikels „Glaumbær\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -943,6 +1216,17 @@
             "text": "Die Stadt und Gemeinde Akureyri ['aːkʏˌrɛiˑrɪ] ist mit 19.893 Einwohnern (Stand: 1. Januar 2023) nach Reykjavík und dessen beiden Vororten Kópavogur und Hafnarfjörður die viertgrößte Stadt Islands. Die Hafenstadt stellt das größte Bevölkerungszentrum außerhalb des Hauptstadtbezirks und das größte Dienstleistungszentrum im Norden des Landes dar. Zum Gemeindegebiet gehört seit dem 31. Mai 2009 auch die Insel Grímsey.",
             "quelle": "Wikipedia (de): Akureyri",
             "url": "https://de.wikipedia.org/wiki/Akureyri",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/N%C3%BDjab%C3%AD%C3%B3_Akureyri_0413.jpg/960px-N%C3%BDjab%C3%AD%C3%B3_Akureyri_0413.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:N%C3%BDjab%C3%AD%C3%B3_Akureyri_0413.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 21 m entfernt, Dateiname nennt den Stopp",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -982,6 +1266,17 @@
             "text": "Der Goðafoss [ˈkɔːðaˌfɔsː] ist einer der bekanntesten Wasserfälle Islands.",
             "quelle": "Wikipedia (de): Goðafoss",
             "url": "https://de.wikipedia.org/wiki/Go%C3%B0afoss",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Go%C3%B0afoss_July_2014.JPG/960px-Go%C3%B0afoss_July_2014.JPG",
+            "breite": 800,
+            "hoehe": 469,
+            "urheber": "Martin Falbisoner",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Go%C3%B0afoss_July_2014.JPG",
+            "quelle": "Leitbild des Artikels „Goðafoss\"",
             "geprueftAm": "2026-08-25"
           }
         }
@@ -1024,6 +1319,17 @@
             "quelle": "Wikipedia (de): Skútustaðir",
             "url": "https://de.wikipedia.org/wiki/Sk%C3%BAtusta%C3%B0ir",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/30/2008-05-21_19_Pseudo_Craters_near_Sk%C3%BAtusta%C3%B0ir.jpg/960px-2008-05-21_19_Pseudo_Craters_near_Sk%C3%BAtusta%C3%B0ir.jpg",
+            "breite": 800,
+            "hoehe": 190,
+            "urheber": "Hansueli Krapf",
+            "lizenz": "CC BY 2.5",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/2.5",
+            "seite": "https://commons.wikimedia.org/wiki/File:2008-05-21_19_Pseudo_Craters_near_Sk%C3%BAtusta%C3%B0ir.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 181 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1039,6 +1345,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Höfði, Kálfaströnd, Þingeyjarsveit"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Rock_Formations_in_H%C3%B6f%C3%B0i_Nature_Park_-_2013.08_-_panoramio_%281%29.jpg/960px-Rock_Formations_in_H%C3%B6f%C3%B0i_Nature_Park_-_2013.08_-_panoramio_%281%29.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "rheins",
+            "lizenz": "CC BY 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Rock_Formations_in_H%C3%B6f%C3%B0i_Nature_Park_-_2013.08_-_panoramio_(1).jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 823 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1059,6 +1376,17 @@
             "text": "Der Pass Námaskarð (isl. náma „Mine“, skarð „Pass“) befindet sich im Norden von Island am See Mývatn. Er schneidet in den Berg Námafjall ein und ist 410 m hoch.",
             "quelle": "Wikipedia (de): Námaskarð",
             "url": "https://de.wikipedia.org/wiki/N%C3%A1maskar%C3%B0",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f5/Hverir.JPG/960px-Hverir.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Bromr",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Hverir.JPG",
+            "quelle": "Leitbild des Artikels „Námaskarð\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -1086,6 +1414,17 @@
             "quelle": "Wikipedia (de): Námafjall",
             "url": "https://de.wikipedia.org/wiki/N%C3%A1mafjall",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/N%C3%A1mafjall_Iceland_009.JPG/960px-N%C3%A1mafjall_Iceland_009.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Hansueli Krapf (User:Simisa)",
+            "lizenz": "CC BY-SA 2.5",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.5",
+            "seite": "https://commons.wikimedia.org/wiki/File:N%C3%A1mafjall_Iceland_009.JPG",
+            "quelle": "Leitbild des Artikels „Námafjall\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1110,6 +1449,17 @@
             "quelle": "Wikipedia (de): Dimmuborgir",
             "url": "https://de.wikipedia.org/wiki/Dimmuborgir",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Dimmuborgir-st%C3%ADgur.jpg/960px-Dimmuborgir-st%C3%ADgur.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "unbekannt",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+            "seite": "https://commons.wikimedia.org/wiki/File:Dimmuborgir-st%C3%ADgur.jpg",
+            "quelle": "Leitbild des Artikels „Dimmuborgir\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1131,6 +1481,17 @@
             "quelle": "Wikipedia (de): Reykjahlíð",
             "url": "https://de.wikipedia.org/wiki/Reykjahl%C3%AD%C3%B0",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Reykjahl%C3%AD%C3%B0.3.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Erik Christensen",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+            "seite": "https://commons.wikimedia.org/wiki/File:Reykjahl%C3%AD%C3%B0.3.jpg",
+            "quelle": "Leitbild des Artikels „Reykjahlíð\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1146,6 +1507,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Leirhnjúkur, Þingeyjarsveit, Norðurland eystra"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/On_steaming_Krafla_volcano_%2814789100092%29.jpg/960px-On_steaming_Krafla_volcano_%2814789100092%29.jpg",
+            "breite": 800,
+            "hoehe": 450,
+            "urheber": "VillageHero from Ulm, Germany",
+            "lizenz": "CC BY-SA 2.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:On_steaming_Krafla_volcano_(14789100092).jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 32 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1199,6 +1571,17 @@
             "quelle": "Wikipedia (de): Grenjaðarstaður",
             "url": "https://de.wikipedia.org/wiki/Grenja%C3%B0arsta%C3%B0ur",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Torfh%C3%A4user_in_Grenja%C3%B0arsta%C3%B0ur_2011.jpg/960px-Torfh%C3%A4user_in_Grenja%C3%B0arsta%C3%B0ur_2011.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "JøMa",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Torfh%C3%A4user_in_Grenja%C3%B0arsta%C3%B0ur_2011.jpg",
+            "quelle": "Leitbild des Artikels „Grenjaðarstaður\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1220,6 +1603,17 @@
             "text": "Húsavík ([ˈhuːsaˌviˑk], deutsch „Häuserbucht“) ist der größte Ort und Verwaltungssitz der isländischen Gemeinde Norðurþing und hat 2508 Einwohner (Stand: 1. Januar 2023).",
             "quelle": "Wikipedia (de): Húsavík",
             "url": "https://de.wikipedia.org/wiki/H%C3%BAsav%C3%ADk",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/H%C3%BAsav%C3%ADk_%285%29.jpg/960px-H%C3%BAsav%C3%ADk_%285%29.jpg",
+            "breite": 800,
+            "hoehe": 402,
+            "urheber": "Chmee2/Valtameri",
+            "lizenz": "CC BY 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:H%C3%BAsav%C3%ADk_(5).jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 123 m entfernt, Dateiname nennt den Stopp",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -1276,6 +1670,17 @@
             "quelle": "Wikipedia (de): Ásbyrgi",
             "url": "https://de.wikipedia.org/wiki/%C3%81sbyrgi",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Aerial_View_of_%C3%81sbyrgi_21.05.2008_15-39-42.JPG/960px-Aerial_View_of_%C3%81sbyrgi_21.05.2008_15-39-42.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Hansueli Krapf",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Aerial_View_of_%C3%81sbyrgi_21.05.2008_15-39-42.JPG",
+            "quelle": "Leitbild des Artikels „Ásbyrgi\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1306,6 +1711,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Hljóðaklettar, Langavatnshöfðavegur, Norðurþing"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d2/Rosace_%C3%A0_Hlj%C3%B3%C3%B0aklettar.jpg/960px-Rosace_%C3%A0_Hlj%C3%B3%C3%B0aklettar.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Jérémie Rocher",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Rosace_%C3%A0_Hlj%C3%B3%C3%B0aklettar.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 484 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1326,6 +1742,17 @@
             "text": "Der Dettifoss ['tεhtɪˌfɔsː] (isl. „stürzender Wasserfall“) im Nordosten Islands ist einer der größten Wasserfälle Europas.",
             "quelle": "Wikipedia (de): Dettifoss",
             "url": "https://de.wikipedia.org/wiki/Dettifoss",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Dettifoss_001.jpg/960px-Dettifoss_001.jpg",
+            "breite": 800,
+            "hoehe": 531,
+            "urheber": "Superbass",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Dettifoss_001.jpg",
+            "quelle": "Leitbild des Artikels „Dettifoss\"",
             "geprueftAm": "2026-08-25"
           }
         }
@@ -1365,6 +1792,17 @@
             "quelle": "Wikipedia (de): Hauganes",
             "url": "https://de.wikipedia.org/wiki/Hauganes",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f4/Hauganes_0041.jpg/960px-Hauganes_0041.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Hauganes_0041.jpg",
+            "quelle": "Leitbild des Artikels „Hauganes\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1385,6 +1823,17 @@
             "text": "Hrísey ist eine fast 8 km lange Insel drei Kilometer vor der Nordküste Islands mit 161 Einwohnern (Stand: 1. Januar 2023). Die Insel liegt im Fjord Eyjafjörður, etwa 35 Kilometer von der Stadt Akureyri entfernt, zu der sie seit 2004 auch verwaltungsmäßig gehört. Zuvor war die Insel (mit vorgelagertem Felsen) eine eigene Gemeinde (Hríseyjarhreppur). Das Inselgebiet hat eine Fläche von 7,67 Quadratkilometern, eine Länge von 7,5 Kilometern und an der breitesten Stelle eine Breite von 2,5 km. Damit ist sie nach Heimaey die zweitgrößte Insel an der isländischen Küste. Die höchste Erhebung der Insel ragt 110 m auf und trägt einen Leuchtturm.",
             "quelle": "Wikipedia (de): Hrísey",
             "url": "https://de.wikipedia.org/wiki/Hr%C3%ADsey",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Hr%C3%ADsey_0067.jpg/960px-Hr%C3%ADsey_0067.jpg",
+            "breite": 800,
+            "hoehe": 432,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Hr%C3%ADsey_0067.jpg",
+            "quelle": "Leitbild des Artikels „Hrísey\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -1421,6 +1870,17 @@
             "text": "Der Fischerort Dalvík (deutsch „Talbucht“) ist ein Ort in der Region Norðurland eystra im Norden Islands. Er ist der Hauptort der nach ihm benannten Gemeinde Dalvíkurbyggð. Am 1. Januar 2023 hatte der Ort 1404 Einwohner.",
             "quelle": "Wikipedia (de): Dalvík",
             "url": "https://de.wikipedia.org/wiki/Dalv%C3%ADk",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/17/Dalv%C3%ADk_0063.jpg/960px-Dalv%C3%ADk_0063.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Dalv%C3%ADk_0063.jpg",
+            "quelle": "Leitbild des Artikels „Dalvík\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -1479,6 +1939,17 @@
             "quelle": "Wikipedia (de): Héðinsfjörður",
             "url": "https://de.wikipedia.org/wiki/H%C3%A9%C3%B0insfj%C3%B6r%C3%B0ur",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/H%C3%A9%C3%B0insfj%C3%B6r%C3%B0ur.jpg/960px-H%C3%A9%C3%B0insfj%C3%B6r%C3%B0ur.jpg",
+            "breite": 800,
+            "hoehe": 469,
+            "urheber": "Ahjartar",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:H%C3%A9%C3%B0insfj%C3%B6r%C3%B0ur.jpg",
+            "quelle": "Leitbild des Artikels „Héðinsfjörður\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1499,6 +1970,17 @@
             "text": "Siglufjörður [ˈsɪklʏˌfjœrðʏr] (dt. „Schiffsmastfjord“) ist eine Handelsstadt in der Gemeinde Fjallabyggð in der Region Norðurland eystra auf Island. Am 1. Januar 2023 hatte sie 1182 Einwohner.",
             "quelle": "Wikipedia (de): Siglufjörður",
             "url": "https://de.wikipedia.org/wiki/Siglufj%C3%B6r%C3%B0ur",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/Siglufj%C3%B6r%C3%B0ur_%280859%29.jpg/960px-Siglufj%C3%B6r%C3%B0ur_%280859%29.jpg",
+            "breite": 800,
+            "hoehe": 434,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Siglufj%C3%B6r%C3%B0ur_(0859).jpg",
+            "quelle": "Leitbild des Artikels „Siglufjörður\"",
             "geprueftAm": "2026-08-25"
           }
         }
@@ -1543,6 +2025,17 @@
             "quelle": "Wikipedia (de): Dettifoss",
             "url": "https://de.wikipedia.org/wiki/Dettifoss",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Dettifoss_001.jpg/960px-Dettifoss_001.jpg",
+            "breite": 800,
+            "hoehe": 531,
+            "urheber": "Superbass",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Dettifoss_001.jpg",
+            "quelle": "Leitbild des Artikels „Dettifoss\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1564,6 +2057,17 @@
             "quelle": "Wikipedia (de): Möðrudalur",
             "url": "https://de.wikipedia.org/wiki/M%C3%B6%C3%B0rudalur",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/M%C3%B6%C3%B0rudalur_Sept_2020.jpg/960px-M%C3%B6%C3%B0rudalur_Sept_2020.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Kasa Fue",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:M%C3%B6%C3%B0rudalur_Sept_2020.jpg",
+            "quelle": "Leitbild des Artikels „Möðrudalur\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1584,6 +2088,16 @@
             "text": "Herðubreið ['hεrðʏ̩prεiˑð] (deutsch: die Breitschultrige) gilt mit ihrer auffälligen Form eines Tafelvulkans als die „Königin der Berge Islands“. Der Berg ist 1682 Meter hoch und liegt im isländischen Hochland in der Wüste Ódáðahraun, nicht weit entfernt vom Vulkan Askja.",
             "quelle": "Wikipedia (de): Herðubreið",
             "url": "https://de.wikipedia.org/wiki/Her%C3%B0ubrei%C3%B0",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/6/69/Herdubreid.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Hagen Trost (Hagent)",
+            "lizenz": "Public domain",
+            "seite": "https://commons.wikimedia.org/wiki/File:Herdubreid.jpg",
+            "quelle": "Leitbild des Artikels „Herðubreið\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -1643,6 +2157,17 @@
             "quelle": "Wikipedia (de): Egilsstaðir",
             "url": "https://de.wikipedia.org/wiki/Egilssta%C3%B0ir",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Egilsstadir2008.JPG/960px-Egilsstadir2008.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Bromr",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Egilsstadir2008.JPG",
+            "quelle": "Leitbild des Artikels „Egilsstaðir\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1663,6 +2188,17 @@
             "text": "Lagarfljót ist ein See und ein Fluss im Osten Islands bei Egilsstaðir in der Gemeinde Múlaþing.",
             "quelle": "Wikipedia (de): Lagarfljót",
             "url": "https://de.wikipedia.org/wiki/Lagarflj%C3%B3t",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Lagarfljot.jpg/960px-Lagarfljot.jpg",
+            "breite": 800,
+            "hoehe": 599,
+            "urheber": "Henna",
+            "lizenz": "CC BY-SA 1.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/1.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Lagarfljot.jpg",
+            "quelle": "Leitbild des Artikels „Lagarfljót\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -1732,6 +2268,17 @@
             "text": "Eiðar ist eine Siedlung im Osten von Island. Der Ort liegt 14 km nördlich von Egilsstaðir am Borgarfjarðarvegur und hat 40 Einwohner. Weithin sichtbar war bis 2023 der 220 m hohe Langwellen-Sendemast Eiðar, der vom isländischen Rundfunk betrieben wurde. Nachdem der Sender stillgelegt worden war, wurde der Mast am 1. März 2023 gesprengt. Die größten Gebäude in Eiðar gehörten zu der Schule. Seit 1883 gab es hier eine Landwirtschaftsschule, die bis 1919 arbeitete. 1938–39 wurden in Eiðar 500 ha Gelände für die Bepflanzung mit Bäumen eingezäunt. Danach wurde bis 1998 eine Volksschule betrieben. Jetzt gehört die Schule zum Menntaskólinn á Egilsstöðum (Gymnasium).",
             "quelle": "Wikipedia (de): Eiðar",
             "url": "https://de.wikipedia.org/wiki/Ei%C3%B0ar",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Ei%C3%B0ar.JPG/960px-Ei%C3%B0ar.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Bromr",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Ei%C3%B0ar.JPG",
+            "quelle": "Leitbild des Artikels „Eiðar\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -1814,6 +2361,16 @@
             "quelle": "Wikipedia (de): Bakkagerði",
             "url": "https://de.wikipedia.org/wiki/Bakkager%C3%B0i",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/62/Bakkagerdi5.JPG/960px-Bakkagerdi5.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "TommyBee",
+            "lizenz": "Public domain",
+            "seite": "https://commons.wikimedia.org/wiki/File:Bakkagerdi5.JPG",
+            "quelle": "Leitbild des Artikels „Bakkagerði\"",
+            "geprueftAm": "2026-08-25"
           }
         }
       ]
@@ -1853,6 +2410,17 @@
             "quelle": "Wikipedia (de): Reyðarfjörður",
             "url": "https://de.wikipedia.org/wiki/Rey%C3%B0arfj%C3%B6r%C3%B0ur",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Rei%C3%B0arfj%C3%B6r%C3%B0ur02.jpg/960px-Rei%C3%B0arfj%C3%B6r%C3%B0ur02.jpg",
+            "breite": 800,
+            "hoehe": 1077,
+            "urheber": "Christian Bickel",
+            "lizenz": "CC BY-SA 2.0 de",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:Rei%C3%B0arfj%C3%B6r%C3%B0ur02.jpg",
+            "quelle": "Leitbild des Artikels „Reyðarfjörður\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1873,6 +2441,17 @@
             "text": "Fáskrúðsfjörður [ˈfauskruðsˌfjœrðʏr] ist ein Dorf am gleichnamigen Fjord im Osten von Island. Auf der Ferðakort 1984 heißt der Ort noch Búdir (deutsch Läden, Geschäfte). Seit der nächsten Ausgabe von 1986 trägt er den aktuellen Namen. Seit 1880 entwickelt sich der Handelsplatz. Eine Zweigstelle eines Kaumanns aus Eskifjörður kam 1888 dazu. Zwischen 1900 und etwa 1935 war Búðir der wichtigste Stützpunkt französischer Fischer in den Ostfjorden. Búðahreppur trennte sich 1907 von Fáskrúðsfjarðarhreppur. (isländisch hreppur: deutsch Landgemeinde) Am 1. Oktober 2003 bildeten Búðahreppur und Stöðvarhreppur gemeinsam die Gemeinde Austurbyggð. Am 9.",
             "quelle": "Wikipedia (de): Fáskrúðsfjörður",
             "url": "https://de.wikipedia.org/wiki/F%C3%A1skr%C3%BA%C3%B0sfj%C3%B6r%C3%B0ur",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c6/F%C3%A1skr%C3%BA%C3%B0sfj%C3%B6r%C3%B0ur_bilingualroadsign.jpg/960px-F%C3%A1skr%C3%BA%C3%B0sfj%C3%B6r%C3%B0ur_bilingualroadsign.jpg",
+            "breite": 800,
+            "hoehe": 1067,
+            "urheber": "Erdrokan",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:F%C3%A1skr%C3%BA%C3%B0sfj%C3%B6r%C3%B0ur_bilingualroadsign.jpg",
+            "quelle": "Leitbild des Artikels „Fáskrúðsfjörður\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -1910,6 +2489,17 @@
             "quelle": "Wikipedia (de): Breiðdalsvík",
             "url": "https://de.wikipedia.org/wiki/Brei%C3%B0dalsv%C3%ADk",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f1/Breiddalsvik_mineral_collection_1.jpg/960px-Breiddalsvik_mineral_collection_1.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Christian Bickel fingalo",
+            "lizenz": "CC BY-SA 2.0 de",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:Breiddalsvik_mineral_collection_1.jpg",
+            "quelle": "Leitbild des Artikels „Breiðdalsvík\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1930,6 +2520,17 @@
             "text": "Die Landgemeinde Djúpivogur [ˈtjuːpɪˌvɔˑɣʏr] (isländisch Djúpavogshreppur, isländisch Djúpivogur ‚Tiefe Bucht‘) war eine isländische Gemeinde in der Suður-Múlasýsla in der Region Austurland im Osten von Island. Sie gehört mit drei weiteren Gemeinden zur neu gebildeten Gemeinde Múlaþing. Am 1. Januar 2011 hatte die Gemeinde 447 Einwohner.",
             "quelle": "Wikipedia (de): Djúpivogur",
             "url": "https://de.wikipedia.org/wiki/Dj%C3%BApivogur",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/59/2005-05-29_Djupivogur.jpg/960px-2005-05-29_Djupivogur.jpg",
+            "breite": 800,
+            "hoehe": 154,
+            "urheber": "Hansueli Krapf",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:2005-05-29_Djupivogur.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 32 m entfernt, Dateiname nennt den Stopp",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -1962,6 +2563,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Hvalnes, Sveitarfélagið Hornafjörður, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/6/67/Hvalnesfjall.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Ulrich Latzenhofer from Perchtoldsdorf, Österreich",
+            "lizenz": "CC BY-SA 2.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Hvalnesfjall.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 907 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -1986,6 +2598,17 @@
             "quelle": "Wikipedia (de): Jökulsárlón",
             "url": "https://de.wikipedia.org/wiki/J%C3%B6kuls%C3%A1rl%C3%B3n",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Jokulsarlon_lake%2C_Iceland.jpg/960px-Jokulsarlon_lake%2C_Iceland.jpg",
+            "breite": 800,
+            "hoehe": 529,
+            "urheber": "Kenny Muir",
+            "lizenz": "CC BY 2.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/2.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Jokulsarlon_lake,_Iceland.jpg",
+            "quelle": "Leitbild des Artikels „Jökulsárlón\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2001,6 +2624,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Breiðamerkursandur, Sveitarfélagið Hornafjörður, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Diamond_Beach%2C_Merritt_Island%2C_Iceland_%28Unsplash%29.jpg/960px-Diamond_Beach%2C_Merritt_Island%2C_Iceland_%28Unsplash%29.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "lydia harper lids_harper",
+            "lizenz": "CC0",
+            "lizenzUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:Diamond_Beach,_Merritt_Island,_Iceland_(Unsplash).jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 118 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2022,6 +2656,17 @@
             "text": "Fjallsárlón ist ein Gletschersee am südlichen Ende des isländischen Gletschers Vatnajökull. Er liegt etwa 25 km östlich vom Skaftafell-Nationalpark entfernt in der Nähe des bekannteren Sees Jökulsárlón auf dem Breiðamerkursandur in der Gemeinde Hornafjörður. Mit dem Breiðárlón ist er durch den Fluss Breiðá verbunden. Oberhalb des Sees befindet sich der Vulkan Öræfajökull, dessen höchster Gipfel Hvannadalshnúkur jedoch vom See aus nicht sichtbar ist. Vom Öræfajökull reicht dessen Auslassgletscher Fjallsjökull bis zum See hinab, in den seine Gletscherzunge kalbt. Die Eisberge haben hier allerdings kleinere Ausmaße als im Jökulsárlón.",
             "quelle": "Wikipedia (de): Fjallsárlón",
             "url": "https://de.wikipedia.org/wiki/Fjalls%C3%A1rl%C3%B3n",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Fjallsarlon20080805.jpg/960px-Fjallsarlon20080805.jpg",
+            "breite": 800,
+            "hoehe": 536,
+            "urheber": "Wikiwadu",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Fjallsarlon20080805.jpg",
+            "quelle": "Leitbild des Artikels „Fjallsárlón\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2047,6 +2692,17 @@
             "quelle": "Wikipedia (de): Skaftafell-Nationalpark",
             "url": "https://de.wikipedia.org/wiki/Skaftafell-Nationalpark",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Skaftafell%2C_Iceland_-_20606892790.jpg/960px-Skaftafell%2C_Iceland_-_20606892790.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "dconvertini",
+            "lizenz": "CC BY-SA 2.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Skaftafell,_Iceland_-_20606892790.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 49 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2067,6 +2723,17 @@
             "text": "Kirkjubæjarklaustur [ˈcʰɪr̥cʏˌpaiˑjarˌkʰlœystʏr] ist ein Ort der Gemeinde Skaftárhreppur im Süden von Island mit 210 Einwohnern (Stand 1. Januar 2023).",
             "quelle": "Wikipedia (de): Kirkjubæjarklaustur",
             "url": "https://de.wikipedia.org/wiki/Kirkjub%C3%A6jarklaustur",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/K-Klaustur.jpg/960px-K-Klaustur.jpg",
+            "breite": 800,
+            "hoehe": 407,
+            "urheber": "Gino maccanti",
+            "lizenz": "CC BY 2.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/2.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:K-Klaustur.jpg",
+            "quelle": "Leitbild des Artikels „Kirkjubæjarklaustur\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2091,6 +2758,17 @@
             "text": "Fjaðrárgljúfur (vom Flussnamen Fjaðrá und isländisch Gljúfur „Canyon“) ist ein Canyon im Süden Islands, etwa acht Kilometer westlich von Kirkjubæjarklaustur gelegen. Er ist über die Straße F206 erreichbar. Die Schlucht ist an einigen Stellen bis zu 100 Meter tief und hat eine Länge von etwa zwei Kilometern. Entstanden ist die Schlucht durch die Kraft des fließenden Wassers, das sich von den Gletschern kommend einen Weg durch das Palagonitgestein bahnte und im Laufe der Jahrtausende immer tiefer hineingrub. Durch sie fließt der namensgebende Fluss Fjaðrá. Die Schlucht steht unter Naturschutz.",
             "quelle": "Wikipedia (de): Fjaðrárgljúfur",
             "url": "https://de.wikipedia.org/wiki/Fja%C3%B0r%C3%A1rglj%C3%BAfur",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/27/Fja%C3%B0r%C3%A1rglj%C3%BAfur%2C_Iceland_%28Unsplash_9Q2Sa9Y4kck%29.jpg/960px-Fja%C3%B0r%C3%A1rglj%C3%BAfur%2C_Iceland_%28Unsplash_9Q2Sa9Y4kck%29.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "lydia harper lids_harper",
+            "lizenz": "CC0",
+            "lizenzUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:Fja%C3%B0r%C3%A1rglj%C3%BAfur,_Iceland_(Unsplash_9Q2Sa9Y4kck).jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 21 m entfernt, Dateiname nennt den Stopp",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2160,6 +2838,17 @@
             "quelle": "Wikipedia (de): Vík í Mýrdal",
             "url": "https://de.wikipedia.org/wiki/V%C3%ADk_%C3%AD_M%C3%BDrdal",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Iceland-Vik-Oct2009.jpg/960px-Iceland-Vik-Oct2009.jpg",
+            "breite": 800,
+            "hoehe": 360,
+            "urheber": "Progresschrome",
+            "lizenz": "CC BY 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Iceland-Vik-Oct2009.jpg",
+            "quelle": "Leitbild des Artikels „Vík í Mýrdal\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2196,6 +2885,17 @@
             "quelle": "Wikipedia (de): Dyrhólaey",
             "url": "https://de.wikipedia.org/wiki/Dyrh%C3%B3laey",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4f/Dyrh%C3%B3laey.jpg/960px-Dyrh%C3%B3laey.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Rosino",
+            "lizenz": "CC BY-SA 2.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Dyrh%C3%B3laey.jpg",
+            "quelle": "Leitbild des Artikels „Dyrhólaey\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2217,6 +2917,17 @@
             "quelle": "Wikipedia (de): Skógafoss",
             "url": "https://de.wikipedia.org/wiki/Sk%C3%B3gafoss",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/80/Sk%C3%B3gafoss-pjt.jpg/960px-Sk%C3%B3gafoss-pjt.jpg",
+            "breite": 800,
+            "hoehe": 1202,
+            "urheber": "pjt56",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Sk%C3%B3gafoss-pjt.jpg",
+            "quelle": "Leitbild des Artikels „Skógafoss\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2232,6 +2943,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Skógasafn, Safnavegur, Skógar"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Skogasafn_%28Skogar_folk_museum%29%2C_Iceland.JPG/960px-Skogasafn_%28Skogar_folk_museum%29%2C_Iceland.JPG",
+            "breite": 800,
+            "hoehe": 531,
+            "urheber": "Beata May",
+            "lizenz": "CC BY 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Skogasafn_(Skogar_folk_museum),_Iceland.JPG",
+            "quelle": "georeferenziertes Bild auf Commons, 146 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2251,6 +2973,17 @@
             "genauigkeit": "punkt",
             "geprueftAm": "2026-08-13",
             "ref": "nominatim: Seljalandsfoss, Rangárþing eystra, Suðurland"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a4/Seljalandsfoss_view_from_side%2C_July_2019.jpg/960px-Seljalandsfoss_view_from_side%2C_July_2019.jpg",
+            "breite": 800,
+            "hoehe": 1205,
+            "urheber": "Alexander Grebenkov",
+            "lizenz": "CC BY 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Seljalandsfoss_view_from_side,_July_2019.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 1 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         }
       ]
@@ -2288,6 +3021,17 @@
             "text": "i3i6 Þingvellir (ˈθiŋkvetlir, deutsch auch Thingvellir) ist ein Ort und ein Nationalpark im Südwesten von Island, etwa 40 km östlich der isländischen Hauptstadt Reykjavík am Nordufer des Sees Þingvallavatn. Der Ort Þingvellir hat besondere Bedeutung für die Geschichte Islands. In einer Grabenbruchzone im Grenzbereich zweier tektonischer Platten gelegen, ist das Gebiet auch geologisch von Bedeutung.",
             "quelle": "Wikipedia (de): Þingvellir",
             "url": "https://de.wikipedia.org/wiki/%C3%9Eingvellir",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/77/%C3%9Eingvellir01.jpg/960px-%C3%9Eingvellir01.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Christian Bickel",
+            "lizenz": "CC BY-SA 2.0 de",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:%C3%9Eingvellir01.jpg",
+            "quelle": "Leitbild des Artikels „Þingvellir\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2331,6 +3075,17 @@
             "quelle": "Wikipedia (de): Silfra-Spalte",
             "url": "https://de.wikipedia.org/wiki/Silfra-Spalte",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Schnorchler_in_der_Silfra-Spalte.JPG/960px-Schnorchler_in_der_Silfra-Spalte.JPG",
+            "breite": 800,
+            "hoehe": 1067,
+            "urheber": "Jens Bludau",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Schnorchler_in_der_Silfra-Spalte.JPG",
+            "quelle": "georeferenziertes Bild auf Commons, 127 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2351,6 +3106,17 @@
             "text": "Der See Laugarvatn liegt im Südwesten von Island.",
             "quelle": "Wikipedia (de): Laugarvatn",
             "url": "https://de.wikipedia.org/wiki/Laugarvatn",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Laugarvatn01.jpg/960px-Laugarvatn01.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Christian Bickel",
+            "lizenz": "CC BY-SA 2.0 de",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:Laugarvatn01.jpg",
+            "quelle": "Leitbild des Artikels „Laugarvatn\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2373,6 +3139,17 @@
             "quelle": "Wikipedia (de): Strokkur",
             "url": "https://de.wikipedia.org/wiki/Strokkur",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Strokkur.jpeg/960px-Strokkur.jpeg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Halbmastwurf (Diskussion)",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Strokkur.jpeg",
+            "quelle": "Leitbild des Artikels „Strokkur\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2394,6 +3171,17 @@
             "quelle": "Wikipedia (de): Gullfoss",
             "url": "https://de.wikipedia.org/wiki/Gullfoss",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Gullfoss%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_123.JPG/960px-Gullfoss%2C_Su%C3%B0urland%2C_Islandia%2C_2014-08-16%2C_DD_123.JPG",
+            "breite": 800,
+            "hoehe": 494,
+            "urheber": "Diego Delso",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Gullfoss,_Su%C3%B0urland,_Islandia,_2014-08-16,_DD_123.JPG",
+            "quelle": "Leitbild des Artikels „Gullfoss\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2414,6 +3202,17 @@
             "text": "Der Kerið ist ein Kratersee in Island. Er ist der östlichste von fünf Kratern der zum postglazialen Grímsnes-Vulkanfeld gehörenden Kraterreihe Tjarnarhólar, die ihrerseits zum Eruptionsgürtel im Reykjanes–Langjökull–Gebiet zählen. Kerið liegt in der Region Suðurland an der Straße von Selfoss ins Haukadalur.",
             "quelle": "Wikipedia (de): Kerið",
             "url": "https://de.wikipedia.org/wiki/Keri%C3%B0",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/Iceland2009-BradWeber-Kerid.jpg/960px-Iceland2009-BradWeber-Kerid.jpg",
+            "breite": 800,
+            "hoehe": 502,
+            "urheber": "Progresschrome",
+            "lizenz": "CC BY 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Iceland2009-BradWeber-Kerid.jpg",
+            "quelle": "Leitbild des Artikels „Kerið\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2465,6 +3264,17 @@
             "text": "Das Gut Skálholt [ˈskaulhɔl̥t] liegt im Süden Islands in der Gemeinde Bláskógabyggð. Es war vor der Reformation Sitz des katholischen Bistums Skálholt (heute Titularbistum Skálholt) und danach bis 1801 evangelischer Bischofssitz.",
             "quelle": "Wikipedia (de): Skálholt",
             "url": "https://de.wikipedia.org/wiki/Sk%C3%A1lholt",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fb/32_Skalholt_%283a%29.JPG/960px-32_Skalholt_%283a%29.JPG",
+            "breite": 800,
+            "hoehe": 450,
+            "urheber": "Ljuba brank at Slovenian Wikipedia",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:32_Skalholt_(3a).JPG",
+            "quelle": "Leitbild des Artikels „Skálholt\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2521,6 +3331,16 @@
             "quelle": "Wikipedia (de): Stokkseyri",
             "url": "https://de.wikipedia.org/wiki/Stokkseyri",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/25/StokkseyrikirkjaIce.JPG/960px-StokkseyrikirkjaIce.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "TommyBee",
+            "lizenz": "Public domain",
+            "seite": "https://commons.wikimedia.org/wiki/File:StokkseyrikirkjaIce.JPG",
+            "quelle": "Leitbild des Artikels „Stokkseyri\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2541,6 +3361,16 @@
             "text": "Eyrarbakki [ˈeiːrarˌpahcɪ] ist ein Ort in der Gemeinde Árborg in der isländischen Region Suðurland. Eyrarbakki hatte am 1. Januar 2011 569 Einwohner.",
             "quelle": "Wikipedia (de): Eyrarbakki",
             "url": "https://de.wikipedia.org/wiki/Eyrarbakki",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/48/Eyrarbakki_01.JPG/960px-Eyrarbakki_01.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "unbekannt",
+            "lizenz": "Public domain",
+            "seite": "https://commons.wikimedia.org/wiki/File:Eyrarbakki_01.JPG",
+            "quelle": "Leitbild des Artikels „Eyrarbakki\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2593,6 +3423,17 @@
             "quelle": "Wikipedia (de): Þorlákshöfn",
             "url": "https://de.wikipedia.org/wiki/%C3%9Eorl%C3%A1ksh%C3%B6fn",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/0/09/%C3%9Eorl%C3%A1ksh%C3%B6fn_0572.jpg/960px-%C3%9Eorl%C3%A1ksh%C3%B6fn_0572.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:%C3%9Eorl%C3%A1ksh%C3%B6fn_0572.jpg",
+            "quelle": "Leitbild des Artikels „Þorlákshöfn\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2615,6 +3456,17 @@
             "quelle": "Wikipedia (de): Raufarhólshellir",
             "url": "https://de.wikipedia.org/wiki/Raufarh%C3%B3lshellir",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Raufarh%C3%B3lshellir_interior_2018d.jpg/960px-Raufarh%C3%B3lshellir_interior_2018d.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Antony-22",
+            "lizenz": "CC BY-SA 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Raufarh%C3%B3lshellir_interior_2018d.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 187 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2630,6 +3482,17 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Kr%C3%BDsuv%C3%ADk_geothermal_area_31.jpg/960px-Kr%C3%BDsuv%C3%ADk_geothermal_area_31.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Netha Hussain",
+            "lizenz": "CC0",
+            "lizenzUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:Kr%C3%BDsuv%C3%ADk_geothermal_area_31.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 198 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2650,6 +3513,17 @@
             "text": "Der Kleifarvatn ist ein See auf der isländischen Reykjanes-Halbinsel.",
             "quelle": "Wikipedia (de): Kleifarvatn",
             "url": "https://de.wikipedia.org/wiki/Kleifarvatn",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2e/Kleifarvatn_3.jpg/960px-Kleifarvatn_3.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Christian Bickel",
+            "lizenz": "CC BY-SA 2.0 de",
+            "lizenzUrl": "https://creativecommons.org/licenses/by-sa/2.0/de/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:Kleifarvatn_3.jpg",
+            "quelle": "Leitbild des Artikels „Kleifarvatn\"",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2767,6 +3641,17 @@
             "genauigkeit": "bereich",
             "geprueftAm": "2026-08-13",
             "hinweis": "Aus dem Reiseplan kuratiert, von OSM nicht bestätigt: 2 getrennte Orte gleichen Namens, keiner bestätigt die Planposition eindeutig. Siehe data/offen.json."
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bf/Kr%C3%BDsuv%C3%ADk_geothermal_area_31.jpg/960px-Kr%C3%BDsuv%C3%ADk_geothermal_area_31.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Netha Hussain",
+            "lizenz": "CC0",
+            "lizenzUrl": "http://creativecommons.org/publicdomain/zero/1.0/deed.en",
+            "seite": "https://commons.wikimedia.org/wiki/File:Kr%C3%BDsuv%C3%ADk_geothermal_area_31.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 198 m entfernt, Dateiname nennt den Stopp",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2788,6 +3673,17 @@
             "quelle": "Wikipedia (de): Fagradalsfjall (Reykjanesskagi)",
             "url": "https://de.wikipedia.org/wiki/Fagradalsfjall_(Reykjanesskagi)",
             "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/Fagradalsfjall_194309.jpg/960px-Fagradalsfjall_194309.jpg",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "Steinninn",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Fagradalsfjall_194309.jpg",
+            "quelle": "Leitbild des Artikels „Fagradalsfjall (Reykjanesskagi)\"",
+            "geprueftAm": "2026-08-25"
           }
         },
         {
@@ -2808,6 +3704,17 @@
             "text": "Grindavík (deutsch „Gitterbucht“) ist eine Hafenstadt in Südwestisland auf der Halbinsel Reykjanesskagi, deren Geschichte fast ein Jahrtausend umfasst. Die Stadt ist seit 2023 stark von den Begleiterscheinungen der Vulkanausbrüche an der Sundhnúkur-Kraterkette betroffen. Im Dezember 2023 / Januar 2024 trat Lava aus mehreren Spalten im Norden nahe der Stadt aus. In der Stadt gab es am Anfang Zerstörungen durch Erdbeben und Bodenrisse, im Januar durch Lava, die am Stadtrand ausgeflossen war, bis zum Wohngebiet floss und dort drei Häuser zerstörte.",
             "quelle": "Wikipedia (de): Grindavík",
             "url": "https://de.wikipedia.org/wiki/Grindav%C3%ADk",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Grindav%C3%ADkurv%C3%B6llur_%27Grindav%C3%ADk_Field%27.jpg/960px-Grindav%C3%ADkurv%C3%B6llur_%27Grindav%C3%ADk_Field%27.jpg",
+            "breite": 800,
+            "hoehe": 533,
+            "urheber": "Quintin Soloviev",
+            "lizenz": "CC BY 4.0",
+            "lizenzUrl": "https://creativecommons.org/licenses/by/4.0",
+            "seite": "https://commons.wikimedia.org/wiki/File:Grindav%C3%ADkurv%C3%B6llur_%27Grindav%C3%ADk_Field%27.jpg",
+            "quelle": "georeferenziertes Bild auf Commons, 118 m entfernt, Dateiname nennt den Stopp",
             "geprueftAm": "2026-08-25"
           }
         },
@@ -2831,6 +3738,17 @@
             "text": "Die Bláa Lónið (deutsch Blaue Lagune) ist ein Thermalfreibad bei Grindavík auf der Reykjanes-Halbinsel auf Island. Sie liegt nahe der Hauptstadt Reykjavík und dem internationalen Flughafen in Keflavík und ist eine der meist besuchten Touristenattraktion in Südwest-Island.",
             "quelle": "Wikipedia (de): Bláa Lónið",
             "url": "https://de.wikipedia.org/wiki/Bl%C3%A1a_L%C3%B3ni%C3%B0",
+            "geprueftAm": "2026-08-25"
+          },
+          "bild": {
+            "url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9b/Blue_Lagoon-1-.JPG/960px-Blue_Lagoon-1-.JPG",
+            "breite": 800,
+            "hoehe": 600,
+            "urheber": "(SketchUp)",
+            "lizenz": "CC BY-SA 3.0",
+            "lizenzUrl": "http://creativecommons.org/licenses/by-sa/3.0/",
+            "seite": "https://commons.wikimedia.org/wiki/File:Blue_Lagoon-1-.JPG",
+            "quelle": "Leitbild des Artikels „Bláa Lónið\"",
             "geprueftAm": "2026-08-25"
           }
         },

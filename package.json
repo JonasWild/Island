@@ -12,6 +12,7 @@
     "validate": "tsx scripts/validate.ts",
     "geocode": "tsx scripts/geocode.ts",
     "wissen": "tsx scripts/wissen.ts",
+    "bilder": "tsx scripts/bilder.ts",
     "route": "tsx scripts/route.ts",
     "test": "vitest run",
     "test:watch": "vitest",

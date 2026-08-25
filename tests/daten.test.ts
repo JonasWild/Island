@@ -80,6 +80,45 @@ describe('Wissen', () => {
   });
 });
 
+describe('Bilder', () => {
+  const mitBild = alleStopps.filter((s) => s.stopp.bild);
+
+  it('sind für den Grossteil der Stopps vorhanden', () => {
+    expect(mitBild.length).toBeGreaterThan(70);
+  });
+
+  it('nennen Urheber, Lizenz und Nachweisseite', () => {
+    // Ohne Lizenz und Urheber darf nichts eingebunden werden — bei CC-BY-SA
+    // ist die Nennung Bedingung, nicht Höflichkeit.
+    for (const { stopp } of mitBild) {
+      const b = stopp.bild!;
+      expect(b.urheber, stopp.name).not.toBe('');
+      expect(b.lizenz, stopp.name).not.toBe('');
+      expect(b.seite, stopp.name).toMatch(/^https:\/\/commons\.wikimedia\.org\//);
+      expect(b.url, stopp.name).toMatch(/^https:\/\/upload\.wikimedia\.org\//);
+      expect(b.breite, stopp.name).toBeGreaterThan(0);
+      expect(b.hoehe, stopp.name).toBeGreaterThan(0);
+    }
+  });
+
+  it('tragen keine Tracking-Parameter in der URL', () => {
+    for (const { stopp } of mitBild) {
+      expect(stopp.bild!.url, stopp.name).not.toContain('utm_');
+      expect(stopp.bild!.url, stopp.name).not.toContain('?');
+    }
+  });
+
+  it('zeigen Fotos, keine Lagekarten und Wappen', () => {
+    // Die deutsche Wikipedia setzt bei Gemeinden gern eine Lagekarte als
+    // Leitbild. Ein Kartenausschnitt in einer Karten-App ist nutzlos.
+    for (const { stopp } of mitBild) {
+      expect(stopp.bild!.url.toLowerCase(), stopp.name).not.toMatch(
+        /[_.-](map|karte|locator|flag|wappen|logo)[_.-]|\.svg$/,
+      );
+    }
+  });
+});
+
 describe('Stopp-IDs', () => {
   it('lösen sich zurück auf', () => {
     const erster = alleStopps[0]!;

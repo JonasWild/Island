@@ -5,7 +5,7 @@ import { alleStopps, datumKurz, unterkunftNach } from '@/lib/reise';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
 import { kategorieFarbe } from '@/map/icons';
 import { formatKoordinate } from '@/lib/geo';
-import type { Unterkunft, Wanderung, Wissen } from '@/lib/schema';
+import type { Bild, Unterkunft, Wanderung, Wissen } from '@/lib/schema';
 
 export function ContextSheet() {
   const auswahl = useMapStore((s) => s.auswahl);
@@ -18,6 +18,7 @@ export function ContextSheet() {
   let text = '';
   let wissen: Wissen | null = null;
   let wanderung: Wanderung | null = null;
+  let bild: Bild | null = null;
   let haus: Unterkunft | null = null;
   let punkt: string | null = null;
 
@@ -29,6 +30,7 @@ export function ContextSheet() {
     text = ref.stopp.text;
     wissen = ref.stopp.wissen ?? null;
     wanderung = ref.stopp.wanderung ?? null;
+    bild = ref.stopp.bild ?? null;
     punkt = kategorieFarbe(kategorieVon(ref.stopp));
   }
 
@@ -91,6 +93,55 @@ export function ContextSheet() {
           </svg>
         </button>
       </div>
+
+      {/*
+        Das Bild steht ganz oben: es beantwortet „wie sieht das aus?" schneller
+        als jeder Text. Breite und Höhe kommen aus der Pipeline und stehen im
+        Markup, damit das Blatt beim Laden nicht springt.
+
+        Bewusst ein einfaches <img> statt next/image: die Datei liegt auf
+        Commons in genau der gebrauchten Grösse, und der Bildoptimierer von
+        Vercel würde sie nur ein zweites Mal durch einen Server schicken.
+      */}
+      {bild && (
+        <figure className="mt-3 overflow-hidden rounded-lg bg-slate-100 ring-1 ring-black/5">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={bild.url}
+            alt={titel}
+            width={bild.breite}
+            height={bild.hoehe}
+            loading="lazy"
+            decoding="async"
+            className="block h-auto w-full"
+          />
+          <figcaption className="px-3 py-2 text-[11px] leading-snug text-slate-500">
+            {/* Bei CC-BY-SA ist die Nennung Bedingung, nicht Höflichkeit. */}
+            {bild.urheber} ·{' '}
+            {bild.lizenzUrl ? (
+              <a
+                href={bild.lizenzUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="underline decoration-slate-400 underline-offset-2 hover:text-slate-800"
+              >
+                {bild.lizenz}
+              </a>
+            ) : (
+              bild.lizenz
+            )}{' '}
+            ·{' '}
+            <a
+              href={bild.seite}
+              target="_blank"
+              rel="noreferrer"
+              className="underline decoration-slate-400 underline-offset-2 hover:text-slate-800"
+            >
+              Wikimedia Commons
+            </a>
+          </figcaption>
+        </figure>
+      )}
 
       {/*
         Wo man schläft und wie lange ist die wichtigste Angabe des Tages —

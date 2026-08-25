@@ -54,6 +54,26 @@ export const WissenSchema = z.object({
 });
 export type Wissen = z.infer<typeof WissenSchema>;
 
+/**
+ * Ein Bild zum Stopp, mit allem, was seine Nutzung erlaubt. Ohne Urheber und
+ * Lizenz wird nichts eingebunden — bei CC-BY-SA ist die Nennung Bedingung,
+ * nicht Höflichkeit.
+ */
+export const BildSchema = z.object({
+  url: z.string().url(),
+  breite: z.number().int().positive(),
+  hoehe: z.number().int().positive(),
+  urheber: z.string().min(1),
+  lizenz: z.string().min(1),
+  lizenzUrl: z.string().url().optional(),
+  /** Beschreibungsseite auf Commons — der Nachweis. */
+  seite: z.string().url(),
+  /** Wie das Bild gefunden wurde: Artikelbild oder Geosuche mit Namensbeleg. */
+  quelle: z.string().min(1),
+  geprueftAm: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'ISO-Datum erwartet'),
+});
+export type Bild = z.infer<typeof BildSchema>;
+
 export const StoppSchema = z.object({
   name: z.string().min(1),
   strasse: z.string().nullable().optional(),
@@ -66,6 +86,7 @@ export const StoppSchema = z.object({
   pos: PosSchema.nullable().default(null),
   posMeta: PosMetaSchema.optional(),
   wissen: WissenSchema.optional(),
+  bild: BildSchema.optional(),
 });
 export type Stopp = z.infer<typeof StoppSchema>;
 
