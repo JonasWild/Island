@@ -179,7 +179,7 @@ test('die Bedienelemente überlagern einander nicht', async ({ page }) => {
   await pruefen('(Relief an)');
 });
 
-test('die Route liegt auf Straßen und beide Routen-Layer entstehen', async ({ page }) => {
+test('die Route liegt auf Straßen, getrennt nach Pflicht und Kür', async ({ page }) => {
   await stilStubben(page);
   await page.goto('/?tag=2026-08-30');
   await page.waitForFunction(() => window.__islandKarte?.getLayer('route-linie') != null);
@@ -189,25 +189,132 @@ test('die Route liegt auf Straßen und beide Routen-Layer entstehen', async ({ p
     const quelle = map.getStyle().sources['route'] as { data?: GeoJSON.FeatureCollection };
     const fc = quelle.data as GeoJSON.FeatureCollection<GeoJSON.LineString>;
     return {
-      luftlinienLayer: map.getLayer('route-luftlinie') != null,
-      segmente: fc.features.length,
+      layer: ['route-linie', 'route-wahlweise', 'route-luftlinie', 'route-pfeil'].filter(
+        (id) => map.getLayer(id) != null,
+      ),
       punkte: fc.features.map((f) => f.geometry.coordinates.length),
-      arten: [...new Set(fc.features.map((f) => f.properties?.art))],
+      arten: [...new Set(fc.features.map((f) => f.properties?.art))].sort(),
+      tage: new Set(fc.features.map((f) => f.properties?.datum)).size,
+      pfeilBild: map.hasImage('route-pfeil'),
     };
   });
 
-  expect(daten.luftlinienLayer).toBe(true);
-  expect(daten.segmente).toBe(15);
+  // Ungültige Layer-Ausdrücke schlagen in MapLibre still fehl — deshalb wird
+  // die Existenz geprüft, nicht das Aussehen.
+  expect(daten.layer).toEqual([
+    'route-linie',
+    'route-wahlweise',
+    'route-luftlinie',
+    'route-pfeil',
+  ]);
+  expect(daten.pfeilBild).toBe(true);
+  expect(daten.tage).toBe(15);
+  for (const art of daten.arten) expect(['pflicht', 'optional', 'luftlinie']).toContain(art);
+  // Pflicht und Kür müssen beide vorkommen, sonst trennt die Karte nichts.
+  expect(daten.arten).toContain('pflicht');
+  expect(daten.arten).toContain('optional');
+
   /*
     Eine Luftlinie über die Stopps eines Tages hätte höchstens eine Handvoll
     Stützpunkte — über alle 15 Tage keine 150. Eine gefahrene Route hat
-    Tausende. Der kürzeste Tag ist der 10.09.: 3 km vom Tanken zum Terminal,
-    und selbst der hat mehr Stützpunkte als er Stopps hat.
+    Tausende.
   */
   expect(daten.punkte.reduce((a, b) => a + b, 0)).toBeGreaterThan(3000);
-  expect(Math.min(...daten.punkte)).toBeGreaterThan(10);
-  for (const art of daten.arten) expect(['strasse', 'luftlinie']).toContain(art);
 
   // Der Tagestitel zeigt die gefahrene Strecke, nicht die Plan-Etappe.
-  await expect(page.getByTestId('tagestitel')).toContainText(/\d+ km · \d+ h \d+ min/);
+  await expect(page.getByTestId('tagestitel')).toContainText(/\d+ km/);
+});
+
+test('Unterkünfte tragen ihr eigenes Symbol mit der Zahl der Nächte', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-27');
+  await page.waitForFunction(() => window.__islandKarte?.getLayer('stopp-symbol') != null);
+
+  const daten = await page.evaluate(() => {
+    const map = window.__islandKarte!;
+    const quelle = map.getStyle().sources['stopps'] as { data?: GeoJSON.FeatureCollection };
+    const fc = quelle.data as GeoJSON.FeatureCollection<GeoJSON.Point>;
+    const haeuser = fc.features.filter((f) =>
+      String(f.properties?.id ?? '').startsWith('unterkunft:'),
+    );
+    return {
+      anzahl: haeuser.length,
+      bilder: haeuser.map((f) => String(f.properties?.icon)),
+      naechte: haeuser.map((f) => f.properties?.naechte),
+      vorhanden: haeuser.every((f) => map.hasImage(String(f.properties?.icon))),
+    };
+  });
+
+  expect(daten.anzahl).toBe(6);
+  expect(daten.vorhanden, 'ein Unterkunftsbild fehlt in der Karte').toBe(true);
+  for (const name of daten.bilder) expect(name).toMatch(/^sym-unterkunft-[1-7]$/);
+  // Die Nächtezahl steht am Feature und im Bildnamen — beides muss passen.
+  for (let i = 0; i < daten.bilder.length; i++) {
+    expect(daten.bilder[i]).toBe(`sym-unterkunft-${daten.naechte[i]}`);
+  }
+});
+
+test('Wanderungen sind am Ziel gekennzeichnet und beziffert', async ({ page }) => {
+  await stilStubben(page);
+  // 31.08. ist ein Standtag mit vier Wanderungen.
+  await page.goto('/?tag=2026-08-31');
+  await page.waitForFunction(() => window.__islandKarte?.getLayer('stopp-wanderung') != null);
+
+  const daten = await page.evaluate(() => {
+    const map = window.__islandKarte!;
+    const quelle = map.getStyle().sources['stopps'] as { data?: GeoJSON.FeatureCollection };
+    const fc = quelle.data as GeoJSON.FeatureCollection<GeoJSON.Point>;
+    return {
+      bild: map.hasImage('sym-fussweg'),
+      mitWanderung: fc.features.filter((f) => f.properties?.wanderung === true).length,
+      filter: JSON.stringify(map.getFilter('stopp-wanderung')),
+    };
+  });
+  expect(daten.bild, 'das Wanderabzeichen fehlt in der Karte').toBe(true);
+  expect(daten.mitWanderung).toBe(16);
+  expect(daten.filter).toContain('wanderung');
+
+  // Die Gehzeit des Tages steht im Streifen, nicht nur im Kontextblatt.
+  await expect(page.getByTestId('tagestitel')).toContainText(/zu Fuß/);
+  // Ein Standtag hat keine Pflichtstrecke — start und Ziel sind dieselbe Unterkunft.
+  await expect(page.getByTestId('tagestitel')).toContainText('alles freiwillig');
+  await expect(page.getByTestId('tagestitel')).toContainText('Standtag');
+});
+
+test('das Kontextblatt zeigt Nächte und Wanderdaten', async ({ page }) => {
+  await stilStubben(page);
+  // 31.08., Stopp 3 ist die Wanderung Námafjall mit allen drei Angaben.
+  await page.goto('/?tag=2026-08-31&stopp=3');
+  const blatt = page.getByTestId('kontextblatt');
+  await expect(blatt.getByText('Zu Fuß')).toBeVisible();
+  await expect(blatt.getByText('2,9 km')).toBeVisible();
+  await expect(blatt.getByText('130 m')).toBeVisible();
+
+  await page.goto('/?unterkunft=thrasastadir');
+  await expect(blatt.getByText('Übernachtung')).toBeVisible();
+  await expect(blatt.getByText('Nächte')).toBeVisible();
+  await expect(blatt.getByText('4', { exact: true })).toBeVisible();
+});
+
+test('die Legende erklärt Linien, Farben und Marker', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/');
+  const legende = page.getByTestId('legende');
+  await expect(legende).toBeHidden();
+
+  await page.getByTestId('schalter-legende').click();
+  await expect(legende).toBeVisible();
+  for (const text of ['Pflicht', 'Abstecher', 'Luftlinie', 'Fahrtrichtung', 'Standtag']) {
+    await expect(legende.getByText(text, { exact: false }).first()).toBeVisible();
+  }
+
+  // Sie muss ins Bild passen — sonst erklärt sie nichts.
+  const seite = page.viewportSize()!;
+  const kasten = (await legende.boundingBox())!;
+  expect(kasten.x).toBeGreaterThanOrEqual(0);
+  expect(kasten.x + kasten.width).toBeLessThanOrEqual(seite.width + 1);
+  if (seite.width < 640) expect(kasten.width).toBe(seite.width);
+
+  await legende.getByRole('button', { name: 'Legende schließen' }).click();
+  await expect(legende).toBeHidden();
 });

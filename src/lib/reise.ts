@@ -78,6 +78,35 @@ export const TAG_LABEL: Record<Tag['typ'], string> = {
   abreise: 'Abreise',
 };
 
+/**
+ * Gehzeit einer Wanderung in Minuten, aus dem Freitext des Reiseplans.
+ * Der Veranstalter schreibt „ca. 1 Std.", „1-2 Std.", „45 min", „4,5 Std." —
+ * gelesen wird nur, was eindeutig ist. Bei einer Spanne zählt der obere Wert:
+ * wer den Tag plant, will wissen, wie lang er höchstens wird.
+ */
+export function gehzeitMinuten(gehzeit: string | undefined): number | null {
+  if (!gehzeit) return null;
+  const stunden = [...gehzeit.matchAll(/(\d+(?:[.,]\d+)?)\s*(?:std|stunde)/gi)].map((m) =>
+    Number(m[1]!.replace(',', '.')),
+  );
+  if (stunden.length > 0) return Math.round(Math.max(...stunden) * 60);
+  const minuten = [...gehzeit.matchAll(/(\d+)\s*min/gi)].map((m) => Number(m[1]));
+  if (minuten.length > 0) return Math.max(...minuten);
+  return null;
+}
+
+/** Summe der Gehzeiten eines Tages — die Zeit, die nicht im Auto vergeht. */
+export function gehzeitTag(datum: string): number {
+  const tag = tagNach(datum);
+  if (!tag) return 0;
+  return tag.highlights.reduce((n, h) => n + (gehzeitMinuten(h.wanderung?.gehzeit) ?? 0), 0);
+}
+
+/** Stopps eines Tages, an denen gewandert wird. */
+export function wanderungenTag(datum: string): number {
+  return tagNach(datum)?.highlights.filter((h) => h.wanderung !== undefined).length ?? 0;
+}
+
 export function datumKurz(datum: string): string {
   const [, m, d] = datum.split('-');
   return `${d}.${m}.`;

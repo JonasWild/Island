@@ -19,3 +19,8 @@ export function routeNach(datum: string): TagRoute | null {
 
 /** Tage, deren Routing nicht sauber gelang und die als Luftlinie gelten. */
 export const luftlinienTage: readonly TagRoute[] = route.tage.filter((t) => t.art === 'luftlinie');
+
+/** Alle Stützpunkte eines Tages am Stück — für Kamerarahmen und Kettenprüfung. */
+export function geometrieVon(tag: TagRoute): Array<[number, number]> {
+  return tag.abschnitte.flatMap((a, i) => (i === 0 ? a.punkte : a.punkte.slice(1)));
+}

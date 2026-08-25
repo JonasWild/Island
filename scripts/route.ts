@@ -23,6 +23,19 @@
  * anders getaggt, deshalb wird das Ergebnis zusätzlich auf F-Nummern in den
  * Straßennamen geprüft — Gürtel und Hosenträger.
  *
+ * ## Pflicht und Kür
+ *
+ * Jeder Tag wird **zweimal** geroutet: einmal direkt von Start zu Ziel — das
+ * ist die Strecke, die gefahren werden *muss*, um abends im Bett zu liegen —
+ * und einmal über die vorgeschlagenen Ziele. Wo die zweite Route auf der
+ * ersten liegt, ist sie Pflicht; wo sie abzweigt, ist sie ein Abstecher, den
+ * man auch sein lassen kann. Die Karte zeichnet beides verschieden, und die
+ * Kilometer stehen getrennt in der Datei.
+ *
+ * An einem Standtag beginnt und endet der Tag an derselben Unterkunft. Dann
+ * gibt es keine Pflichtstrecke — der ganze Tag ist Kür. Das ist keine Lücke,
+ * sondern die Aussage.
+ *
  * ## Was bei Zweifeln passiert
  *
  * Ein Tag, der nicht sauber gelingt, fällt auf die Luftlinie zurück **und wird
@@ -70,6 +83,18 @@ const F_STRASSE = /(^|[^\p{L}])F\d{2,4}(?![\p{L}\d])/u;
  * ist ein Pixel gut 100 m breit; 25 m Toleranz sind dort unsichtbar.
  */
 const VEREINFACHUNG_M = 25;
+/**
+ * So nah muss ein Punkt der vollen Route an der direkten Etappe liegen, um als
+ * Pflichtstrecke zu gelten. Grosszuegig genug für getrennte Richtungsfahrbahnen
+ * und leicht abweichendes Snapping, eng genug, um einen Abzweig zu erkennen.
+ */
+const PFLICHT_TOLERANZ_M = 60;
+/**
+ * Kürzere Wechsel als dieser werden geglättet. Ohne das zerfällt die Route an
+ * jedem Kreisverkehr in ein Dutzend Schnipsel, und die Unterscheidung wird
+ * unlesbar statt nützlich.
+ */
+const MIN_ABSCHNITT_M = 400;
 
 type LngLat = [number, number];
 
@@ -161,6 +186,95 @@ function vereinfachen(punkte: LngLat[], toleranzM: number): LngLat[] {
     }
   }
   return punkte.filter((_, i) => behalten[i] === 1);
+}
+
+/**
+ * Kürzester Abstand eines Punktes zu einer Polylinie, in Metern. Rechnet in
+ * derselben lokalen Ebene wie `vereinfachen` — auf Tagesgrösse ist das genau
+ * genug und um Grössenordnungen billiger als eine Kugelrechnung je Segment.
+ */
+function abstandZurLinie(punkt: LngLat, linie: LngLat[]): number {
+  if (linie.length === 0) return Infinity;
+  const M_PRO_GRAD = 111_320;
+  const kosLat = Math.cos((punkt[1] * Math.PI) / 180);
+  const px = punkt[0] * M_PRO_GRAD * kosLat;
+  const py = punkt[1] * M_PRO_GRAD;
+
+  let best = Infinity;
+  for (let i = 1; i < linie.length; i++) {
+    const ax = linie[i - 1]![0] * M_PRO_GRAD * kosLat;
+    const ay = linie[i - 1]![1] * M_PRO_GRAD;
+    const bx = linie[i]![0] * M_PRO_GRAD * kosLat;
+    const by = linie[i]![1] * M_PRO_GRAD;
+    const dx = bx - ax;
+    const dy = by - ay;
+    const quadrat = dx * dx + dy * dy;
+    const t = quadrat === 0 ? 0 : Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / quadrat));
+    const abstand = Math.hypot(px - (ax + t * dx), py - (ay + t * dy));
+    if (abstand < best) best = abstand;
+    if (best === 0) break;
+  }
+  return best;
+}
+
+/** Länge einer Polylinie in Kilometern. */
+function laengeKm(linie: LngLat[]): number {
+  let m = 0;
+  for (let i = 1; i < linie.length; i++) {
+    m += distanzM([linie[i - 1]![1], linie[i - 1]![0]], [linie[i]![1], linie[i]![0]]);
+  }
+  return m / 1000;
+}
+
+/**
+ * Teilt die volle Route in Pflicht- und Wahlabschnitte, indem jeder Stützpunkt
+ * gegen die direkte Etappe gemessen wird. Aufeinanderfolgende Punkte gleicher
+ * Art bilden einen Abschnitt; zu kurze Wechsel werden vorher geglättet.
+ *
+ * Benachbarte Abschnitte teilen sich ihren Grenzpunkt — sonst klafft in der
+ * Karte an jedem Wechsel eine Lücke.
+ */
+function abschnitteBilden(voll: LngLat[], direkt: LngLat[]): Abschnitt[] {
+  if (voll.length < 2) return [];
+  if (direkt.length < 2) return [{ art: 'optional', punkte: voll }];
+
+  const pflicht = voll.map((p) => abstandZurLinie(p, direkt) <= PFLICHT_TOLERANZ_M);
+
+  // Glätten: Läufe unter MIN_ABSCHNITT_M an den Nachbarn angleichen. Von vorn
+  // nach hinten, bis nichts mehr zu kurz ist.
+  let geaendert = true;
+  while (geaendert) {
+    geaendert = false;
+    let start = 0;
+    while (start < pflicht.length) {
+      let ende = start;
+      while (ende + 1 < pflicht.length && pflicht[ende + 1] === pflicht[start]) ende++;
+      const istRand = start === 0 || ende === pflicht.length - 1;
+      const laenge = laengeKm(voll.slice(start, ende + 1)) * 1000;
+      if (!istRand && laenge < MIN_ABSCHNITT_M) {
+        for (let i = start; i <= ende; i++) pflicht[i] = !pflicht[start]!;
+        geaendert = true;
+        break;
+      }
+      start = ende + 1;
+    }
+  }
+
+  const abschnitte: Abschnitt[] = [];
+  let start = 0;
+  while (start < voll.length) {
+    let ende = start;
+    while (ende + 1 < voll.length && pflicht[ende + 1] === pflicht[start]) ende++;
+    // Ein Punkt Überlappung nach hinten, damit die Linien aneinander stossen.
+    const bis = Math.min(ende + 1, voll.length - 1);
+    const punkte = voll.slice(start, bis + 1);
+    if (punkte.length >= 2) {
+      abschnitte.push({ art: pflicht[start] ? 'pflicht' : 'optional', punkte });
+    }
+    if (ende === voll.length - 1) break;
+    start = ende + 1;
+  }
+  return abschnitte;
 }
 
 /** Fünf Nachkommastellen sind gut ein Meter — mehr braucht keine Karte. */
@@ -257,15 +371,24 @@ function sortieren(start: Pos, zwischen: Pos[], ziel: Pos): Pos[] {
   return kette.slice(1, -1);
 }
 
+/**
+ * Ein zusammenhängendes Stück Route. 'pflicht' liegt auf der direkten Etappe
+ * und muss gefahren werden; 'optional' ist ein Abstecher zu einem
+ * vorgeschlagenen Ziel und lässt sich streichen.
+ */
+type Abschnitt = { art: 'pflicht' | 'optional'; punkte: LngLat[] };
+
 type TagRoute = {
   datum: string;
   art: 'strasse' | 'luftlinie';
   grund?: string;
   km: number;
   fahrzeitMin: number;
+  /** Davon unvermeidbar: die direkte Fahrt von Start zu Ziel. */
+  pflichtKm: number;
   planKm: number | null;
   wegpunkte: number;
-  geometrie: LngLat[];
+  abschnitte: Abschnitt[];
 };
 
 function luftlinie(datum: string, punkte: Pos[], planKm: number | null, grund: string): TagRoute {
@@ -277,9 +400,11 @@ function luftlinie(datum: string, punkte: Pos[], planKm: number | null, grund: s
     grund,
     km: Number(km.toFixed(1)),
     fahrzeitMin: 0,
+    // Ohne echte Route lässt sich Pflicht nicht von Kür trennen.
+    pflichtKm: 0,
     planKm,
     wegpunkte: punkte.length,
-    geometrie,
+    abschnitte: [{ art: 'optional', punkte: geometrie }],
   };
 }
 
@@ -393,14 +518,48 @@ async function main() {
     const km = Number(trip.summary.length.toFixed(1));
     const fahrzeitMin = Math.round(trip.summary.time / 60);
 
+    /*
+      Zweiter Lauf: die direkte Etappe von Start zu Ziel, ohne die
+      vorgeschlagenen Ziele. Sie ist der Massstab dafür, was an diesem Tag
+      unvermeidbar ist. An einem Standtag fallen Start und Ziel zusammen —
+      dann gibt es keine Pflichtstrecke und der ganze Tag ist Kür.
+    */
+    const vonPunkt = punkte[0]!;
+    const nachPunkt = punkte[punkte.length - 1]!;
+    let direkt: LngLat[] = [];
+    if (distanzM(vonPunkt, nachPunkt) > 200) {
+      const direktAntwort = await route([vonPunkt, nachPunkt]);
+      const direktTrip = direktAntwort?.trip;
+      if (direktTrip) {
+        direkt = runden(
+          vereinfachen(
+            direktTrip.legs.flatMap((leg, i) => {
+              const form = polylineDekodieren(leg.shape);
+              return i === 0 ? form : form.slice(1);
+            }),
+            VEREINFACHUNG_M,
+          ),
+        );
+      }
+    }
+
+    const abschnitte = abschnitteBilden(geometrie, direkt);
+    const pflichtKm = Number(
+      abschnitte
+        .filter((a) => a.art === 'pflicht')
+        .reduce((n, a) => n + laengeKm(a.punkte), 0)
+        .toFixed(1),
+    );
+
     ergebnisse.push({
       datum: tag.datum,
       art: 'strasse',
       km,
       fahrzeitMin,
+      pflichtKm,
       planKm,
       wegpunkte: punkte.length,
-      geometrie,
+      abschnitte,
     });
     gespart.roh += roh.length;
     gespart.schlank += geometrie.length;
@@ -428,7 +587,7 @@ async function main() {
     if (hinweis.length) pruefung.push(`${tag.datum}: ${hinweis.join(' · ')}`);
 
     console.log(
-      `  ${tag.datum}  ${km} km · ${Math.floor(fahrzeitMin / 60)} h ${fahrzeitMin % 60} min · ${punkte.length} Wegpunkte${planKm ? ` (Plan: ${planKm} km)` : ''}`,
+      `  ${tag.datum}  ${km} km (${pflichtKm} Pflicht, ${Math.round((km - pflichtKm) * 10) / 10} Kür) · ${Math.floor(fahrzeitMin / 60)} h ${fahrzeitMin % 60} min · ${abschnitte.length} Abschnitte`,
     );
   }
 

@@ -32,11 +32,13 @@ export const PosMetaSchema = z.object({
 });
 export type PosMeta = z.infer<typeof PosMetaSchema>;
 
+/** Die Zahlen des Veranstalters zu einer Wanderung — Freitext, wie geliefert. */
 export const WanderungSchema = z.object({
   gehzeit: z.string().optional(),
   hoehenmeter: z.string().optional(),
   distanz: z.string().optional(),
 });
+export type Wanderung = z.infer<typeof WanderungSchema>;
 
 /**
  * Recherchierter Hintergrundtext zu einem Stopp. Kommt aus der deutschen
@@ -204,11 +206,29 @@ export const TagRouteSchema = z.object({
   grund: z.string().optional(),
   km: z.number().nonnegative(),
   fahrzeitMin: z.number().int().nonnegative(),
+  /**
+   * Davon unvermeidbar: die direkte Fahrt von Start zu Ziel. An einem
+   * Standtag ist das 0 — man schläft zweimal im selben Bett, also muss man
+   * gar nichts fahren.
+   */
+  pflichtKm: z.number().nonnegative(),
   /** Die direkte Etappe aus dem Reiseplan — ohne Abstecher. */
   planKm: z.number().nullable(),
   wegpunkte: z.number().int().nonnegative(),
-  /** [lon, lat] wie in GeoJSON, nicht wie `pos`. */
-  geometrie: z.array(z.tuple([z.number(), z.number()])).min(2),
+  /**
+   * Die Route in Abschnitten. 'pflicht' liegt auf der direkten Etappe,
+   * 'optional' ist ein Abstecher zu einem vorgeschlagenen Ziel. Benachbarte
+   * Abschnitte teilen sich ihren Grenzpunkt, damit keine Lücke klafft.
+   * Koordinaten als [lon, lat] wie in GeoJSON, nicht wie `pos`.
+   */
+  abschnitte: z
+    .array(
+      z.object({
+        art: z.enum(['pflicht', 'optional']),
+        punkte: z.array(z.tuple([z.number(), z.number()])).min(2),
+      }),
+    )
+    .min(1),
 });
 export type TagRoute = z.infer<typeof TagRouteSchema>;
 

@@ -3,8 +3,9 @@
 import { useMapStore } from '@/store/mapStore';
 import { alleStopps, datumKurz, unterkunftNach } from '@/lib/reise';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
+import { kategorieFarbe } from '@/map/icons';
 import { formatKoordinate } from '@/lib/geo';
-import type { Wissen } from '@/lib/schema';
+import type { Unterkunft, Wanderung, Wissen } from '@/lib/schema';
 
 export function ContextSheet() {
   const auswahl = useMapStore((s) => s.auswahl);
@@ -16,6 +17,9 @@ export function ContextSheet() {
   let unter = '';
   let text = '';
   let wissen: Wissen | null = null;
+  let wanderung: Wanderung | null = null;
+  let haus: Unterkunft | null = null;
+  let punkt: string | null = null;
 
   if (auswahl.art === 'stopp') {
     const ref = alleStopps.find((s) => s.id === auswahl.id);
@@ -24,14 +28,18 @@ export function ContextSheet() {
     unter = `${datumKurz(ref.datum)} · ${KATEGORIE_LABEL[kategorieVon(ref.stopp)]}`;
     text = ref.stopp.text;
     wissen = ref.stopp.wissen ?? null;
+    wanderung = ref.stopp.wanderung ?? null;
+    punkt = kategorieFarbe(kategorieVon(ref.stopp));
   }
 
   if (auswahl.art === 'unterkunft') {
     const u = unterkunftNach(auswahl.id);
     if (!u) return null;
+    haus = u;
     titel = u.name;
-    unter = `Unterkunft · ${datumKurz(u.von)}–${datumKurz(u.bis)} · ${u.naechte} Nächte`;
+    unter = 'Übernachtung';
     text = u.beschreibung;
+    punkt = kategorieFarbe('unterkunft');
   }
 
   if (auswahl.art === 'ort') {
@@ -56,7 +64,18 @@ export function ContextSheet() {
 
       <div className="flex items-start gap-3">
         <div className="min-w-0 flex-1">
-          <p className="text-[11px] text-slate-500">{unter}</p>
+          <p className="flex items-center gap-1.5 text-[11px] text-slate-500">
+            {/* Derselbe Farbton wie das Symbol auf der Karte — das Blatt und
+                der Marker sollen erkennbar dasselbe Ding sein. */}
+            {punkt && (
+              <span
+                aria-hidden
+                className="inline-block h-2 w-2 shrink-0 rounded-full"
+                style={{ backgroundColor: punkt }}
+              />
+            )}
+            {unter}
+          </p>
           <h2 className="mt-0.5 text-lg font-semibold leading-tight text-slate-900">{titel}</h2>
         </div>
         {/* 44 px Trefferfläche — der Rahmen ist unsichtbar, das Kreuz bleibt klein. */}
@@ -72,6 +91,58 @@ export function ContextSheet() {
           </svg>
         </button>
       </div>
+
+      {/*
+        Wo man schläft und wie lange ist die wichtigste Angabe des Tages —
+        deshalb steht sie ganz oben und in Zahlen, nicht in einem Nebensatz.
+      */}
+      {haus && (
+        <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-1 rounded-lg bg-rose-50 px-3 py-2.5 ring-1 ring-rose-100">
+          <span className="text-2xl font-semibold leading-none text-rose-700 tabular-nums">
+            {haus.naechte}
+          </span>
+          <span className="text-sm text-rose-900">
+            {haus.naechte === 1 ? 'Nacht' : 'Nächte'}
+            <span className="block text-[11px] text-rose-700/80">
+              {datumKurz(haus.von)} – {datumKurz(haus.bis)} · {haus.verpflegung}
+            </span>
+          </span>
+          <span className="ml-auto text-[11px] text-rose-700/80">{haus.ort}</span>
+        </div>
+      )}
+
+      {/*
+        Zu Fuss statt im Auto. Der Verlauf des Wanderwegs steht in keiner
+        Quelle dieses Projekts und wird deshalb nicht gezeichnet — die Zahlen
+        des Veranstalters stehen dafür vollständig hier.
+      */}
+      {wanderung && (
+        <div className="mt-3 rounded-lg bg-green-50 px-3 py-2.5 ring-1 ring-green-100">
+          <p className="text-[11px] font-semibold uppercase tracking-wide text-green-800">
+            Zu Fuß
+          </p>
+          <dl className="mt-1.5 flex flex-wrap gap-x-5 gap-y-1 text-sm text-green-900">
+            {wanderung.gehzeit && (
+              <div>
+                <dt className="inline text-[11px] text-green-700/80">Gehzeit </dt>
+                <dd className="inline font-medium">{wanderung.gehzeit}</dd>
+              </div>
+            )}
+            {wanderung.distanz && (
+              <div>
+                <dt className="inline text-[11px] text-green-700/80">Strecke </dt>
+                <dd className="inline font-medium">{wanderung.distanz}</dd>
+              </div>
+            )}
+            {wanderung.hoehenmeter && (
+              <div>
+                <dt className="inline text-[11px] text-green-700/80">Anstieg </dt>
+                <dd className="inline font-medium">{wanderung.hoehenmeter}</dd>
+              </div>
+            )}
+          </dl>
+        </div>
+      )}
 
       {text && <p className="mt-3 text-sm leading-relaxed text-slate-700">{text}</p>}
 

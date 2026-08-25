@@ -144,9 +144,18 @@ Position. 69 von 128 Stopps haben Text; die übrigen stehen mit Begründung in
   Ziehgriff, ab `sm:` die Spalte rechts. Zeigt Veranstaltertext und, wenn
   vorhanden, den Wikipedia-Hintergrund mit Quelle, Link und Prüfdatum.
 - **Klick auf leere Karte** → Koordinate und Reisetag im Kontextblatt.
-- **Routenlinien**: gefahrene Straßenrouten aus `data/route.json`, ein Segment
-  je Tag, durchgehend verkettet. Tage ohne saubere Route werden gestrichelt
-  gezeichnet und als Luftlinie gekennzeichnet.
+- **Routenlinien**: gefahrene Straßenrouten aus `data/route.json`, durchgehend
+  verkettet. Durchgezogen = Pflichtstrecke, gepunktet = Abstecher, grau
+  gestrichelt = Luftlinie ohne saubere Route. Pfeile zeigen die Fahrtrichtung.
+  Farbe trägt **nur der gewählte Tag** — fünfzehn bunte Linien gleichzeitig
+  sind Konfetti, in dem die Farbcodierung nichts mehr aussagt.
+- **Legende**: erklärt Linienarten, Tagesfarben und Marker. Ohne sie ist jede
+  Farbcodierung Dekoration.
+- **Marker**: eine Farbe je Zielart, damit sich sechzehn Arten auf Markergröße
+  unterscheiden. Die Unterkunft hat eine eigene Silhouette und trägt die
+  **Anzahl der Nächte als Zahl** — das ist die wichtigste Angabe des Tages.
+  Stopps mit Wanderung tragen ein Abzeichen; der Wegverlauf wird nicht
+  gezeichnet, weil er in keiner Quelle dieses Projekts steht.
 - **Relief**: Schalter, der die Schummerung zuschaltet und dabei erst das DEM
   lädt.
 - Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar, reload-fest.

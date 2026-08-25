@@ -48,6 +48,7 @@ Layer-Ausdrücke, verdeckte Bedienelemente.
 |---|---|
 | Klick auf einen Tag | Kameraflug auf die Etappe |
 | `Relief` | Schummerung an/aus — lädt das DEM erst dann |
+| `Legende` | erklärt Linienarten, Tagesfarben und Marker |
 | `←` / `→` | Tag zurück / vor |
 | Klick auf einen Stopp | Kontextblatt (auf dem Handy unten, sonst rechts) |
 | Klick auf leere Karte | Koordinate im Kontextblatt |
@@ -90,18 +91,53 @@ Die beiden Alternativen wurden geprüft und verworfen:
 Nicht `demotiles.maplibre.org`: dessen Kachelsatz deckt nur einen Ausschnitt
 der Alpen ab und liefert über Island nichts.
 
-**Die Route liegt auf echten Straßen** und ist durchgehend. Ein Segment je Tag,
-aber jedes beginnt beim Endpunkt des Vortags, sodass keine Lücke entsteht. Alle
-Tage sind immer sichtbar; der gewählte Tag ist nur breiter und kräftiger. Die
-Farbe steht für die Art des Tages (Anreise, Standtag, Tagesausflug, Etappe,
-Abreise) — Information, keine Dekoration. Details: [Routing](#routing).
+**Die Route liegt auf echten Straßen** und ist durchgehend: jeder Tag beginnt
+beim Endpunkt des Vortags. Sie sagt vier Dinge gleichzeitig:
 
-**Symbole statt Punkte.** Jeder Stopp bekommt ein Piktogramm für seine Art:
-Wasserfall, heiße Quelle, Vulkan, Gletscher, Schlucht, Höhle, Strand, Berg,
-See, Tiere, Museum, Historie, Wanderung, Ort, unterwegs, Unterkunft. Die
-Symbole werden zur Laufzeit auf ein Canvas gezeichnet — kein Sprite, kein
-weiterer Netzaufruf — und sitzen auf einer schattierten Platte, damit sie über
-der Karte als Objekte lesbar sind.
+| Zeichen | Bedeutung |
+|---|---|
+| Durchgezogen | **Pflichtstrecke** — so kommt man abends ins Bett |
+| Gepunktet | **Abstecher** zu einem vorgeschlagenen Ziel, kann man weglassen |
+| Grau gestrichelt | **Luftlinie** — nicht sauber routbar, keine Fahrempfehlung |
+| Pfeile | **Fahrtrichtung** |
+
+**Farbe trägt nur der gewählte Tag.** Sie steht für die Art des Tages (Anreise,
+Standtag, Tagesausflug, Etappe, Abreise) — aber fünfzehn bunte Linien
+gleichzeitig sind Konfetti, in dem die Farbe nichts mehr bedeutet. Die übrigen
+Tage bleiben neutral grau als Zusammenhang stehen, und der Tagesstreifen nennt
+die Art des gewählten Tages im Klartext neben seinem Farbpunkt. Der Schalter
+**Legende** erklärt die ganze Zeichensprache.
+
+Details: [Routing](#routing).
+
+**Symbole statt Punkte, und jede Art in ihrer Farbe.** Jeder Stopp bekommt ein
+Piktogramm für seine Art — Wasserfall, heiße Quelle, Vulkan, Gletscher,
+Schlucht, Höhle, Strand, Berg, See, Tiere, Museum, Kirche, Wanderung, Ort,
+unterwegs. Sechzehn Piktogramme in identischem Grau sind auf Markergröße nicht
+auseinanderzuhalten; deshalb trägt jede Art ihren Farbton, und die Zuordnung
+ist nicht dekorativ: Wasser blau, Vulkanisches rot, Eis kühl und hell,
+Gebautes warmgrau, Grün für Lebendiges. Der farbige Ring trägt die
+Unterscheidung auch dann noch, wenn das Piktogramm zu klein zum Entziffern ist.
+Gezeichnet wird zur Laufzeit auf ein Canvas — kein Sprite, kein weiterer
+Netzaufruf.
+
+**Die Unterkunft ist die Ausnahme.** Wo man schläft und wie lange ist die
+wichtigste Angabe des Tages, also bekommt sie eine eigene Silhouette: ein
+rotes abgerundetes Rechteck mit Bett **und der Anzahl der Nächte als Zahl**.
+Schon die Form unterscheidet sie von jedem Ziel, auch stark verkleinert. Das
+Kontextblatt wiederholt die Zahl groß, mit Zeitraum und Verpflegung.
+
+**Wandern ist keine Zielart, sondern eine Eigenschaft.** Dettifoss bleibt ein
+Wasserfall, auch wenn man 2,8 km hinläuft. Die 16 Stopps mit Wanderung tragen
+deshalb ein grünes Abzeichen neben ihrem Symbol; Gehzeit, Strecke und Anstieg
+stehen im Kontextblatt, die Summe der Gehzeiten im Tagesstreifen.
+
+**Was die Karte nicht zeigt: den Verlauf der Wanderwege.** Der steht in keiner
+Quelle dieses Projekts. Der Reiseplan liefert Gehzeit, Distanz und Höhenmeter,
+aber keine Geometrie, und wo der Weg vom Parkplatz aus langführt, ließe sich
+nur raten. Ein erfundener Pfad auf einer Karte, die sonst jede Position belegt,
+wäre der schlechteste Tausch. Gefahren wird auf der Route, gelaufen wird an den
+markierten Zielen.
 
 Echte 3D-Modelle (glTF) kann MapLibre nicht von sich aus: das wäre ein
 three.js- oder deck.gl-Custom-Layer, also ein zweiter Renderer im Bundle. Für
@@ -203,6 +239,14 @@ Weiter gilt:
   Marker bleiben diese Stopps natürlich auf der Karte.
 - Wegpunkte, die weiter als 2 km auf eine Straße gezogen werden, fliegen raus
   und der Tag wird neu geroutet.
+- **Pflicht und Kür werden getrennt.** Jeder Tag wird zweimal geroutet: einmal
+  direkt von Start zu Ziel — die Strecke, die man fahren *muss* — und einmal
+  über die vorgeschlagenen Ziele. Wo die zweite Route auf der ersten liegt, ist
+  sie Pflicht; wo sie abzweigt, ist sie ein Abstecher. Die Karte zeichnet
+  beides verschieden, die Kilometer stehen getrennt in `route.json`. An einem
+  Standtag beginnt und endet der Tag an derselben Unterkunft — dann gibt es
+  keine Pflichtstrecke und der ganze Tag ist Kür. Das ist keine Lücke, sondern
+  die Aussage.
 - Ein Tag, der nicht sauber gelingt, fällt auf die Luftlinie zurück **und wird
   als solche gekennzeichnet**: gestrichelte Linie, „Luftlinie" im
   Tagesstreifen, Begründung in `route.json`. Eine falsche Straßenroute

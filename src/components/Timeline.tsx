@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import { useMapStore } from '@/store/mapStore';
-import { datumKurz, TAG_FARBE, TAG_LABEL, tage } from '@/lib/reise';
+import { datumKurz, gehzeitTag, TAG_FARBE, TAG_LABEL, tage } from '@/lib/reise';
 import { routeNach } from '@/lib/route';
 
 /**
@@ -22,6 +22,7 @@ export function Timeline() {
   const setTag = useMapStore((s) => s.setTag);
   const aktiv = tage.find((t) => t.datum === tagDatum);
   const gefahren = routeNach(tagDatum);
+  const gehzeit = gehzeitTag(tagDatum);
   const aktivRef = useRef<HTMLButtonElement>(null);
   const leiste = useRef<HTMLDivElement>(null);
 
@@ -97,23 +98,56 @@ export function Timeline() {
         </ol>
         {aktiv && (
           <div
-            className="flex items-baseline justify-center gap-1.5 px-3 pb-2 pt-1 text-xs text-slate-600 sm:px-1 sm:pb-0 sm:text-[11px]"
+            className="px-3 pb-2 pt-1 text-xs text-slate-600 sm:px-1 sm:pb-0 sm:text-[11px]"
             data-testid="tagestitel"
           >
-            <span className="truncate">{aktiv.titel}</span>
+            <p className="flex items-baseline justify-center gap-1.5">
+              {/*
+                Die Tagesart benennen, nicht nur einfärben. Die Farbe der Route
+                steht für genau das — ohne Wort daneben bleibt sie Dekoration.
+              */}
+              <span
+                aria-hidden
+                className="inline-block h-2 w-2 shrink-0 translate-y-px rounded-full"
+                style={{ backgroundColor: TAG_FARBE[aktiv.typ] }}
+              />
+              <span className="shrink-0 font-medium text-slate-700">{TAG_LABEL[aktiv.typ]}</span>
+              <span className="truncate text-slate-500">{aktiv.titel}</span>
+            </p>
             {/*
               Die gefahrenen Kilometer, nicht die des Reiseplans: `etappe.km`
               ist die direkte Fahrt von A nach B, die Route fährt zusätzlich
-              die vorgeschlagenen Ziele an. Die Zahl wird nie abgeschnitten —
-              sie ist der Grund, warum hier überhaupt eine Zeile steht.
+              die vorgeschlagenen Ziele an. Getrennt nach dem, was man fahren
+              muss, und dem, was man sich aussuchen kann — plus die Zeit, die
+              gar nicht im Auto vergeht.
             */}
-            {gefahren && (
-              <span className="shrink-0 whitespace-nowrap tabular-nums text-slate-500">
-                {gefahren.art === 'strasse'
-                  ? `· ${Math.round(gefahren.km)} km · ${Math.floor(gefahren.fahrzeitMin / 60)} h ${gefahren.fahrzeitMin % 60} min`
-                  : '· Luftlinie'}
-              </span>
-            )}
+            <p className="mt-0.5 flex flex-wrap items-baseline justify-center gap-x-2 whitespace-nowrap tabular-nums text-slate-500">
+              {gefahren?.art === 'strasse' ? (
+                <>
+                  <span className="font-medium text-slate-700">
+                    {Math.round(gefahren.km)} km
+                  </span>
+                  <span>
+                    {Math.floor(gefahren.fahrzeitMin / 60)} h {gefahren.fahrzeitMin % 60} min
+                  </span>
+                  {gefahren.pflichtKm > 0 ? (
+                    <span title="Auf der direkten Etappe · Abstecher">
+                      {Math.round(gefahren.pflichtKm)} Pflicht ·{' '}
+                      {Math.round(gefahren.km - gefahren.pflichtKm)} Kür
+                    </span>
+                  ) : (
+                    <span title="Start und Ziel sind dieselbe Unterkunft">alles freiwillig</span>
+                  )}
+                </>
+              ) : (
+                gefahren && <span>Luftlinie — nicht sauber routbar</span>
+              )}
+              {gehzeit > 0 && (
+                <span className="text-green-700">
+                  {Math.floor(gehzeit / 60)} h {gehzeit % 60} min zu Fuß
+                </span>
+              )}
+            </p>
           </div>
         )}
       </div>

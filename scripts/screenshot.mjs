@@ -48,7 +48,17 @@ await seite.goto(process.env.URL ?? 'http://127.0.0.1:3210/?tag=2026-08-31');
 await seite.waitForTimeout(12_000);
 
 const zustand = await seite.evaluate(() => ({
-  layer: ['route-linie', 'stopp-symbol', 'stopp-label', 'ort-symbol', 'relief'].filter(
+  layer: [
+    'route-linie',
+    'route-wahlweise',
+    'route-luftlinie',
+    'route-pfeil',
+    'stopp-symbol',
+    'stopp-wanderung',
+    'stopp-label',
+    'ort-symbol',
+    'relief',
+  ].filter(
     (id) => window.__islandKarte?.getLayer(id) != null,
   ),
   terrain: window.__islandKarte?.getTerrain() != null,

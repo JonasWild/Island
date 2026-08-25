@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { kategorieVon, KATEGORIE_LABEL, type Kategorie } from '@/lib/kategorie';
 import { routeFeatures, stoppFeatures } from '@/map/layers';
 import { alleStopps, tage, unterkuenfte } from '@/lib/reise';
-import { route, routeNach } from '@/lib/route';
+import { geometrieVon, route, routeNach } from '@/lib/route';
 
 const stopp = (name: string) => ({ name, wanderung: undefined });
 
@@ -77,21 +77,28 @@ describe('Kartenquellen', () => {
   });
 
   it('folgt echten Straßen statt der Luftlinie', () => {
-    // Eine Luftlinie zwischen Stopps hätte so viele Stützpunkte wie Stopps.
-    // Eine gefahrene Route hat sehr viel mehr.
+    // Eine Luftlinie zwischen Stopps hätte je Tag so viele Stützpunkte wie
+    // Stopps. Eine gefahrene Route hat sehr viel mehr.
+    for (const tag of tage) {
+      const punkte = routeFeatures()
+        .features.filter((f) => f.properties?.datum === tag.datum && f.properties?.art !== 'luftlinie')
+        .reduce((n, f) => n + f.geometry.coordinates.length, 0);
+      if (punkte === 0) continue;
+      expect(punkte, tag.datum).toBeGreaterThan(tag.highlights.length * 5);
+    }
+  });
+
+  it('kennzeichnet jedes Segment als Pflicht, Kür oder Luftlinie', () => {
     for (const f of routeFeatures().features) {
-      if (f.properties?.art !== 'strasse') continue;
-      const tag = tage.find((t) => t.datum === f.properties!.datum)!;
-      expect(f.geometry.coordinates.length, tag.datum).toBeGreaterThan(
-        tag.highlights.length * 5,
+      expect(['pflicht', 'optional', 'luftlinie'], f.properties?.datum).toContain(
+        f.properties?.art,
       );
     }
   });
 
-  it('kennzeichnet jedes Segment als Straße oder Luftlinie', () => {
-    for (const f of routeFeatures().features) {
-      expect(['strasse', 'luftlinie'], f.properties?.datum).toContain(f.properties?.art);
-    }
+  it('gibt jedem Tag mindestens ein Segment', () => {
+    const daten = new Set(routeFeatures().features.map((f) => f.properties?.datum));
+    for (const t of tage) expect(daten.has(t.datum), t.datum).toBe(true);
   });
 });
 
@@ -103,10 +110,34 @@ describe('Route aus der Build-Zeit-Pipeline', () => {
   it('hält die Kette über alle Tage geschlossen', () => {
     // Jeder Tag beginnt beim letzten Punkt des Vortags — die Pipeline routet so.
     for (let i = 1; i < route.tage.length; i++) {
-      const vorher = route.tage[i - 1]!.geometrie;
-      expect(route.tage[i]!.geometrie[0], route.tage[i]!.datum).toEqual(
+      const vorher = geometrieVon(route.tage[i - 1]!);
+      expect(geometrieVon(route.tage[i]!)[0], route.tage[i]!.datum).toEqual(
         vorher[vorher.length - 1],
       );
+    }
+  });
+
+  it('lässt zwischen den Abschnitten eines Tages keine Lücke', () => {
+    // Benachbarte Abschnitte teilen sich ihren Grenzpunkt — sonst klafft in
+    // der Karte an jedem Wechsel von Pflicht auf Kür ein Loch.
+    for (const tag of route.tage) {
+      for (let i = 1; i < tag.abschnitte.length; i++) {
+        const vorher = tag.abschnitte[i - 1]!.punkte;
+        expect(tag.abschnitte[i]!.punkte[0], `${tag.datum} Abschnitt ${i}`).toEqual(
+          vorher[vorher.length - 1],
+        );
+      }
+    }
+  });
+
+  it('trennt Pflicht von Kür — und nur wo es eine Pflicht gibt', () => {
+    for (const tag of route.tage) {
+      if (tag.art !== 'strasse') continue;
+      expect(tag.pflichtKm, tag.datum).toBeLessThanOrEqual(tag.km + 1);
+      const hatPflicht = tag.abschnitte.some((a) => a.art === 'pflicht');
+      // An einem Standtag fallen Start und Ziel zusammen: keine Pflichtstrecke,
+      // der ganze Tag ist Kür. Das ist die Aussage, keine Lücke.
+      expect(hatPflicht, tag.datum).toBe(tag.pflichtKm > 0);
     }
   });
 
@@ -119,7 +150,7 @@ describe('Route aus der Build-Zeit-Pipeline', () => {
 
   it('bleibt mit allen Stützpunkten im Umgriff Islands', () => {
     for (const t of route.tage) {
-      for (const [lon, lat] of t.geometrie) {
+      for (const [lon, lat] of geometrieVon(t)) {
         expect(lat, t.datum).toBeGreaterThan(63);
         expect(lat, t.datum).toBeLessThan(67);
         expect(lon, t.datum).toBeGreaterThan(-25);
@@ -130,7 +161,7 @@ describe('Route aus der Build-Zeit-Pipeline', () => {
 
   it('bleibt klein genug für den Client', () => {
     // Ungefiltert liefert der Router rund 53 000 Stützpunkte und 1,2 MB.
-    const punkte = route.tage.reduce((n, t) => n + t.geometrie.length, 0);
+    const punkte = route.tage.reduce((n, t) => n + geometrieVon(t).length, 0);
     expect(punkte).toBeLessThan(12_000);
   });
 });

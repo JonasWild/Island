@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { Timeline } from './Timeline';
 import { ContextSheet } from './ContextSheet';
+import { Legende } from './Legende';
 import { useMapStore } from '@/store/mapStore';
 import { useDeepLink } from '@/hooks/useDeepLink';
 import { useTastatur } from '@/hooks/useTastatur';
@@ -66,6 +67,7 @@ export function Karte() {
         >
           Relief
         </button>
+        <Legende />
       </div>
       <ContextSheet />
       <Timeline />
