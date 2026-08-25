@@ -13,11 +13,6 @@ pnpm install
 pnpm dev            # http://localhost:3000
 ```
 
-Ohne `OPENAI_API_KEY` läuft die App vollständig, antwortet aber mit festen
-Beispieltexten — und sagt das im Kontextblatt und in der Server-Konsole
-deutlich. Für echte Antworten den Schlüssel in `.env.local` setzen
-(siehe `.env.example`). Einen Modus-Schalter gibt es nicht.
-
 | Befehl | Wirkung |
 |---|---|
 | `pnpm dev` | Entwicklungsserver |
@@ -38,7 +33,7 @@ E2E-Tests den Pfad:
 | Klick auf einen Tag | Kameraflug auf die Etappe |
 | `←` / `→` | Tag zurück / vor |
 | Klick auf einen Stopp | Kontextblatt rechts |
-| Klick auf leere Karte | „Was ist hier?" ans Modell, mit Koordinate, Reisetag und nächstem Stopp |
+| Klick auf leere Karte | Koordinate im Kontextblatt |
 | `Esc` | schließt das Kontextblatt |
 
 Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar und reload-fest.
@@ -112,39 +107,12 @@ Bereich, keiner ohne Position. 22 stehen zusätzlich in `offen.json` zur
 manuellen Klärung. Korrekturen und die geklärten Streitfälle aus den PDFs:
 [`DATENSTAND.md`](./DATENSTAND.md).
 
-## LLM
-
-Alles serverseitig in `app/api/ask/route.ts`, Node-Runtime, SSE-Stream. Der
-Schlüssel kommt nie in den Client.
-
-Der Kontext stammt ausschließlich aus `reise.json`: Reisetag, Etappe,
-Unterkunft, Koordinate, Veranstaltertext, nächstgelegene Stopps. Das
-Antwortformat ist eng geführt — höchstens sechs Punkte, Zahlen wenn vorhanden,
-Unsicherheit benennen, für Vulkane und Straßen auf safetravel.is, vedur.is und
-road.is verweisen.
-
-Ist `OPENAI_API_KEY` gesetzt, läuft der echte Aufruf über `ChatOpenAI`. Fehlt
-er, antwortet ein fester Beispieltext, die Server-Konsole schreibt eine
-Warnung, und das Kontextblatt sagt es dem Leser direkt.
-
-**Bekannte Einschränkung:** Streaming zusammen mit dem eingebauten
-`web_search`-Tool der Responses-API ist in LangChain JS fehleranfällig
-([langchainjs#8283](https://github.com/langchain-ai/langchainjs/issues/8283)).
-Der Adapter geht deshalb zwei Wege — mit `LLM_WEB_SEARCH=1` (Standard) per
-`invoke()` und serverseitigem Nachstreamen, mit `LLM_WEB_SEARCH=0` per echtem
-Token-Streaming ohne Suche. Schlägt der Suchpfad fehl, wiederholt er ohne
-Suche. Der Client sieht in beiden Fällen dieselben SSE-Ereignisse. Verifiziert
-ist der Suchpfad nicht — dafür fehlt ein Schlüssel.
-
-Rate Limit: 10 Anfragen pro IP und Minute, im Prozessspeicher. Auf Vercel gilt
-das je Instanz, nicht global; als Kostenbremse reicht das.
-
 ## Vercel
 
 Framework-Preset Next.js, Region `fra1`, Production auf `main`, Preview pro
-Branch. Env: `OPENAI_API_KEY`, `OPENAI_MODEL`, optional `LLM_WEB_SEARCH`.
-Die CSP in `next.config.ts` öffnet gezielt nur `tiles.openfreemap.org` und
-`s3.amazonaws.com`; alles andere bleibt zu.
+Branch. Die App braucht keine Umgebungsvariablen — es gibt kein Geheimnis
+mehr zu verwalten. Die CSP in `next.config.ts` öffnet gezielt nur
+`tiles.openfreemap.org` und `s3.amazonaws.com`; alles andere bleibt zu.
 
 ## Nicht enthalten
 

@@ -4,20 +4,16 @@ import { useMapStore } from '@/store/mapStore';
 import { alleStopps, datumKurz, unterkunftNach } from '@/lib/reise';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
 import { formatKoordinate } from '@/lib/geo';
-import type { Frage } from '@/lib/llm/types';
-import { AskPanel } from './AskPanel';
 
 export function ContextSheet() {
   const auswahl = useMapStore((s) => s.auswahl);
   const schliesse = useMapStore((s) => s.schliesse);
-  const tagDatum = useMapStore((s) => s.tagDatum);
 
   if (auswahl.art === 'keine') return null;
 
   let titel = '';
   let unter = '';
   let text = '';
-  let frage: Frage | null = null;
 
   if (auswahl.art === 'stopp') {
     const ref = alleStopps.find((s) => s.id === auswahl.id);
@@ -25,7 +21,6 @@ export function ContextSheet() {
     titel = ref.stopp.name;
     unter = `${datumKurz(ref.datum)} · ${KATEGORIE_LABEL[kategorieVon(ref.stopp)]}`;
     text = ref.stopp.text;
-    frage = { art: 'stopp', stoppId: auswahl.id, tagDatum: ref.datum };
   }
 
   if (auswahl.art === 'unterkunft') {
@@ -39,7 +34,6 @@ export function ContextSheet() {
   if (auswahl.art === 'ort') {
     titel = 'Was ist hier?';
     unter = formatKoordinate(auswahl.pos);
-    frage = { art: 'ort', pos: auswahl.pos, tagDatum };
   }
 
   return (
@@ -65,8 +59,6 @@ export function ContextSheet() {
       </div>
 
       {text && <p className="mt-3 text-sm leading-relaxed text-slate-700">{text}</p>}
-
-      {frage && <AskPanel frage={frage} />}
     </aside>
   );
 }

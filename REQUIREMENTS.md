@@ -46,9 +46,8 @@ Basiskarte: MapLibre-Demo-Style oder OpenFreeMap (kostenlos, kein Key).
 - **@watergis/maplibre-gl-terradraw** (Terra Draw)
 - **Tailwind CSS v4** — nur Tokens + Utilities, keine Komponenten-Bibliothek
 - **Zustand** für Kartenzustand (Tag, Stopp, Kameramodus, Zeichnung)
-- **@langchain/openai** + **@langchain/core** — ausschließlich serverseitig
 - **Zod** — Schema für `reise.json`, validiert beim Build
-- **Vitest** + **Playwright** (Smoke: Karte lädt, Marker klickbar, Stream kommt an)
+- **Vitest** + **Playwright** (Smoke: Karte lädt, Marker klickbar, Tag wechselt)
 - **pnpm**, ESLint, Prettier
 - Deployment **Vercel**
 
@@ -83,10 +82,7 @@ Ferienhäuser (viatis.is) haben keine öffentliche Adresse → bleiben
   Stopps, Terrain sichtbar). Der Ersatz für jede Textliste.
 - **Stopps** als MapLibre-Symbol-Layer, nicht als DOM-Marker. Hover = Label +
   Höhenprofil-Tooltip, Klick = Kontextblatt am Kartenrand (max. 1/3 Breite).
-- **Klick auf leere Karte** → „Was ist hier?" an das LLM, mit Koordinate,
-  Reisetag und nächstgelegenem Stopp als Kontext.
-- **Zeichnen** (Terra Draw): Punkt / Route / Fläche. Eine Fläche ist eine Frage
-  an das LLM („Was liegt in diesem Gebiet?"). Persistenz in `localStorage`.
+- **Klick auf leere Karte** → Koordinate und Reisetag im Kontextblatt.
 - **Etappenlinien** als GeoJSON-Line-Layer, gestrichelt, klar als Schematik
   gelabelt — keine Navigationsroute. Echtes Routing erst, wenn ein
   Routing-Dienst dazukommt (v2, OSRM/Valhalla).
@@ -94,31 +90,11 @@ Ferienhäuser (viatis.is) haben keine öffentliche Adresse → bleiben
 - Tastatur: ←/→ Tag, Esc schließt, Leertaste Tour. Reduced-Motion respektieren.
 - Hell/dunkel über MapLibre-Style-Wechsel, nicht per CSS-Filter.
 
-## 6. LLM
-
-- **Nur serverseitig**: `app/api/ask/route.ts`, Streaming per SSE. Schlüssel als
-  Vercel-Env `OPENAI_API_KEY`, nie im Client.
-- `ChatOpenAI` aus `@langchain/openai`, Modell per Env (`OPENAI_MODEL`).
-- Live-Daten über das eingebaute `web_search`-Tool der Responses-API.
-  **Bekannte Einschränkung:** Streaming + `web_search` ist in LangChain JS
-  fehleranfällig (langchainjs#8283) → Fallback: Suchanfragen ohne Stream
-  beantworten, oder Tavily-Tool statt `web_search`. Vor dem Bau in einem
-  Spike prüfen.
-- **Zuerst Mock**: `LLM_MODE=mock` liefert deterministische, gestreamte
-  Beispielantworten aus Fixtures. Die ganze UI wird gegen den Mock gebaut und
-  getestet; der echte Aufruf ist ein Adapter-Tausch.
-- Prompt-Kontext kommt aus `reise.json`: Reisetag, Etappe, Unterkunft,
-  Koordinate, Veranstaltertext. Antwortformat: max. 6 Punkte, Zahlen wenn
-  vorhanden, Unsicherheit benennen.
-- Rate Limit pro IP, Antwortlänge begrenzt, Kosten pro Anfrage geloggt.
-- Jede Antwort sichtbar als LLM-Ausgabe markiert.
-
 ## 7. Vercel
 
 - Repo → Vercel-Projekt, Framework-Preset Next.js, Region `fra1`.
-- Env: `OPENAI_API_KEY`, `OPENAI_MODEL`, `LLM_MODE`, optional `TAVILY_API_KEY`.
+- Keine Umgebungsvariablen — die App hat keine Geheimnisse.
 - Preview-Deploy pro Branch, Production auf `main`.
-- Route Handler als Node-Runtime (LangChain-Kompatibilität vor Edge-Kaltstart).
 - Basiskarte/DEM extern → CSP `connect-src`/`img-src` entsprechend öffnen,
   sonst restriktiv.
 
@@ -130,9 +106,6 @@ Ferienhäuser (viatis.is) haben keine öffentliche Adresse → bleiben
 | 1 | MapLibre + Terrain + Stopps + Zeitachse | Karte trägt die Daten |
 | 2 | Kamera-Tour, Kontextblatt, Deep Links | navigierbar ohne Listen |
 | 3 | Geocoding-Pipeline, Näherungen ersetzt | belegte Positionen |
-| 4 | LLM gemockt, SSE-Stream, Kartenklick-Frage | UI fertig testbar |
-| 5 | LangChain echt + web_search-Spike | Live-Infos |
-| 6 | Terra Draw + Flächen-Frage | eigene Zeichnung als Kontext |
 
 v2, nicht jetzt: echtes Routing, Offline/Service Worker, Wetter- und
 Straßenzustand-Feeds (vedur.is, road.is), Fotos pro Stopp, deck.gl-Arcs.
