@@ -136,10 +136,17 @@ Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
 
 ## 5. Interaktion
 
-- **Tagesstreifen** unten: nach **Standzeiten** gegliedert — Zeiträumen
-  zwischen zwei Unterkünften, mit Quartier und Nächtezahl als Klammer. Die
-  Reise besteht aus sechs solchen Abschnitten, nicht aus fünfzehn
-  gleichrangigen Tagen. Tage farbcodiert nach Typ. Auf dem Handy
+- **Zeitstrahl** unten: eine durchgehende Achse, an der die Tage als Perlen
+  sitzen, gruppiert nach **Standzeiten** — Zeiträumen zwischen zwei
+  Unterkünften, mit Quartier und Nächtezahl als Klammer. Die Reise besteht aus
+  sechs solchen Abschnitten, nicht aus fünfzehn gleichrangigen Tagen. Jede
+  Perle trägt das Zeichen ihrer Tagesart in deren Farbe.
+- **Vorschau vor Detail**: ein Klick auf ein Kartensymbol öffnet eine kleine
+  Blase am Marker (Bild, Name, ein bis zwei Sätze), erst „Mehr" das
+  Kontextblatt. Der Blick auf „was ist das?" soll nicht das halbe Bild kosten.
+- **Die Kamera bewegt sich nur, wenn nötig**: ein Ziel, das frei im Bild
+  liegt, wird nicht herangeholt. Geprüft wird die freie Fläche, nicht der
+  Kartenausschnitt — die Kanten der eigenen Einbauten werden gemessen. Auf dem Handy
   horizontal scrollbar mit Snap, Ziele ab 44 px, der gewählte Tag zentriert
   sich selbst. Ab `sm:` die kompakte Pille. Klick = Kameraflug auf die Etappe.
   Das Wischen ist die native Scroll-Geste des Streifens; auf der Karte selbst

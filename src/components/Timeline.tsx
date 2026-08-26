@@ -3,22 +3,30 @@
 import { useEffect, useRef } from 'react';
 import { useMapStore } from '@/store/mapStore';
 import { datumKurz, gehzeitTag, TAG_FARBE, TAG_LABEL, tage } from '@/lib/reise';
-import { etappen, etappeName, etappeVon, nachtNummer } from '@/lib/etappe';
+import { etappen, etappeName } from '@/lib/etappe';
 import { routeNach } from '@/lib/route';
+import { TagSymbol } from './TagSymbol';
 
 /**
- * Der Reiseverlauf als strukturierter Zeitstrahl.
+ * Der Reiseverlauf als Zeitstrahl.
  *
- * Nicht fünfzehn gleichrangige Tage nebeneinander, sondern **sechs
- * Standzeiten**: Zeiträume zwischen zwei Unterkünften. Man packt einmal aus,
- * bleibt eine bis vier Nächte, packt wieder ein — daran hängt, was ein Tag
- * überhaupt sein kann. Jeder Block trägt deshalb den Namen seines Betts und
- * die Zahl der Nächte, die Tage sitzen darin.
+ * Eine durchgehende Achse, an der die Tage als Perlen sitzen — nicht eine
+ * Reihe unverbundener Kästchen. Gegliedert nach **Standzeiten**: Zeiträumen
+ * zwischen zwei Unterkünften. Man packt einmal aus, bleibt eine bis vier
+ * Nächte, packt wieder ein; daran hängt, was ein Tag überhaupt sein kann.
  *
- * Auf dem Handy scrollt der Streifen horizontal mit Snap: fünfzehn
- * Schaltflächen nebeneinander wären bei 390 px je 26 px breit. Die Ziele sind
- * mindestens 44 px breit, und der gewählte Tag rückt von selbst in den
- * sichtbaren Bereich.
+ * Jeder Tag trägt das Zeichen seiner Art (Anreise, Etappe, Standtag,
+ * Tagesausflug, Abreise) in der Farbe, die auf der Karte auch seine Route
+ * trägt. Damit sagt die Leiste ohne ein einziges Wort, wie der Tag aussieht:
+ * unterwegs oder vor Ort.
+ *
+ * Was hier **nicht** steht, steht im Tagesablauf: Pflicht- und Kür-Anteil, die
+ * wievielte Nacht es ist, die Reihenfolge der Ziele. Die Leiste beantwortet
+ * „wann und wie", nicht „was genau".
+ *
+ * Auf dem Handy scrollt sie waagerecht: fünfzehn Tage nebeneinander wären bei
+ * 390 px je 26 px breit. Die Ziele sind mindestens 44 px breit, und der
+ * gewählte Tag rückt von selbst in den sichtbaren Bereich.
  */
 export function Timeline() {
   const tagDatum = useMapStore((s) => s.tagDatum);
@@ -27,8 +35,6 @@ export function Timeline() {
   const aktiv = tage.find((t) => t.datum === tagDatum);
   const gefahren = routeNach(tagDatum);
   const gehzeit = gehzeitTag(tagDatum);
-  const etappe = etappeVon(tagDatum);
-  const nacht = nachtNummer(tagDatum);
   const aktivRef = useRef<HTMLButtonElement>(null);
   const leiste = useRef<HTMLDivElement>(null);
 
@@ -41,8 +47,9 @@ export function Timeline() {
 
   /*
     Der Streifen meldet seine eigene Höhe als CSS-Variable. Alles, was darüber
-    liegen muss — die eigenen Schalter, die Bedienelemente und die
-    Herkunftsangabe von MapLibre — rechnet damit, statt eine Zahl zu raten.
+    liegen muss — die eigenen Schalter, die Bedienelemente, die Herkunftsangabe
+    von MapLibre und die Kameraregel in `camera.ts` — rechnet damit, statt eine
+    Zahl zu raten.
   */
   useEffect(() => {
     const el = leiste.current;
@@ -58,58 +65,75 @@ export function Timeline() {
     };
   }, []);
 
+  const erste = etappen[0]!.id;
+  const letzte = etappen[etappen.length - 1]!.id;
+
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 sm:flex sm:justify-center sm:p-3">
       <div
         ref={leiste}
         data-testid="tagesstreifen"
-        className="pointer-events-auto bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-lg ring-1 ring-black/10 backdrop-blur sm:max-w-[calc(100vw-1.5rem)] sm:rounded-xl sm:pb-2"
+        className="pointer-events-auto bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-lg ring-1 ring-black/10 backdrop-blur sm:max-w-[calc(100vw-1.5rem)] sm:rounded-xl"
       >
-        <div
-          className="flex gap-2 overflow-x-auto px-3 pt-2 [scrollbar-width:none] sm:px-2 [&::-webkit-scrollbar]:hidden"
-          role="tablist"
-          aria-label="Reisetage"
-        >
-          {etappen.map((e) => {
-            const hierAktiv = e.tage.some((t) => t.datum === tagDatum);
-            return (
-              <section
-                key={e.id}
-                data-testid={`etappe-${e.id}`}
-                aria-label={`${etappeName(e)}, ${datumKurz(e.von)} bis ${datumKurz(e.bis)}`}
-                className={`shrink-0 rounded-lg px-1.5 pb-1 pt-1 transition ${
-                  hierAktiv ? 'bg-slate-100 ring-1 ring-slate-200' : 'bg-slate-50/60'
-                }`}
-              >
-                {/*
-                  Der Kopf des Blocks: wo man schläft und wie lange. Das ist
-                  die Klammer um die Tage darunter — ohne sie sind es fünfzehn
-                  zusammenhanglose Kästchen.
-                */}
-                <p className="flex items-center gap-1 px-1 pb-1 text-[10px] leading-none">
-                  {e.unterkunft ? (
-                    <>
-                      <span
-                        aria-hidden
-                        className="inline-flex h-3.5 min-w-3.5 items-center justify-center rounded-[3px] bg-rose-600 px-1 text-[9px] font-bold text-white tabular-nums"
-                      >
-                        {e.unterkunft.naechte}
-                      </span>
-                      <span className="max-w-[8rem] truncate font-medium text-slate-600">
-                        {e.unterkunft.name}
-                      </span>
-                    </>
-                  ) : (
-                    <span className="font-medium text-slate-500">Abreise</span>
-                  )}
-                </p>
+        <div className="overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <ol
+            className="flex w-max items-start gap-4 px-4 pb-1 pt-2"
+            role="tablist"
+            aria-label="Reisetage"
+          >
+            {etappen.map((e) => {
+              const hierAktiv = e.tage.some((t) => t.datum === tagDatum);
+              return (
+                <li key={e.id} data-testid={`etappe-${e.id}`}>
+                  {/*
+                    Der Kopf der Standzeit: wo man schläft und wie lange. Das
+                    ist die Klammer um die Tage darunter — ohne sie sind es
+                    fünfzehn zusammenhanglose Punkte.
+                  */}
+                  <p
+                    className={`flex items-center gap-1 pb-1.5 text-[10px] leading-none transition ${
+                      hierAktiv ? 'text-slate-700' : 'text-slate-400'
+                    }`}
+                  >
+                    {e.unterkunft ? (
+                      <>
+                        <span
+                          aria-hidden
+                          className={`inline-flex h-3.5 min-w-3.5 items-center justify-center rounded-[3px] px-1 text-[9px] font-bold tabular-nums transition ${
+                            hierAktiv ? 'bg-rose-600 text-white' : 'bg-rose-100 text-rose-700'
+                          }`}
+                        >
+                          {e.unterkunft.naechte}
+                        </span>
+                        <span className="max-w-[9rem] truncate font-medium">{etappeName(e)}</span>
+                      </>
+                    ) : (
+                      <span className="font-medium">Abreise</span>
+                    )}
+                  </p>
 
-                <ol className="flex gap-1">
-                  {e.tage.map((t) => {
-                    const istAktiv = t.datum === tagDatum;
-                    return (
-                      <li key={t.datum}>
+                  {/*
+                    Die Achse. Sie läuft über die Tage dieser Standzeit hinaus
+                    in die Lücke zum Nachbarn hinein, damit der Strahl über die
+                    ganze Reise durchgeht — zwischen zwei Quartieren reisst die
+                    Reise ja nicht ab. Am ersten und letzten Tag bricht sie an
+                    der Perle ab: davor und danach ist nichts.
+                  */}
+                  <div className="relative flex gap-1">
+                    <span
+                      aria-hidden
+                      className="absolute top-4 h-0.5 bg-slate-200"
+                      style={{
+                        left: e.id === erste ? '1.375rem' : '-1rem',
+                        right: e.id === letzte ? '1.375rem' : '-1rem',
+                      }}
+                    />
+
+                    {e.tage.map((t) => {
+                      const istAktiv = t.datum === tagDatum;
+                      return (
                         <button
+                          key={t.datum}
                           type="button"
                           role="tab"
                           ref={istAktiv ? aktivRef : null}
@@ -117,58 +141,68 @@ export function Timeline() {
                           data-testid={`tag-${t.datum}`}
                           onClick={() => setTag(t.datum)}
                           title={`${t.titel} · ${TAG_LABEL[t.typ]}`}
-                          className={`flex h-12 w-14 flex-col items-center justify-end gap-1.5 rounded-md px-0.5 pb-1.5 transition sm:h-auto sm:w-11 sm:gap-1 sm:py-1 ${
-                            istAktiv ? 'bg-white shadow-sm ring-1 ring-slate-300' : 'hover:bg-black/5'
-                          }`}
+                          className="group relative flex w-11 flex-col items-center gap-1 rounded-md pb-1 pt-0.5"
                         >
+                          {/* Die Perle auf der Achse, in der Farbe ihrer Tagesart. */}
                           <span
-                            className="block w-full rounded-full transition-all"
+                            aria-hidden
+                            className={`relative z-10 flex h-7 w-7 items-center justify-center rounded-full text-white ring-2 ring-white transition ${
+                              istAktiv ? 'scale-110 shadow' : ''
+                            }`}
                             style={{
                               backgroundColor: TAG_FARBE[t.typ],
-                              height: istAktiv ? 7 : 4,
-                              opacity: istAktiv ? 1 : 0.5,
+                              opacity: istAktiv ? 1 : 0.45,
                             }}
-                          />
+                          >
+                            <TagSymbol typ={t.typ} className="h-4 w-4" />
+                          </span>
                           <span
-                            className={`text-xs leading-none sm:text-[10px] ${
-                              istAktiv ? 'font-semibold text-slate-900' : 'text-slate-500'
+                            className={`text-[10px] leading-none tabular-nums transition ${
+                              istAktiv ? 'font-semibold text-slate-900' : 'text-slate-400'
                             }`}
                           >
                             {datumKurz(t.datum)}
                           </span>
                         </button>
-                      </li>
-                    );
-                  })}
-                </ol>
-              </section>
-            );
-          })}
+                      );
+                    })}
+                  </div>
+                </li>
+              );
+            })}
+          </ol>
         </div>
 
         {aktiv && (
           /*
-            Die Zusammenfassung des Tages — und der Weg in den Tagesablauf.
-            Der war vorher nur die Titelzeile selbst und damit unsichtbar;
-            jetzt steht rechts eine echte Schaltfläche mit Beschriftung.
+            Der Weg in den Tagesablauf ist die ganze Zeile, nicht ein Knopf
+            daneben. Eine volle Zeile mit Winkel rechts ist auf dem Handy die
+            übliche Geste für „hier geht es weiter"; der aufgesetzte dunkle
+            Knopf war der Fremdkörper.
           */
-          <div className="flex items-center gap-2 px-3 pb-2 pt-1.5 sm:px-2 sm:pb-0">
-            <div className="min-w-0 flex-1" data-testid="tageszusammenfassung">
-              <p className="flex items-center gap-1.5 text-xs sm:text-[11px]">
-                <span
-                  className="shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold leading-tight text-white"
-                  style={{ backgroundColor: TAG_FARBE[aktiv.typ] }}
-                >
+          <button
+            type="button"
+            onClick={zeigeDetails}
+            data-testid="tagestitel"
+            aria-label={`Tagesablauf am ${datumKurz(tagDatum)} ansehen`}
+            className="flex w-full items-center gap-3 border-t border-slate-200/80 px-4 py-2.5 text-left transition hover:bg-slate-50 active:bg-slate-100 sm:py-2"
+          >
+            <span
+              aria-hidden
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-white"
+              style={{ backgroundColor: TAG_FARBE[aktiv.typ] }}
+            >
+              <TagSymbol typ={aktiv.typ} className="h-4 w-4" />
+            </span>
+
+            <span className="min-w-0 flex-1" data-testid="tageszusammenfassung">
+              <span className="flex items-baseline gap-1.5">
+                <span className="shrink-0 text-[11px] font-semibold text-slate-700">
                   {TAG_LABEL[aktiv.typ]}
                 </span>
-                <span className="truncate text-slate-600">{aktiv.titel}</span>
-              </p>
-              <p className="mt-0.5 flex flex-wrap items-baseline gap-x-2 whitespace-nowrap text-[11px] tabular-nums text-slate-500">
-                {etappe?.unterkunft && nacht > 0 && (
-                  <span className="text-rose-700">
-                    Nacht {nacht} von {etappe.unterkunft.naechte}
-                  </span>
-                )}
+                <span className="truncate text-xs text-slate-500">{aktiv.titel}</span>
+              </span>
+              <span className="mt-0.5 flex flex-wrap items-baseline gap-x-2 text-[11px] tabular-nums text-slate-500">
                 {gefahren?.art === 'strasse' ? (
                   <>
                     <span className="font-medium text-slate-700">
@@ -186,27 +220,22 @@ export function Timeline() {
                     {Math.floor(gehzeit / 60)} h {gehzeit % 60} min zu Fuß
                   </span>
                 )}
-              </p>
-            </div>
+              </span>
+            </span>
 
-            <button
-              type="button"
-              onClick={zeigeDetails}
-              data-testid="tagestitel"
-              className="flex h-11 shrink-0 items-center gap-1 rounded-lg bg-slate-800 px-3 text-xs font-medium text-white transition hover:bg-slate-700"
-            >
-              Tagesablauf
+            <span className="flex shrink-0 items-center gap-1 text-[11px] font-medium text-slate-500">
+              Ablauf
               <svg
                 viewBox="0 0 16 16"
-                className="h-3.5 w-3.5"
+                className="h-4 w-4"
                 aria-hidden
                 fill="none"
                 stroke="currentColor"
               >
                 <path d="M6 3l5 5-5 5" strokeWidth="2" strokeLinecap="round" />
               </svg>
-            </button>
-          </div>
+            </span>
+          </button>
         )}
       </div>
     </div>

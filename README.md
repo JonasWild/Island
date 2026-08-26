@@ -48,7 +48,7 @@ Layer-Ausdrücke, verdeckte Bedienelemente.
 | Eingabe | Wirkung |
 |---|---|
 | Klick auf einen Tag | Kameraflug auf die Etappe |
-| `Tagesablauf` unten rechts | der Tag als Zeitstrahl von Bett zu Bett |
+| Zeile unter dem Zeitstrahl | der Tag als Ablauf von Bett zu Bett |
 | Filterleiste oben | nach Tag und Zielart filtern, Gruppe tippen öffnet die Zielarten |
 | `←` / `→` | Tag zurück / vor |
 | Klick auf einen Stopp | Vorschau-Blase am Symbol |
@@ -194,17 +194,35 @@ bleibt eine bis vier Nächte, packt wieder ein. Daran hängt, was ein Tag
 überhaupt sein kann — ein Umzugstag mit Gepäck im Auto oder ein Tag, an dem
 man abends ins selbe Bett zurückkehrt.
 
-Der Streifen unten ist deshalb kein Band aus fünfzehn Kästchen, sondern nach
-Standzeiten gegliedert: jeder Block trägt den Namen seines Quartiers und die
-Zahl der Nächte, die Tage sitzen darin. Der gewählte Tag sagt dazu, die
-wievielte Nacht das ist. Ein Tag gehört zu der Unterkunft, in der man an
-seinem **Abend** schläft; der Abreisetag hat keine und bildet den letzten
-Block.
+Der Streifen unten ist deshalb ein **Zeitstrahl**: eine durchgehende Achse, an
+der die Tage als Perlen sitzen, gruppiert nach Standzeiten. Jede Gruppe trägt
+den Namen ihres Quartiers und die Zahl der Nächte. Ein Tag gehört zu der
+Unterkunft, in der man an seinem **Abend** schläft; der Abreisetag hat keine
+und bildet die letzte Gruppe.
+
+Jede Perle trägt das **Zeichen ihrer Tagesart** in deren Farbe — dieselbe, die
+auf der Karte die Route dieses Tages trägt. Anreise und Abreise als Pfeil von
+aussen beziehungsweise nach aussen, Etappe als Pfeil von Punkt zu Punkt,
+Standtag als Punkt, an dem man bleibt, Tagesausflug als Schleife zurück zum
+selben Punkt. Damit sagt die Leiste ohne ein einziges Wort, wie der Tag
+aussieht: unterwegs oder vor Ort.
+
+Die Zeichen liegen in `src/components/TagSymbol.tsx` als eigene SVG-Pfade.
+Die Zielart-Piktogramme in `src/map/icons.ts` werden für MapLibre auf ein
+Canvas gezeichnet und stehen im DOM nicht zur Verfügung; fünf Zeichen sind als
+SVG billiger zu pflegen, als den Canvas-Weg für den DOM umzubauen — und auf
+16 px optimiert, wo Platte und Ring der Kartensymbole nicht mehr lesbar wären.
+
+**Was in der Leiste nicht steht**, steht im Tagesablauf: Pflicht- und
+Kür-Anteil, die wievielte Nacht es ist, die Reihenfolge der Ziele. Die Leiste
+beantwortet „wann und wie", nicht „was genau".
 
 ## Der Tag als Ablauf
 
-Der Knopf **Tagesablauf** unten rechts öffnet die Ziele als Zeitstrahl von
-Bett zu Bett, in der **gefahrenen** Reihenfolge. Darin blättert man durch die
+Die **Zusammenfassungszeile** unter dem Zeitstrahl öffnet die Ziele als Ablauf
+von Bett zu Bett, in der **gefahrenen** Reihenfolge. Die ganze Zeile ist die
+Schaltfläche, mit Winkel am rechten Rand — die übliche Geste für „hier geht es
+weiter". Ein aufgesetzter dunkler Knopf daneben war der Fremdkörper. Darin blättert man durch die
 Tage **derselben Standzeit** — der Sprung ins nächste Quartier ist ein anderer
 Schritt und passiert über den Streifen.
 

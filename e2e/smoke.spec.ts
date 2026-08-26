@@ -568,8 +568,13 @@ test('der Streifen gliedert die Reise in Standzeiten', async ({ page }) => {
   }
   await expect(thrasastadir.getByTestId('tag-2026-09-03')).toHaveCount(0);
 
-  // Der gewählte Tag sagt, die wievielte Nacht das ist.
-  await expect(page.getByTestId('tageszusammenfassung')).toContainText('Nacht 2 von 4');
+  /*
+    Die Zusammenfassung nennt Art und Kennzahlen des Tages — die wievielte
+    Nacht es ist, steht im Tagesablauf. Die Leiste beantwortet „wann und wie",
+    nicht „was genau".
+  */
+  await expect(page.getByTestId('tageszusammenfassung')).toContainText('Standtag');
+  await expect(page.getByTestId('tageszusammenfassung')).not.toContainText('Nacht');
 });
 
 test('der Tagesablauf ist ohne Suchen erreichbar und blättert in der Standzeit', async ({
@@ -578,9 +583,14 @@ test('der Tagesablauf ist ohne Suchen erreichbar und blättert in der Standzeit'
   await stilStubben(page);
   await page.goto('/?tag=2026-08-31');
 
-  // Eine beschriftete Schaltfläche, keine versteckte Titelzeile.
+  /*
+    Eine beschriftete Zeile über die volle Breite, keine versteckte Titelzeile.
+    Geprüft wird der zugängliche Name, nicht der Fliesstext: sichtbar steht
+    dort „Ablauf ›", vorgelesen wird der ganze Satz.
+  */
   const knopf = page.getByTestId('tagestitel');
-  await expect(knopf).toContainText('Tagesablauf');
+  await expect(knopf).toHaveAttribute('aria-label', /Tagesablauf am .* ansehen/);
+  await expect(knopf).toContainText('Ablauf');
   const box = (await knopf.boundingBox())!;
   expect(box.height).toBeGreaterThanOrEqual(44);
 
@@ -717,4 +727,32 @@ test('ein sichtbares Ziel lässt die Kamera stehen, ein entferntes nicht', async
     Math.abs(geholt.lng - weggeschoben.lng) + Math.abs(geholt.lat - weggeschoben.lat),
     'Kamera blieb stehen, obwohl das Ziel ausserhalb lag',
   ).toBeGreaterThan(0.5);
+});
+
+test('der Streifen zeigt jede Tagesart als Symbol auf einer Achse', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-31');
+
+  /*
+    Jeder Tag trägt das Zeichen seiner Art. Fünf Arten, fünf Zeichen — die
+    Leiste sagt damit ohne ein Wort, ob man unterwegs ist oder vor Ort bleibt.
+  */
+  for (const datum of ['2026-08-27', '2026-08-31', '2026-09-10']) {
+    await expect(page.getByTestId(`tag-${datum}`).locator('svg')).toHaveCount(1);
+  }
+
+  // Trefferflächen bleiben touch-tauglich.
+  const box = (await page.getByTestId('tag-2026-08-31').boundingBox())!;
+  expect(box.width).toBeGreaterThanOrEqual(44);
+  expect(box.height).toBeGreaterThanOrEqual(44);
+
+  /*
+    Der Weg in den Tagesablauf ist die ganze Zeile, nicht ein Knopf daneben:
+    sie spannt über die volle Breite des Streifens.
+  */
+  const zeile = (await page.getByTestId('tagestitel').boundingBox())!;
+  const streifen = (await page.getByTestId('tagesstreifen').boundingBox())!;
+  expect(zeile.width).toBeGreaterThan(streifen.width * 0.9);
+  expect(zeile.height).toBeGreaterThanOrEqual(44);
+  await expect(page.getByTestId('tagestitel')).toContainText('Ablauf');
 });
