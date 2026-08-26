@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "pnpm validate && next build",
     "start": "next start",
-    "lint": "next lint",
+    "lint": "eslint .",
     "typecheck": "tsc --noEmit",
     "validate": "tsx scripts/validate.ts",
     "geocode": "tsx scripts/geocode.ts",

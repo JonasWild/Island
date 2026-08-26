@@ -23,7 +23,16 @@ export default defineConfig({
         : {}),
     },
   },
-  projects: [{ name: 'chromium', use: { ...devices['Desktop Chrome'] } }],
+  /*
+   * Zwei Breiten, weil die App mobile first gebaut ist und sich ab `sm:`
+   * anders verhält: das Kontextblatt wechselt vom Bottom-Sheet zur Spalte
+   * rechts, und damit ändert sich der frei sichtbare Teil der Karte — die
+   * Grundlage der Kameraentscheidung.
+   */
+  projects: [
+    { name: 'mobil', use: { ...devices['Pixel 7'] } },
+    { name: 'desktop', use: { ...devices['Desktop Chrome'] } },
+  ],
   webServer: {
     command: `pnpm build && pnpm start -p ${PORT}`,
     url: `http://127.0.0.1:${PORT}`,
