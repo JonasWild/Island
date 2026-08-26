@@ -4,6 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import maplibregl, { type MapGeoJSONFeature, type MapMouseEvent, type Map as MLMap } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useMapStore } from '@/store/mapStore';
+import { Vorschau } from './Vorschau';
 import { alleStopps, tagNach } from '@/lib/reise';
 import type { Pos } from '@/lib/schema';
 import { iconsRegistrieren } from '@/map/icons';
@@ -112,9 +113,18 @@ export function MapCanvas() {
       );
     };
 
-    /** Leere Karte → „Was ist hier?" mit Koordinate, Reisetag und nächstem Stopp. */
+    /**
+     * Klick auf die leere Karte. Ist etwas gewählt, räumt er erst auf — die
+     * Vorschau-Blase schließt sich, wie man es von einer Blase erwartet. Erst
+     * der Klick ins Leere ohne Auswahl stellt die Frage „Was ist hier?" mit
+     * Koordinate, Reisetag und nächstem Stopp.
+     */
     const klickKarte = (e: MapMouseEvent) => {
       if (map.queryRenderedFeatures(e.point, { layers: [LYR_STOPP] }).length > 0) return;
+      if (useMapStore.getState().auswahl.art !== 'keine') {
+        useMapStore.getState().schliesse();
+        return;
+      }
       const pos: Pos = [Number(e.lngLat.lat.toFixed(5)), Number(e.lngLat.lng.toFixed(5))];
       const src = map.getSource(SRC_ORT) as maplibregl.GeoJSONSource | undefined;
       src?.setData({
@@ -168,6 +178,8 @@ export function MapCanvas() {
         der Container auf Höhe 0 zusammenfällt.
       */}
       <div ref={container} className="h-full w-full" data-testid="map" />
+      {/* Die Blase sitzt in denselben Koordinaten wie `map.project()` liefert. */}
+      <Vorschau karte={karte} />
     </div>
   );
 }

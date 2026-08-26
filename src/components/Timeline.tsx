@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { useMapStore } from '@/store/mapStore';
 import { datumKurz, TAG_FARBE, tage } from '@/lib/reise';
 
@@ -8,9 +9,38 @@ export function Timeline() {
   const tagDatum = useMapStore((s) => s.tagDatum);
   const setTag = useMapStore((s) => s.setTag);
   const aktiv = tage.find((t) => t.datum === tagDatum);
+  const streifen = useRef<HTMLDivElement>(null);
+
+  /*
+   * Der Streifen meldet seine Höhe als `--streifen-hoehe`. Alles, was sich
+   * gegen ihn stellen muss — die Kartenbedienelemente, die Herkunftsangabe der
+   * Basiskarte, die Vorschau-Blase und die Kameraentscheidung —, rechnet damit.
+   * Die Höhe hängt vom Inhalt ab, deshalb ein ResizeObserver statt einer
+   * festen Zahl.
+   */
+  useEffect(() => {
+    const el = streifen.current;
+    if (!el) return;
+    const melden = () => {
+      document.documentElement.style.setProperty(
+        '--streifen-hoehe',
+        `${Math.round(el.getBoundingClientRect().height)}px`,
+      );
+    };
+    melden();
+    const beobachter = new ResizeObserver(melden);
+    beobachter.observe(el);
+    return () => {
+      beobachter.disconnect();
+      document.documentElement.style.removeProperty('--streifen-hoehe');
+    };
+  }, []);
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex justify-center p-3">
+    <div
+      ref={streifen}
+      className="pointer-events-none absolute inset-x-0 bottom-0 z-30 flex justify-center p-3"
+    >
       <div className="pointer-events-auto rounded-lg bg-white/85 px-2.5 py-2 shadow-lg ring-1 ring-black/10 backdrop-blur">
         <ol className="flex items-end gap-1" role="tablist" aria-label="Reisetage">
           {tage.map((t) => {

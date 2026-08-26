@@ -140,22 +140,45 @@ export async function karteStubben(page: Page): Promise<void> {
   await page.route(`${BASIS}/styles/dark*`, (r) => stil(r, 'dark'));
 }
 
-/** Seite mit Stub öffnen und warten, bis die Karte ihre Layer gesetzt hat. */
+/**
+ * Zählt abgeschlossene Kamerabewegungen mit.
+ *
+ * „Die Kamera steht" ist direkt nach dem Laden wertlos: der Flug auf den
+ * gewählten Tag startet erst, wenn MapLibre `load` meldet — bis dahin steht
+ * die Kamera auf der Startposition still, und ein Test, der nur auf Stillstand
+ * wartet, misst den falschen Ausschnitt. Genau das ist hier schon einmal
+ * schiefgegangen. Deshalb wartet `oeffneKarte` auf einen **abgeschlossenen**
+ * Flug, nicht auf Ruhe.
+ */
+async function bewegungenZaehlen(page: Page): Promise<void> {
+  await page.addInitScript(() => {
+    window.__fluege = 0;
+    const uhr = setInterval(() => {
+      const m = window.__islandKarte;
+      if (!m) return;
+      clearInterval(uhr);
+      m.on('moveend', () => {
+        window.__fluege = (window.__fluege ?? 0) + 1;
+      });
+    }, 25);
+  });
+}
+
+/** Seite mit Stub öffnen und warten, bis die Karte steht — nach dem Tagesflug. */
 export async function oeffneKarte(page: Page, pfad = '/'): Promise<void> {
+  await bewegungenZaehlen(page);
   await karteStubben(page);
   await page.goto(pfad);
-  await page.waitForFunction(
-    () => Boolean(window.__islandKarte?.getLayer('stopp-symbol')),
-    undefined,
-    { timeout: 30_000 },
-  );
+  await page.waitForFunction(() => Boolean(window.__islandKarte?.getLayer('stopp-symbol')), undefined, {
+    timeout: 30_000,
+  });
+  await page.waitForFunction(() => (window.__fluege ?? 0) >= 1, undefined, { timeout: 30_000 });
   await ruhigeKamera(page);
 }
 
 /**
  * Wartet, bis die Kamera steht. `queryRenderedFeatures` und `project` liefern
- * während eines Fluges Werte aus einem anderen Ausschnitt — genau daran ist
- * hier schon einmal ein Vergleich zerbrochen.
+ * während eines Fluges Werte aus einem anderen Ausschnitt.
  */
 export async function ruhigeKamera(page: Page): Promise<void> {
   await page.waitForFunction(
@@ -176,4 +199,66 @@ export async function kamera(page: Page): Promise<Kamera> {
     const c = m.getCenter();
     return { lng: c.lng, lat: c.lat, zoom: m.getZoom(), bearing: m.getBearing(), pitch: m.getPitch() };
   });
+}
+
+/**
+ * Wo liegen die Stopp-Symbole, und wo trifft ein Klick sie?
+ *
+ * `project()` allein genügt nicht: die Symbole sitzen bei geneigter Kamera
+ * nicht zwingend auf ihrem Bodenpunkt. Jede Stelle wird deshalb mit derselben
+ * Frage gegengeprüft, die auch der Klick-Handler stellt —
+ * `queryRenderedFeatures` an genau dieser Bildschirmstelle.
+ */
+export async function symbolziele(page: Page): Promise<Symbolziel[]> {
+  await ruhigeKamera(page);
+  return page.evaluate(() => {
+    const m = window.__islandKarte!;
+    const { width, height } = m.getCanvas().getBoundingClientRect();
+    const ziele: Symbolziel[] = [];
+    const gesehen = new Set<string>();
+
+    for (const f of m.queryRenderedFeatures({ layers: ['stopp-symbol'] })) {
+      const id = String(f.properties?.id ?? '');
+      if (gesehen.has(id)) continue;
+      gesehen.add(id);
+      const p = m.project((f.geometry as { coordinates: [number, number] }).coordinates);
+      if (p.x < 0 || p.y < 0 || p.x > width || p.y > height) continue;
+      // Gegenprobe an genau der Stelle, an der auch der Klick landet: nur was
+      // hier antwortet, ist wirklich anklickbar.
+      const treffer = m.queryRenderedFeatures([p.x, p.y], { layers: ['stopp-symbol'] })[0];
+      if (!treffer) continue;
+      ziele.push({
+        x: Math.round(p.x),
+        y: Math.round(p.y),
+        name: String(treffer.properties?.name ?? ''),
+        id: String(treffer.properties?.id ?? ''),
+      });
+    }
+    return ziele;
+  });
+}
+
+/** Ein Symbol, das bequem in der Mitte liegt — weder am Rand noch unter dem Streifen. */
+export async function sichtbarerStopp(page: Page): Promise<Symbolziel> {
+  const groesse = page.viewportSize()!;
+  const mitte = { x: groesse.width / 2, y: groesse.height * 0.42 };
+  const ziel = (await symbolziele(page))
+    .filter(
+      (p) =>
+        p.x > 60 &&
+        p.x < groesse.width - 60 &&
+        p.y > 100 &&
+        p.y < groesse.height * 0.66 &&
+        !p.id.startsWith('unterkunft:'),
+    )
+    .sort(
+      (a, b) =>
+        Math.hypot(a.x - mitte.x, a.y - mitte.y) - Math.hypot(b.x - mitte.x, b.y - mitte.y),
+    )[0];
+  if (!ziel) throw new Error('kein frei liegendes Stopp-Symbol im Bild');
+  return ziel;
+}
+
+export async function klickeStopp(page: Page, ziel: Symbolziel): Promise<void> {
+  await page.mouse.click(ziel.x, ziel.y);
 }

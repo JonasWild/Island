@@ -38,6 +38,26 @@ export const WanderungSchema = z.object({
   distanz: z.string().optional(),
 });
 
+/**
+ * Ein Bild zu einem Ziel. Optional — 44 der 128 Stopps haben keines, und ein
+ * erfundenes wäre schlimmer als keines.
+ *
+ * `urheber` und `lizenz` sind Pflicht, sobald ein Bild da ist: ein Bild ohne
+ * Nennung darf gar nicht erst in die Daten kommen. Gezeigt wird die Nennung im
+ * Kontextblatt; die Vorschau-Blase lässt sie bewusst weg (siehe Vorschau.tsx).
+ */
+export const BildSchema = z.object({
+  url: z.string().url(),
+  breite: z.number().int().positive().optional(),
+  hoehe: z.number().int().positive().optional(),
+  urheber: z.string().min(1),
+  lizenz: z.string().min(1),
+  lizenzUrl: z.string().url().optional(),
+  /** Quellseite, auf der das Bild steht — der Beleg zum Nachsehen. */
+  seite: z.string().url().optional(),
+});
+export type Bild = z.infer<typeof BildSchema>;
+
 export const StoppSchema = z.object({
   name: z.string().min(1),
   strasse: z.string().nullable().optional(),
@@ -46,6 +66,7 @@ export const StoppSchema = z.object({
   buchen: z.boolean().optional(),
   buchenText: z.string().optional(),
   wanderung: WanderungSchema.optional(),
+  bild: BildSchema.optional(),
   /** Fehlt der Schlüssel ganz, gilt die Position als unbekannt — nicht als 0/0. */
   pos: PosSchema.nullable().default(null),
   posMeta: PosMetaSchema.optional(),
@@ -98,6 +119,7 @@ export const UnterkunftSchema = z.object({
   website: z.string().url().optional(),
   verpflegung: z.string(),
   beschreibung: z.string(),
+  bild: BildSchema.optional(),
   hinweis: z.string().nullable().optional(),
   pos: PosSchema.nullable().default(null),
   posMeta: PosMetaSchema.optional(),

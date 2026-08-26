@@ -3,7 +3,16 @@
 import { useEffect } from 'react';
 import { useMapStore } from '@/store/mapStore';
 
-/** ←/→ blättert durch die Tage, Esc schließt das Kontextblatt. */
+/**
+ * ←/→ blättert durch die Tage, Esc räumt auf.
+ *
+ * Die Esc-Kette geht immer genau eine Stufe zurück, in der Reihenfolge, in der
+ * die Schichten aufgegangen sind:
+ *
+ *   Kontextblatt → Vorschau-Blase → nichts
+ *
+ * „Was ist hier?" hat keine Blase darunter und fällt in einem Schritt zu.
+ */
 export function useTastatur() {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -19,7 +28,8 @@ export function useTastatur() {
         s.tagZurueck();
       } else if (e.key === 'Escape' && s.auswahl.art !== 'keine') {
         e.preventDefault();
-        s.schliesse();
+        if (s.detailsOffen && s.auswahl.art !== 'ort') s.schliesseDetails();
+        else s.schliesse();
       }
     };
     window.addEventListener('keydown', handler);
