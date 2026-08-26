@@ -48,7 +48,7 @@ Layer-Ausdrücke, verdeckte Bedienelemente.
 | Eingabe | Wirkung |
 |---|---|
 | Klick auf einen Tag | Kameraflug auf die Etappe |
-| Zeile unter dem Zeitstrahl | der Tag als Ablauf von Bett zu Bett |
+| Zeile über dem Zeitstrahl | der Tag als Ablauf von Bett zu Bett |
 | Filterleiste oben | nach Tag und Zielart filtern, Gruppe tippen öffnet die Zielarten |
 | `←` / `→` | Tag zurück / vor |
 | Klick auf einen Stopp | Vorschau-Blase am Symbol |
@@ -200,18 +200,37 @@ den Namen ihres Quartiers und die Zahl der Nächte. Ein Tag gehört zu der
 Unterkunft, in der man an seinem **Abend** schläft; der Abreisetag hat keine
 und bildet die letzte Gruppe.
 
-Jede Perle trägt das **Zeichen ihrer Tagesart** in deren Farbe — dieselbe, die
-auf der Karte die Route dieses Tages trägt. Anreise und Abreise als Pfeil von
-aussen beziehungsweise nach aussen, Etappe als Pfeil von Punkt zu Punkt,
-Standtag als Punkt, an dem man bleibt, Tagesausflug als Schleife zurück zum
-selben Punkt. Damit sagt die Leiste ohne ein einziges Wort, wie der Tag
-aussieht: unterwegs oder vor Ort.
+Jede Perle trägt das **Zeichen ihrer Tagesart**. Alle fünf folgen einer
+Grammatik: der gefüllte Punkt ist das Quartier, der Pfeil die Bewegung. Anreise
+ist ein Pfeil von der Kante in den Punkt, Abreise einer vom Punkt über die
+Kante hinaus, Etappe führt von Punkt zu **zweitem** Punkt, der Standtag ist ein
+Punkt und sonst nichts, der Tagesausflug derselbe Punkt mit einem Pfeil
+drumherum. Damit sagt die Leiste ohne ein einziges Wort, wie der Tag aussieht:
+unterwegs oder vor Ort.
+
+**Farbe trägt auch hier nur der gewählte Tag** — dieselbe Regel wie für die
+Linien auf der Karte, und aus demselben Grund. Fünfzehn eingefärbte Perlen
+waren dieselbe Konfetti-Falle: wenn alles Farbe trägt, trägt Farbe keine
+Aussage mehr. Die gewählte Perle steht in der Farbe ihrer Tagesart, die
+übrigen bleiben weiss mit grauem Zeichen, und der Strahl bleibt lesbar.
 
 Die Zeichen liegen in `src/components/TagSymbol.tsx` als eigene SVG-Pfade.
 Die Zielart-Piktogramme in `src/map/icons.ts` werden für MapLibre auf ein
 Canvas gezeichnet und stehen im DOM nicht zur Verfügung; fünf Zeichen sind als
 SVG billiger zu pflegen, als den Canvas-Weg für den DOM umzubauen — und auf
-16 px optimiert, wo Platte und Ring der Kartensymbole nicht mehr lesbar wären.
+18 px optimiert, wo Platte und Ring der Kartensymbole nicht mehr lesbar wären.
+
+Unterschieden wird über die **Silhouette**, nicht über Details. Die erste
+Fassung war das nicht: Etappe und Abreise waren beide Kreis, Linie, Pfeilspitze
+und unterschieden sich um weniger als zwei Pixel — auf Perlengrösse dasselbe
+Zeichen. Der zweite Punkt bei der Etappe trägt die Unterscheidung jetzt allein.
+Standtag und Tagesausflug teilen sich umgekehrt **denselben Punkt**, weil sie
+sich dasselbe Bett teilen; der Unterschied ist nur die Fahrt drumherum.
+
+Die Zahl der Nächte steht im Kopf der Gruppe **ausgeschrieben**, mit Bett und
+Wort: „3 Nächte · Birkiskógar". Als blanke Ziffer in einem roten Abzeichen
+sagte sie nicht, was sie zählt — Tage, Stopps, die wievielte Etappe? Rot bleibt
+damit der Unterkunftsnadel auf der Karte vorbehalten, wo es etwas bedeutet.
 
 **Was in der Leiste nicht steht**, steht im Tagesablauf: Pflicht- und
 Kür-Anteil, die wievielte Nacht es ist, die Reihenfolge der Ziele. Die Leiste
@@ -219,12 +238,18 @@ beantwortet „wann und wie", nicht „was genau".
 
 ## Der Tag als Ablauf
 
-Die **Zusammenfassungszeile** unter dem Zeitstrahl öffnet die Ziele als Ablauf
+Die **Zusammenfassungszeile** über dem Zeitstrahl öffnet die Ziele als Ablauf
 von Bett zu Bett, in der **gefahrenen** Reihenfolge. Die ganze Zeile ist die
 Schaltfläche, mit Winkel am rechten Rand — die übliche Geste für „hier geht es
 weiter". Ein aufgesetzter dunkler Knopf daneben war der Fremdkörper. Darin blättert man durch die
 Tage **derselben Standzeit** — der Sprung ins nächste Quartier ist ein anderer
 Schritt und passiert über den Streifen.
+
+Sie steht **über** dem Strahl, nicht darunter: sie beschreibt den Tag, den man
+gerade auf der Karte sieht, und gehört deshalb an die Karte. Der Strahl gehört
+an den unteren Rand, wo der Daumen ihn wischt. Abgesetzt sind die beiden nicht
+durch einen dicken Strich, sondern durch den Grund — die Zeile auf Weiss, der
+Strahl auf Grau, dazwischen eine Haarlinie.
 
 Die ist nicht die aus `reise.json` — dort stehen die Vorschläge des
 Veranstalters, teils mehrfach genannt, teils in beliebiger Folge. Die

@@ -2,18 +2,12 @@
 
 import { useMapStore } from '@/store/mapStore';
 import { ablaufVon } from '@/lib/ablauf';
-import { datumKurz, gehzeitTag, TAG_FARBE, TAG_LABEL, tagNach } from '@/lib/reise';
+import { datumKurz, gehzeitTag, stunden, TAG_FARBE, TAG_LABEL, tagNach } from '@/lib/reise';
 import { etappeName, etappeVon, nachtNummer } from '@/lib/etappe';
 import { routeNach } from '@/lib/route';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
 import { kategorieFarbe } from '@/map/icons';
 import type { StoppRef } from '@/lib/reise';
-
-function stunden(minuten: number): string {
-  const h = Math.floor(minuten / 60);
-  const m = minuten % 60;
-  return h > 0 ? `${h} h ${m} min` : `${m} min`;
-}
 
 /**
  * Was an diesem Tag ansteht — als Ablauf von Bett zu Bett.
@@ -201,7 +195,13 @@ export function Tagesdetails() {
               data-testid="tagesdetails-zurueck"
               className="flex h-9 flex-1 items-center justify-center gap-1 rounded-lg bg-slate-100 text-xs font-medium text-slate-700 transition hover:bg-slate-200 disabled:opacity-40 disabled:hover:bg-slate-100"
             >
-              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden fill="none" stroke="currentColor">
+              <svg
+                viewBox="0 0 16 16"
+                className="h-3.5 w-3.5"
+                aria-hidden
+                fill="none"
+                stroke="currentColor"
+              >
                 <path d="M10 3L5 8l5 5" strokeWidth="2" strokeLinecap="round" />
               </svg>
               {stelle > 0 ? datumKurz(etappe.tage[stelle - 1]!.datum) : 'Tag zurück'}
@@ -216,8 +216,16 @@ export function Tagesdetails() {
               data-testid="tagesdetails-vor"
               className="flex h-9 flex-1 items-center justify-center gap-1 rounded-lg bg-slate-100 text-xs font-medium text-slate-700 transition hover:bg-slate-200 disabled:opacity-40 disabled:hover:bg-slate-100"
             >
-              {stelle < etappe.tage.length - 1 ? datumKurz(etappe.tage[stelle + 1]!.datum) : 'Tag vor'}
-              <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" aria-hidden fill="none" stroke="currentColor">
+              {stelle < etappe.tage.length - 1
+                ? datumKurz(etappe.tage[stelle + 1]!.datum)
+                : 'Tag vor'}
+              <svg
+                viewBox="0 0 16 16"
+                className="h-3.5 w-3.5"
+                aria-hidden
+                fill="none"
+                stroke="currentColor"
+              >
                 <path d="M6 3l5 5-5 5" strokeWidth="2" strokeLinecap="round" />
               </svg>
             </button>

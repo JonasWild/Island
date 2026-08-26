@@ -226,12 +226,7 @@ test('die Route liegt auf Straßen, getrennt nach Pflicht und Kür', async ({ pa
 
   // Ungültige Layer-Ausdrücke schlagen in MapLibre still fehl — deshalb wird
   // die Existenz geprüft, nicht das Aussehen.
-  expect(daten.layer).toEqual([
-    'route-linie',
-    'route-wahlweise',
-    'route-luftlinie',
-    'route-pfeil',
-  ]);
+  expect(daten.layer).toEqual(['route-linie', 'route-wahlweise', 'route-luftlinie', 'route-pfeil']);
   expect(daten.pfeilBild).toBe(true);
   expect(daten.tage).toBe(15);
   for (const art of daten.arten) expect(['pflicht', 'optional', 'luftlinie']).toContain(art);
@@ -349,7 +344,9 @@ test('der Filter entlastet die Karte und lässt die Unterkünfte stehen', async 
 
   const sichtbar = () =>
     page.evaluate(() => {
-      const f = window.__islandKarte!.queryRenderedFeatures(undefined, { layers: ['stopp-symbol'] });
+      const f = window.__islandKarte!.queryRenderedFeatures(undefined, {
+        layers: ['stopp-symbol'],
+      });
       return {
         gesamt: f.length,
         haeuser: f.filter((x) => String(x.properties?.id ?? '').startsWith('unterkunft:')).length,
@@ -519,7 +516,16 @@ test('der Aufklapper wählt einzelne Zielarten', async ({ page }) => {
   await page.getByTestId('filter-natur').click();
   await expect(aufklapper).toBeVisible();
   // Alle acht Zielarten der Gruppe stehen einzeln darin, jede mit ihrer Zahl.
-  for (const k of ['wasserfall', 'vulkan', 'berg', 'see', 'gletscher', 'schlucht', 'strand', 'hoehle']) {
+  for (const k of [
+    'wasserfall',
+    'vulkan',
+    'berg',
+    'see',
+    'gletscher',
+    'schlucht',
+    'strand',
+    'hoehle',
+  ]) {
     await expect(aufklapper.getByTestId(`kategorie-${k}`)).toBeVisible();
   }
 
@@ -755,4 +761,94 @@ test('der Streifen zeigt jede Tagesart als Symbol auf einer Achse', async ({ pag
   expect(zeile.width).toBeGreaterThan(streifen.width * 0.9);
   expect(zeile.height).toBeGreaterThanOrEqual(44);
   await expect(page.getByTestId('tagestitel')).toContainText('Ablauf');
+});
+
+test('der Zeitstrahl läuft durch — auch am Abreisetag', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-31');
+  await expect(page.getByTestId('tagesstreifen')).toBeVisible();
+
+  /*
+    Der Regressionstest zu einem echten Fehler: die Kopfzeile der letzten
+    Gruppe trug kein Nächte-Abzeichen und war deshalb vier Pixel flacher als
+    die übrigen sechs. Die Tagesreihe darunter rutschte mit, und der Strahl
+    brach sichtbar vor der letzten Perle ab.
+
+    Geprüft wird die Geometrie, nicht die Ursache: **eine** Achse über alle
+    Gruppen, und jede Perle sitzt darauf. Egal, was künftig in der Kopfzeile
+    steht.
+  */
+  const lagen = await page.evaluate(() => {
+    const mitte = (el: Element) => {
+      const r = el.getBoundingClientRect();
+      return Math.round((r.top + r.height / 2) * 10) / 10;
+    };
+    return [...document.querySelectorAll('li[data-testid^="etappe-"]')].map((li) => ({
+      id: (li as HTMLElement).dataset.testid,
+      achse: mitte(li.querySelector('[data-testid^="achse-"]')!),
+      perlen: [...li.querySelectorAll('[data-testid^="perle-"]')].map(mitte),
+    }));
+  });
+
+  expect(lagen.length).toBe(7);
+  const hoehen = new Set(lagen.flatMap((l) => [l.achse, ...l.perlen]));
+  expect(
+    [...hoehen],
+    `Achse und Perlen liegen nicht auf einer Höhe: ${JSON.stringify(lagen)}`,
+  ).toHaveLength(1);
+});
+
+test('Farbe trägt nur der gewählte Tag', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-31');
+  // Erst wenn der Deep Link gegriffen hat, ist überhaupt der richtige Tag
+  // gewählt — sonst misst der Test die Farbe des Vorgabetags.
+  await expect(page.getByTestId('tag-2026-08-31')).toHaveAttribute('aria-selected', 'true');
+
+  /*
+    Fünfzehn eingefärbte Perlen waren dieselbe Konfetti-Falle wie fünfzehn
+    bunte Linien auf der Karte. Der gewählte Tag trägt die Farbe seiner
+    Tagesart, alle anderen Perlen bleiben weiss.
+  */
+  const bunte = () =>
+    page.evaluate(() =>
+      [...document.querySelectorAll('[data-testid^="perle-"]')]
+        .filter((el) => getComputedStyle(el).backgroundColor !== 'rgb(255, 255, 255)')
+        .map(
+          (el) => `${(el as HTMLElement).dataset.testid} ${getComputedStyle(el).backgroundColor}`,
+        ),
+    );
+
+  /*
+    Nachgefasst statt einmal gemessen: die zuvor gewählte Perle blendet ihre
+    Farbe über 150 ms aus. Ein einzelner Messpunkt fällt sonst mitten in den
+    Übergang und sieht zwei farbige Perlen.
+
+    Der Standtag ist Grün — die Farbe verschwindet nicht aus der App, sie wird
+    nur sparsam. Es ist dieselbe, die auf der Karte die Route dieses Tages
+    trägt.
+  */
+  await expect
+    .poll(bunte, { message: 'mehr als der gewählte Tag trägt Farbe' })
+    .toEqual(['perle-2026-08-31 rgb(5, 150, 105)']);
+});
+
+test('die Vorschau steht über dem Zeitstrahl und nennt die Nächte im Klartext', async ({
+  page,
+}) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-31');
+  await expect(page.getByTestId('tag-2026-08-31')).toHaveAttribute('aria-selected', 'true');
+
+  // Die Vorschau des Tages liegt über der Achse, nicht darunter.
+  const vorschau = (await page.getByTestId('tagestitel').boundingBox())!;
+  const strahl = (await page.getByTestId('tag-2026-08-31').boundingBox())!;
+  expect(vorschau.y + vorschau.height).toBeLessThanOrEqual(strahl.y);
+
+  /*
+    Die Nächtezahl stand als blanke Ziffer in einem roten Abzeichen und sagte
+    nicht, was sie zählt. Jetzt steht das Wort dabei — mit Singular.
+  */
+  await expect(page.getByTestId('etappe-thrasastadir')).toContainText('4 Nächte');
+  await expect(page.getByTestId('etappe-konvin')).toContainText('1 Nacht');
 });

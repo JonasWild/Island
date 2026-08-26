@@ -140,7 +140,10 @@ Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
   sitzen, gruppiert nach **Standzeiten** — Zeiträumen zwischen zwei
   Unterkünften, mit Quartier und Nächtezahl als Klammer. Die Reise besteht aus
   sechs solchen Abschnitten, nicht aus fünfzehn gleichrangigen Tagen. Jede
-  Perle trägt das Zeichen ihrer Tagesart in deren Farbe.
+  Perle trägt das Zeichen ihrer Tagesart; die Nächtezahl steht ausgeschrieben
+  im Kopf der Gruppe. **Farbe trägt nur der gewählte Tag** — siehe unten.
+  Darüber, nicht darunter, die Zusammenfassung des gewählten Tages: sie
+  beschreibt, was auf der Karte zu sehen ist, und gehört deshalb an die Karte.
 - **Vorschau vor Detail**: ein Klick auf ein Kartensymbol öffnet eine kleine
   Blase am Marker (Bild, Name, ein bis zwei Sätze), erst „Mehr" das
   Kontextblatt. Der Blick auf „was ist das?" soll nicht das halbe Bild kosten.
@@ -178,6 +181,38 @@ Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
 - Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar, reload-fest.
 - Tastatur: ←/→ Tag, Esc schließt. Reduced-Motion respektieren.
 - Hell/dunkel über MapLibre-Style-Wechsel, nicht per CSS-Filter.
+
+### Zurückgenommen: fünfzehn farbige Perlen
+
+Der Tagesstreifen färbte anfangs **jede** Perle in der Farbe ihrer Tagesart —
+dieselben fünf Farben, die auch die Routen tragen. Die Absicht war richtig, die
+Wirkung nicht: es war exakt die Konfetti-Falle, die für die Linien auf der
+Karte schon entschieden war (Abschnitt „Routenlinien"). Wenn fünfzehn Perlen
+Farbe tragen, unterscheidet Farbe nichts mehr — sie wird Dekoration, und der
+gewählte Tag geht in ihr unter. Dazu kam, dass die inaktiven Perlen zur
+Beruhigung auf 45 % Deckkraft standen: das nahm dem weissen Zeichen darin den
+Kontrast, ohne die Buntheit wirklich zu nehmen.
+
+Jetzt gilt im Streifen dieselbe Regel wie auf der Karte. Der gewählte Tag trägt
+seine Farbe, die übrigen bleiben weiss mit grauem Zeichen. Dieselbe Regel traf
+die rote Nächte-Ziffer und die grüne Gehzeit: beides war Farbe, die etwas
+bedeuten sollte, ohne es zu sagen — ersetzt durch Wort und Form (Bett, Stiefel).
+
+### Zurückgenommen: Halbwerte als Layout-Konstanten
+
+Die Achse des Zeitstrahls lag auf `top-4` — der halben Perlenhöhe — und endete
+bei `1.375rem`, der halben Tagesbreite. Beide Zahlen waren von Hand gegen die
+Perlengrösse nachgeführt, und beide waren stumm: Änderte sich eine der
+Grössen, löste sich die Achse von den Perlen, ohne dass etwas den Fehler
+gemeldet hätte. Genau das passierte am Abreisetag — dessen Kopfzeile ohne
+Nächte-Abzeichen vier Pixel flacher war, was die ganze letzte Gruppe samt Achse
+nach oben zog.
+
+Die Masse stehen jetzt einmal als CSS-Variablen (`--perle`, `--tag`,
+`--luecke`), die Achse rechnet mit `calc()`, die Kopfzeile hat feste Höhe, und
+ein E2E-Test prüft, dass Achse und Perlen aller sieben Gruppen auf **einer**
+Höhe liegen. Nicht die Ursache wird geprüft, sondern die Geometrie — egal, was
+künftig in der Kopfzeile steht.
 
 ## 6. Routing — Entscheidung
 

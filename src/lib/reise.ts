@@ -48,7 +48,12 @@ export type StoppRef = {
 
 /** Alle Stopps der Reise in Reihenfolge — auch die ohne Position. */
 export const alleStopps: readonly StoppRef[] = tage.flatMap((t) =>
-  t.highlights.map((stopp, index) => ({ id: stoppId(t.datum, index), datum: t.datum, index, stopp })),
+  t.highlights.map((stopp, index) => ({
+    id: stoppId(t.datum, index),
+    datum: t.datum,
+    index,
+    stopp,
+  })),
 );
 
 export const verorteteStopps = alleStopps.filter((s) => s.stopp.pos !== null);
@@ -105,6 +110,16 @@ export function gehzeitTag(datum: string): number {
 /** Stopps eines Tages, an denen gewandert wird. */
 export function wanderungenTag(datum: string): number {
   return tagNach(datum)?.highlights.filter((h) => h.wanderung !== undefined).length ?? 0;
+}
+
+/**
+ * Eine Dauer in Minuten als Text. Ohne führende „0 h": ein Tag mit sechzehn
+ * Minuten Fahrt sagt „16 min", nicht „0 h 16 min".
+ */
+export function stunden(minuten: number): string {
+  const h = Math.floor(minuten / 60);
+  const m = minuten % 60;
+  return h > 0 ? `${h} h ${m} min` : `${m} min`;
 }
 
 export function datumKurz(datum: string): string {
