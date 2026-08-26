@@ -9,9 +9,12 @@ Quelle: `data/reise.json` — 15 Tage, 6 Unterkünfte, 128 Stopps, ~2.450 km.
 ## 1. Leitsatz
 
 Die Karte **ist** die App. Kein Sidebar-Listen-Layout, keine Tabs, keine
-Dokumentansicht. Alles Weitere ist minimal: Zeitachse, Kartenlabels, ein
-Kontextblatt. Wenn eine Information nicht auf oder an der Karte hängt, gehört
-sie nicht in v1.
+Dokumentansicht. Alles Weitere ist minimal: Zeitstrahl, Kartenlabels, eine
+Vorschau-Blase am Ziel, ein Kontextblatt. Wenn eine Information nicht auf oder
+an der Karte hängt, gehört sie nicht in v1.
+
+Mobile first heißt hier wörtlich: 390 px ist die Bezugsgröße, nicht der
+Sonderfall. Was dort nicht lesbar ist oder die Karte zudeckt, ist nicht fertig.
 
 ## 2. Kartentechnik — Entscheidung
 
@@ -48,7 +51,9 @@ Basiskarte: MapLibre-Demo-Style oder OpenFreeMap (kostenlos, kein Key).
 - **Zustand** für Kartenzustand (Tag, Stopp, Kameramodus, Zeichnung)
 - **@langchain/openai** + **@langchain/core** — ausschließlich serverseitig
 - **Zod** — Schema für `reise.json`, validiert beim Build
-- **Vitest** + **Playwright** (Smoke: Karte lädt, Marker klickbar, Stream kommt an)
+- **Vitest** + **Playwright** (Smoke in zwei Breiten — Pixel 7 und Desktop —
+  gegen einen netzfreien Stubstil: geprüft wird der eigene Code, nicht die
+  Erreichbarkeit fremder Server)
 - **pnpm**, ESLint, Prettier
 - Deployment **Vercel**
 
@@ -59,7 +64,13 @@ Basiskarte: MapLibre-Demo-Style oder OpenFreeMap (kostenlos, kein Key).
 ```ts
 pos:      [lat, lon]
 posMeta:  { quelle: 'osm'|'wikidata'|'manuell', genauigkeit: 'punkt'|'bereich', geprueftAm: string, ref?: string }
+bild?:    { url, breite?, hoehe?, urheber, lizenz, lizenzUrl?, seite? }
 ```
+
+`bild` ist optional; `urheber` und `lizenz` sind darin Pflicht — ein Bild ohne
+Nennung soll gar nicht erst in die Daten kommen. Gezeigt wird die Nennung im
+Kontextblatt, nicht in der Vorschau-Blase. `reise.json` führt derzeit kein
+Bild; die UI läuft deshalb im bildlosen Fall, und der ist getestet.
 
 **Geocoding-Pipeline** (`pnpm geocode`, Build-Zeit, nicht zur Laufzeit):
 
@@ -77,22 +88,96 @@ Ferienhäuser (viatis.is) haben keine öffentliche Adresse → bleiben
 
 ## 5. Interaktion (das eigentliche Produkt)
 
-- **Zeitachse** unten über der Karte: 15 Tage, farbcodiert nach Typ. Klick =
+- **Zeitstrahl** unten über der Karte: 15 Tage als Knoten auf einer
+  durchlaufenden Achse, gegliedert in die sieben Standzeiten. Klick =
   Kameraflug auf die Etappe (`fitBounds` mit `pitch`, `bearing`).
 - **Kamera-Tour**: Play fährt die Tagesetappe ab (`easeTo`-Kette entlang der
   Stopps, Terrain sichtbar). Der Ersatz für jede Textliste.
-- **Stopps** als MapLibre-Symbol-Layer, nicht als DOM-Marker. Hover = Label +
-  Höhenprofil-Tooltip, Klick = Kontextblatt am Kartenrand (max. 1/3 Breite).
-- **Klick auf leere Karte** → „Was ist hier?" an das LLM, mit Koordinate,
-  Reisetag und nächstgelegenem Stopp als Kontext.
+- **Stopps** als MapLibre-Symbol-Layer, nicht als DOM-Marker. Klick =
+  Vorschau-Blase am Symbol; „Mehr dazu" öffnet das Kontextblatt.
+- **Klick auf leere Karte** → schließt eine offene Auswahl; ohne Auswahl
+  „Was ist hier?" an das LLM, mit Koordinate, Reisetag und nächstgelegenem
+  Stopp als Kontext.
 - **Zeichnen** (Terra Draw): Punkt / Route / Fläche. Eine Fläche ist eine Frage
   an das LLM („Was liegt in diesem Gebiet?"). Persistenz in `localStorage`.
 - **Etappenlinien** als GeoJSON-Line-Layer, gestrichelt, klar als Schematik
   gelabelt — keine Navigationsroute. Echtes Routing erst, wenn ein
   Routing-Dienst dazukommt (v2, OSRM/Valhalla).
 - Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar, reload-fest.
-- Tastatur: ←/→ Tag, Esc schließt, Leertaste Tour. Reduced-Motion respektieren.
+- Tastatur: ←/→ Tag, Esc eine Stufe zurück, Leertaste Tour. Reduced-Motion
+  respektieren.
 - Hell/dunkel über MapLibre-Style-Wechsel, nicht per CSS-Filter.
+
+### 5.1 Zwei Stufen zu einem Ziel — Entscheidung
+
+Ein Klick auf ein Symbol öffnete direkt das Kontextblatt. Auf 390 px hieß das:
+ein Drittel der Karte weg, um zwei Sätze zu lesen — im Widerspruch zu §1.
+
+Jetzt gilt: **Blase zuerst, Blatt auf Wunsch.** Die Blase sitzt am Symbol, zeigt
+Bild (wenn vorhanden), ein bis zwei ganze Sätze aus `stopp.text` und einen
+benannten Weg ins Kontextblatt.
+
+| Frage | Entscheidung | Begründung |
+|---|---|---|
+| `maplibregl.Popup` oder eigenes DOM? | eigenes DOM über `map.project()` | Der Popup dreht seinen Anker, klemmt aber nicht — am Rand steht er halb außerhalb. Auf 390 px ist das der Normalfall. |
+| Bild mit Nennung in der Blase? | nein, nur im Kontextblatt | Bewusste Entscheidung des Nutzers für diesen Stand; die vollständige Nennung ist einen Tipp entfernt. Ohne Nennung kommt ein Bild gar nicht erst in die Daten (`BildSchema`). |
+| Text kürzen? | nur an Satzgrenzen | Ein Schnitt nach Zeichenzahl trifft mitten ins Wort. Lieber ein Satz zu wenig als ein halber. |
+| Deep Link → Blase oder Blatt? | Blatt | Wer einem geteilten Link folgt, hat den Kontext nicht, den ein eigener Klick aufbaut. |
+| Esc | eine Stufe je Druck | Tagesablauf → Kontextblatt → Blase → nichts, in der Reihenfolge, in der die Schichten aufgingen. |
+
+Das Kontextblatt ist mobile first: Bottom-Sheet bis `max-h-[75dvh]`, ab `sm:`
+Spalte rechts. Als Spalte über die ganze Höhe blieben auf 390 px 90 px Karte
+übrig — von §1 wäre nichts geblieben.
+
+### 5.2 Zeitstrahl statt Tagesreihe — Entscheidung
+
+Der Streifen war eine Reihe gleich großer Kästchen ohne Gliederung, breiter als
+das Bild und ohne Scrollen — man sah nie die ganze Reise.
+
+- **Durchlaufende Achse**, Tage als Knoten: eine Folge liest sich anders als
+  eine Auswahl.
+- **Standzeiten als Gliederung** (`src/lib/etappe.ts`): sechs Quartiere plus
+  Abreisetag. Ein Tag gehört zu der Unterkunft, in der man an seinem Abend
+  schläft. Nach Quartieren erinnert man eine Reise, nicht nach Datum.
+- **Tagesart als Symbol**, fünf eigene SVG-Pfade. Die Canvas-Zeichner in
+  `map/icons.ts` zeichnen die Zielart (16 Werte) für MapLibre; ein Umbau auf
+  SVG-Ausgabe wäre viel Arbeit für Symbole, die es danach immer noch nicht
+  gäbe. Winzige Canvas-Elemente im DOM wären für ein statisches Piktogramm ein
+  Umweg. Farbe allein trug es nicht: sie ist mit der Route belegt.
+- **Was der Streifen trägt**: Datum, Art, Ziele, Kilometer, Fahrzeit — die
+  Zahlen, die einen Tag planbar machen. Reihenfolge der Stopps, Gehzeiten,
+  Hinweise und Quartier stehen im **Tagesablauf**; über der Karte wären sie
+  Lärm.
+- **Der Weg in den Tagesablauf** ist die Zusammenfassungszeile selbst, benannt
+  und mit der größten Trefferfläche des Streifens — kein angeklebter Knopf, und
+  kein unsichtbares „zweites Tippen".
+- Der Streifen meldet `--streifen-hoehe`, das Kontextblatt `--blatt-rechts` /
+  `--blatt-unten`. Bedienelemente und Herkunftsangabe rechnen damit; verdeckt
+  werden darf die Herkunftsangabe nie (Bedingung der Kartennutzung, geprüft im
+  E2E paarweise).
+
+### 5.3 Kamerafahrt nur, wenn nötig — Entscheidung
+
+Jeder Klick auf ein Symbol flog mit festem Zoom 12 hin, auch wenn das Ziel
+schon im Bild stand. Das riss den Ausschnitt weg, den man sich gerade aufgebaut
+hatte.
+
+- **„Sichtbar" ist nicht `getBounds().contains()`.** Gerechnet wird gegen den
+  frei sichtbaren Ausschnitt (`src/map/sicht.ts`): Viewport minus Zeitstrahl,
+  Kontextblatt, Herkunftsangabe, Bedienelemente und Rand. Die großen Einbauten
+  werden am DOM **gemessen**, nicht aus Breakpoints nachgebaut — nachgebaute
+  Annahmen gehen irgendwann auseinander.
+- **Zoomschwelle**: unter Zoom 8 wird trotzdem geflogen. Ein Punkt kann
+  sichtbar und seine Umgebung trotzdem unlesbar sein.
+- **Ruhig fliegen**: aktueller Zoom bleibt (nach unten begrenzt auf 10,5),
+  Neigung und Drehung bleiben, verschoben wird nur die Mitte — und zwar in die
+  Mitte des freien Bereichs.
+- **Unterkünfte** lösen dieselbe Regel aus wie Stopps. Dass sie früher gar
+  keinen Flug auslösten, war willkürlich.
+- **Nicht angetastet**: der Tageswechsel fliegt weiter, Deep Links fliegen
+  weiter. Während eines laufenden Fluges gilt ein Ziel als „nicht sichtbar" —
+  sonst entscheidet man auf einem wandernden Ausschnitt.
+- `reduziert()` (prefers-reduced-motion) bleibt in allen Wegen.
 
 ## 6. LLM
 
@@ -133,9 +218,11 @@ Ferienhäuser (viatis.is) haben keine öffentliche Adresse → bleiben
 | 4 | LLM gemockt, SSE-Stream, Kartenklick-Frage | UI fertig testbar |
 | 5 | LangChain echt + web_search-Spike | Live-Infos |
 | 6 | Terra Draw + Flächen-Frage | eigene Zeichnung als Kontext |
+| 7 | Vorschau-Blase, Zeitstrahl, ruhige Kamera | auf 390 px bedienbar (§5.1–5.3) |
 
 v2, nicht jetzt: echtes Routing, Offline/Service Worker, Wetter- und
-Straßenzustand-Feeds (vedur.is, road.is), Fotos pro Stopp, deck.gl-Arcs.
+Straßenzustand-Feeds (vedur.is, road.is), deck.gl-Arcs. Fotos pro Stopp: das
+Schema steht (`bild`, §4), belegte Bilder gibt es noch keine.
 
 ## 9. Offen — vor Reisebeginn klären
 

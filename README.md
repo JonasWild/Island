@@ -3,8 +3,9 @@
 Karte zum Reiseplan von Katla Travel (Vorgang 15412, 27.08.–10.09.2026,
 5 Personen, Mietwagen, Ferienhäuser). 15 Tage, 6 Unterkünfte, 128 Stopps.
 
-Die Karte ist die App. Daneben gibt es genau zwei Dinge: einen Tagesstreifen
-unten und ein Kontextblatt rechts, wenn man etwas anklickt.
+Die Karte ist die App. Daneben gibt es genau drei Dinge: einen Zeitstrahl
+unten, eine Vorschau-Blase am angeklickten Ziel und ein Kontextblatt, wenn man
+mehr wissen will.
 
 ## Loslegen
 
@@ -24,12 +25,31 @@ deutlich. Für echte Antworten den Schlüssel in `.env.local` setzen
 | `pnpm build` | validiert `reise.json` und baut |
 | `pnpm geocode` | Geocoding-Pipeline (Build-Zeit, nicht Laufzeit) |
 | `pnpm test` | Vitest |
-| `pnpm e2e` | Playwright-Smoke |
+| `pnpm e2e` | Playwright in zwei Breiten (Pixel 7 und Desktop) |
 | `pnpm typecheck` / `pnpm lint` | statische Prüfung |
 
 Container und CI-Images mit vorinstalliertem Chromium brauchen für die
 E2E-Tests den Pfad:
 `PLAYWRIGHT_CHROMIUM_PATH=/opt/pw-browsers/chromium pnpm e2e`.
+
+Die E2E-Tests laufen gegen einen netzfreien Stubstil (`e2e/stub.ts`): Basiskarte
+und DEM werden im Browser abgefangen und lokal beantwortet — der Stil ist
+gültig, aber leer, das DEM eine flache Kachel auf Meereshöhe. Geprüft wird der
+eigene Code, nicht die Erreichbarkeit fremder Server.
+
+Zum Ansehen des Ergebnisses:
+
+```bash
+pnpm build && npx next start -p 3210 &
+VP=mobil URL="http://127.0.0.1:3210/?tag=2026-08-28" OUT=/tmp/m.png \
+  PLAYWRIGHT_CHROMIUM_PATH=/opt/pw-browsers/chromium \
+  NODE_USE_ENV_PROXY=1 node scripts/screenshot.mjs
+```
+
+`scripts/screenshot.mjs` holt die Kartenanfragen über Node und reicht sie an den
+Browser durch — in abgeschotteten Umgebungen kommt nur Node an die Kachel-Hosts
+heran. Ohne das sieht man eine leere Karte und hält funktionierenden Code für
+kaputt.
 
 ## Bedienung
 
@@ -37,11 +57,72 @@ E2E-Tests den Pfad:
 |---|---|
 | Klick auf einen Tag | Kameraflug auf die Etappe |
 | `←` / `→` | Tag zurück / vor |
-| Klick auf einen Stopp | Kontextblatt rechts |
-| Klick auf leere Karte | „Was ist hier?" ans Modell, mit Koordinate, Reisetag und nächstem Stopp |
-| `Esc` | schließt das Kontextblatt |
+| Klick auf ein Symbol | Vorschau-Blase am Ziel: kurzer Text, Weg ins Kontextblatt |
+| „Mehr dazu" in der Blase | Kontextblatt — auf dem Handy unten, ab `sm:` rechts |
+| Klick auf die Zusammenfassungszeile | Tagesablauf als Vollbild |
+| Klick auf leere Karte | schließt erst die Auswahl; ohne Auswahl „Was ist hier?" ans Modell |
+| `Esc` | eine Stufe zurück: Tagesablauf → Kontextblatt → Blase → nichts |
 
-Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar und reload-fest.
+Deep Links: `/?tag=2026-09-05&stopp=8` — teilbar und reload-fest. Sie öffnen
+direkt das Kontextblatt, nicht die Blase: wer einem geteilten Link folgt, hat
+den Kontext nicht, den ein eigener Klick aufbaut.
+
+### Zeitstrahl statt Tagesreihe
+
+Die Leiste unten ist eine durchlaufende Achse, auf der die Tage als Knoten
+sitzen, gegliedert in die sieben Standzeiten (sechs Quartiere plus
+Abreisetag, `src/lib/etappe.ts`). Ein Tag gehört zu der Unterkunft, in der man
+an seinem **Abend** schläft — der Fahrtag nach Mývatn zählt also schon dorthin.
+
+Jeder Knoten trägt die **Tagesart** als Symbol (fünf Werte: Anreise, Standtag,
+Tagesausflug, Etappe, Abreise). Das sind eigene SVG-Pfade in
+`TagTypSymbol.tsx`; die Canvas-Zeichner in `src/map/icons.ts` geben dafür
+nichts her, denn sie zeichnen die **Zielart** (16 Werte) für MapLibre. Die
+Farbe allein trug die Unterscheidung nicht: sie ist auf der Karte schon mit der
+Route belegt.
+
+Der Streifen beantwortet zwei Fragen — wo bin ich in der Reise, und was für ein
+Tag ist das. Mehr steht bewusst nicht darin: Stopps in Fahrreihenfolge,
+Gehzeiten, Hinweise und das Quartier des Abends stehen im **Tagesablauf**, den
+die Zusammenfassungszeile öffnet. Sie ist selbst die Schaltfläche — kein
+angeklebter Knopf daneben.
+
+Der Streifen meldet seine Höhe als `--streifen-hoehe`; die
+MapLibre-Bedienelemente, die Herkunftsangabe der Basiskarte, die Vorschau-Blase
+und die Kameraentscheidung rechnen damit. Das Kontextblatt meldet ebenso
+`--blatt-rechts` / `--blatt-unten`, damit die Herkunftsangabe ihm ausweicht:
+verdeckt werden darf sie nie.
+
+### Vorschau-Blase
+
+Ein Klick auf ein Symbol deckte früher sofort ein Drittel der Karte zu, um zwei
+Sätze zu zeigen. Jetzt öffnet er eine Blase am Ziel — eigenes DOM über
+`map.project()`, kein `maplibregl.Popup`: der Popup dreht bei Bedarf seinen
+Anker um, aber er klemmt nicht, und auf 390 px steht er neben einem Ziel am
+Rand halb außerhalb. Die Blase wird stattdessen in den frei sichtbaren
+Ausschnitt geklemmt (`src/map/sicht.ts`); zeigt ihr Zeiger nach dem Klemmen
+nicht mehr auf das Symbol, entfällt er, statt ins Leere zu deuten.
+
+Der Text kommt aus `stopp.text` und wird auf ganze Sätze gekürzt
+(`src/lib/text.ts`) — nie mitten im Satz, Abkürzungen und Ordnungszahlen
+beenden dabei keinen Satz. Ein Bild zeigt die Blase **ohne** Urheber- und
+Lizenzzeile; die vollständige Nennung steht im Kontextblatt, einen Tipp
+entfernt.
+
+### Kamera
+
+Die Kamera fliegt nur, wenn das Ziel es nötig hat: liegt es im **frei
+sichtbaren** Ausschnitt und ist der Zoom über 8, bleibt sie stehen. „Frei
+sichtbar" ist dabei nicht `getBounds().contains()` — abgezogen werden
+Zeitstrahl, Kontextblatt, Herkunftsangabe und Bedienelemente, gemessen am
+echten DOM statt am nachgebauten Layout. Wird geflogen, dann so ruhig wie
+möglich: der aktuelle Zoom bleibt (nur nach unten begrenzt), Neigung und
+Drehung bleiben, verschoben wird die Mitte — und zwar in die Mitte des freien
+Bereichs, nicht des Fensters.
+
+Der Tageswechsel fliegt weiter (`fliegeZuTag`), Deep Links fliegen ebenfalls:
+während des Tagesflugs ist „sichtbar" ein wandernder Begriff, deshalb gilt eine
+bewegte Kamera als „nicht sichtbar".
 
 ## Karte
 
@@ -103,6 +184,13 @@ posMeta: { quelle: 'osm'|'wikidata'|'anbieter'|'reiseplan'|'manuell',
   3 km bestätigt.
 - Alles andere landet mit seinen Kandidaten in `data/offen.json`.
 
+**Bilder sind optional und belegt.** `BildSchema` (`src/lib/schema.ts`) hängt an
+Stopp und Unterkunft: `url`, optional Maße, dazu `urheber` und `lizenz` als
+Pflicht — ein Bild ohne Nennung soll gar nicht erst in die Daten kommen.
+`reise.json` führt derzeit **kein** Bild; die UI läuft deshalb im bildlosen
+Fall, und genau der ist getestet. Kommen Bilder dazu, muss ihr Host in die CSP
+(`img-src` in `next.config.ts`) aufgenommen werden.
+
 `data/kuratiert.json` gewinnt immer und enthält die von Hand belegten Fälle mit
 Quelle und Begründung. Der Cache wird mitcommittet: reproduzierbare Builds,
 keine Rate-Limit-Überraschungen.
@@ -149,4 +237,5 @@ Die CSP in `next.config.ts` öffnet gezielt nur `tiles.openfreemap.org` und
 ## Nicht enthalten
 
 Zeichnen/Editieren, Kamera-Tour, echtes Routing, Offline-Betrieb, Wetter- und
-Straßenzustandsfeeds, Fotos pro Stopp.
+Straßenzustandsfeeds. Fotos pro Stopp: das Schema steht, belegte Bilder gibt es
+noch keine.
