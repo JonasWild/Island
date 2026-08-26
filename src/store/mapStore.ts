@@ -14,6 +14,16 @@ export type Auswahl =
   | { art: 'unterkunft'; id: string }
   | { art: 'ort'; pos: Pos };
 
+/**
+ * Was in der Vorschau-Blase am Symbol steht. Bewusst getrennt von `auswahl`:
+ * die Blase ist der erste, billige Blick — das Kontextblatt der zweite, volle.
+ * Ein Klick auf ein Symbol öffnet nur die Blase; erst von dort geht es weiter.
+ */
+export type Vorschau =
+  | { art: 'stopp'; id: string }
+  | { art: 'unterkunft'; id: string }
+  | null;
+
 type State = {
   tagDatum: string;
   auswahl: Auswahl;
@@ -28,6 +38,8 @@ type State = {
   nurTag: boolean;
   /** Der Tagesablauf als Vollbild. */
   detailsOffen: boolean;
+  /** Die kleine Blase am Symbol. */
+  vorschau: Vorschau;
 };
 
 type Actions = {
@@ -35,6 +47,7 @@ type Actions = {
   tagVor: () => void;
   tagZurueck: () => void;
   waehle: (a: Auswahl) => void;
+  zeigeVorschau: (v: Vorschau) => void;
   schliesse: () => void;
   toggleTheme: () => void;
   toggleKategorie: (k: Kategorie) => void;
@@ -53,10 +66,11 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   kategorien: [],
   nurTag: false,
   detailsOffen: false,
+  vorschau: null,
 
   setTag: (datum) => {
     if (!tage.some((t) => t.datum === datum)) return;
-    set({ tagDatum: datum, auswahl: { art: 'keine' }, detailsOffen: false });
+    set({ tagDatum: datum, auswahl: { art: 'keine' }, vorschau: null, detailsOffen: false });
   },
   tagVor: () => {
     const i = tage.findIndex((t) => t.datum === get().tagDatum);
@@ -69,8 +83,10 @@ export const useMapStore = create<State & Actions>((set, get) => ({
     if (prev) get().setTag(prev.datum);
   },
 
-  waehle: (auswahl) => set({ auswahl }),
-  schliesse: () => set({ auswahl: { art: 'keine' } }),
+  // Das Kontextblatt loest die Blase ab — beides gleichzeitig waere doppelt.
+  waehle: (auswahl) => set({ auswahl, vorschau: null }),
+  zeigeVorschau: (vorschau) => set({ vorschau, auswahl: { art: 'keine' } }),
+  schliesse: () => set({ auswahl: { art: 'keine' }, vorschau: null }),
   toggleTheme: () => set({ theme: get().theme === 'dunkel' ? 'hell' : 'dunkel' }),
   toggleKategorie: (k) => {
     const jetzt = get().kategorien;

@@ -1,5 +1,32 @@
-import { expect, test } from '@playwright/test';
+import { expect, type Page, test } from '@playwright/test';
 import { stilStubben } from './stub';
+
+/**
+ * Bildschirmposition eines Stopps, der frei in der Mitte liegt.
+ *
+ * `queryRenderedFeatures()[0]` reicht nicht: das erste Symbol kann unter der
+ * Filterleiste oben oder dem Tagesstreifen unten stecken, und der Klick träfe
+ * dann die Bedienleiste statt die Karte.
+ */
+async function freiesSymbol(page: Page, name?: string) {
+  return page.evaluate((n) => {
+    const m = window.__islandKarte!;
+    const c = m.getContainer().getBoundingClientRect();
+    const kandidaten = m
+      .queryRenderedFeatures(undefined, { layers: ['stopp-symbol'] })
+      .filter((f) => (n ? String(f.properties?.name ?? '').includes(n) : true));
+    for (const f of kandidaten) {
+      if (f.geometry.type !== 'Point') continue;
+      const p = m.project(f.geometry.coordinates as [number, number]);
+      // Grosszügig von allen Rändern weg: oben die Filterleiste, unten der
+      // Streifen, rechts die Zoom-Knöpfe.
+      if (p.x > 90 && p.x < c.width - 90 && p.y > 130 && p.y < c.height - 230) {
+        return { x: p.x, y: p.y, name: String(f.properties?.name ?? '') };
+      }
+    }
+    return null;
+  }, name);
+}
 
 /** Smoke: Karte lädt, Zeitachse wechselt den Tag, Deep Links greifen. */
 
@@ -575,4 +602,119 @@ test('der Tagesablauf ist ohne Suchen erreichbar und blättert in der Standzeit'
   // Am Anfang der Standzeit ist Schluss — der Sprung ins nächste Quartier ist
   // ein anderer Schritt.
   await expect(page.getByTestId('tagesdetails-zurueck')).toBeDisabled();
+});
+
+test('ein Klick auf ein Symbol öffnet die Vorschau, nicht das Kontextblatt', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-28');
+  await page.waitForFunction(
+    () =>
+      (window.__islandKarte?.queryRenderedFeatures(undefined, { layers: ['stopp-symbol'] })
+        ?.length ?? 0) > 0,
+  );
+  await page.waitForTimeout(2500);
+
+  const vorschau = page.getByTestId('vorschau');
+  const blatt = page.getByTestId('kontextblatt');
+  await expect(vorschau).toBeHidden();
+
+  const punkt = await freiesSymbol(page);
+  expect(punkt, 'kein frei liegendes Symbol im Bild').not.toBeNull();
+  await page.mouse.click(punkt!.x, punkt!.y);
+
+  await expect(vorschau).toBeVisible();
+  await expect(blatt).toBeHidden();
+  // Ein bis zwei Sätze, kein abgeschnittener Halbsatz.
+  await expect(vorschau).not.toContainText(/[a-zäöüß] …$/);
+
+  // Sie muss ins Bild passen — sonst zeigt sie nichts.
+  const seite = page.viewportSize()!;
+  const kasten = (await vorschau.boundingBox())!;
+  expect(kasten.x).toBeGreaterThanOrEqual(0);
+  expect(kasten.x + kasten.width).toBeLessThanOrEqual(seite.width + 1);
+
+  // „Mehr" löst sie durch das Kontextblatt ab — beides gleichzeitig wäre doppelt.
+  await page.getByTestId('vorschau-mehr').click();
+  await expect(blatt).toBeVisible();
+  await expect(vorschau).toBeHidden();
+});
+
+test('die Vorschau schliesst über Kreuz, Esc und Klick ins Leere', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-28');
+  await page.waitForFunction(
+    () =>
+      (window.__islandKarte?.queryRenderedFeatures(undefined, { layers: ['stopp-symbol'] })
+        ?.length ?? 0) > 0,
+  );
+  await page.waitForTimeout(2500);
+
+  const vorschau = page.getByTestId('vorschau');
+  const oeffnen = async () => {
+    const p = await freiesSymbol(page);
+    expect(p, 'kein frei liegendes Symbol im Bild').not.toBeNull();
+    await page.mouse.click(p!.x, p!.y);
+    await expect(vorschau).toBeVisible();
+  };
+
+  await oeffnen();
+  await page.getByTestId('vorschau-schliessen').click();
+  await expect(vorschau).toBeHidden();
+
+  await oeffnen();
+  await page.locator('body').press('Escape');
+  await expect(vorschau).toBeHidden();
+});
+
+test('ein sichtbares Ziel lässt die Kamera stehen, ein entferntes nicht', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-28');
+  await page.waitForFunction(
+    () =>
+      (window.__islandKarte?.queryRenderedFeatures(undefined, { layers: ['stopp-symbol'] })
+        ?.length ?? 0) > 0,
+  );
+  await page.waitForTimeout(2500);
+
+  const kamera = () =>
+    page.evaluate(() => {
+      const m = window.__islandKarte!;
+      return { ...m.getCenter(), zoom: m.getZoom() };
+    });
+
+  /*
+    Wer auf ein Symbol tippt, das er gerade ansieht, will nicht, dass die Karte
+    darunter wegrutscht. Bewusst ohne Zoom-Schwelle: der Kameraflug auf einen
+    Tag landet je nach Ausdehnung zwischen Zoom 6 und 10,5, und jede Schwelle
+    darin hätte fast jeden Klick wieder zu einer Fahrt gemacht.
+  */
+  const punkt = await freiesSymbol(page);
+  expect(punkt, 'kein frei liegendes Symbol im Bild').not.toBeNull();
+  const vorher = await kamera();
+  await page.mouse.click(punkt!.x, punkt!.y);
+  await page.waitForTimeout(1500);
+  const nachher = await kamera();
+
+  expect(Math.abs(nachher.lng - vorher.lng), 'Kamera ist gewandert').toBeLessThan(0.001);
+  expect(Math.abs(nachher.lat - vorher.lat), 'Kamera ist gewandert').toBeLessThan(0.001);
+  expect(Math.abs(nachher.zoom - vorher.zoom), 'Zoom hat sich geändert').toBeLessThan(0.001);
+
+  /*
+    Ein Ziel ausserhalb des Bildes dagegen muss geholt werden. Dafür wird die
+    Karte weit weggeschoben und danach ein Ziel über den Tagesablauf gewählt —
+    derselbe Weg, den auch ein Nutzer nimmt.
+  */
+  await page.getByTestId('vorschau-schliessen').click();
+  await page.evaluate(() => window.__islandKarte!.jumpTo({ center: [-15.0, 65.0], zoom: 9 }));
+  await page.waitForTimeout(600);
+  const weggeschoben = await kamera();
+
+  await page.getByTestId('tagestitel').click();
+  await page.getByTestId('tagesdetails').locator('ol > li button').nth(1).click();
+  await page.waitForTimeout(1500);
+  const geholt = await kamera();
+  expect(
+    Math.abs(geholt.lng - weggeschoben.lng) + Math.abs(geholt.lat - weggeschoben.lat),
+    'Kamera blieb stehen, obwohl das Ziel ausserhalb lag',
+  ).toBeGreaterThan(0.5);
 });

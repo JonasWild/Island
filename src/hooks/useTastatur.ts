@@ -17,6 +17,9 @@ export function useTastatur() {
       } else if (e.key === 'ArrowLeft') {
         e.preventDefault();
         s.tagZurueck();
+      } else if (e.key === 'Escape' && s.vorschau) {
+        e.preventDefault();
+        s.zeigeVorschau(null);
       } else if (e.key === 'Escape' && s.detailsOffen) {
         e.preventDefault();
         s.schliesseDetails();

@@ -51,7 +51,8 @@ Layer-Ausdrücke, verdeckte Bedienelemente.
 | `Tagesablauf` unten rechts | der Tag als Zeitstrahl von Bett zu Bett |
 | Filterleiste oben | nach Tag und Zielart filtern, Gruppe tippen öffnet die Zielarten |
 | `←` / `→` | Tag zurück / vor |
-| Klick auf einen Stopp | Kontextblatt (auf dem Handy unten, sonst rechts) |
+| Klick auf einen Stopp | Vorschau-Blase am Symbol |
+| `Mehr` in der Blase | Kontextblatt (auf dem Handy unten, sonst rechts) |
 | Klick auf leere Karte | Koordinate im Kontextblatt |
 | `Esc` | schließt das Kontextblatt |
 
@@ -134,6 +135,31 @@ Irre führt: Stykkishólmur hat ein Vulkanmuseum, Akranes einen Hot Pot,
 Egilsstaðir ein Schwimmbad. Für die Handvoll bekannter Ziele, deren Name
 nichts verrät (Dimmuborgir, Herðubreið, Ásbyrgi …), steht eine kurze Liste
 davor. Ohne Treffer bleibt es ein Ort — nichts wird geraten.
+
+## Zwei Stufen statt einer
+
+Ein Klick auf ein Kartensymbol öffnet zuerst eine **Vorschau-Blase** direkt am
+Marker: Bild, Name, ein bis zwei Sätze, ein Zeiger auf das Symbol. Erst
+„Mehr" führt ins Kontextblatt mit Wanderdaten, Veranstaltertext und
+Wikipedia-Hintergrund. Der Blick auf „was ist das überhaupt?" soll nicht das
+halbe Bild kosten.
+
+Der Text wird an **Satzgrenzen** gekürzt, nie mitten im Satz — ein
+abgeschnittener Halbsatz liest sich wie ein Fehler.
+
+Bewusst kein `maplibregl.Popup`, sondern ein eigenes Element: dessen Styles
+aus `maplibre-gl.css` müssten sonst Stück für Stück überschrieben werden, und
+dieselbe Datei gewinnt bei gleicher Spezifität gegen `globals.css`.
+
+**Die Kamera bleibt dabei stehen**, wenn das Ziel schon frei im Bild liegt.
+Geprüft wird nicht der Kartenausschnitt, sondern die tatsächlich freie Fläche:
+ein Punkt kann im Ausschnitt liegen und trotzdem unter dem Kontextblatt oder
+dem Tagesstreifen stecken. Deren Kanten werden gemessen, nicht geraten.
+
+Eine Zoom-Schwelle („unter Zoom X lohnt das Heranfahren trotzdem") gibt es
+absichtlich nicht: der Kameraflug auf einen Tag landet je nach Ausdehnung der
+Etappe zwischen Zoom 6 und 10,5. Jede Schwelle in dieser Spanne hätte fast
+jeden Klick aus der normalen Tagesansicht wieder zu einer Fahrt gemacht.
 
 ## Filtern
 

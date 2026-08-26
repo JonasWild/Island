@@ -62,6 +62,7 @@ export function Timeline() {
     <div className="pointer-events-none absolute inset-x-0 bottom-0 z-30 sm:flex sm:justify-center sm:p-3">
       <div
         ref={leiste}
+        data-testid="tagesstreifen"
         className="pointer-events-auto bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-lg ring-1 ring-black/10 backdrop-blur sm:max-w-[calc(100vw-1.5rem)] sm:rounded-xl sm:pb-2"
       >
         <div

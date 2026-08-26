@@ -51,7 +51,10 @@ export function Filterleiste() {
     GRUPPE_ARTEN[g].reduce((n, k) => n + (anzahl.get(k) ?? 0), 0);
 
   return (
-    <div className="pointer-events-none absolute inset-x-0 top-0 z-30 pt-[env(safe-area-inset-top)]">
+    <div
+      data-testid="filterleiste"
+      className="pointer-events-none absolute inset-x-0 top-0 z-30 pt-[env(safe-area-inset-top)]"
+    >
       <div
         className="pointer-events-auto flex gap-1.5 overflow-x-auto px-3 py-2 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         role="group"

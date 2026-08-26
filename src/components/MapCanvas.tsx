@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import maplibregl, { type MapGeoJSONFeature, type MapMouseEvent, type Map as MLMap } from 'maplibre-gl';
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useMapStore } from '@/store/mapStore';
-import { alleStopps, tagNach } from '@/lib/reise';
+import { alleStopps, tagNach, unterkunftNach } from '@/lib/reise';
 import type { Pos } from '@/lib/schema';
 import { iconsRegistrieren } from '@/map/icons';
 import {
@@ -15,7 +15,8 @@ import {
   sichtbarkeitSetzen,
   SRC_ORT,
 } from '@/map/layers';
-import { fliegeZuPunkt, fliegeZuTag } from '@/map/camera';
+import { fliegeZuTag, zeigePunkt } from '@/map/camera';
+import { Vorschau } from './Vorschau';
 import { START_KAMERA, STYLE_URL } from '@/map/style';
 
 /**
@@ -48,6 +49,8 @@ export function MapCanvas() {
   const kategorien = useMapStore((s) => s.kategorien);
   const nurTag = useMapStore((s) => s.nurTag);
   const waehle = useMapStore((s) => s.waehle);
+  const zeigeVorschau = useMapStore((s) => s.zeigeVorschau);
+  const vorschau = useMapStore((s) => s.vorschau);
 
   /**
    * Eigene Layer nach jedem Style-Wechsel erneut. Kein Terrain und kein Sky
@@ -112,10 +115,15 @@ export function MapCanvas() {
     const drauf = () => zeiger(true);
     const weg = () => zeiger(false);
 
+    /*
+      Klick auf ein Symbol öffnet die **Vorschau**, nicht das Kontextblatt.
+      Der erste Blick soll billig sein: Bild, Name, zwei Sätze, direkt am
+      Marker. Wer mehr will, geht von dort weiter.
+    */
     const klickStopp = (e: MapMouseEvent & { features?: MapGeoJSONFeature[] }) => {
       const id = (e.features?.[0]?.properties as { id?: string } | undefined)?.id;
       if (!id) return;
-      waehle(
+      zeigeVorschau(
         id.startsWith('unterkunft:')
           ? { art: 'unterkunft', id: id.slice('unterkunft:'.length) }
           : { art: 'stopp', id },
@@ -125,6 +133,12 @@ export function MapCanvas() {
     /** Leere Karte → „Was ist hier?" mit Koordinate, Reisetag und nächstem Stopp. */
     const klickKarte = (e: MapMouseEvent) => {
       if (map.queryRenderedFeatures(e.point, { layers: [LYR_STOPP] }).length > 0) return;
+      // Klick ins Leere schliesst zuerst die Blase, statt sofort „Was ist hier?"
+      // zu fragen — sonst kann man sie nur über ihr Kreuz loswerden.
+      if (useMapStore.getState().vorschau) {
+        zeigeVorschau(null);
+        return;
+      }
       const pos: Pos = [Number(e.lngLat.lat.toFixed(5)), Number(e.lngLat.lng.toFixed(5))];
       const src = map.getSource(SRC_ORT) as maplibregl.GeoJSONSource | undefined;
       src?.setData({
@@ -146,7 +160,7 @@ export function MapCanvas() {
       map.off('click', LYR_STOPP, klickStopp);
       map.off('click', klickKarte);
     };
-  }, [karte, waehle]);
+  }, [karte, waehle, zeigeVorschau]);
 
   /** Tageswechsel: Layer umschalten und hinfliegen. */
   useEffect(() => {
@@ -174,13 +188,26 @@ export function MapCanvas() {
     mapRef.current?.setStyle(STYLE_URL[theme], { diff: false });
   }, [theme]);
 
-  /** Auswahl eines Stopps → hinfliegen. */
+  /**
+   * Auswahl eines Stopps → ins Bild holen, aber nur wenn nötig. Wer auf ein
+   * Symbol tippt, das er gerade ansieht, will nicht, dass die Karte darunter
+   * wegrutscht; `zeigePunkt` entscheidet das anhand der frei sichtbaren
+   * Fläche.
+   */
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || auswahl.art !== 'stopp') return;
-    const pos = alleStopps.find((s) => s.id === auswahl.id)?.stopp.pos;
-    if (pos) fliegeZuPunkt(map, pos);
-  }, [auswahl]);
+    if (!map) return;
+
+    const ziel =
+      vorschau?.art === 'stopp'
+        ? alleStopps.find((s) => s.id === vorschau.id)?.stopp.pos
+        : vorschau?.art === 'unterkunft'
+          ? unterkunftNach(vorschau.id)?.pos
+          : auswahl.art === 'stopp'
+            ? alleStopps.find((s) => s.id === auswahl.id)?.stopp.pos
+            : null;
+    if (ziel) zeigePunkt(map, ziel);
+  }, [auswahl, vorschau]);
 
   return (
     <div className="absolute inset-0">
@@ -190,6 +217,7 @@ export function MapCanvas() {
         der Container auf Höhe 0 zusammenfällt.
       */}
       <div ref={container} className="h-full w-full" data-testid="map" />
+      <Vorschau karte={karte} />
     </div>
   );
 }
