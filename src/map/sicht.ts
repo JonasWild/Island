@@ -7,85 +7,117 @@ import { zuLngLat } from '@/lib/geo';
  *
  * „Im Bild" und „sichtbar" sind zwei verschiedene Dinge. Über der Karte liegen
  * der Themenschalter oben links, die MapLibre-Bedienelemente oben rechts, der
- * Tagesstreifen unten und — wenn offen — das Kontextblatt. Ein Punkt hinter
- * einem dieser Einbauten ist im Viewport und trotzdem nicht zu sehen.
+ * Zeitstrahl unten, die Herkunftsangabe der Basiskarte darüber und — wenn
+ * offen — das Kontextblatt. Ein Punkt hinter einem dieser Einbauten ist im
+ * Viewport und trotzdem nicht zu sehen; `getBounds().contains()` würde ihn als
+ * sichtbar melden.
  *
- * Dieses Modul rechnet den frei sichtbaren Ausschnitt in Pixeln aus. Zwei
- * Stellen brauchen ihn: die Vorschau-Blase (sie darf nirgends hineinragen) und
- * die Kamera (sie soll nicht fliegen, wenn das Ziel ohnehin frei liegt).
+ * Zwei Stellen brauchen den freien Ausschnitt: die Vorschau-Blase (sie darf
+ * nirgends hineinragen) und die Kamera (sie soll nicht fliegen, wenn das Ziel
+ * ohnehin frei liegt).
+ *
+ * Die großen Einbauten werden **gemessen**, nicht geschätzt: Zeitstrahl und
+ * Kontextblatt ändern ihre Größe mit Inhalt und Fensterbreite, und eine
+ * nachgebaute Annahme über Breakpoints geht irgendwann auseinander. Für die
+ * kleinen Bedienelemente in den Ecken bleibt es bei festen Bändern — sie
+ * einzeln abzuziehen würde den freien Bereich zerschneiden, ohne ihn ehrlicher
+ * zu machen.
  */
 
 export type Rechteck = { links: number; oben: number; rechts: number; unten: number };
 
-/** Ab dieser Breite gilt Tailwinds `sm:` — dort wechselt das Kontextblatt die Seite. */
-export const SM = 640;
-
-/** Bedienelemente über der Karte, in Pixeln. */
+/** Kleine Bedienelemente in den Ecken, in Pixeln. */
 const EINBAU = {
-  /** Themenschalter links, Navigation rechts. */
+  /** Themenschalter links, Zoom/Neigung rechts. */
   oben: 56,
-  /** Rückfall, falls der Streifen seine Höhe noch nicht gemeldet hat. */
-  untenMindestens: 72,
   seite: 52,
+  /** Rückfall, falls der Zeitstrahl noch nicht gemessen werden kann. */
+  streifen: 96,
 };
 
 /** Zusätzlicher Rand, damit ein Ziel nicht an der Kante klebt. */
 const RAND = 16;
 
-/**
- * Höhe des Tagesstreifens. Der Streifen meldet sie als `--streifen-hoehe`
- * (ResizeObserver in `Timeline.tsx`), weil sie vom Inhalt abhängt.
- */
+/** Höhe des Zeitstrahls, gemeldet als `--streifen-hoehe` (ResizeObserver in `Timeline.tsx`). */
 export function streifenHoehe(): number {
-  if (typeof document === 'undefined') return EINBAU.untenMindestens;
+  if (typeof document === 'undefined') return EINBAU.streifen;
   const roh = getComputedStyle(document.documentElement).getPropertyValue('--streifen-hoehe');
   const wert = Number.parseFloat(roh);
-  return Number.isFinite(wert) && wert > 0 ? wert : EINBAU.untenMindestens;
+  return Number.isFinite(wert) && wert > 0 ? wert : EINBAU.streifen;
 }
 
-export type SichtLage = {
-  /** Ist das Kontextblatt offen? Es verdeckt je nach Breite unten oder rechts. */
-  detailsOffen: boolean;
-};
+/** Rechteck eines Einbaus, umgerechnet auf Canvas-Koordinaten. */
+function kasten(wahl: string, canvas: DOMRect): Rechteck | null {
+  if (typeof document === 'undefined') return null;
+  const el = document.querySelector(wahl);
+  if (!el) return null;
+  const r = el.getBoundingClientRect();
+  if (r.width <= 0 || r.height <= 0) return null;
+  return {
+    links: r.left - canvas.left,
+    oben: r.top - canvas.top,
+    rechts: r.right - canvas.left,
+    unten: r.bottom - canvas.top,
+  };
+}
+
+function flaeche(r: Rechteck): number {
+  return Math.max(0, r.rechts - r.links) * Math.max(0, r.unten - r.oben);
+}
 
 /**
- * Der frei sichtbare Ausschnitt in Canvas-Pixeln.
+ * Einen Einbau vom freien Bereich abziehen.
  *
- * Das Kontextblatt ist auf dem Handy ein Bottom-Sheet bis `max-h-[75dvh]` und
- * ab `sm:` eine Spalte über das rechte Drittel — beides zieht ab, aber an
- * verschiedenen Seiten.
+ * Ein beliebiges Rechteck aus einem anderen zu schneiden ergibt kein Rechteck
+ * mehr. Einbauten kleben aber immer an einer Kante — das Kontextblatt ab `sm:`
+ * an der rechten, auf dem Handy als Bottom-Sheet an der unteren. Statt das
+ * Layout nachzubauen, werden alle vier Schnitte durchgerechnet und der
+ * genommen, der am meisten Karte übrig lässt. Das bleibt richtig, auch wenn
+ * sich am Layout etwas ändert.
  */
-export function freierBereich(map: MLMap, lage: SichtLage = { detailsOffen: false }): Rechteck {
-  const { width: breite, height: hoehe } = map.getCanvas().getBoundingClientRect();
+function abziehen(frei: Rechteck, el: Rechteck): Rechteck {
+  const kandidaten: Rechteck[] = [
+    { ...frei, rechts: Math.min(frei.rechts, el.links - RAND) },
+    { ...frei, links: Math.max(frei.links, el.rechts + RAND) },
+    { ...frei, unten: Math.min(frei.unten, el.oben - RAND) },
+    { ...frei, oben: Math.max(frei.oben, el.unten + RAND) },
+  ];
+  return kandidaten.reduce((a, b) => (flaeche(b) > flaeche(a) ? b : a));
+}
 
-  const bereich: Rechteck = {
+/** Der frei sichtbare Ausschnitt in Canvas-Pixeln. */
+export function freierBereich(map: MLMap): Rechteck {
+  const canvas = map.getCanvas().getBoundingClientRect();
+
+  const frei: Rechteck = {
     links: EINBAU.seite + RAND,
     oben: EINBAU.oben + RAND,
-    rechts: breite - EINBAU.seite - RAND,
-    unten: hoehe - streifenHoehe() - RAND,
+    rechts: canvas.width - EINBAU.seite - RAND,
+    unten: canvas.height - streifenHoehe() - RAND,
   };
 
-  if (lage.detailsOffen) {
-    if (breite >= SM) bereich.rechts = Math.min(bereich.rechts, breite / 3 - RAND);
-    else bereich.unten = Math.min(bereich.unten, hoehe * 0.25 - RAND);
+  let rest = frei;
+  for (const wahl of ['[data-testid="kontextblatt"]', '.maplibregl-ctrl-bottom-right']) {
+    const el = kasten(wahl, canvas);
+    if (el) rest = abziehen(rest, el);
   }
 
-  // Bei sehr kleinen Fenstern kann sich das Rechteck aufheben; dann bleibt die
-  // Mitte übrig, statt eines negativen Bereichs.
-  if (bereich.rechts <= bereich.links) {
-    bereich.links = breite * 0.25;
-    bereich.rechts = breite * 0.75;
+  // Deckt ein Einbau alles zu (Vollbild-Tagesablauf, sehr kleines Fenster),
+  // bleibt die Mitte übrig statt eines negativen Bereichs.
+  if (rest.rechts - rest.links < 40) {
+    rest.links = canvas.width * 0.25;
+    rest.rechts = canvas.width * 0.75;
   }
-  if (bereich.unten <= bereich.oben) {
-    bereich.oben = hoehe * 0.25;
-    bereich.unten = hoehe * 0.75;
+  if (rest.unten - rest.oben < 40) {
+    rest.oben = canvas.height * 0.25;
+    rest.unten = canvas.height * 0.75;
   }
-  return bereich;
+  return rest;
 }
 
 /** Liegt der Punkt im frei sichtbaren Ausschnitt? */
-export function istFreiSichtbar(map: MLMap, pos: Pos, lage?: SichtLage): boolean {
+export function istFreiSichtbar(map: MLMap, pos: Pos): boolean {
   const p = map.project(zuLngLat(pos));
-  const b = freierBereich(map, lage);
+  const b = freierBereich(map);
   return p.x >= b.links && p.x <= b.rechts && p.y >= b.oben && p.y <= b.unten;
 }

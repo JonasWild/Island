@@ -1,5 +1,5 @@
 import { expect, test, type Locator } from '@playwright/test';
-import { oeffneKarte } from './stub';
+import { klickeStopp, oeffneKarte, sichtbarerStopp } from './stub';
 
 /** Aufgabe 2: die untere Leiste ist ein lesbarer Zeitstrahl. */
 
@@ -123,5 +123,30 @@ test('nichts überlappt — auch die Herkunftsangabe nicht', async ({ page }) =>
         a.x < b.x + b.width && b.x < a.x + a.width && a.y < b.y + b.height && b.y < a.y + a.height;
       expect(ueberlappt, `${na} überlappt ${nb}`).toBe(false);
     }
+  }
+});
+
+test('das offene Kontextblatt deckt weder Zeitstrahl noch Herkunftsangabe zu', async ({
+  page,
+}) => {
+  await oeffneKarte(page, '/?tag=2026-08-31');
+  await klickeStopp(page, await sichtbarerStopp(page));
+  await page.getByTestId('vorschau-mehr').click();
+  await expect(page.getByTestId('kontextblatt')).toBeVisible();
+  // Die Herkunftsangabe weicht per CSS-Variable aus; das braucht einen Takt.
+  await page.waitForTimeout(400);
+
+  const blatt = (await page.getByTestId('kontextblatt').boundingBox())!;
+  for (const [name, wahl] of [
+    ['Zeitstrahl', '[data-testid="zeitstrahl"]'],
+    ['Herkunftsangabe', '.maplibregl-ctrl-attrib'],
+  ] as const) {
+    const a = (await page.locator(wahl).boundingBox())!;
+    const ueberlappt =
+      blatt.x < a.x + a.width &&
+      a.x < blatt.x + blatt.width &&
+      blatt.y < a.y + a.height &&
+      a.y < blatt.y + blatt.height;
+    expect(ueberlappt, `Kontextblatt überlappt ${name}`).toBe(false);
   }
 });

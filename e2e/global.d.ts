@@ -1,8 +1,6 @@
 import type { Map as MLMap } from 'maplibre-gl';
 
 declare global {
-  type Symbolziel = { x: number; y: number; name: string; id: string };
-
   interface Window {
     /** Testgriff auf die Karte, gesetzt in `MapCanvas`. */
     __islandKarte?: MLMap;

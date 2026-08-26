@@ -5,7 +5,7 @@ import maplibregl, { type MapGeoJSONFeature, type MapMouseEvent, type Map as MLM
 import 'maplibre-gl/dist/maplibre-gl.css';
 import { useMapStore } from '@/store/mapStore';
 import { Vorschau } from './Vorschau';
-import { alleStopps, tagNach } from '@/lib/reise';
+import { alleStopps, tagNach, unterkunftNach } from '@/lib/reise';
 import type { Pos } from '@/lib/schema';
 import { iconsRegistrieren } from '@/map/icons';
 import {
@@ -15,7 +15,7 @@ import {
   quellenSetzen,
   SRC_ORT,
 } from '@/map/layers';
-import { fliegeZuPunkt, fliegeZuTag } from '@/map/camera';
+import { fliegeZuTag, zeigeZiel } from '@/map/camera';
 import {
   DEM_ATTRIBUTION,
   DEM_SOURCE_ID,
@@ -34,6 +34,7 @@ export function MapCanvas() {
   const tagDatum = useMapStore((s) => s.tagDatum);
   const theme = useMapStore((s) => s.theme);
   const auswahl = useMapStore((s) => s.auswahl);
+  const detailsOffen = useMapStore((s) => s.detailsOffen);
   const waehle = useMapStore((s) => s.waehle);
 
   /** Terrain, Himmel und eigene Layer — nach jedem Style-Wechsel erneut. */
@@ -162,13 +163,29 @@ export function MapCanvas() {
     mapRef.current?.setStyle(STYLE_URL[theme], { diff: false });
   }, [theme]);
 
-  /** Auswahl eines Stopps → hinfliegen. */
+  /**
+   * Auswahl eines Ziels → nur hinfliegen, wenn es nötig ist.
+   *
+   * Unterkünfte lösten früher gar keinen Flug aus, Stopps immer einen. Beides
+   * war willkürlich: für den Betrachter ist eine Unterkunft auf der Karte ein
+   * Ziel wie jedes andere. Jetzt gilt für beide dieselbe Regel — siehe
+   * `zeigeZiel`.
+   *
+   * `detailsOffen` hängt mit in den Abhängigkeiten, weil das Kontextblatt den
+   * frei sichtbaren Bereich verkleinert: geht es auf und verdeckt dabei das
+   * Ziel, rückt die Karte es in den Rest.
+   */
   useEffect(() => {
     const map = mapRef.current;
-    if (!map || auswahl.art !== 'stopp') return;
-    const pos = alleStopps.find((s) => s.id === auswahl.id)?.stopp.pos;
-    if (pos) fliegeZuPunkt(map, pos);
-  }, [auswahl]);
+    if (!map) return;
+    const pos =
+      auswahl.art === 'stopp'
+        ? (alleStopps.find((s) => s.id === auswahl.id)?.stopp.pos ?? null)
+        : auswahl.art === 'unterkunft'
+          ? (unterkunftNach(auswahl.id)?.pos ?? null)
+          : null;
+    if (pos) zeigeZiel(map, pos);
+  }, [auswahl, detailsOffen]);
 
   return (
     <div className="absolute inset-0">

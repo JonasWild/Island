@@ -92,7 +92,7 @@ export function Vorschau({ karte }: { karte: MLMap | null }) {
   const nachfuehren = useCallback(() => {
     if (!karte || !inhalt) return;
     const punkt = karte.project(zuLngLat(inhalt.pos));
-    const b = freierBereich(karte, { detailsOffen: false });
+    const b = freierBereich(karte);
     const hoehe = blase.current?.offsetHeight ?? 160;
     const breite = blase.current?.offsetWidth ?? BREITE;
 

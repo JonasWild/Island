@@ -201,6 +201,15 @@ export async function kamera(page: Page): Promise<Kamera> {
   });
 }
 
+export type Symbolziel = {
+  x: number;
+  y: number;
+  lng: number;
+  lat: number;
+  name: string;
+  id: string;
+};
+
 /**
  * Wo liegen die Stopp-Symbole, und wo trifft ein Klick sie?
  *
@@ -227,9 +236,12 @@ export async function symbolziele(page: Page): Promise<Symbolziel[]> {
       // hier antwortet, ist wirklich anklickbar.
       const treffer = m.queryRenderedFeatures([p.x, p.y], { layers: ['stopp-symbol'] })[0];
       if (!treffer) continue;
+      const [lng, lat] = (f.geometry as { coordinates: [number, number] }).coordinates;
       ziele.push({
         x: Math.round(p.x),
         y: Math.round(p.y),
+        lng,
+        lat,
         name: String(treffer.properties?.name ?? ''),
         id: String(treffer.properties?.id ?? ''),
       });
@@ -238,17 +250,21 @@ export async function symbolziele(page: Page): Promise<Symbolziel[]> {
   });
 }
 
-/** Ein Symbol, das bequem in der Mitte liegt — weder am Rand noch unter dem Streifen. */
+/**
+ * Ein Symbol, das bequem in der Bildmitte liegt — sicher innerhalb dessen, was
+ * die App als frei sichtbar rechnet, also weder unter den Bedienelementen noch
+ * unter dem Zeitstrahl.
+ */
 export async function sichtbarerStopp(page: Page): Promise<Symbolziel> {
-  const groesse = page.viewportSize()!;
-  const mitte = { x: groesse.width / 2, y: groesse.height * 0.42 };
+  const g = page.viewportSize()!;
+  const mitte = { x: g.width / 2, y: g.height * 0.38 };
   const ziel = (await symbolziele(page))
     .filter(
       (p) =>
-        p.x > 60 &&
-        p.x < groesse.width - 60 &&
-        p.y > 100 &&
-        p.y < groesse.height * 0.66 &&
+        p.x > g.width * 0.2 &&
+        p.x < g.width * 0.8 &&
+        p.y > g.height * 0.18 &&
+        p.y < g.height * 0.55 &&
         !p.id.startsWith('unterkunft:'),
     )
     .sort(

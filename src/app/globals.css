@@ -38,5 +38,14 @@ body {
  */
 .maplibregl-map .maplibregl-ctrl-bottom-left,
 .maplibregl-map .maplibregl-ctrl-bottom-right {
-  bottom: calc(var(--streifen-hoehe, 96px) + 2px);
+  bottom: calc(var(--streifen-hoehe, 96px) + var(--blatt-unten, 0px) + 2px);
+}
+
+/*
+ * Und sie weicht auch dem Kontextblatt aus: als Spalte nach links
+ * (`--blatt-rechts`), als Bottom-Sheet nach oben (`--blatt-unten`, siehe oben).
+ * Die Werte meldet `ContextSheet.tsx`, solange es offen ist.
+ */
+.maplibregl-map .maplibregl-ctrl-bottom-right {
+  right: var(--blatt-rechts, 0px);
 }
