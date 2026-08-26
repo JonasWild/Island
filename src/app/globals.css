@@ -26,3 +26,17 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/*
+ * Die MapLibre-Bedienelemente und die Herkunftsangabe der Basiskarte sitzen am
+ * unteren Rand der Karte — dort, wo jetzt der Zeitstrahl liegt. Sie rücken um
+ * dessen Höhe nach oben. Die Angabe darf nie verdeckt sein: das ist Bedingung
+ * der Kartennutzung, kein Schönheitsfehler.
+ *
+ * Verschachtelt unter `.maplibregl-map`, weil maplibre-gl.css erst in
+ * MapCanvas importiert wird und bei gleicher Spezifität gewinnt.
+ */
+.maplibregl-map .maplibregl-ctrl-bottom-left,
+.maplibregl-map .maplibregl-ctrl-bottom-right {
+  bottom: calc(var(--streifen-hoehe, 96px) + 2px);
+}

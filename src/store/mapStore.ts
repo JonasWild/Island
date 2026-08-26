@@ -25,6 +25,11 @@ type State = {
    * der Klick sofort ins Blatt.
    */
   detailsOffen: boolean;
+  /**
+   * Der Tagesablauf als Vollbild. Er liegt über allem anderen und ist deshalb
+   * die erste Stufe, die Esc wieder abräumt.
+   */
+  tagesablaufOffen: boolean;
   theme: Theme;
 };
 
@@ -36,6 +41,8 @@ type Actions = {
   /** Ziel wählen und gleich das Kontextblatt öffnen — für Deep Links. */
   waehleMitDetails: (a: Auswahl) => void;
   oeffneDetails: () => void;
+  oeffneTagesablauf: () => void;
+  schliesseTagesablauf: () => void;
   /** Nur das Kontextblatt schließen, die Blase bleibt. */
   schliesseDetails: () => void;
   schliesse: () => void;
@@ -46,10 +53,13 @@ export const useMapStore = create<State & Actions>((set, get) => ({
   tagDatum: tage[0]!.datum,
   auswahl: { art: 'keine' },
   detailsOffen: false,
+  tagesablaufOffen: false,
   theme: 'hell',
 
   setTag: (datum) => {
     if (!tage.some((t) => t.datum === datum)) return;
+    // Der Tagesablauf bleibt bewusst offen: mit ←/→ blättert man darin durch
+    // die Reise, ohne ihn jedes Mal neu aufzurufen.
     set({ tagDatum: datum, auswahl: { art: 'keine' }, detailsOffen: false });
   },
   tagVor: () => {
@@ -65,7 +75,9 @@ export const useMapStore = create<State & Actions>((set, get) => ({
 
   waehle: (auswahl) => set({ auswahl, detailsOffen: auswahl.art === 'ort' }),
   waehleMitDetails: (auswahl) => set({ auswahl, detailsOffen: true }),
-  oeffneDetails: () => set({ detailsOffen: true }),
+  oeffneDetails: () => set({ detailsOffen: true, tagesablaufOffen: false }),
+  oeffneTagesablauf: () => set({ tagesablaufOffen: true }),
+  schliesseTagesablauf: () => set({ tagesablaufOffen: false }),
   schliesseDetails: () => set({ detailsOffen: false }),
   schliesse: () => set({ auswahl: { art: 'keine' }, detailsOffen: false }),
   toggleTheme: () => set({ theme: get().theme === 'dunkel' ? 'hell' : 'dunkel' }),

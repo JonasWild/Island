@@ -3,6 +3,7 @@
 import dynamic from 'next/dynamic';
 import { Timeline } from './Timeline';
 import { ContextSheet } from './ContextSheet';
+import { Tagesdetails } from './Tagesdetails';
 import { useMapStore } from '@/store/mapStore';
 import { useDeepLink } from '@/hooks/useDeepLink';
 import { useTastatur } from '@/hooks/useTastatur';
@@ -17,7 +18,7 @@ const MapCanvas = dynamic(() => import('./MapCanvas').then((m) => m.MapCanvas), 
   ),
 });
 
-/** Die ganze App: eine Karte, ein Tagesstreifen, ein Kontextblatt. */
+/** Die ganze App: eine Karte, ein Zeitstrahl, ein Kontextblatt. */
 export function Karte() {
   useDeepLink();
   useTastatur();
@@ -30,6 +31,7 @@ export function Karte() {
       <button
         type="button"
         onClick={toggleTheme}
+        data-testid="thema" 
         title={theme === 'hell' ? 'Dunkles Kartenbild' : 'Helles Kartenbild'}
         className="absolute left-3 top-3 z-30 rounded-md bg-white/85 px-2.5 py-1.5 text-[11px] font-medium text-slate-700 shadow ring-1 ring-black/10 backdrop-blur transition hover:bg-white"
       >
@@ -37,6 +39,7 @@ export function Karte() {
       </button>
       <ContextSheet />
       <Timeline />
+      <Tagesdetails />
     </main>
   );
 }

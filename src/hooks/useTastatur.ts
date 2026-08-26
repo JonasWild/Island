@@ -9,7 +9,7 @@ import { useMapStore } from '@/store/mapStore';
  * Die Esc-Kette geht immer genau eine Stufe zurück, in der Reihenfolge, in der
  * die Schichten aufgegangen sind:
  *
- *   Kontextblatt → Vorschau-Blase → nichts
+ *   Tagesablauf → Kontextblatt → Vorschau-Blase → nichts
  *
  * „Was ist hier?" hat keine Blase darunter und fällt in einem Schritt zu.
  */
@@ -20,7 +20,10 @@ export function useTastatur() {
       if (ziel && (/^(INPUT|TEXTAREA|SELECT)$/.test(ziel.tagName) || ziel.isContentEditable)) return;
 
       const s = useMapStore.getState();
-      if (e.key === 'ArrowRight') {
+      if (e.key === 'Escape' && s.tagesablaufOffen) {
+        e.preventDefault();
+        s.schliesseTagesablauf();
+      } else if (e.key === 'ArrowRight') {
         e.preventDefault();
         s.tagVor();
       } else if (e.key === 'ArrowLeft') {
