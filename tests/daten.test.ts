@@ -53,6 +53,72 @@ describe('reise.json', () => {
   });
 });
 
+describe('Wissen', () => {
+  const mitWissen = alleStopps.filter((s) => s.stopp.wissen);
+
+  it('ist überhaupt vorhanden', () => {
+    expect(mitWissen.length).toBeGreaterThan(50);
+  });
+
+  it('trägt jeder Eintrag Quelle, Link und Prüfdatum', () => {
+    for (const { stopp } of mitWissen) {
+      const w = stopp.wissen!;
+      expect(w.text.length, stopp.name).toBeGreaterThan(20);
+      expect(w.quelle, stopp.name).toMatch(/^Wikipedia \(de\): /);
+      expect(w.url, stopp.name).toMatch(/^https:\/\/de\.wikipedia\.org\/wiki\//);
+      expect(w.geprueftAm, stopp.name).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    }
+  });
+
+  it('bleibt leer, wo kein eindeutiger Artikel gefunden wurde', () => {
+    // Keine Halbwahrheiten: was nicht eindeutig war, steht in wissen-offen.json.
+    const offen = JSON.parse(
+      readFileSync(resolve(import.meta.dirname, '../data/wissen-offen.json'), 'utf8'),
+    ) as { eintraege: Array<{ name: string }> };
+    const ohne = new Set(alleStopps.filter((s) => !s.stopp.wissen).map((s) => s.stopp.name));
+    for (const e of offen.eintraege) expect(ohne.has(e.name), e.name).toBe(true);
+  });
+});
+
+describe('Bilder', () => {
+  const mitBild = alleStopps.filter((s) => s.stopp.bild);
+
+  it('sind für den Grossteil der Stopps vorhanden', () => {
+    expect(mitBild.length).toBeGreaterThan(70);
+  });
+
+  it('nennen Urheber, Lizenz und Nachweisseite', () => {
+    // Ohne Lizenz und Urheber darf nichts eingebunden werden — bei CC-BY-SA
+    // ist die Nennung Bedingung, nicht Höflichkeit.
+    for (const { stopp } of mitBild) {
+      const b = stopp.bild!;
+      expect(b.urheber, stopp.name).not.toBe('');
+      expect(b.lizenz, stopp.name).not.toBe('');
+      expect(b.seite, stopp.name).toMatch(/^https:\/\/commons\.wikimedia\.org\//);
+      expect(b.url, stopp.name).toMatch(/^https:\/\/upload\.wikimedia\.org\//);
+      expect(b.breite, stopp.name).toBeGreaterThan(0);
+      expect(b.hoehe, stopp.name).toBeGreaterThan(0);
+    }
+  });
+
+  it('tragen keine Tracking-Parameter in der URL', () => {
+    for (const { stopp } of mitBild) {
+      expect(stopp.bild!.url, stopp.name).not.toContain('utm_');
+      expect(stopp.bild!.url, stopp.name).not.toContain('?');
+    }
+  });
+
+  it('zeigen Fotos, keine Lagekarten und Wappen', () => {
+    // Die deutsche Wikipedia setzt bei Gemeinden gern eine Lagekarte als
+    // Leitbild. Ein Kartenausschnitt in einer Karten-App ist nutzlos.
+    for (const { stopp } of mitBild) {
+      expect(stopp.bild!.url.toLowerCase(), stopp.name).not.toMatch(
+        /[_.-](map|karte|locator|flag|wappen|logo)[_.-]|\.svg$/,
+      );
+    }
+  });
+});
+
 describe('Stopp-IDs', () => {
   it('lösen sich zurück auf', () => {
     const erster = alleStopps[0]!;

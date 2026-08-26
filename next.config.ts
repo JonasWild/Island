@@ -6,17 +6,22 @@ import type { NextConfig } from 'next';
  * fetch-Aufrufe von MapLibre ab, `img-src` die Raster-Kacheln, `worker-src`
  * die MapLibre-Worker (blob:).
  */
-const MAP_HOSTS = [
-  'https://tiles.openfreemap.org', // Basiskarte
-  'https://s3.amazonaws.com', // DEM: AWS Terrain Tiles
-];
+const MAP_HOSTS = ['https://tiles.openfreemap.org']; // Basiskarte
+
+/**
+ * Bilder zu den Stopps liegen auf Wikimedia Commons und werden von dort
+ * geladen, statt sie ins Repo zu kopieren — das wären rund 70 MB Fotos in der
+ * Versionsverwaltung. Nur `img-src`: die Seiten holen keine Daten von dort,
+ * nur Bilddateien.
+ */
+const BILD_HOSTS = ['https://upload.wikimedia.org'];
 
 const csp = [
   `default-src 'self'`,
   // Next injiziert Inline-Bootstrap-Skripte; 'unsafe-inline' ist dafür nötig.
   `script-src 'self' 'unsafe-inline'${process.env.NODE_ENV === 'development' ? " 'unsafe-eval'" : ''}`,
   `style-src 'self' 'unsafe-inline'`,
-  `img-src 'self' data: blob: ${MAP_HOSTS.join(' ')}`,
+  `img-src 'self' data: blob: ${MAP_HOSTS.join(' ')} ${BILD_HOSTS.join(' ')}`,
   `font-src 'self' data:`,
   `connect-src 'self' ${MAP_HOSTS.join(' ')}`,
   `worker-src 'self' blob:`,

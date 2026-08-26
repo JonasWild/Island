@@ -1,7 +1,7 @@
 import coreWebVitals from 'eslint-config-next/core-web-vitals';
 import typescript from 'eslint-config-next/typescript';
 
-export default [
+const config = [
   ...coreWebVitals,
   ...typescript,
   {
@@ -11,6 +11,10 @@ export default [
       'playwright-report/**',
       'test-results/**',
       'next-env.d.ts',
+      // Entwicklungswerkzeug, läuft in Node und nicht im Bundle.
+      'scripts/screenshot.mjs',
     ],
   },
 ];
+
+export default config;

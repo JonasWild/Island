@@ -48,7 +48,12 @@ export type StoppRef = {
 
 /** Alle Stopps der Reise in Reihenfolge — auch die ohne Position. */
 export const alleStopps: readonly StoppRef[] = tage.flatMap((t) =>
-  t.highlights.map((stopp, index) => ({ id: stoppId(t.datum, index), datum: t.datum, index, stopp })),
+  t.highlights.map((stopp, index) => ({
+    id: stoppId(t.datum, index),
+    datum: t.datum,
+    index,
+    stopp,
+  })),
 );
 
 export const verorteteStopps = alleStopps.filter((s) => s.stopp.pos !== null);
@@ -77,6 +82,45 @@ export const TAG_LABEL: Record<Tag['typ'], string> = {
   etappe: 'Etappe',
   abreise: 'Abreise',
 };
+
+/**
+ * Gehzeit einer Wanderung in Minuten, aus dem Freitext des Reiseplans.
+ * Der Veranstalter schreibt „ca. 1 Std.", „1-2 Std.", „45 min", „4,5 Std." —
+ * gelesen wird nur, was eindeutig ist. Bei einer Spanne zählt der obere Wert:
+ * wer den Tag plant, will wissen, wie lang er höchstens wird.
+ */
+export function gehzeitMinuten(gehzeit: string | undefined): number | null {
+  if (!gehzeit) return null;
+  const stunden = [...gehzeit.matchAll(/(\d+(?:[.,]\d+)?)\s*(?:std|stunde)/gi)].map((m) =>
+    Number(m[1]!.replace(',', '.')),
+  );
+  if (stunden.length > 0) return Math.round(Math.max(...stunden) * 60);
+  const minuten = [...gehzeit.matchAll(/(\d+)\s*min/gi)].map((m) => Number(m[1]));
+  if (minuten.length > 0) return Math.max(...minuten);
+  return null;
+}
+
+/** Summe der Gehzeiten eines Tages — die Zeit, die nicht im Auto vergeht. */
+export function gehzeitTag(datum: string): number {
+  const tag = tagNach(datum);
+  if (!tag) return 0;
+  return tag.highlights.reduce((n, h) => n + (gehzeitMinuten(h.wanderung?.gehzeit) ?? 0), 0);
+}
+
+/** Stopps eines Tages, an denen gewandert wird. */
+export function wanderungenTag(datum: string): number {
+  return tagNach(datum)?.highlights.filter((h) => h.wanderung !== undefined).length ?? 0;
+}
+
+/**
+ * Eine Dauer in Minuten als Text. Ohne führende „0 h": ein Tag mit sechzehn
+ * Minuten Fahrt sagt „16 min", nicht „0 h 16 min".
+ */
+export function stunden(minuten: number): string {
+  const h = Math.floor(minuten / 60);
+  const m = minuten % 60;
+  return h > 0 ? `${h} h ${m} min` : `${m} min`;
+}
 
 export function datumKurz(datum: string): string {
   const [, m, d] = datum.split('-');

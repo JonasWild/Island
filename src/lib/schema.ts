@@ -32,11 +32,47 @@ export const PosMetaSchema = z.object({
 });
 export type PosMeta = z.infer<typeof PosMetaSchema>;
 
+/** Die Zahlen des Veranstalters zu einer Wanderung — Freitext, wie geliefert. */
 export const WanderungSchema = z.object({
   gehzeit: z.string().optional(),
   hoehenmeter: z.string().optional(),
   distanz: z.string().optional(),
 });
+export type Wanderung = z.infer<typeof WanderungSchema>;
+
+/**
+ * Recherchierter Hintergrundtext zu einem Stopp. Kommt aus der deutschen
+ * Wikipedia und trägt seine Herkunft mit: ohne Quelle und Link kein Wissen.
+ * Fehlt der Schlüssel, hat die Pipeline keinen eindeutigen Artikel gefunden —
+ * dann steht dort nichts, statt etwas Falsches.
+ */
+export const WissenSchema = z.object({
+  text: z.string().min(1),
+  quelle: z.string().min(1),
+  url: z.string().url(),
+  geprueftAm: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'ISO-Datum erwartet'),
+});
+export type Wissen = z.infer<typeof WissenSchema>;
+
+/**
+ * Ein Bild zum Stopp, mit allem, was seine Nutzung erlaubt. Ohne Urheber und
+ * Lizenz wird nichts eingebunden — bei CC-BY-SA ist die Nennung Bedingung,
+ * nicht Höflichkeit.
+ */
+export const BildSchema = z.object({
+  url: z.string().url(),
+  breite: z.number().int().positive(),
+  hoehe: z.number().int().positive(),
+  urheber: z.string().min(1),
+  lizenz: z.string().min(1),
+  lizenzUrl: z.string().url().optional(),
+  /** Beschreibungsseite auf Commons — der Nachweis. */
+  seite: z.string().url(),
+  /** Wie das Bild gefunden wurde: Artikelbild oder Geosuche mit Namensbeleg. */
+  quelle: z.string().min(1),
+  geprueftAm: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'ISO-Datum erwartet'),
+});
+export type Bild = z.infer<typeof BildSchema>;
 
 export const StoppSchema = z.object({
   name: z.string().min(1),
@@ -49,6 +85,8 @@ export const StoppSchema = z.object({
   /** Fehlt der Schlüssel ganz, gilt die Position als unbekannt — nicht als 0/0. */
   pos: PosSchema.nullable().default(null),
   posMeta: PosMetaSchema.optional(),
+  wissen: WissenSchema.optional(),
+  bild: BildSchema.optional(),
 });
 export type Stopp = z.infer<typeof StoppSchema>;
 
@@ -170,6 +208,65 @@ export type VerorteterStopp = Stopp & { pos: Pos };
 export function istVerortet(s: Stopp): s is VerorteterStopp {
   return s.pos !== null;
 }
+
+/**
+ * Schema für data/route.json — erzeugt von scripts/route.ts zur Build-Zeit.
+ * Zur Laufzeit wird nur noch geladen; es geht keine Anfrage an einen
+ * Routing-Dienst.
+ */
+export const TagRouteSchema = z.object({
+  datum: z.string().regex(/^\d{4}-\d{2}-\d{2}$/),
+  /**
+   * 'strasse': über echte Straßen geroutet.
+   * 'luftlinie': Routing nicht sauber gelungen — Schematik, keine
+   * Fahrempfehlung. Der Grund steht dabei und die Karte zeichnet den Tag
+   * gestrichelt. Eine falsche Straßenroute stillschweigend zu zeigen wäre
+   * schlimmer.
+   */
+  art: z.enum(['strasse', 'luftlinie']),
+  grund: z.string().optional(),
+  km: z.number().nonnegative(),
+  fahrzeitMin: z.number().int().nonnegative(),
+  /**
+   * Davon unvermeidbar: die direkte Fahrt von Start zu Ziel. An einem
+   * Standtag ist das 0 — man schläft zweimal im selben Bett, also muss man
+   * gar nichts fahren.
+   */
+  pflichtKm: z.number().nonnegative(),
+  /** Die direkte Etappe aus dem Reiseplan — ohne Abstecher. */
+  planKm: z.number().nullable(),
+  wegpunkte: z.number().int().nonnegative(),
+  /**
+   * Stopp-IDs in **Fahrreihenfolge**, ohne Start und Ziel. Die Reihenfolge in
+   * reise.json ist eine Vorschlagsliste des Veranstalters; erst die
+   * Routing-Pipeline legt fest, in welcher Folge man die Ziele sinnvoll
+   * abfährt. Nur punktgenau verortete Stopps stehen darin.
+   */
+  reihenfolge: z.array(z.string()),
+  /**
+   * Die Route in Abschnitten. 'pflicht' liegt auf der direkten Etappe,
+   * 'optional' ist ein Abstecher zu einem vorgeschlagenen Ziel. Benachbarte
+   * Abschnitte teilen sich ihren Grenzpunkt, damit keine Lücke klafft.
+   * Koordinaten als [lon, lat] wie in GeoJSON, nicht wie `pos`.
+   */
+  abschnitte: z
+    .array(
+      z.object({
+        art: z.enum(['pflicht', 'optional']),
+        punkte: z.array(z.tuple([z.number(), z.number()])).min(2),
+      }),
+    )
+    .min(1),
+});
+export type TagRoute = z.infer<typeof TagRouteSchema>;
+
+export const RouteSchema = z.object({
+  erzeugtAm: z.string(),
+  dienst: z.string(),
+  hinweis: z.string(),
+  tage: z.array(TagRouteSchema),
+});
+export type Route = z.infer<typeof RouteSchema>;
 
 export const OffenEintragSchema = z.object({
   tag: z.string().nullable(),
