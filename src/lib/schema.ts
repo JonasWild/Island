@@ -121,6 +121,53 @@ export const TagSchema = z.object({
 });
 export type Tag = z.infer<typeof TagSchema>;
 
+/**
+ * Das Hausblatt des Vermieters — die Seite, die man sonst als PDF auf dem
+ * Handy sucht, während man im Dunkeln vor einer verschlossenen Tür steht.
+ *
+ * Nur was auf dem Blatt steht, steht hier: Anfahrt bis zum Schild an der
+ * Einfahrt, Betten, Ausstattung, die Handgriffe bei Ankunft und Abreise. Wie
+ * jede andere Angabe trägt es seine Herkunft (`quelle`, `geprueftAm`) — ohne
+ * die gäbe es keinen Weg zu prüfen, ob es noch die aktuelle Fassung ist.
+ *
+ * **Keine Geheimnisse.** Alarmcodes, Torcodes und WLAN-Passwörter stehen
+ * bewusst nicht drin: Die App liegt öffentlich erreichbar bei Vercel, das
+ * Hausblatt des Vermieters nicht. Wo ein Code gebraucht wird, sagt der Text,
+ * dass es ihn gibt und wo er steht.
+ */
+export const HausblattSchema = z.object({
+  /** Objektnummer des Vermieters, z. B. "N3018" — die Nummer, die er versteht. */
+  code: z.string().min(1),
+  checkIn: z.string().min(1),
+  checkOut: z.string().min(1),
+  /** Wohnfläche und Belegung in einem Satzteil, z. B. "90 m² für 6 Personen". */
+  groesse: z.string().min(1),
+  /**
+   * Isländische Sicherheitsnummer des Hauses (neyðarnúmer). Beim Notruf 112
+   * angeben — damit findet die Rettung das Haus, ohne dass jemand eine
+   * Wegbeschreibung buchstabieren muss.
+   */
+  notfallnummer: z.string().optional(),
+  /** Wegbeschreibung des Vermieters, übersetzt; Schilder im Wortlaut. */
+  anfahrt: z.string().min(1),
+  /** Ziel-Link aus dem Hausblatt — führt auf die Parzelle, nicht auf den Ort. */
+  navigation: z.string().url().optional(),
+  /** Schlafplätze, je Zimmer eine Zeile. */
+  schlafen: z.array(z.string().min(1)).min(1),
+  ausstattung: z.array(z.string().min(1)).default([]),
+  /** Was bei der Ankunft zu tun oder zu wissen ist. */
+  vorOrt: z.array(z.string().min(1)).default([]),
+  /** Was der Vermieter bei der Abreise erwartet — Endreinigung inklusive. */
+  abreise: z.array(z.string().min(1)).default([]),
+  /** Wo der Müll hinkommt. Steht getrennt, weil man danach zuletzt sucht. */
+  entsorgung: z.string().optional(),
+  /** Erreichbarkeit des Vermieters, wenn vor Ort etwas klemmt. */
+  service: z.string().optional(),
+  quelle: z.string().min(1),
+  geprueftAm: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'ISO-Datum erwartet'),
+});
+export type Hausblatt = z.infer<typeof HausblattSchema>;
+
 export const UnterkunftSchema = z.object({
   id: z.string().min(1),
   name: z.string(),
@@ -139,6 +186,8 @@ export const UnterkunftSchema = z.object({
   hinweis: z.string().nullable().optional(),
   pos: PosSchema.nullable().default(null),
   posMeta: PosMetaSchema.optional(),
+  /** Fehlt der Schlüssel, liegt für das Haus kein Blatt des Vermieters vor. */
+  hausblatt: HausblattSchema.optional(),
 });
 export type Unterkunft = z.infer<typeof UnterkunftSchema>;
 

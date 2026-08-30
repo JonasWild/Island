@@ -318,6 +318,28 @@ posMeta: { quelle: 'osm'|'wikidata'|'anbieter'|'reiseplan'|'manuell',
 Quelle und Begründung. Der Cache wird mitcommittet: reproduzierbare Builds,
 keine Rate-Limit-Überraschungen.
 
+### Hausblätter
+
+Für drei der vier Ferienhäuser liegt die Hausinformation des Vermieters vor
+(Viator Summerhouses). Sie schlägt jede Recherche, weil sie den Zielpunkt der
+Parzelle mitbringt — Þrasastaðir, Hlíðarendi und Hlíðarholt stehen deshalb als
+`quelle: 'anbieter'`, `genauigkeit: 'punkt'` im Datensatz. `pnpm geocode`
+lässt diese Positionen auch mit `--all` in Ruhe: Ein Ortsmittelpunkt aus OSM
+wäre schlechter als die Angabe dessen, dem das Haus gehört. Bei Hlíðarholt lag
+der Datensatz vorher 7 km daneben — der Reiseplan nennt Flúðir, das Haus steht
+bei Reykholt.
+
+Was sonst auf dem Blatt steht, hängt als `hausblatt` an der Unterkunft und
+erscheint im Kontextblatt: Anfahrt bis zum Schild an der Einfahrt, Betten,
+Ausstattung, Check-in-Zeiten, die isländische Notfallnummer des Hauses und die
+Handgriffe bei Ankunft und Abreise. Die langen Listen liegen als `<details>`
+eingeklappt — sie werden genau zweimal gebraucht, beim Ankommen und beim Gehen.
+
+**Ohne Codes.** Alarmcode, Torcode und WLAN-Passwort stehen nicht im
+Datensatz. Diese App ist öffentlich erreichbar, das PDF des Vermieters nicht;
+der Text sagt nur, dass es einen Code gibt und wo er steht. Ein Test in
+`tests/daten.test.ts` hält das fest.
+
 ## Routing
 
 `pnpm route` legt je Tag eine Route über echte Straßen und schreibt sie nach

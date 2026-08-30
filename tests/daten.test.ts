@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { ReiseSchema } from '@/lib/schema';
-import { alleStopps, kennzahlen, stoppNach, tage, unterkunftNach } from '@/lib/reise';
+import { alleStopps, kennzahlen, stoppNach, tage, unterkuenfte, unterkunftNach } from '@/lib/reise';
 
 const roh = JSON.parse(readFileSync(resolve(import.meta.dirname, '../data/reise.json'), 'utf8'));
 
@@ -44,11 +44,73 @@ describe('reise.json', () => {
     }
   });
 
-  it('führt Ferienhäuser als Bereichsangabe', () => {
+  it('führt Ferienhäuser ohne Hausblatt als Bereichsangabe', () => {
+    // Ohne Blatt des Vermieters gibt es zu einem Ferienhaus keine Parzelle,
+    // nur die Siedlung. Das bleibt eine Bereichsangabe.
     const haeuser = ['birkiskogar', 'thrasastadir', 'hlidarendi', 'hlidarholt'];
     for (const id of haeuser) {
       const u = unterkunftNach(id);
+      if (u?.hausblatt) continue;
       expect(u?.posMeta?.genauigkeit, id).toBe('bereich');
+    }
+  });
+
+  it('verortet Häuser mit Hausblatt punktgenau und belegt es beim Anbieter', () => {
+    for (const u of unterkuenfte.filter((u) => u.hausblatt)) {
+      expect(u.posMeta?.quelle, u.id).toBe('anbieter');
+      expect(u.posMeta?.genauigkeit, u.id).toBe('punkt');
+      expect(u.posMeta?.ref, u.id).toContain('Viator');
+    }
+  });
+});
+
+describe('Hausblätter', () => {
+  const mitBlatt = unterkuenfte.filter((u) => u.hausblatt);
+
+  it('liegen für die drei Häuser mit Vermieterblatt vor', () => {
+    expect(mitBlatt.map((u) => u.id)).toEqual(['thrasastadir', 'hlidarendi', 'hlidarholt']);
+  });
+
+  it('tragen Quelle, Prüfdatum und Objektnummer', () => {
+    for (const u of mitBlatt) {
+      const h = u.hausblatt!;
+      expect(h.quelle, u.id).toContain('Viator Summerhouses');
+      expect(h.geprueftAm, u.id).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(h.code, u.id).toMatch(/^[A-Z]\d{3,4}$/);
+    }
+  });
+
+  it('beschreiben Anfahrt, Betten und die Handgriffe vor Ort', () => {
+    for (const u of mitBlatt) {
+      const h = u.hausblatt!;
+      expect(h.anfahrt.length, u.id).toBeGreaterThan(100);
+      expect(h.schlafen.length, u.id).toBeGreaterThan(1);
+      expect(h.abreise.length, u.id).toBeGreaterThan(3);
+      expect(h.vorOrt.length, u.id).toBeGreaterThan(0);
+    }
+  });
+
+  it('führen auf dieselbe Stelle wie die Position', () => {
+    // Der Navigationslink kommt aus demselben Blatt wie die Koordinate. Gehen
+    // die beiden auseinander, zeigt die Karte woanders hin als das Handy.
+    for (const u of mitBlatt) {
+      const ziel = new URL(u.hausblatt!.navigation!).searchParams.get('destination')!;
+      const [lat, lon] = ziel.split(',').map(Number);
+      expect(lat, u.id).toBeCloseTo(u.pos![0], 5);
+      expect(lon, u.id).toBeCloseTo(u.pos![1], 5);
+    }
+  });
+
+  it('enthalten keine Codes und Passwörter', () => {
+    // Diese App liegt öffentlich erreichbar bei Vercel, das Hausblatt des
+    // Vermieters nicht. Alarmcode, Torcode und WLAN-Passwort bleiben draussen;
+    // der Text sagt nur, dass es sie gibt und wo sie stehen.
+    const verboten = [/\b2454\b/, /HlidarHolt12/i, /passwort:/i, /\bpin\b\s*[:=]/i];
+    for (const u of mitBlatt) {
+      const text = JSON.stringify(u.hausblatt);
+      for (const muster of verboten) {
+        expect(muster.test(text), `${u.id} / ${muster}`).toBe(false);
+      }
     }
   });
 });

@@ -314,9 +314,32 @@ test('das Kontextblatt zeigt Nächte und Wanderdaten', async ({ page }) => {
   await expect(blatt.getByText('130 m')).toBeVisible();
 
   await page.goto('/?unterkunft=thrasastadir');
-  await expect(blatt.getByText('Übernachtung')).toBeVisible();
+  // Exakt: der Hinweis am Haus spricht vom „Übernachtungsplan".
+  await expect(blatt.getByText('Übernachtung', { exact: true })).toBeVisible();
   await expect(blatt.getByText('Nächte')).toBeVisible();
   await expect(blatt.getByText('4', { exact: true })).toBeVisible();
+});
+
+test('das Kontextblatt zeigt das Hausblatt des Vermieters', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?unterkunft=thrasastadir');
+  const blatt = page.getByTestId('kontextblatt');
+
+  // Der Widerspruch zwischen Reiseplan und Vermieter steht am Haus, nicht in
+  // einer Datei daneben.
+  await expect(blatt.getByTestId('kontextblatt-hinweis')).toContainText('Ljósavatn');
+
+  const hausblatt = blatt.getByTestId('kontextblatt-hausblatt');
+  await expect(hausblatt).toContainText('Hausblatt N3018');
+  await expect(hausblatt).toContainText('216 1801');
+  // Die letzten Meter sind der schwierige Teil: das Schild muss dastehen.
+  await expect(hausblatt).toContainText('Arnarstapi');
+
+  // Die langen Listen liegen eingeklappt und öffnen auf Tippen.
+  const abreise = hausblatt.getByTestId('hausblatt-abreise');
+  await expect(abreise.getByText('Schlüsselkasten')).toBeHidden();
+  await abreise.getByText('Bei Abreise').click();
+  await expect(abreise.getByText(/Schlüsselkasten/)).toBeVisible();
 });
 
 test('der Filter entlastet die Karte und lässt die Unterkünfte stehen', async ({ page }) => {
