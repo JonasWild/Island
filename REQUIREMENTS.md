@@ -135,18 +135,28 @@ im Mailanhang sucht. Die langen Listen liegen eingeklappt.
 den PDFs — die App liegt öffentlich erreichbar bei Vercel, das Hausblatt nicht.
 Wo ein Code gebraucht wird, sagt der Text, dass es ihn gibt und wo er steht.
 
-**Hintergrundtexte** (`pnpm wissen`, Build-Zeit): Einleitungsabsatz des
-passenden Artikels aus der deutschen Wikipedia, abgelegt als
-`wissen: { text, quelle, url, geprueftAm }`. Übernommen wird nur Eindeutiges —
-der Artikelname stimmt mit dem Stopp überein und ist der einzige dieses Namens
-im Umkreis, oder er ist der einzige Artikel unter 400 m bei punktgenauer
-Position. 69 von 128 Stopps haben Text; die übrigen stehen mit Begründung in
+**Hintergrundtexte** (`pnpm wissen`, Build-Zeit): Einleitung **und die ersten
+bis zu drei Sachabschnitte** des passenden Artikels aus der deutschen
+Wikipedia, abgelegt als `wissen: { text, abschnitte, quelle, url, geprueftAm }`,
+zusammen höchstens 1600 Zeichen. Der erste Absatz allein war zu wenig: Er nennt
+bei einem Wasserfall die Bekanntheit, nicht aber, warum er heisst, wie er
+heisst. Verzeichnisse (`Weblinks`, `Einzelnachweise`, `Siehe auch`, …) sind
+kein Inhalt und bleiben draussen. Übernommen wird nur Eindeutiges — der
+Artikelname stimmt mit dem Stopp überein und ist der einzige dieses Namens im
+Umkreis, oder er ist der einzige Artikel unter 400 m bei punktgenauer Position.
+69 von 128 Stopps haben Text; die übrigen stehen mit Begründung in
 `data/wissen-offen.json`.
 
-**Bilder** (`pnpm bilder`, Build-Zeit): Leitbild des zugeordneten
-Wikipedia-Artikels, sonst ein georeferenziertes Commons-Bild, dessen
-Dateiname den Stopp nennt. Lagekarten und Wappen fallen raus. 84 von 128
-Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
+**Bilder** (`pnpm bilder`, Build-Zeit): **bis zu sechs je Stopp** als `bilder`,
+das erste ist das Leitbild. Quellen in der Reihenfolge ihrer Belegkraft:
+Leitbild des zugeordneten Artikels, weitere Bilder desselben Artikels, die
+Commons-Kategorie des Objekts (Wikidata P373), georeferenzierte Bilder im
+Umkreis. Ausser beim Leitbild muss der **Dateiname den Stopp nennen** — auch
+Artikel und Kategorie führen Fremdes mit. Lagekarten, Wappen, Symbole, Videos
+und Dateien unter 800 px fallen raus, und kein Urheber stellt mehr als zwei
+Bilder. Dazu die Commons-Bildbeschreibung, sofern lateinisch geschrieben. 84
+von 128 Stopps haben Bilder (410 insgesamt, 78 davon mehrere); Urheber und
+Lizenz stehen an jedem einzelnen.
 
 **Routing** (`pnpm route`, Build-Zeit): siehe Abschnitt 6.
 
@@ -176,6 +186,13 @@ Stopps haben ein Bild; Urheber und Lizenz stehen dabei.
 - **Kontextblatt**: auf dem Handy ein Bottom-Sheet über die volle Breite mit
   Ziehgriff, ab `sm:` die Spalte rechts. Zeigt Veranstaltertext und, wenn
   vorhanden, den Wikipedia-Hintergrund mit Quelle, Link und Prüfdatum.
+- **Bilderstreifen** oben im Kontextblatt: die belegten Bilder eines Stopps zum
+  Durchwischen, mit Zähler, Punkten und Knöpfen. Gewischt wird nativ
+  (`scroll-snap`), ohne Bibliothek und ohne Gestenerkenner. **Keine
+  Pfeiltasten** — ← und → blättern durch die Tage; ein zweites Ziel für
+  dieselben Tasten wäre eine Falle. Festes 4:3-Fenster, weil Hoch- und
+  Querformate sonst das halbe Blatt springen lassen. Bildbeschreibung, Urheber
+  und Lizenz gehören zum **gezeigten** Bild und wechseln mit ihm.
 - **Klick auf leere Karte** → Koordinate und Reisetag im Kontextblatt.
 - **Routenlinien**: gefahrene Straßenrouten aus `data/route.json`, durchgehend
   verkettet. Durchgezogen = Pflichtstrecke, gepunktet = Abstecher, grau

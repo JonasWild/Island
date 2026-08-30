@@ -47,7 +47,17 @@ export type Wanderung = z.infer<typeof WanderungSchema>;
  * dann steht dort nichts, statt etwas Falsches.
  */
 export const WissenSchema = z.object({
+  /** Die Einleitung des Artikels, Absätze mit `\n\n` getrennt. */
   text: z.string().min(1),
+  /**
+   * Die ersten Sachabschnitte darunter — `Lage`, `Namensgebung`,
+   * `Geschichte`. Die Einleitung der deutschen Wikipedia ist oft ein einziger
+   * Satz; das, was man am Ort wissen will, steht eine Ebene tiefer.
+   * Verzeichnisse (`Weblinks`, `Einzelnachweise`, …) sind nicht dabei.
+   */
+  abschnitte: z
+    .array(z.object({ titel: z.string().min(1), text: z.string().min(1) }))
+    .default([]),
   quelle: z.string().min(1),
   url: z.string().url(),
   geprueftAm: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'ISO-Datum erwartet'),
@@ -68,7 +78,13 @@ export const BildSchema = z.object({
   lizenzUrl: z.string().url().optional(),
   /** Beschreibungsseite auf Commons — der Nachweis. */
   seite: z.string().url(),
-  /** Wie das Bild gefunden wurde: Artikelbild oder Geosuche mit Namensbeleg. */
+  /**
+   * Was auf **diesem** Bild zu sehen ist — die Bildbeschreibung von Commons,
+   * auf den ersten Satz gekürzt. Fehlt sie, gab es keine brauchbare: Der
+   * Streifen zeigt dann nur Urheber und Lizenz, statt etwas zu erfinden.
+   */
+  beschreibung: z.string().optional(),
+  /** Wie das Bild gefunden wurde: Artikel, Commons-Kategorie oder Geosuche. */
   quelle: z.string().min(1),
   geprueftAm: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, 'ISO-Datum erwartet'),
 });
@@ -86,7 +102,16 @@ export const StoppSchema = z.object({
   pos: PosSchema.nullable().default(null),
   posMeta: PosMetaSchema.optional(),
   wissen: WissenSchema.optional(),
-  bild: BildSchema.optional(),
+  /**
+   * Die Bilder zum Stopp, das **erste ist das Leitbild**: Es steht in der
+   * Vorschau-Blase und im Tagesablauf, wo nur eines Platz hat. Im
+   * Kontextblatt bilden alle zusammen einen Streifen zum Durchblättern.
+   *
+   * Eine leere Liste heisst: Es gab kein Bild, dessen Bezug zum Stopp sich
+   * belegen liess (siehe data/bilder-offen.json). Sie steht dann gar nicht
+   * erst in der Datei.
+   */
+  bilder: z.array(BildSchema).default([]),
 });
 export type Stopp = z.infer<typeof StoppSchema>;
 

@@ -139,9 +139,9 @@ davor. Ohne Treffer bleibt es ein Ort — nichts wird geraten.
 ## Zwei Stufen statt einer
 
 Ein Klick auf ein Kartensymbol öffnet zuerst eine **Vorschau-Blase** direkt am
-Marker: Bild, Name, ein bis zwei Sätze, ein Zeiger auf das Symbol. Erst
-„Mehr" führt ins Kontextblatt mit Wanderdaten, Veranstaltertext und
-Wikipedia-Hintergrund. Der Blick auf „was ist das überhaupt?" soll nicht das
+Marker: das Leitbild, Name, ein bis zwei Sätze, ein Zeiger auf das Symbol. Erst
+„Mehr" führt ins Kontextblatt mit dem Bilderstreifen, Wanderdaten,
+Veranstaltertext und Wikipedia-Hintergrund samt Abschnitten. Der Blick auf „was ist das überhaupt?" soll nicht das
 halbe Bild kosten.
 
 Der Text wird an **Satzgrenzen** gekürzt, nie mitten im Satz — ein
@@ -398,39 +398,82 @@ statt sie stillschweigend in die Daten zu schreiben.
 
 ## Bilder
 
-`pnpm bilder` sucht zu jedem Stopp ein Foto. Zwei Wege, in dieser Reihenfolge:
+Ein Ort ist mehr als ein Blickwinkel: Goðafoss im Sommer, im Winter und aus der
+Luft sagen zusammen etwas, das ein Foto nicht sagt. `pnpm bilder` sucht
+deshalb **bis zu sechs** Bilder je Stopp und legt sie als `bilder` ab — das
+erste ist das Leitbild für Vorschau-Blase und Tagesablauf, alle zusammen sind
+der Streifen im Kontextblatt.
+
+Vier Quellen, in der Reihenfolge ihrer Belegkraft:
 
 1. **Das Leitbild des Wikipedia-Artikels**, den `pnpm wissen` bereits eindeutig
-   zugeordnet hat. Damit gehören Text und Bild garantiert zum selben Objekt.
-2. **Georeferenzierte Bilder auf Commons** im Umkreis von 1,5 km — übernommen
-   wird aber nur, wessen **Dateiname den Namen des Stopps enthält**.
-   „Stokksnes" hat keinen eigenen Artikel, aber
-   `File:2008-05-23 24 Stokksnes.jpg` liegt 480 m entfernt und trägt den
-   Namen. Das ist ein Beleg, kein Zufallsfund.
+   zugeordnet hat. Damit gehören Text und Bild garantiert zum selben Objekt —
+   der einzige Fall, in dem der Dateiname nichts beweisen muss.
+2. **Weitere Bilder aus demselben Artikel** (`prop=images`).
+3. **Die Commons-Kategorie** des Artikels, über Wikidata `P373` — der
+   kuratierte Bilderordner zum Objekt und die ergiebigste der vier Quellen.
+4. **Georeferenzierte Bilder auf Commons** im Umkreis von 1,5 km.
 
-Ohne Namensbeleg bleibt der Stopp ohne Bild: ein hübsches Foto vom Nachbartal
-ist schlechter als gar keins, weil es etwas behauptet.
+Für 2 bis 4 gilt dieselbe Schranke wie bisher: Der **Dateiname muss den Stopp
+nennen**. Das ist nötig, weil alle drei Quellen Fremdes mitführen — im Artikel
+Goðafoss steckt ein Bild der Kirche von Akureyri, in seiner Commons-Kategorie
+liegen Fotos des Sees Ljósavatn. Ohne Namensbeleg bleibt der Stopp ohne Bild:
+ein hübsches Foto vom Nachbartal ist schlechter als gar keins, weil es etwas
+behauptet.
 
-Nicht jedes Leitbild ist ein Foto — die deutsche Wikipedia setzt bei
-Gemeinden gern eine Lagekarte oder ein Wappen an den Anfang. Ein
-Kartenausschnitt in einer Karten-App ist nutzlos, solche Dateien fallen
-deshalb raus und der Stopp geht auf die Geosuche.
+Zwei Filter halten den Streifen sauber:
 
-Stand: **84 von 128 Stopps mit Bild** — 55 aus dem Artikel, 29 über die
-Geosuche. Die übrigen 44 stehen mit Begründung in `data/bilder-offen.json`.
+- **Kein Bild ohne Foto-Charakter.** Die deutsche Wikipedia setzt bei
+  Gemeinden gern eine Lagekarte oder ein Wappen an den Anfang, und jeder
+  Artikel schleppt Symbole wie `Blue_pog.svg` mit. Ein Kartenausschnitt in
+  einer Karten-App ist nutzlos. Ebenso raus: Dateien unter 800 px Breite und
+  alles, was kein JPEG/PNG/TIFF ist (in den Kategorien liegen auch Videos).
+- **Höchstens zwei Bilder je Urheber.** Wer einmal an der Blauen Lagune
+  stand, hat dort zwanzig Aufnahmen gemacht und alle hochgeladen; sechs davon
+  nebeneinander sind kein Streifen, sondern eine Wiederholung.
 
-Urheber und Lizenz stehen an jedem Bild; bei CC-BY-SA ist die Nennung
-Bedingung, nicht Höflichkeit. Die Dateien liegen auf `upload.wikimedia.org`
-und werden von dort geladen statt ins Repo kopiert — das wären rund 70 MB
-Fotos in der Versionsverwaltung. Der Host steht dafür in der CSP, aber nur
-unter `img-src`.
+Zu jedem Bild kommt die **Bildbeschreibung** von Commons mit
+(`iiextmetadatalanguage=de`, auf den ersten Satz gekürzt) — sie sagt, was auf
+genau diesem Bild zu sehen ist. Nicht-lateinische Schriften bleiben draussen:
+Eine hebräische Bildunterschrift hilft dieser Reisegruppe nicht.
+
+Stand: **84 von 128 Stopps mit Bild, 410 Bilder, 78 Stopps zum
+Durchblättern** — 141 aus dem Artikel, 192 aus der Commons-Kategorie, 77 über
+die Geosuche. Die übrigen 44 Stopps stehen mit Begründung in
+`data/bilder-offen.json`.
+
+Urheber und Lizenz stehen an **jedem** Bild und wechseln mit ihm; bei CC-BY-SA
+ist die Nennung Bedingung, nicht Höflichkeit. Die Dateien liegen auf
+`upload.wikimedia.org` und werden von dort geladen statt ins Repo kopiert —
+das wären mehrere hundert MB Fotos in der Versionsverwaltung. Der Host steht
+dafür in der CSP, aber nur unter `img-src`.
+
+Die Bildnachweise wiegen etwas: `reise.json` wächst dadurch von 190 auf
+520 KB, der Datenteil des Bundles um rund 250 KB (gzip deutlich weniger).
+Gegen die 1 MB von MapLibre ist das vertretbar, und geladen werden die Fotos
+erst beim Wischen (`loading="lazy"` ab dem zweiten Bild).
 
 ## Hintergrundtexte
 
-`pnpm wissen` holt zu jedem Stopp den Einleitungsabsatz des passenden Artikels
-aus der deutschen Wikipedia (`prop=extracts&exintro=1&explaintext=1`) und legt
-ihn als `wissen: { text, quelle, url, geprueftAm }` in `reise.json` ab. Das
+`pnpm wissen` holt zu jedem Stopp den Artikeltext aus der deutschen Wikipedia
+(`prop=extracts&explaintext=1&exsectionformat=wiki`) und legt ihn als
+`wissen: { text, abschnitte, quelle, url, geprueftAm }` in `reise.json` ab. Das
 Kontextblatt zeigt ihn mit Quelle, Link und Prüfdatum.
+
+**Nicht nur der erste Absatz.** Die Einleitung der deutschen Wikipedia ist oft
+ein einziger Satz — „Der Goðafoss ist einer der bekanntesten Wasserfälle
+Islands." —, und das, was man am Wasserfall stehend wissen will, steht darunter:
+dass Þorgeir Ljósvetningagoði um das Jahr 1000 die heidnischen Götterbilder
+hineingeworfen haben soll, daher der Name. Übernommen werden deshalb die
+Einleitung **und die ersten bis zu drei Sachabschnitte**, zusammen höchstens
+1600 Zeichen, jeder Abschnitt mit seiner Überschrift. Verzeichnisse
+(`Weblinks`, `Literatur`, `Einzelnachweise`, `Siehe auch`, `Bilder`) bleiben
+draussen, ebenso Verweiszeilen wie `→ Hauptartikel: …` — das ist Apparat, kein
+Inhalt. Gekürzt wird an Satzgrenzen; ein Abschnitt, der nur noch angerissen
+würde, bleibt ganz weg.
+
+Stand: **58 der 69 Texte tragen Abschnitte**, im Mittel rund 1500 Zeichen
+statt der 240 von vorher.
 
 Der Artikel wird über die Geosuche im Umkreis von 10 km gefunden — mehr lässt
 die API nicht zu, und weiter weg beschreibt ein Artikel ohnehin ein anderes

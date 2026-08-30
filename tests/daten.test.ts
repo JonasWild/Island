@@ -143,40 +143,78 @@ describe('Wissen', () => {
 });
 
 describe('Bilder', () => {
-  const mitBild = alleStopps.filter((s) => s.stopp.bild);
+  const mitBild = alleStopps.filter((s) => s.stopp.bilder.length > 0);
+  const alleBilder = alleStopps.flatMap((s) => s.stopp.bilder.map((b) => ({ b, name: s.stopp.name })));
 
   it('sind für den Grossteil der Stopps vorhanden', () => {
     expect(mitBild.length).toBeGreaterThan(70);
   });
 
+  it('liegen bei den meisten Stopps als Streifen vor', () => {
+    // Ein Ort ist mehr als ein Blickwinkel. Wo die Belege es hergeben, sind
+    // es mehrere Bilder — sonst wäre der Streifen eine leere Geste.
+    const mehrere = mitBild.filter((s) => s.stopp.bilder.length > 1);
+    expect(mehrere.length).toBeGreaterThan(50);
+    for (const { stopp } of mitBild) expect(stopp.bilder.length, stopp.name).toBeLessThanOrEqual(6);
+  });
+
   it('nennen Urheber, Lizenz und Nachweisseite', () => {
     // Ohne Lizenz und Urheber darf nichts eingebunden werden — bei CC-BY-SA
     // ist die Nennung Bedingung, nicht Höflichkeit.
-    for (const { stopp } of mitBild) {
-      const b = stopp.bild!;
-      expect(b.urheber, stopp.name).not.toBe('');
-      expect(b.lizenz, stopp.name).not.toBe('');
-      expect(b.seite, stopp.name).toMatch(/^https:\/\/commons\.wikimedia\.org\//);
-      expect(b.url, stopp.name).toMatch(/^https:\/\/upload\.wikimedia\.org\//);
-      expect(b.breite, stopp.name).toBeGreaterThan(0);
-      expect(b.hoehe, stopp.name).toBeGreaterThan(0);
+    for (const { b, name } of alleBilder) {
+      expect(b.urheber, name).not.toBe('');
+      expect(b.lizenz, name).not.toBe('');
+      expect(b.seite, name).toMatch(/^https:\/\/commons\.wikimedia\.org\//);
+      expect(b.url, name).toMatch(/^https:\/\/upload\.wikimedia\.org\//);
+      expect(b.breite, name).toBeGreaterThan(0);
+      expect(b.hoehe, name).toBeGreaterThan(0);
     }
   });
 
   it('tragen keine Tracking-Parameter in der URL', () => {
-    for (const { stopp } of mitBild) {
-      expect(stopp.bild!.url, stopp.name).not.toContain('utm_');
-      expect(stopp.bild!.url, stopp.name).not.toContain('?');
+    for (const { b, name } of alleBilder) {
+      expect(b.url, name).not.toContain('utm_');
+      expect(b.url, name).not.toContain('?');
     }
   });
 
   it('zeigen Fotos, keine Lagekarten und Wappen', () => {
     // Die deutsche Wikipedia setzt bei Gemeinden gern eine Lagekarte als
     // Leitbild. Ein Kartenausschnitt in einer Karten-App ist nutzlos.
-    for (const { stopp } of mitBild) {
-      expect(stopp.bild!.url.toLowerCase(), stopp.name).not.toMatch(
+    for (const { b, name } of alleBilder) {
+      expect(b.url.toLowerCase(), name).not.toMatch(
         /[_.-](map|karte|locator|flag|wappen|logo)[_.-]|\.svg$/,
       );
+    }
+  });
+
+  it('stehen nur einmal je Stopp im Streifen', () => {
+    for (const { stopp } of mitBild) {
+      const urls = stopp.bilder.map((b) => b.url);
+      expect(new Set(urls).size, stopp.name).toBe(urls.length);
+    }
+  });
+
+  it('lassen keinen Urheber den ganzen Streifen füllen', () => {
+    // Wer einmal dort stand, hat zwanzig Aufnahmen hochgeladen. Sechs davon
+    // nebeneinander sind kein Streifen, sondern eine Wiederholung.
+    for (const { stopp } of mitBild) {
+      const zaehler = new Map<string, number>();
+      for (const b of stopp.bilder) {
+        if (b.urheber === 'unbekannt') continue;
+        zaehler.set(b.urheber, (zaehler.get(b.urheber) ?? 0) + 1);
+      }
+      for (const [wer, n] of zaehler) expect(n, `${stopp.name} / ${wer}`).toBeLessThanOrEqual(2);
+    }
+  });
+
+  it('tragen eine lesbare Bildbeschreibung, wo Commons eine hat', () => {
+    const mitText = alleBilder.filter(({ b }) => b.beschreibung);
+    expect(mitText.length).toBeGreaterThan(alleBilder.length * 0.7);
+    for (const { b, name } of mitText) {
+      expect(b.beschreibung!.length, name).toBeLessThanOrEqual(200);
+      // Nicht-lateinische Schriften helfen dieser Reisegruppe nicht.
+      expect(b.beschreibung!, name).not.toMatch(/[\u0370-\u04FF\u0590-\u05FF\u0600-\u06FF\u4E00-\u9FFF]/);
     }
   });
 });

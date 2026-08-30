@@ -5,6 +5,7 @@ import { alleStopps, datumKurz, unterkunftNach } from '@/lib/reise';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
 import { kategorieFarbe } from '@/map/icons';
 import { formatKoordinate } from '@/lib/geo';
+import { Bilderstreifen } from './Bilderstreifen';
 import type { Bild, Hausblatt, Unterkunft, Wanderung, Wissen } from '@/lib/schema';
 
 /**
@@ -147,7 +148,7 @@ export function ContextSheet() {
   let text = '';
   let wissen: Wissen | null = null;
   let wanderung: Wanderung | null = null;
-  let bild: Bild | null = null;
+  let bilder: readonly Bild[] = [];
   let haus: Unterkunft | null = null;
   let punkt: string | null = null;
 
@@ -159,7 +160,7 @@ export function ContextSheet() {
     text = ref.stopp.text;
     wissen = ref.stopp.wissen ?? null;
     wanderung = ref.stopp.wanderung ?? null;
-    bild = ref.stopp.bild ?? null;
+    bilder = ref.stopp.bilder;
     punkt = kategorieFarbe(kategorieVon(ref.stopp));
   }
 
@@ -224,53 +225,16 @@ export function ContextSheet() {
       </div>
 
       {/*
-        Das Bild steht ganz oben: es beantwortet „wie sieht das aus?" schneller
-        als jeder Text. Breite und Höhe kommen aus der Pipeline und stehen im
-        Markup, damit das Blatt beim Laden nicht springt.
+        Die Bilder stehen ganz oben: Sie beantworten „wie sieht das aus?"
+        schneller als jeder Text. Mehrere davon, weil ein Ort mehr ist als ein
+        Blickwinkel — der Streifen zeigt Goðafoss im Sommer, im Winter und von
+        oben, statt sich für eine Aufnahme zu entscheiden.
 
-        Bewusst ein einfaches <img> statt next/image: die Datei liegt auf
+        Bewusst ein einfaches <img> statt next/image: die Dateien liegen auf
         Commons in genau der gebrauchten Grösse, und der Bildoptimierer von
         Vercel würde sie nur ein zweites Mal durch einen Server schicken.
       */}
-      {bild && (
-        <figure className="mt-3 overflow-hidden rounded-lg bg-slate-100 ring-1 ring-black/5">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={bild.url}
-            alt={titel}
-            width={bild.breite}
-            height={bild.hoehe}
-            loading="lazy"
-            decoding="async"
-            className="block h-auto w-full"
-          />
-          <figcaption className="px-3 py-2 text-[11px] leading-snug text-slate-500">
-            {/* Bei CC-BY-SA ist die Nennung Bedingung, nicht Höflichkeit. */}
-            {bild.urheber} ·{' '}
-            {bild.lizenzUrl ? (
-              <a
-                href={bild.lizenzUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="underline decoration-slate-400 underline-offset-2 hover:text-slate-800"
-              >
-                {bild.lizenz}
-              </a>
-            ) : (
-              bild.lizenz
-            )}{' '}
-            ·{' '}
-            <a
-              href={bild.seite}
-              target="_blank"
-              rel="noreferrer"
-              className="underline decoration-slate-400 underline-offset-2 hover:text-slate-800"
-            >
-              Wikimedia Commons
-            </a>
-          </figcaption>
-        </figure>
-      )}
+      <Bilderstreifen key={bilder[0]?.url ?? titel} bilder={bilder} titel={titel} />
 
       {/*
         Wo man schläft und wie lange ist die wichtigste Angabe des Tages —
@@ -354,7 +318,27 @@ export function ContextSheet() {
           <h3 className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
             Hintergrund
           </h3>
-          <p className="mt-2 text-sm leading-relaxed text-slate-700">{wissen.text}</p>
+          {/* Absätze bleiben Absätze — die Einleitung der Wikipedia gliedert
+              nach Gedanken, und fünfzehn Zeilen am Stück liest hier niemand. */}
+          {wissen.text.split('\n\n').map((absatz) => (
+            <p key={absatz} className="mt-2 text-sm leading-relaxed text-slate-700">
+              {absatz}
+            </p>
+          ))}
+
+          {/* Das Interessante steht in der deutschen Wikipedia selten in der
+              Einleitung: „Der Goðafoss ist einer der bekanntesten Wasserfälle
+              Islands." Warum er so heisst, steht im Abschnitt darunter. */}
+          {wissen.abschnitte.map((abschnitt) => (
+            <div key={abschnitt.titel} className="mt-3">
+              <h4 className="text-xs font-semibold text-slate-800">{abschnitt.titel}</h4>
+              {abschnitt.text.split('\n\n').map((absatz) => (
+                <p key={absatz} className="mt-1 text-sm leading-relaxed text-slate-700">
+                  {absatz}
+                </p>
+              ))}
+            </div>
+          ))}
           <p className="mt-2 text-[11px] text-slate-500">
             {wissen.quelle} ·{' '}
             <a
