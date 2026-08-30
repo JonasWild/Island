@@ -317,6 +317,14 @@ async function main() {
     tag: string | null,
     art: 'stopp' | 'unterkunft',
   ) {
+    // Eine Position aus dem Blatt des Vermieters ist der Beleg selbst — er
+    // weiß, wo sein Haus steht, OSM kennt die Parzelle nicht. Auch `--all`
+    // rührt sie nicht an, sonst überschriebe der nächste Lauf die genaueste
+    // Angabe des Datensatzes mit einem Ortsmittelpunkt.
+    if (ziel.posMeta?.quelle === 'anbieter') {
+      bericht.uebersprungen++;
+      return;
+    }
     if (ziel.posMeta && !ALL) {
       bericht.uebersprungen++;
       return;

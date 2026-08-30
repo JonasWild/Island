@@ -84,7 +84,7 @@
     {
       "id": "thrasastadir",
       "name": "Þrasastaðir",
-      "ort": "Akureyri",
+      "ort": "Ljósavatnsskarð",
       "region": "Nordostisland",
       "von": "2026-08-30",
       "bis": "2026-09-03",
@@ -95,23 +95,62 @@
       "website": "https://www.viatis.is/de/ferienhaus/nordost-island/thrasastadir",
       "verpflegung": "Selbstverpflegung",
       "beschreibung": "Modernes Holzhaus mit Hot Pot & direkt am See.",
-      "hinweis": "Ortsangabe prüfen: Der Übernachtungsplan nennt Akureyri, der Reiseplan beschreibt die Station als Basis im Mývatngebiet. Die Tagesausflüge (Diamond Circle 207 km, Siglufjörður 150 km je Strecke) sind ab Mývatn gerechnet.",
+      "hinweis": "Die Basis liegt am Ljósavatn — weder in Akureyri (so der Übernachtungsplan) noch am Mývatn (so der Reiseplan): 9 km bis Goðafoss, 27 km bis Akureyri durch den Tunnel, 57 km bis Mývatn. Die Kilometer der Tagesausflüge sind ab Mývatn gerechnet und stimmen von hier aus nicht; aus dem Standtag am 31.08. wird ein Tagesausflug mit 57 km Anfahrt je Strecke.",
       "pos": [
-        65.6963,
-        -17.6459
+        65.705667,
+        -17.703667
       ],
       "posMeta": {
         "quelle": "anbieter",
-        "genauigkeit": "bereich",
-        "geprueftAm": "2026-08-13",
-        "ref": "https://www.viatis.is/en/accommodation/northeast-iceland/thrasastadir/",
-        "hinweis": "Anbieterseite verortet das Haus direkt am See Ljósavatn im Ljósavatnsskarð, ca. 25 km östlich von Akureyri und 8 km von Goðafoss. Damit ist weder 'Akureyri' (Übernachtungsplan) noch 'Mývatn' (Reiseplan) die tatsächliche Basis. Punkt = Südufer Ljósavatn; die genaue Parzelle ist nicht öffentlich, deshalb 'bereich'. Achtung: Der OSM-Hof gleichen Namens liegt in Fljót/Skagafjörður (65.937, -18.926) und ist ein anderes Objekt."
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-30",
+        "ref": "Viator Summerhouses, Hausinformation „Þrasastaðir (N3018)“, Rev. 10 — Kartenziel des QR-Codes",
+        "hinweis": "Punktgenau aus dem Hausblatt des Vermieters. Das Haus liegt im Ljósavatnsskarð kurz vor dem See Ljósavatn — laut Blatt 6 km von Goðafoss, 43 km von Akureyri und 50 km von Mývatn. Die bisherige Bereichsangabe lag 2,8 km weiter östlich. Der OSM-Hof gleichen Namens in Fljót/Skagafjörður (65.937, −18.926) ist ein anderes Objekt."
+      },
+      "hausblatt": {
+        "code": "N3018",
+        "checkIn": "ab 15:00",
+        "checkOut": "bis 12:00",
+        "groesse": "90 m² für 6 Personen",
+        "notfallnummer": "216 1801",
+        "anfahrt": "Ringstraße 1 durch Akureyri hindurch weiter Richtung Egilsstaðir/Goðafoss. Nach dem Tunnel (oder der Umfahrung) über die Brücke des Fnjóská. Rund 10 km weiter am Hotel Stórutjarnir vorbei, nach weiteren etwa 1,3 km rechts ab am Schild „Arnarstapi“ — die Abzweigung kommt kurz vor dem See Ljósavatn. Das Haus ist das zweite auf der linken Seite: an der Einfahrt steht eine Steinfigur, am Haus ein Holzschild „Þrasastaðir“. Geparkt wird am Haus.",
+        "navigation": "https://www.google.com/maps/dir/?api=1&destination=65.705667,-17.703667",
+        "schlafen": [
+          "Dachzimmer mit kleinem Balkon: Doppelbett 140 cm und Hochbett 90 cm — steile Treppe",
+          "Schlafzimmer mit Doppelbett 160 cm",
+          "Schlafzimmer mit Doppelbett 140 cm"
+        ],
+        "ausstattung": [
+          "Gut ausgestattete Küche mit Mikrowelle",
+          "Wohnzimmer mit TV, Radio und CD-Spieler, Kamin",
+          "WC mit Waschbecken; die Dusche liegt in einem eigenen Raum, den man von der Terrasse aus betritt",
+          "30 m² Terrasse, halb überdachter Hot Pot, Gartenmöbel, Gasgrill",
+          "Parkplatz am Haus"
+        ],
+        "vorOrt": [
+          "Gebuchte Viator-Laundry-Kits vor der Anfahrt an einer der Abholstellen Keflavík, Akureyri oder Egilsstaðir mitnehmen.",
+          "Hot Pot: Der Pot ist vorbereitet — Deckel abnehmen, vorsichtig öffnen und nach jeder Nutzung wieder auflegen und festzurren. Chlortabletten liegen im Badschrank. Die Nutzung ist auf eigene Gefahr, Kinder nie unbeaufsichtigt lassen.",
+          "Die Balkontür hat ein Dreipunktschloss: Griff anheben, abschließen, Griff wieder herunterdrücken."
+        ],
+        "abreise": [
+          "Die Endreinigung machen die Gäste: Böden saugen und wischen, Staub wischen, auch die Fensterbänke.",
+          "Küche gründlich reinigen — Herd, Kühlschrank, Ofen, Schränke. Keine Lebensmittel im Kühlschrank lassen.",
+          "Bad gründlich reinigen, Spiegel polieren, Haare aus dem Abfluss entfernen.",
+          "Allen Müll aus dem Haus mitnehmen.",
+          "Alle Türen und Fenster fest verschließen, Licht ausschalten.",
+          "Gemietete Bettwäsche an einer Viator-Abholstelle zurückgeben.",
+          "Hausschlüssel in den Schlüsselkasten legen."
+        ],
+        "entsorgung": "Müllcontainer kurz hinter Stórutjarnir in Richtung Akureyri.",
+        "service": "Viator Summerhouses, +354 544 8990 oder +354 863 9414 (auch WhatsApp)",
+        "quelle": "Viator Summerhouses, Hausinformation „Þrasastaðir (N3018)“, Rev. 10",
+        "geprueftAm": "2026-08-30"
       }
     },
     {
       "id": "hlidarendi",
       "name": "Hlíðarendi",
-      "ort": "Egilsstaðir",
+      "ort": "Úlfstaðaskógur bei Egilsstaðir",
       "region": "Ostisland",
       "von": "2026-09-03",
       "bis": "2026-09-05",
@@ -122,17 +161,55 @@
       "website": "https://www.viatis.is/de/ferienhaus/ostisland/hlidarendi",
       "verpflegung": "Selbstverpflegung",
       "beschreibung": "Bezauberndes rustikales Ferienhaus in Ostisland mit Terrasse & Grill.",
-      "hinweis": "Nur für 5 Personen ausgelegt - bei 5 Reisenden voll belegt.",
+      "hinweis": "Haus Nr. 20 in der Siedlung Úlfstaðaskógur, 11 km südlich von Egilsstaðir — die Zufahrt hat eine Schranke, die den PIN-Code von Viator braucht. Das Haus ist für 5 Personen ausgelegt: bei 5 Reisenden voll belegt und die einzige Station der Reise, an der ein Zusatzbett nicht möglich ist.",
       "pos": [
-        65.2667,
-        -14.4
+        65.16965,
+        -14.497833
       ],
       "posMeta": {
         "quelle": "anbieter",
-        "genauigkeit": "bereich",
-        "geprueftAm": "2026-08-13",
-        "ref": "https://www.viatis.is/de/ferienhaus/ostisland/hlidarendi",
-        "hinweis": "Ferienhaus im Umland von Egilsstaðir, keine öffentliche Adresse — Bereichsangabe."
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-30",
+        "ref": "Viator Summerhouses, Hausinformation „Hlíðarendi (O402)“, Rev. 10 — Kartenziel des QR-Codes",
+        "hinweis": "Punktgenau aus dem Hausblatt des Vermieters: Haus Nr. 20 in der Ferienhaussiedlung Úlfstaðaskógur an der Straße 95 Richtung Hallormsstaður, 11,8 km Luftlinie südlich von Egilsstaðir. Die bisherige Bereichsangabe lag auf Egilsstaðir selbst, 11,7 km entfernt."
+      },
+      "hausblatt": {
+        "code": "O402",
+        "checkIn": "ab 15:00",
+        "checkOut": "bis 12:00",
+        "groesse": "64 m² für 5 Personen",
+        "notfallnummer": "227 2359",
+        "anfahrt": "Von Egilsstaðir auf der Straße 95 Richtung Hallormsstaður. Rund 11 km hinter Egilsstaðir steht das Schild der Ferienhaussiedlung „Úlfstaðaskógur“: rechts ab, kurz darauf noch einmal rechts und nach wenigen Metern erneut rechts — dann steht man in dem „Kreis“, an dem die Häuser liegen. Nummer 20 liegt auf der linken Seite, an der Einfahrt ein Schild „Hlíðarendi“. Vor der Siedlung liegt eine Schranke; sie öffnet mit dem PIN-Code von Viator über das Tastenfeld am linken Pfosten.",
+        "navigation": "https://www.google.com/maps/dir/?api=1&destination=65.169650,-14.497833",
+        "schlafen": [
+          "Schlafzimmer mit Doppelbett 160 cm",
+          "Schlafzimmer mit zwei Etagenbetten (2 × 80 cm)",
+          "Schlafzimmer mit Einzelbett 120 cm"
+        ],
+        "ausstattung": [
+          "Wohnraum mit Küche, Mikrowelle, Backofen, TV, Radio und CD",
+          "WC mit Dusche",
+          "40 m² Terrasse, Grill, Gartentisch und Stühle",
+          "Parkplatz am Haus"
+        ],
+        "vorOrt": [
+          "Gebuchte Viator-Laundry-Kits vor der Anfahrt an einer der Abholstellen Keflavík, Akureyri oder Egilsstaðir mitnehmen.",
+          "Der Sicherungskasten ist im Eingangsflur rechts.",
+          "Der Haupthahn für das Wasser sitzt draußen an der rechten Hausecke — nur im Notfall zudrehen, etwa bei einem Rohrschaden."
+        ],
+        "abreise": [
+          "Die Endreinigung machen die Gäste: Böden saugen und wischen, Staub wischen, auch die Fensterbänke.",
+          "Küche gründlich reinigen — Herd, Kühlschrank, Ofen, Schränke. Keine Lebensmittel im Kühlschrank lassen.",
+          "Bad gründlich reinigen, Spiegel polieren, Haare aus dem Abfluss entfernen.",
+          "Allen Müll aus dem Haus mitnehmen.",
+          "Alle Türen und Fenster fest verschließen, Licht ausschalten.",
+          "Gemietete Bettwäsche an einer Viator-Abholstelle zurückgeben.",
+          "Hausschlüssel in den Schlüsselkasten legen."
+        ],
+        "entsorgung": "Müllcontainer an der Zufahrtsstraße zur Ferienhaussiedlung.",
+        "service": "Viator Summerhouses, +354 544 8990 oder +354 863 9414 (auch WhatsApp)",
+        "quelle": "Viator Summerhouses, Hausinformation „Hlíðarendi (O402)“, Rev. 10",
+        "geprueftAm": "2026-08-30"
       }
     },
     {
@@ -166,7 +243,7 @@
     {
       "id": "hlidarholt",
       "name": "Hlíðarholt",
-      "ort": "Flúðir",
+      "ort": "Reykholt, Bláskógabyggð",
       "region": "Südisland",
       "von": "2026-09-06",
       "bis": "2026-09-09",
@@ -177,17 +254,69 @@
       "website": "https://www.viatis.is/de/ferienhaus/suedisland/hlidarholt",
       "verpflegung": "Selbstverpflegung",
       "beschreibung": "Bezauberndes Ferienhaus in Südisland mit Hot Pot & atemberaubender Aussicht.",
-      "hinweis": null,
+      "hinweis": "Die Adresse ist Hlíðarholt 12 im Ferienhausgebiet Holtahverfi bei Reykholt in Bláskógabyggð — nicht Flúðir, wie der Reiseplan die Station nennt (7,5 km Luftlinie auseinander). Die Etappen-Kilometer der Tage 06.–09.09. sind ab Flúðir gerechnet. Laut Blatt sind es 95 km nach Reykjavík und 40 km nach Selfoss.",
       "pos": [
-        64.1333,
-        -20.3167
+        64.17965,
+        -20.422917
       ],
       "posMeta": {
         "quelle": "anbieter",
-        "genauigkeit": "bereich",
-        "geprueftAm": "2026-08-13",
-        "ref": "https://www.viatis.is/de/ferienhaus/suedisland/hlidarholt",
-        "hinweis": "Ferienhaus bei Flúðir, keine öffentliche Adresse — Bereichsangabe."
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-08-30",
+        "ref": "Viator Summerhouses, Hausinformation „Hlíðarholt (S503)“, Rev. 25 — Kartenziel des QR-Codes",
+        "hinweis": "Punktgenau aus dem Hausblatt des Vermieters und von OSM bestätigt: Der Punkt liegt auf der Straße Hlíðarholt in 846 Reykholt, Bláskógabyggð, 1,1 km vom Ortskern. Die bisherige Bereichsangabe lag 7,3 km entfernt bei Flúðir."
+      },
+      "hausblatt": {
+        "code": "S503",
+        "checkIn": "ab 15:00",
+        "checkOut": "bis 12:00",
+        "groesse": "76 m² für 8 Personen",
+        "notfallnummer": "227 4904",
+        "anfahrt": "Von Reykjavík auf der Ringstraße 1 und der Straße 35 nach Reykholt. Rund 1,5 km hinter Reykholt, nach der Tankstelle, rechts ab Richtung „Holtahverfi“ — das Schild ist sehr klein. Es ist die nächste Straße rechts, etwa 440 m nach der Abzweigung „Dalbraut“. Nach dem Abbiegen bei Tunguholt rund 700 m geradeaus bis zum Schild „Hlíðarholt“, dort rechts, nach etwa 500 m steht das Haus: Hlíðarholt 12.",
+        "navigation": "https://www.google.com/maps/dir/?api=1&destination=64.179650,-20.422917",
+        "schlafen": [
+          "Haupthaus: Schlafzimmer mit Doppelbett 140 cm",
+          "Haupthaus: Schlafzimmer mit Etagenbett (2 × 80 cm)",
+          "Kleinerer Hausteil: Etagenbett (110 und 70 cm)",
+          "Gästehaus: zwei Einzelbetten (2 × 80 cm)"
+        ],
+        "ausstattung": [
+          "Zwei miteinander verbundene Hausteile und ein kleines Gästehaus",
+          "Gut ausgestattete Küche, Wohnzimmer mit TV, DVD und Radio/CD",
+          "Unter dem Dach eine TV-Ecke mit Smart-TV-Box und WLAN — Netz „Hlidarholt_12_Wi_Fi“, der Router steht oben neben dem Fernseher und muss zum Aktivieren eingesteckt werden. Das Passwort steht im Hausblatt von Viator.",
+          "2 × WC mit Dusche, Waschmaschine",
+          "Terrasse, Hot Pot, Grill",
+          "Parkplatz mit Steckdose für ein E-Auto — die Ladebox stellt das Haus nicht"
+        ],
+        "vorOrt": [
+          "Gebuchte Viator-Laundry-Kits vor der Anfahrt an einer der Abholstellen Keflavík, Akureyri oder Egilsstaðir mitnehmen.",
+          "Das Haus hat eine Alarmanlage: direkt nach dem Aufschließen den Code am Kasten rechts neben der Tür eingeben. Der Code steht im Hausblatt von Viator und bewusst nicht in dieser App. Beim Verlassen den Alarm wieder scharf schalten.",
+          "Wasser aufdrehen: die beiden roten Hähne im Bad des kleinen Mittelhauses um 90° drehen. Die Wasserpumpe nie vom Strom trennen.",
+          "Hot Pot: im kleinen Mittelhaus („Badehaus“) den Danfoss-Schalter einschalten, nach 30–60 Minuten hat das Wasser 39–40 °C und hält sie von selbst. Vor dem Füllen prüfen, dass der Abfluss geschlossen ist (Metallgriff am Becken) — den Griff nie hochziehen. Die Nutzung ist auf eigene Gefahr, Kinder nie unbeaufsichtigt lassen.",
+          "Die Terrassentür hat ein Dreipunktschloss: Griff anheben, abschließen, Griff wieder herunterdrücken."
+        ],
+        "abreise": [
+          "Die Endreinigung machen die Gäste: Böden saugen und wischen, Staub wischen, auch die Fensterbänke.",
+          "Küche gründlich reinigen — Herd, Kühlschrank, Ofen, Mikrowelle, Schränke, Spüle, Tisch. Keine Lebensmittel im Kühlschrank lassen.",
+          "Beide Bäder gründlich reinigen, Spiegel, Dusche, WC und Waschbecken polieren, Haare aus dem Abfluss entfernen.",
+          "Hot Pot entleeren und reinigen, Abfluss wieder schließen, Deckel auflegen und mit den Gummispannern sichern.",
+          "Grill reinigen, Gasflasche im kleinen Haus zudrehen.",
+          "Das Tor zur Terrasse fest schließen, Jalousien herunterlassen.",
+          "Spülmaschine leeren und die Tür halb offen lassen.",
+          "Kleingeräte, TV samt Zubehör und die Waschmaschine vom Strom trennen, Wasserhahn der Waschmaschine schließen.",
+          "Heizkörperventile in den Zimmern nahe an den blauen Punkt stellen: im Winter Stufe 3, im Sommer 1–2.",
+          "Beide roten Wasserhähne wieder zudrehen.",
+          "Licht an Parkplatz und Hot Pot anlassen (Schalter neben der Tür gegenüber dem Hot Pot) — von Mai bis August nicht nötig.",
+          "Alarm scharf schalten: roter Haus-Knopf, ohne Code.",
+          "Allen Müll aus dem Haus mitnehmen.",
+          "Alle Türen und Fenster fest verschließen, Licht im Haus ausschalten.",
+          "Gemietete Bettwäsche an einer Viator-Abholstelle zurückgeben.",
+          "Hausschlüssel in den Schlüsselkasten legen."
+        ],
+        "entsorgung": "Wertstoffhof in Reykholt, Vegholt — direkt am ersten Kreisverkehr, Sortiervorgaben beachten.",
+        "service": "Viator Summerhouses, +354 544 8990 oder +354 863 9414 (auch WhatsApp)",
+        "quelle": "Viator Summerhouses, Hausinformation „Hlíðarholt (S503)“, Rev. 25",
+        "geprueftAm": "2026-08-30"
       }
     },
     {

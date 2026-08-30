@@ -117,7 +117,23 @@ posMeta:  { quelle: 'osm'|'wikidata'|'manuell', genauigkeit: 'punkt'|'bereich', 
 4. Stand: 128 von 128 belegt — 89 punktgenau aus OSM, 39 als Bereich.
 
 Ferienhäuser (viatis.is) haben keine öffentliche Adresse → bleiben
-`genauigkeit: 'bereich'` und werden in der UI als solche gezeichnet.
+`genauigkeit: 'bereich'` und werden in der UI als solche gezeichnet. **Es sei
+denn, das Hausblatt des Vermieters liegt vor:** Es nennt den Zielpunkt der
+Parzelle und schlägt damit jede Recherche. Drei der vier Häuser stehen deshalb
+als `quelle: 'anbieter'`, `genauigkeit: 'punkt'`; die Geocoding-Pipeline fasst
+sie auch mit `--all` nicht mehr an.
+
+**Hausblatt** (`hausblatt` an der Unterkunft, aus dem PDF des Vermieters
+übertragen): Anfahrt, Betten, Ausstattung, Check-in-Zeiten, isländische
+Notfallnummer des Hauses, die Handgriffe bei Ankunft und Abreise, Müll und
+Servicenummer — mit Quelle und Prüfdatum wie jede andere Angabe. Das ist der
+eine Ort, an dem die App mehr als zwei Sätze Fließtext zeigt, und er ist es
+wert: Es ist die Seite, die man sonst im Dunkeln vor einer verschlossenen Tür
+im Mailanhang sucht. Die langen Listen liegen eingeklappt.
+
+**Keine Codes im Datensatz.** Alarmcode, Torcode und WLAN-Passwort bleiben in
+den PDFs — die App liegt öffentlich erreichbar bei Vercel, das Hausblatt nicht.
+Wo ein Code gebraucht wird, sagt der Text, dass es ihn gibt und wo er steht.
 
 **Hintergrundtexte** (`pnpm wissen`, Build-Zeit): Einleitungsabsatz des
 passenden Artikels aus der deutschen Wikipedia, abgelegt als

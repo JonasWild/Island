@@ -1,44 +1,67 @@
 # Datenstand und offene Punkte
 
-Stand: 13.08.2026. Grundlage: `data/reise.json`, geprüft mit `pnpm geocode`
+Stand: 30.08.2026. Grundlage: `data/reise.json`, geprüft mit `pnpm geocode`
 gegen OpenStreetMap (Nominatim primär, Overpass als Rückfall) und ergänzt um
 Web-Recherche für die Fälle, die OSM nicht beantwortet.
+
+**Neu am 30.08.2026: die Hausblätter des Vermieters.** Für Þrasastaðir (N3018),
+Hlíðarendi (O402) und Hlíðarholt (S503) liegen die Hausinformationen von Viator
+Summerhouses vor. Sie beantworten drei der offenen Fragen dieser Datei — und
+zwar besser als jede Recherche, weil der Vermieter weiß, wo sein Haus steht:
+Jedes Blatt trägt einen Kartenlink auf die Parzelle. Die drei Häuser sind
+seither **punktgenau** verortet (`quelle: 'anbieter'`), und was sonst auf dem
+Blatt steht — Anfahrt, Betten, Ausstattung, die Handgriffe bei Ankunft und
+Abreise — steht als `hausblatt` am Haus und im Kontextblatt der App.
+
+Codes stehen dort **nicht**: Alarmcode, Torcode und WLAN-Passwort bleiben in
+den PDFs. Die App ist öffentlich erreichbar, das Hausblatt nicht. Der Text
+sagt jeweils, dass es einen Code gibt und wo er steht.
 
 Diese Datei ist der Ort für Fragen an den Reiseplan. Die App selbst zeigt
 keinen Fließtext — was hier steht, steht dort als Hinweis am jeweiligen Stopp.
 
 ---
 
-## 1. Þrasastaðir — geklärt: weder Akureyri noch Mývatn
+## 1. Þrasastaðir — geklärt: am Ljósavatn, 65.705667 / −17.703667
 
-**Frage:** Der Übernachtungsplan nennt Akureyri, der Reiseplan behandelt die
+**Frage war:** Der Übernachtungsplan nennt Akureyri, der Reiseplan behandelt die
 Station als Basis im Mývatngebiet. Die Tagesausflüge (Diamond Circle 207 km,
 Siglufjörður 150 km je Strecke) sind ab Mývatn gerechnet.
 
-**Befund:** Die Anbieterseite verortet das Haus eindeutig — direkt am See
-**Ljósavatn** im Ljósavatnsskarð, ca. 25 km östlich von Akureyri, 8 km von
-Goðafoss. Damit ist keine der beiden Angaben aus den PDFs richtig; die Basis
-liegt zwischen Akureyri und Mývatn.
+**Befund:** Keine der beiden Angaben stimmt. Das Hausblatt des Vermieters
+verortet das Haus punktgenau im **Ljósavatnsskarð**, kurz vor dem See
+Ljósavatn: 6 km bis Goðafoss, 43 km bis Akureyri, 50 km bis Mývatn. Die
+Anbieterseite hatte das schon nahegelegt, das Blatt macht es zur Koordinate —
+die frühere Bereichsangabe lag 2,8 km weiter östlich.
 
-Quelle: <https://www.viatis.is/en/accommodation/northeast-iceland/thrasastadir/>
+Die Anfahrt ist damit auch beschrieben: Ringstraße 1 hinter Akureyri Richtung
+Egilsstaðir, nach dem Tunnel über die Fnjóská-Brücke, rund 10 km weiter am
+Hotel Stórutjarnir vorbei, nach 1,3 km rechts am Schild „Arnarstapi" — zweites
+Haus links, Steinfigur an der Einfahrt. Das steht in der App am Haus.
 
-**Folge für die Planung:** Die Kilometerangaben der beiden Tagesausflüge
-stimmen nicht mehr. Ab Ljósavatn statt ab Mývatn:
+Quellen: Viator Summerhouses, Hausinformation „Þrasastaðir (N3018)", Rev. 10 ·
+<https://www.viatis.is/en/accommodation/northeast-iceland/thrasastadir/>
 
-| Ausflug | laut Reiseplan (ab Mývatn) | ab Ljósavatn |
+**Folge für die Planung — unverändert offen:** Die Kilometerangaben der beiden
+Tagesausflüge stimmen nicht. Ab Ljósavatn statt ab Mývatn:
+
+| Ausflug | laut Reiseplan (ab Mývatn) | ab Ljósavatn, je Strecke (Valhalla) |
 |---|---|---|
-| Diamond Circle | 207 km Rundfahrt | ähnlich lang, aber andere Reihenfolge — Húsavík liegt näher, Dettifoss weiter |
-| Siglufjörður | 150 km je Strecke | rund 40 km kürzer je Strecke, weil Akureyri näher liegt |
-| Mývatn-Umrundung (31.08.) | Standtag vor der Tür | rund 50 km Anfahrt je Strecke — aus dem Standtag wird ein Tagesausflug |
+| Mývatn-Umrundung (31.08.) | Standtag vor der Tür | 57 km Anfahrt — aus dem Standtag wird ein Tagesausflug |
+| Diamond Circle (01.09.) | 207 km Rundfahrt | Húsavík 51 km, Dettifoss 126 km — die Runde beginnt 57 km weiter westlich und wird dadurch länger |
+| Siglufjörður (02.09.) | 150 km je Strecke | 104 km — rund 45 km kürzer, weil Akureyri näher liegt |
+
+Dafür liegen Goðafoss (9 km) und Akureyri (27 km durch den Tunnel
+Vaðlaheiðargöng) fast vor der Tür. Das Hausblatt rechnet Akureyri mit 43 km —
+das ist die Strecke ohne Maut über den Pass Víkurskarð; nachgerechnet sind es
+43,0 km. Der Tunnel spart 16 km und kostet Gebühr.
 
 Der 31.08. ist der Tag, der sich dadurch am stärksten ändert. Vor der Reise mit
 Katla klären, ob die Etappenlogik des PDFs auf einer anderen Unterkunft beruht.
 
 **Achtung Namensdopplung:** In OSM gibt es einen Hof *Þrasastaðir* in
 Fljót/Skagafjörður (65.937, −18.926) und ein Gästehaus gleichen Namens bei
-Arnarstapi. Beides sind andere Objekte. Die Position im Datensatz ist deshalb
-`quelle: 'anbieter'`, `genauigkeit: 'bereich'` — Südufer Ljósavatn, die genaue
-Parzelle ist nicht öffentlich.
+Arnarstapi. Beides sind andere Objekte.
 
 ## 2. Hafnarhólmi am 04.09. — bestätigt: keine Papageitaucher mehr
 
@@ -52,17 +75,56 @@ am Stopp.
 Quellen: <https://www.borgarfjordureystri.is/en/puffins> ·
 <https://www.east.is/en/place/hafnarholmi>
 
-## 3. Hlíðarendi — 5 Plätze für 5 Reisende
+## 3. Hlíðarendi — 5 Plätze für 5 Reisende, Haus Nr. 20 hinter einer Schranke
 
 Unverändert: Das Ferienhaus ist für 5 Personen ausgelegt, die Reisegruppe hat
 5 Personen, die Zimmerbelegung nennt 1 Appartement. Das ist Vollbelegung ohne
 Reserve — und die einzige Station der Reise, an der ein Zusatzbett nicht
-möglich ist (die anderen Häuser sind für 6 bzw. 8 Personen).
+möglich ist (die anderen Häuser sind für 6 bzw. 8 Personen). Das Hausblatt
+bestätigt die Zahl und nennt die Betten: 64 m², Doppelbett 160, zwei
+Etagenbetten (2 × 80), ein Einzelbett 120.
 
 Das ist keine Frage, die sich recherchieren lässt: Sie gehört vor Reisebeginn
 an Katla Travel, mit der Buchungsnummer 55009.
 
-## 4. Earth Lagoon Mývatn am 31.08. — geklärt: geöffnet
+**Neu geklärt ist die Lage:** 65.169650 / −14.497833 — Haus Nr. 20 in der
+Ferienhaussiedlung **Úlfstaðaskógur** an der Straße 95 Richtung Hallormsstaður,
+11 km südlich von Egilsstaðir. Die bisherige Bereichsangabe lag auf Egilsstaðir
+selbst, also 11,7 km daneben; der Tagesausflug am 04.09. wächst dadurch von
+154 auf 178 km.
+
+**Praktisch wichtig:** Die Zufahrt zur Siedlung hat eine **Schranke mit
+PIN-Code**. Den Code schickt Viator vor der Anreise — er steht nicht in dieser
+App. Wer ihn nicht dabeihat, steht abends vor einem geschlossenen Tor.
+
+Quelle: Viator Summerhouses, Hausinformation „Hlíðarendi (O402)", Rev. 10
+
+## 4. Hlíðarholt — geklärt: bei Reykholt, nicht bei Flúðir
+
+Der Reiseplan führt die letzte Ferienhausstation durchgehend als „Flúðir": im
+Etappentitel des 06.09., in den Tagesausflügen am 07. und 08.09. und in der
+Abfahrt am 09.09. Das Hausblatt nennt eine andere Gemeinde — **Bláskógabyggð**,
+Adresse **Hlíðarholt 12** im Ferienhausgebiet Holtahverfi, rund 1,5 km hinter
+Reykholt. OSM bestätigt den Punkt: Die Koordinate 64.179650 / −20.422917 liegt
+auf der Straße *Hlíðarholt* in 846 Reykholt.
+
+Zwischen der bisherigen Annahme und dem Haus liegen 7,3 km. Für den Goldenen
+Kreis ist das günstig: Ab dem Haus sind es 19 km bis Geysir, 30 km bis Gullfoss
+und 58 km bis Þingvellir — ab Flúðir wären es 27, 34 und 68 km. Die Kilometer
+der drei Tage im Reiseplan sind trotzdem ab Flúðir gerechnet; die gerouteten
+Werte in `route.json` sind nachgezogen.
+
+Die Anfahrt ist die heikelste der Reise: 1,5 km hinter Reykholt nach der
+Tankstelle rechts Richtung „Holtahverfi", **sehr kleines Schild**, dann noch
+zweimal abbiegen. Sie steht vollständig in der App am Haus.
+
+**Codes:** Das Haus hat eine Alarmanlage, die direkt nach dem Aufschließen
+bedient werden will, und ein WLAN mit Passwort. Beides steht im PDF von Viator
+und bewusst nicht in dieser App.
+
+Quelle: Viator Summerhouses, Hausinformation „Hlíðarholt (S503)", Rev. 25
+
+## 5. Earth Lagoon Mývatn am 31.08. — geklärt: geöffnet
 
 Die früheren Mývatn Nature Baths (Jarðböðin) wurden abgerissen und neu gebaut.
 Die Wiedereröffnung unter dem Namen **Earth Lagoon Mývatn** war für Frühjahr
@@ -76,7 +138,7 @@ ersten Saison häufig die Zeiten.
 Quellen: <https://www.earthlagoon.is/> ·
 <https://www.icelandreview.com/news/myvatn-nature-baths-to-reopen-as-earth-lagoon-in-2026/>
 
-## 5. Grindavík / Fagradalsfjall am 09.09. — bleibt tagesaktuell
+## 6. Grindavík / Fagradalsfjall am 09.09. — bleibt tagesaktuell
 
 Der letzte Ausbruch an der Sundhnúkur-Kraterreihe endete am 5. August 2025.
 Seit März 2026 gibt es keine Eruption im Gebiet, die Hebung bei Svartsengi
@@ -97,7 +159,7 @@ Stopps tragen deshalb den Hinweis, die Lage am Reisetag auf
 <https://safetravel.is> zu prüfen. Alternative für denselben Tag ohne
 Vulkanrisiko: Krýsuvík/Seltún und Kleifarvatn, beide bereits im Plan.
 
-## 6. Flugzeiten fehlen weiterhin
+## 7. Flugzeiten fehlen weiterhin
 
 In keinem der beiden PDFs stehen Flugnummern oder Zeiten. Ohne sie lassen sich
 zwei Dinge nicht beurteilen:
@@ -130,6 +192,15 @@ Korrekturen:
 | Tunnel Vaðlaheiðargöng | 65.6772 / −18.0181 | 65.71115 / −17.98593 | der Tunnel statt des Büros in Akureyri |
 | Saltvík Reiterhof | 65.9975 / −17.34 | 66.00094 / −17.36455 | der Hof statt der Bucht |
 
+Dazu die drei Häuser, die am 30.08.2026 aus dem Hausblatt des Vermieters
+punktgenau wurden:
+
+| Unterkunft | vorher (Bereich) | nachher (Hausblatt) | Verschiebung |
+|---|---|---|---|
+| Hlíðarendi | 65.2667 / −14.4 | 65.16965 / −14.497833 | ~12 km — die Näherung lag auf Egilsstaðir statt in Úlfstaðaskógur |
+| Hlíðarholt | 64.1333 / −20.3167 | 64.17965 / −20.422917 | ~7 km — Reykholt/Bláskógabyggð statt Flúðir |
+| Þrasastaðir | 65.6963 / −17.6459 | 65.705667 / −17.703667 | ~3 km — die Parzelle am Ljósavatn statt des Seeufers |
+
 **Hot Pot Krosslaug** war der eine Stopp ohne Position. OSM führt ihn als
 `natural=hot_spring` in Lundarreykjadalur an der Straße 52, mit einem
 Denkmal-Node daneben — historisches Taufbecken von 1000 n. Chr., Parkplatz mit
@@ -141,9 +212,13 @@ verortet.
 Vier Kategorien lassen sich nicht punktgenau belegen, und die Pipeline tut
 auch nicht so:
 
-1. **Ferienhäuser** (Birkiskógar, Þrasastaðir, Hlíðarendi, Hlíðarholt) —
-   viatis.is nennt keine Adresse. Bereichsangabe mit Verweis auf die
-   Anbieterseite.
+1. **Ferienhäuser ohne Hausblatt** — viatis.is nennt keine Adresse.
+   Bereichsangabe mit Verweis auf die Anbieterseite. Das trifft seit dem
+   30.08.2026 nur noch **Birkiskógar** zu; für Þrasastaðir, Hlíðarendi und
+   Hlíðarholt liegt das Hausblatt des Vermieters mit Kartenziel vor, sie sind
+   punktgenau (`quelle: 'anbieter'`). Diese drei Positionen rührt `pnpm
+   geocode` auch mit `--all` nicht mehr an: Ein Ortsmittelpunkt aus OSM wäre
+   schlechter als die Angabe dessen, dem das Haus gehört.
 2. **Landschaftsräume** (Halbinsel Reykjanes, Mýrar, Skagafjörður /
    Öxnadalsheiði, Jökulsárgljúfur, Lagarfljót, Eldhraun) — ein Punkt ist hier
    nur ein Schwerpunkt.
@@ -165,7 +240,8 @@ punktgenauen Positionen unterscheidbar.
 | davon Bereichsangabe | 39 |
 | ohne Position | 0 |
 | in `offen.json` zur Klärung | 22 |
-| Unterkünfte punktgenau | 2 von 6 (die beiden Hotels) |
+| Unterkünfte punktgenau | 5 von 6 (beide Hotels aus OSM, drei Ferienhäuser aus dem Hausblatt) |
+| Unterkünfte mit Hausblatt | 3 von 6 |
 
 Vorher: 127 kuratiert, 1 ohne Position, 27 Näherungen ohne Beleg. Jetzt trägt
 jede der 128 Positionen ein `posMeta` mit Quelle und Prüfdatum. Die 22 Einträge

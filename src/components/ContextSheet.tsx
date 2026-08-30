@@ -5,7 +5,136 @@ import { alleStopps, datumKurz, unterkunftNach } from '@/lib/reise';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
 import { kategorieFarbe } from '@/map/icons';
 import { formatKoordinate } from '@/lib/geo';
-import type { Bild, Unterkunft, Wanderung, Wissen } from '@/lib/schema';
+import type { Bild, Hausblatt, Unterkunft, Wanderung, Wissen } from '@/lib/schema';
+
+/**
+ * Eine Liste aus dem Hausblatt, eingeklappt. Ausstattung und Abreise-Pflichten
+ * sind lang und werden genau zweimal gebraucht — beim Ankommen und beim
+ * Gehen. Ausgeklappt wären sie den Rest der Reise nur Wand. `<details>`
+ * braucht dafür keinen Zustand und keine Bibliothek.
+ */
+function Klappe({
+  titel,
+  punkte,
+  testid,
+}: {
+  titel: string;
+  punkte: readonly string[];
+  testid: string;
+}) {
+  if (punkte.length === 0) return null;
+  return (
+    <details className="mt-2 border-t border-slate-100 first:border-t-0" data-testid={testid}>
+      {/* 44 px hoch — das Blatt wird im Auto bedient, nicht am Schreibtisch. */}
+      <summary className="flex min-h-11 cursor-pointer list-none items-center justify-between gap-2 py-2 text-sm font-medium text-slate-800 marker:content-none">
+        {titel}
+        <span aria-hidden className="text-slate-400 transition-transform">
+          <svg viewBox="0 0 16 16" className="h-3.5 w-3.5" fill="none" stroke="currentColor">
+            <path d="M4 6l4 4 4-4" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </span>
+      </summary>
+      <ul className="mb-2 space-y-1.5 pl-4 text-sm leading-relaxed text-slate-700">
+        {punkte.map((punkt) => (
+          <li key={punkt} className="list-disc marker:text-slate-400">
+            {punkt}
+          </li>
+        ))}
+      </ul>
+    </details>
+  );
+}
+
+/**
+ * Das Blatt des Vermieters, wie man es sonst als PDF auf dem Handy sucht:
+ * Anfahrt bis zum Schild an der Einfahrt, Betten, Ausstattung, die Handgriffe
+ * bei Ankunft und Abreise. Es steht am Haus, weil es genau dort gebraucht wird
+ * — und trägt wie jede andere Angabe seine Herkunft.
+ *
+ * Codes stehen bewusst nicht drin (siehe `HausblattSchema`): diese App ist
+ * öffentlich erreichbar, das Hausblatt nicht.
+ */
+function HausblattBlock({ blatt }: { blatt: Hausblatt }) {
+  return (
+    <section className="mt-5 border-t border-slate-200 pt-4" data-testid="kontextblatt-hausblatt">
+      <h3 className="text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+        Hausblatt {blatt.code}
+      </h3>
+
+      {/* Die vier Zahlen, nach denen man zuerst fragt. */}
+      <dl className="mt-2 grid grid-cols-2 gap-x-4 gap-y-2 text-sm">
+        <div>
+          <dt className="text-[11px] text-slate-500">Anreise</dt>
+          <dd className="font-medium text-slate-900">{blatt.checkIn}</dd>
+        </div>
+        <div>
+          <dt className="text-[11px] text-slate-500">Abreise</dt>
+          <dd className="font-medium text-slate-900">{blatt.checkOut}</dd>
+        </div>
+        <div className="col-span-2">
+          <dt className="text-[11px] text-slate-500">Haus</dt>
+          <dd className="font-medium text-slate-900">{blatt.groesse}</dd>
+        </div>
+        {blatt.notfallnummer && (
+          <div className="col-span-2">
+            {/* Die isländische Sicherheitsnummer sagt dem Notruf, wo das Haus
+                steht. Sie ist im Ernstfall die wichtigste Zeile der Seite. */}
+            <dt className="text-[11px] text-slate-500">Notfallnummer des Hauses</dt>
+            <dd className="font-semibold tabular-nums text-slate-900">
+              {blatt.notfallnummer}
+              <span className="ml-2 text-[11px] font-normal text-slate-500">
+                beim Notruf 112 angeben
+              </span>
+            </dd>
+          </div>
+        )}
+      </dl>
+
+      <p className="mt-3 text-[11px] font-semibold uppercase tracking-wide text-slate-500">
+        Anfahrt
+      </p>
+      <p className="mt-1 text-sm leading-relaxed text-slate-700">{blatt.anfahrt}</p>
+      {blatt.navigation && (
+        <p className="mt-1.5 text-[11px]">
+          {/* Der Zielpunkt des Vermieters, nicht der Ortsname: die letzten
+              500 m sind hier der schwierige Teil. */}
+          <a
+            href={blatt.navigation}
+            target="_blank"
+            rel="noreferrer"
+            className="underline decoration-slate-400 underline-offset-2 hover:text-slate-800"
+          >
+            Ziel in Google Maps öffnen
+          </a>
+        </p>
+      )}
+
+      <div className="mt-3">
+        <Klappe titel="Schlafplätze" punkte={blatt.schlafen} testid="hausblatt-schlafen" />
+        <Klappe titel="Ausstattung" punkte={blatt.ausstattung} testid="hausblatt-ausstattung" />
+        <Klappe titel="Bei Ankunft" punkte={blatt.vorOrt} testid="hausblatt-vorort" />
+        <Klappe titel="Bei Abreise" punkte={blatt.abreise} testid="hausblatt-abreise" />
+      </div>
+
+      {blatt.entsorgung && (
+        <p className="mt-3 text-sm leading-relaxed text-slate-700">
+          <span className="text-[11px] uppercase tracking-wide text-slate-500">Müll </span>
+          {blatt.entsorgung}
+        </p>
+      )}
+      {blatt.service && (
+        <p className="mt-1.5 text-sm leading-relaxed text-slate-700">
+          <span className="text-[11px] uppercase tracking-wide text-slate-500">Wenn etwas klemmt </span>
+          {blatt.service}
+        </p>
+      )}
+
+      <p className="mt-3 text-[11px] text-slate-500">
+        {blatt.quelle} · geprüft am {blatt.geprueftAm}
+      </p>
+    </section>
+  );
+}
 
 export function ContextSheet() {
   const auswahl = useMapStore((s) => s.auswahl);
@@ -195,7 +324,24 @@ export function ContextSheet() {
         </div>
       )}
 
+      {/*
+        Was an dieser Unterkunft nicht stimmt oder zu beachten ist — bisher
+        stand es nur in der Datei. Ein Widerspruch zwischen Reiseplan und
+        Hausblatt gehört an das Haus, nicht in eine Fussnote: von hier aus
+        wird die Etappe geplant.
+      */}
+      {haus?.hinweis && (
+        <p
+          data-testid="kontextblatt-hinweis"
+          className="mt-3 rounded-lg bg-amber-50 px-3 py-2.5 text-sm leading-relaxed text-amber-900 ring-1 ring-amber-100"
+        >
+          {haus.hinweis}
+        </p>
+      )}
+
       {text && <p className="mt-3 text-sm leading-relaxed text-slate-700">{text}</p>}
+
+      {haus?.hausblatt && <HausblattBlock blatt={haus.hausblatt} />}
 
       {/*
         Hintergrund aus der Wikipedia. Quelle und Link stehen sichtbar dabei —
