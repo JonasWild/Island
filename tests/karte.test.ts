@@ -60,6 +60,25 @@ describe('Kartenquellen', () => {
     }
   });
 
+  it('trägt Wanderung und Buchung als Eigenschaft, nicht als Zielart', () => {
+    // Beide sind Abzeichen am Symbol: Jökulsárlón bleibt eine
+    // Gletscherlagune, auch wenn die Bootsfahrt gebucht sein will.
+    const fc = stoppFeatures();
+    for (const f of fc.features) {
+      expect(typeof f.properties?.buchen, String(f.properties?.name)).toBe('boolean');
+    }
+    const buchbar = fc.features.filter((f) => f.properties?.buchen === true);
+    expect(buchbar.length).toBeGreaterThan(0);
+    // Alle verorteten buchbaren Stopps stehen in der Quelle.
+    expect(buchbar.length).toBe(
+      alleStopps.filter((s) => s.stopp.buchen === true && s.stopp.pos !== null).length,
+    );
+    // Unterkünfte tragen das Abzeichen nie — man bucht sie nicht hier.
+    for (const f of fc.features.filter((f) => f.properties?.istHaus)) {
+      expect(f.properties?.buchen).toBe(false);
+    }
+  });
+
   it('zeichnet die Route durchgehend über alle Tage', () => {
     const fc = routeFeatures();
     expect(fc.features.length).toBeGreaterThan(1);

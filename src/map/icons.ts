@@ -43,6 +43,13 @@ const FARBE: Record<Kategorie, string> = {
   unterkunft: '#be123c',
 };
 
+/**
+ * Bernstein für alles, was gebucht werden will — dieselbe Farbe, in der das
+ * Kontextblatt seine Hinweise setzt. Sie gehört zu keiner Zielart: Buchen ist
+ * eine Eigenschaft des Stopps, keine Art von Ort.
+ */
+const FARBE_BUCHUNG = '#d97706';
+
 type Zeichner = (c: CanvasRenderingContext2D) => void;
 
 /** Alle Zeichner arbeiten in einem 100×100-Feld, zentriert um (50, 50). */
@@ -288,6 +295,18 @@ export const ICON_PFEIL = 'route-pfeil';
 export const ICON_FUSSWEG = 'sym-fussweg';
 
 /**
+ * Anstecker für Stopps, an denen etwas zu buchen ist. Wie die Wanderung ist
+ * das keine Zielart, sondern eine Eigenschaft: Jökulsárlón bleibt eine
+ * Gletscherlagune, auch wenn die Bootsfahrt vor der Abreise gebucht sein
+ * will.
+ *
+ * Es ist die einzige Eigenschaft, die **vor** der Reise etwas verlangt.
+ * Deshalb steht sie auf der Karte und nicht nur im Kontextblatt: Wer erst am
+ * Tag davor aufklappt, hat die Frist schon verpasst.
+ */
+export const ICON_BUCHUNG = 'sym-buchung';
+
+/**
  * Unterkünfte bekommen ein eigenes Bild je Anzahl Nächte. Wo man schläft und
  * wie lange ist die wichtigste Information des Tages — sie gehört auf den
  * Marker und nicht erst ins Kontextblatt, das man aufklappen muss.
@@ -504,6 +523,57 @@ function zeichneFussweg(ratio: number): StyleImageInterface | null {
 }
 
 /**
+ * Buchungsabzeichen: bernsteinfarbener Kreis mit Ticket. Gebaut wie das
+ * Wanderabzeichen — gleiche Grösse, gleicher weisser Ring —, damit die beiden
+ * am selben Symbol als Paar lesbar sind und nicht als zwei Zufälle.
+ *
+ * Das Ticket ist eine **gefüllte** Fläche mit zwei ausgestanzten Kerben. Auf
+ * zwanzig Pixel überlebt von einer Strichzeichnung nichts; die Kerben tragen
+ * die Silhouette, weil sie die Kontur unterbrechen, statt sie zu verfeinern.
+ */
+function zeichneBuchung(ratio: number): StyleImageInterface | null {
+  const px = S * ratio;
+  const c = leinwand(px, ratio);
+  if (!c) return null;
+
+  const m = S / 2;
+  const r = S * 0.36;
+
+  c.fillStyle = FARBE_BUCHUNG;
+  c.beginPath();
+  c.arc(m, m, r, 0, Math.PI * 2);
+  c.fill();
+  c.strokeStyle = '#ffffff';
+  c.lineWidth = S * 0.07;
+  c.beginPath();
+  c.arc(m, m, r, 0, Math.PI * 2);
+  c.stroke();
+
+  c.save();
+  const feld = r * 1.5;
+  c.translate(m - feld / 2, m - feld / 2);
+  c.scale(feld / 100, feld / 100);
+
+  c.fillStyle = '#ffffff';
+  c.beginPath();
+  c.roundRect(16, 30, 68, 40, 8);
+  c.fill();
+
+  // Die Kerben werden in der Farbe des Kreises zurückgestanzt, statt den Pfad
+  // mit evenodd zu bauen: zwei Bögen sind billiger zu lesen als ein Pfad, der
+  // sich selbst umkehrt — und das Ergebnis ist auf dem Canvas dasselbe.
+  c.fillStyle = FARBE_BUCHUNG;
+  for (const x of [16, 84]) {
+    c.beginPath();
+    c.arc(x, 50, 9, 0, Math.PI * 2);
+    c.fill();
+  }
+  c.restore();
+
+  return alsBild(c, px);
+}
+
+/**
  * Pfeil für die Fahrtrichtung. Weisser Kern mit dunklem Rand, damit er auf
  * jeder Linienfarbe und auf jeder Basiskarte lesbar bleibt.
  */
@@ -559,6 +629,11 @@ export function iconsRegistrieren(map: MLMap): void {
   if (!map.hasImage(ICON_FUSSWEG)) {
     const fuss = zeichneFussweg(ratio);
     if (fuss) map.addImage(ICON_FUSSWEG, fuss, { pixelRatio: ratio });
+  }
+
+  if (!map.hasImage(ICON_BUCHUNG)) {
+    const buchung = zeichneBuchung(ratio);
+    if (buchung) map.addImage(ICON_BUCHUNG, buchung, { pixelRatio: ratio });
   }
 }
 
