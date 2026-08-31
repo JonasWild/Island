@@ -1,10 +1,20 @@
 /**
  * pnpm wissen — Build-Zeit-Pipeline, nie zur Laufzeit.
  *
- * Holt zu jedem Stopp den Einleitungsabsatz des passenden Artikels aus der
- * deutschen Wikipedia und legt ihn als `wissen` in reise.json ab. Das ersetzt
- * das LLM: nachprüfbarer Text mit Quelle und Link statt einer generierten
- * Antwort, die niemand belegen kann.
+ * Holt zu jedem Stopp den Artikeltext aus der deutschen Wikipedia und legt
+ * ihn als `wissen` in reise.json ab. Das ersetzt das LLM: nachprüfbarer Text
+ * mit Quelle und Link statt einer generierten Antwort, die niemand belegen
+ * kann.
+ *
+ * Übernommen wird die **Einleitung und die ersten Sachabschnitte** — nicht
+ * nur der erste Absatz. Die Einleitung der deutschen Wikipedia ist oft ein
+ * einziger Satz („Der Goðafoss ist einer der bekanntesten Wasserfälle
+ * Islands."); das Interessante steht darunter, in `Lage`, `Namensgebung`,
+ * `Geschichte`. Genau das will man am Wasserfall stehend lesen.
+ *
+ * Verzeichnisse bleiben draussen: `Weblinks`, `Literatur`,
+ * `Einzelnachweise`, `Siehe auch`, `Bilder` und Verwandte sind Apparat, kein
+ * Inhalt.
  *
  * Dieselbe Regel wie beim Geocoding: **nur eindeutige Treffer**. Ein Artikel
  * wird übernommen, wenn
@@ -49,10 +59,21 @@ const RADIUS_M = 10_000;
 /** Ein einzelner Artikel so nah am Stopp beschreibt den Stopp. */
 const NAH_M = 400;
 /**
- * Der Einleitungsabsatz kann lang werden. Für die Detailleiste wird auf ganze
- * Sätze gekürzt; der Link führt auf den vollständigen Artikel.
+ * Wie viel Artikel ins Kontextblatt darf. 700 Zeichen waren ein Absatz und
+ * endeten oft mitten im Thema — bei einem Wasserfall die Höhe, nicht aber,
+ * warum er heisst, wie er heisst. 1600 tragen Einleitung und ein bis zwei
+ * Abschnitte; der Link führt weiterhin auf den vollständigen Artikel.
  */
-const MAX_ZEICHEN = 700;
+const MAX_ZEICHEN = 1600;
+/** So viele Abschnitte unter der Einleitung. Mehr liest im Auto niemand. */
+const MAX_ABSCHNITTE = 3;
+/**
+ * Abschnitte, die kein Inhalt sind, sondern Apparat. Die Namen sind die der
+ * deutschen Wikipedia; Kleinschreibung und Klammerzusätze werden vorher
+ * entfernt.
+ */
+const KEIN_INHALT =
+  /^(siehe auch|weblinks?|literatur|einzelnachweise?|quellen|belege|anmerkungen|fussnoten|fußnoten|bilder|galerie|bildergalerie|panorama|filme?|weiterfuhrende literatur|trivia|sonstiges|karten)$/i;
 
 type Cache = Record<string, unknown>;
 const cache: Cache = existsSync(P_CACHE) ? JSON.parse(readFileSync(P_CACHE, 'utf8')) : {};
@@ -110,12 +131,14 @@ type Seite = {
 };
 
 async function auszug(titel: string): Promise<Seite | null> {
-  const res = await holen(`extract:${titel}`, async () => {
+  // v2 ist der Volltext mit Überschriften (`== Lage ==`), nicht mehr nur die
+  // Einleitung. Eigener Schlüssel, damit der alte Cache nicht dazwischenfunkt.
+  const res = await holen(`volltext:${titel}`, async () => {
     const j = await api<{ query?: { pages?: Seite[] } }>({
       action: 'query',
       prop: 'extracts|pageprops',
-      exintro: '1',
       explaintext: '1',
+      exsectionformat: 'wiki',
       redirects: '1',
       titles: titel,
     });
@@ -156,17 +179,85 @@ function suchNamen(name: string): string[] {
   return [...new Set([name.trim(), ohneGattung.trim(), ...teile])];
 }
 
+/**
+ * Absatzweise säubern: Zeilenumbrüche innerhalb eines Absatzes sind Satzfluss.
+ * Verweiszeilen fliegen raus — `→siehe: Liste von Schiffen …` und
+ * `→ Hauptartikel: …` sind Navigation der Wikipedia, kein Satz über den Ort.
+ */
+function absaetze(text: string): string[] {
+  return text
+    .split(/\n{2,}/)
+    .map((a) => a.replace(/\s+/g, ' ').trim())
+    .filter((a) => a.length > 0 && !a.startsWith('→'));
+}
+
 /** Auf ganze Sätze kürzen — ein abgeschnittener Halbsatz liest sich wie ein Fehler. */
-function kuerzen(text: string): string {
-  const sauber = text.replace(/\s+/g, ' ').trim();
-  if (sauber.length <= MAX_ZEICHEN) return sauber;
-  const schnitt = sauber.slice(0, MAX_ZEICHEN);
+function kuerzen(text: string, grenze: number): string {
+  if (text.length <= grenze) return text;
+  const schnitt = text.slice(0, grenze);
   const ende = Math.max(schnitt.lastIndexOf('. '), schnitt.lastIndexOf('! '), schnitt.lastIndexOf('? '));
-  return ende > MAX_ZEICHEN * 0.4 ? schnitt.slice(0, ende + 1) : schnitt.trimEnd() + ' …';
+  return ende > grenze * 0.4 ? schnitt.slice(0, ende + 1) : schnitt.trimEnd() + ' …';
+}
+
+type Abschnitt = { titel: string; text: string };
+
+/**
+ * Den Volltext in Einleitung und Abschnitte zerlegen. `exsectionformat=wiki`
+ * markiert Überschriften als `== Titel ==`; tiefere Ebenen (`=== … ===`)
+ * werden zu Absätzen ihres Abschnitts, denn drei Gliederungsebenen sind für
+ * ein Kontextblatt eine Ebene zu viel.
+ *
+ * Die Gesamtlänge ist gedeckelt: erst die Einleitung, dann so viele
+ * Abschnitte, wie noch hineinpassen. Ein Abschnitt, der nur noch angerissen
+ * würde, bleibt ganz draussen — angefangene Absätze sind schlechter als keine.
+ */
+function gliedern(volltext: string): { text: string; abschnitte: Abschnitt[] } {
+  const zeilen = volltext.split('\n');
+  const teile: Array<{ titel: string | null; zeilen: string[] }> = [{ titel: null, zeilen: [] }];
+  for (const zeile of zeilen) {
+    const ueberschrift = /^\s*(={2,6})\s*(.+?)\s*\1\s*$/.exec(zeile);
+    if (ueberschrift && ueberschrift[1]!.length === 2) {
+      teile.push({ titel: ueberschrift[2]!.trim(), zeilen: [] });
+    } else if (ueberschrift) {
+      // Unterüberschrift: als eigener Absatz behalten, sie trägt Bedeutung.
+      teile[teile.length - 1]!.zeilen.push('', `${ueberschrift[2]!.trim()}:`, '');
+    } else {
+      teile[teile.length - 1]!.zeilen.push(zeile);
+    }
+  }
+
+  const einleitung = absaetze(teile[0]!.zeilen.join('\n'));
+  let rest = MAX_ZEICHEN;
+  const text: string[] = [];
+  for (const absatz of einleitung) {
+    if (absatz.length > rest) {
+      if (text.length === 0) text.push(kuerzen(absatz, rest));
+      break;
+    }
+    text.push(absatz);
+    rest -= absatz.length + 2;
+  }
+
+  const abschnitte: Abschnitt[] = [];
+  for (const teil of teile.slice(1)) {
+    if (abschnitte.length >= MAX_ABSCHNITTE) break;
+    const titel = teil.titel!;
+    if (KEIN_INHALT.test(titel.replace(/\s*\(.*\)\s*$/, '').trim())) continue;
+    const inhalt = absaetze(teil.zeilen.join('\n')).join('\n\n');
+    // Leere Abschnitte gibt es wirklich: „== Bilder ==" trägt nur eine Galerie.
+    if (inhalt.length < 80) continue;
+    // Bleibt kein Platz für einen ganzen Gedanken, hört der Text hier auf.
+    if (rest < 200) break;
+    const gekuerzt = kuerzen(inhalt, rest);
+    abschnitte.push({ titel, text: gekuerzt });
+    rest -= gekuerzt.length + titel.length + 2;
+  }
+
+  return { text: text.join('\n\n'), abschnitte };
 }
 
 type Ergebnis =
-  | { art: 'treffer'; titel: string; text: string; grund: string }
+  | { art: 'treffer'; titel: string; text: string; abschnitte: Abschnitt[]; grund: string }
   | { art: 'offen'; grund: string; kandidaten: string[] };
 
 async function aufloesen(stopp: Stopp): Promise<Ergebnis> {
@@ -224,7 +315,11 @@ async function aufloesen(stopp: Stopp): Promise<Ergebnis> {
     return { art: 'offen', grund: `"${gewaehlt.title}" ist eine Begriffsklärung, kein Artikel`, kandidaten: [] };
   }
 
-  return { art: 'treffer', titel: seite.title, text: kuerzen(seite.extract), grund };
+  const { text, abschnitte } = gliedern(seite.extract);
+  if (!text) {
+    return { art: 'offen', grund: `Artikel "${gewaehlt.title}" hat keinen Einleitungstext`, kandidaten: [] };
+  }
+  return { art: 'treffer', titel: seite.title, text, abschnitte, grund };
 }
 
 async function main() {
@@ -251,10 +346,14 @@ async function main() {
       bericht.treffer++;
       stopp.wissen = {
         text: erg.text,
+        abschnitte: erg.abschnitte,
         quelle: `Wikipedia (de): ${erg.titel}`,
         url: `https://de.wikipedia.org/wiki/${encodeURIComponent(erg.titel.replace(/ /g, '_'))}`,
         geprueftAm: HEUTE,
       };
+      // Ein leerer Schlüssel ist Rauschen in der Datei; das Schema setzt ihn
+      // beim Laden ohnehin auf [].
+      if (erg.abschnitte.length === 0) delete (stopp.wissen as Record<string, unknown>).abschnitte;
       console.log(`  ok     ${stopp.name} → ${erg.titel} — ${erg.grund}`);
     }
   }

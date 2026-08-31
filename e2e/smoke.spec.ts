@@ -456,7 +456,7 @@ test('das Kontextblatt zeigt das Bild mit Urheber und Lizenz', async ({ page }) 
   // 28.08., Stopp 2 ist Hraunfossar — dort hat die Pipeline ein Bild gefunden.
   await page.goto('/?tag=2026-08-28&stopp=2');
   const blatt = page.getByTestId('kontextblatt');
-  const bild = blatt.locator('figure img');
+  const bild = blatt.locator('figure img').first();
   await expect(bild).toHaveAttribute('src', /^https:\/\/upload\.wikimedia\.org\//);
   // Ohne Grössenangaben springt das Blatt beim Laden.
   await expect(bild).toHaveAttribute('width', /^\d+$/);
@@ -466,6 +466,46 @@ test('das Kontextblatt zeigt das Bild mit Urheber und Lizenz', async ({ page }) 
   await expect(
     blatt.locator('figcaption').getByRole('link', { name: 'Wikimedia Commons' }),
   ).toHaveAttribute('href', /commons\.wikimedia\.org/);
+});
+
+test('der Bilderstreifen blättert durch mehrere Bilder', async ({ page }) => {
+  await stilStubben(page);
+  // 30.08., Stopp 6 ist Goðafoss — sechs belegte Bilder, das Maximum.
+  await page.goto('/?tag=2026-08-30&stopp=6');
+  const streifen = page.getByTestId('kontextblatt').getByTestId('bilderstreifen');
+  await expect(streifen).toContainText('1/6');
+  await expect(streifen.locator('img')).toHaveCount(6);
+
+  // Am Anfang führt kein Weg zurück — der Knopf ist da, aber unbedienbar.
+  await expect(streifen.getByTestId('bild-zurueck')).toBeDisabled();
+
+  const ersterNachweis = await streifen.getByTestId('bild-nachweis').innerText();
+  await streifen.getByTestId('bild-vor').click();
+  await expect(streifen).toContainText('2/6');
+  await expect(streifen.getByTestId('bild-zurueck')).toBeEnabled();
+  // Urheber und Lizenz gehören zum gezeigten Bild, nicht zum Stopp.
+  await expect
+    .poll(() => streifen.getByTestId('bild-nachweis').innerText())
+    .not.toBe(ersterNachweis);
+
+  // Die Punkte springen direkt — im Auto blättert niemand fünfmal.
+  await streifen.getByTestId('bild-punkt-5').click();
+  await expect(streifen).toContainText('6/6');
+  await expect(streifen.getByTestId('bild-vor')).toBeDisabled();
+
+  // Ein Stopp mit genau einem Bild zeigt keine Bedienelemente.
+  await page.goto('/?tag=2026-08-28&stopp=6');
+  await expect(streifen.getByTestId('bild-vor')).toHaveCount(0);
+});
+
+test('der Hintergrund bringt die Abschnitte des Artikels mit', async ({ page }) => {
+  await stilStubben(page);
+  await page.goto('/?tag=2026-08-30&stopp=6');
+  const blatt = page.getByTestId('kontextblatt');
+  // Die Einleitung der Wikipedia ist ein Satz; das Interessante steht darunter.
+  await expect(blatt.getByRole('heading', { name: 'Namensgebung' })).toBeVisible();
+  await expect(blatt).toContainText('Götterwasserfall');
+  await expect(blatt).toContainText('geprüft am');
 });
 
 test('der Tagesablauf zeigt die gefahrene Reihenfolge und die Übernachtung', async ({ page }) => {

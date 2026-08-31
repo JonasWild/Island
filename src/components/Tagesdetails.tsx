@@ -74,13 +74,13 @@ export function Tagesdetails() {
           onClick={() => zeigeStopp(ref)}
           className="flex w-full items-start gap-3 rounded-lg py-2 pr-2 text-left transition hover:bg-slate-50"
         >
-          {ref.stopp.bild ? (
+          {ref.stopp.bilder[0] ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img
-              src={ref.stopp.bild.url}
+              src={ref.stopp.bilder[0].url}
               alt=""
-              width={ref.stopp.bild.breite}
-              height={ref.stopp.bild.hoehe}
+              width={ref.stopp.bilder[0].breite}
+              height={ref.stopp.bilder[0].hoehe}
               loading="lazy"
               decoding="async"
               className="h-14 w-14 shrink-0 rounded-md object-cover ring-1 ring-black/5"

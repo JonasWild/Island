@@ -67,7 +67,7 @@ function inhaltVon(vorschau: NonNullable<ReturnType<typeof useMapStore.getState>
     titel: ref.stopp.name,
     unter: `${datumKurz(ref.datum)} · ${KATEGORIE_LABEL[kategorie]}`,
     text: ersteSaetze(ref.stopp.text),
-    bild: ref.stopp.bild ?? null,
+    bild: ref.stopp.bilder[0] ?? null,
     farbe: kategorieFarbe(kategorie),
   };
 }
