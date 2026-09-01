@@ -1,7 +1,7 @@
 'use client';
 
 import { useMapStore } from '@/store/mapStore';
-import { alleStopps, datumKurz, unterkunftNach } from '@/lib/reise';
+import { alleStopps, buchungSatz, datumKurz, unterkunftNach } from '@/lib/reise';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
 import { kategorieFarbe } from '@/map/icons';
 import { formatKoordinate } from '@/lib/geo';
@@ -148,6 +148,7 @@ export function ContextSheet() {
   let text = '';
   let wissen: Wissen | null = null;
   let wanderung: Wanderung | null = null;
+  let buchung: string | null = null;
   let bilder: readonly Bild[] = [];
   let haus: Unterkunft | null = null;
   let punkt: string | null = null;
@@ -160,6 +161,7 @@ export function ContextSheet() {
     text = ref.stopp.text;
     wissen = ref.stopp.wissen ?? null;
     wanderung = ref.stopp.wanderung ?? null;
+    buchung = buchungSatz(ref.stopp);
     bilder = ref.stopp.bilder;
     punkt = kategorieFarbe(kategorieVon(ref.stopp));
   }
@@ -285,6 +287,29 @@ export function ContextSheet() {
               </div>
             )}
           </dl>
+        </div>
+      )}
+
+      {/*
+        Was vor der Abreise zu erledigen ist. Es stand bisher nur in der Datei:
+        `buchen` und `buchenText` waren im Schema, in reise.json gepflegt — und
+        wurden nirgends gezeigt. Eine Frist, die niemand sieht, ist keine.
+
+        Das Ticket ist dasselbe Zeichen wie das Abzeichen auf der Karte, in
+        derselben Farbe: Marker und Blatt sollen erkennbar dasselbe meinen.
+      */}
+      {buchung && (
+        <div
+          data-testid="kontextblatt-buchen"
+          className="mt-3 rounded-lg bg-amber-50 px-3 py-2.5 ring-1 ring-amber-100"
+        >
+          <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wide text-amber-800">
+            <svg viewBox="0 0 16 16" className="h-3.5 w-3.5 shrink-0" aria-hidden fill="currentColor">
+              <path d="M2 5.5A1.5 1.5 0 0 1 3.5 4h9A1.5 1.5 0 0 1 14 5.5v1a1.5 1.5 0 0 0 0 3v1A1.5 1.5 0 0 1 12.5 12h-9A1.5 1.5 0 0 1 2 10.5v-1a1.5 1.5 0 0 0 0-3v-1Z" />
+            </svg>
+            Buchen
+          </p>
+          <p className="mt-1 text-sm leading-relaxed text-amber-900">{buchung}</p>
         </div>
       )}
 

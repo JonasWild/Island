@@ -304,6 +304,47 @@ test('Wanderungen sind am Ziel gekennzeichnet und beziffert', async ({ page }) =
   await expect(page.getByTestId('tagesdetails')).toContainText('alles freiwillig');
 });
 
+test('buchbare Ziele tragen ihr Abzeichen und ihren Satz', async ({ page }) => {
+  await stilStubben(page);
+  // 05.09.: die Bootsfahrt auf dem Jökulsárlón muss vor der Abreise gebucht
+  // sein — der Tag, an dem das Abzeichen am meisten wert ist.
+  await page.goto('/?tag=2026-09-05');
+  await page.waitForFunction(() => window.__islandKarte?.getLayer('stopp-buchung') != null);
+
+  const daten = await page.evaluate(() => {
+    const map = window.__islandKarte!;
+    const quelle = map.getStyle().sources['stopps'] as { data?: GeoJSON.FeatureCollection };
+    const fc = quelle.data as GeoJSON.FeatureCollection<GeoJSON.Point>;
+    return {
+      bild: map.hasImage('sym-buchung'),
+      buchbar: fc.features.filter((f) => f.properties?.buchen === true).length,
+      filter: JSON.stringify(map.getFilter('stopp-buchung')),
+      // Unterkünfte tragen es nie: gebucht sind sie längst.
+      haeuser: fc.features.filter((f) => f.properties?.istHaus && f.properties?.buchen).length,
+    };
+  });
+  expect(daten.bild, 'das Buchungsabzeichen fehlt in der Karte').toBe(true);
+  expect(daten.buchbar).toBe(19);
+  expect(daten.filter).toContain('buchen');
+  expect(daten.haeuser).toBe(0);
+
+  // Die Frist des Reiseplans steht wörtlich im Blatt, nicht nur in der Datei.
+  await page.goto('/?tag=2026-09-05&stopp=7');
+  const blatt = page.getByTestId('kontextblatt');
+  await expect(blatt).toContainText('Gletscherlagune Jökulsárlón');
+  await expect(blatt.getByTestId('kontextblatt-buchen')).toContainText('vor Reisebeginn');
+
+  // Wo der Plan keine Frist nennt, wird auch keine erfunden.
+  await page.goto('/?tag=2026-09-07&stopp=2');
+  await expect(blatt).toContainText('Silfra');
+  await expect(blatt.getByTestId('kontextblatt-buchen')).toContainText('keine Frist');
+
+  // Und wo nichts zu buchen ist, steht der Block gar nicht erst da.
+  await page.goto('/?tag=2026-09-05&stopp=8');
+  await expect(blatt).toContainText('Diamond Beach');
+  await expect(blatt.getByTestId('kontextblatt-buchen')).toHaveCount(0);
+});
+
 test('das Kontextblatt zeigt Nächte und Wanderdaten', async ({ page }) => {
   await stilStubben(page);
   // 31.08., Stopp 3 ist die Wanderung Námafjall mit allen drei Angaben.

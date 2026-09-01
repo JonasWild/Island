@@ -2,7 +2,16 @@ import { describe, expect, it } from 'vitest';
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { ReiseSchema } from '@/lib/schema';
-import { alleStopps, kennzahlen, stoppNach, tage, unterkuenfte, unterkunftNach } from '@/lib/reise';
+import {
+  alleStopps,
+  buchbareStopps,
+  buchungSatz,
+  kennzahlen,
+  stoppNach,
+  tage,
+  unterkuenfte,
+  unterkunftNach,
+} from '@/lib/reise';
 
 const roh = JSON.parse(readFileSync(resolve(import.meta.dirname, '../data/reise.json'), 'utf8'));
 
@@ -216,6 +225,53 @@ describe('Bilder', () => {
       // Nicht-lateinische Schriften helfen dieser Reisegruppe nicht.
       expect(b.beschreibung!, name).not.toMatch(/[\u0370-\u04FF\u0590-\u05FF\u0600-\u06FF\u4E00-\u9FFF]/);
     }
+  });
+});
+
+describe('Buchbare Angebote', () => {
+  it('kennt die Stopps, an denen etwas zu buchen ist', () => {
+    expect(buchbareStopps).toHaveLength(19);
+  });
+
+  it('nennt die Ziele mit Frist im Reiseplan', () => {
+    // Die vier, bei denen der Plan ausdrücklich auf eine Buchung vor der
+    // Abreise dringt — sie sind der Grund, warum das Abzeichen existiert.
+    const mitFrist = ['Blaue Lagune (Bláa Lónið)', 'Gletscherlagune Jökulsárlón', 'Naturbad Krauma'];
+    for (const name of mitFrist) {
+      const treffer = buchbareStopps.filter((s) => s.stopp.name === name);
+      expect(treffer.length, name).toBeGreaterThan(0);
+      for (const { stopp } of treffer) expect(stopp.buchenText, name).toBeTruthy();
+    }
+  });
+
+  it('gibt jedem buchbaren Stopp einen Satz', () => {
+    for (const { stopp } of buchbareStopps) {
+      expect(buchungSatz(stopp), stopp.name).toBeTruthy();
+    }
+  });
+
+  it('schweigt zu allen anderen', () => {
+    // Kein stiller Standardsatz an Stopps ohne Flag: Wo nichts zu buchen ist,
+    // steht auch nichts. Sonst wäre das Abzeichen bedeutungslos.
+    for (const { stopp } of alleStopps.filter((s) => s.stopp.buchen !== true)) {
+      expect(buchungSatz(stopp), stopp.name).toBeNull();
+    }
+  });
+
+  it('erfindet keine Frist, wo der Reiseplan keine nennt', () => {
+    // Eine geratene Frist wäre schlimmer als gar keine — nach ihr würde
+    // jemand planen. Der Ersatzsatz sagt deshalb, dass der Plan schweigt.
+    const ohneText = buchbareStopps.filter((s) => !s.stopp.buchenText);
+    for (const { stopp } of ohneText) {
+      expect(buchungSatz(stopp), stopp.name).toContain('keine Frist');
+    }
+  });
+
+  it('flaggt keine Unterkunft und keinen Tunnel als Ausflug', () => {
+    // Vaðlaheiðargöng trägt das Flag, weil die Maut vor der Durchfahrt
+    // registriert werden muss — dieselbe Mechanik, dieselbe Farbe.
+    const tunnel = buchbareStopps.find((s) => s.stopp.name.includes('Vaðlaheiðargöng'));
+    expect(tunnel?.stopp.buchenText).toContain('Registrierung');
   });
 });
 

@@ -59,6 +59,7 @@ const zustand = await seite.evaluate(() => ({
     'route-pfeil',
     'stopp-symbol',
     'stopp-wanderung',
+    'stopp-buchung',
     'stopp-label',
     'ort-symbol',
     'relief',

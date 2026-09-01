@@ -3681,6 +3681,8 @@
           "name": "Saltvík Reiterhof",
           "strasse": null,
           "text": "Entspannte Reittour entlang der Küste, für Anfänger und erfahrene Reiter.",
+          "buchen": true,
+          "buchenText": "Reittour beim Partner Saltvík - der Reiseplan nennt dazu keine Frist.",
           "pos": [
             66.00094,
             -17.36455
@@ -4021,6 +4023,8 @@
           "name": "Hauganes",
           "strasse": "Straße 82",
           "text": "Von den Katla-Mitarbeitern besucht und absolut empfehlenswert: Walbeobachtung mit Whale Watching Hauganes, Hotpots direkt am Strand und das bunte Restaurant Baccalá Bar.",
+          "buchen": true,
+          "buchenText": "Walbeobachtung bei Whale Watching Hauganes - der Reiseplan nennt dazu keine Frist.",
           "pos": [
             65.9248793,
             -18.305486
@@ -4323,6 +4327,8 @@
           "name": "Arctic Sea Tours",
           "strasse": "Dalvík",
           "text": "Walbeobachtung im Eyjafjörður vor der Kulisse der Halbinsel Tröllaskagi, kleine Gruppen, Angeln möglich und frisch gefangener gegrillter Fisch nach der Tour.",
+          "buchen": true,
+          "buchenText": "Walbeobachtungstour in kleinen Gruppen - der Reiseplan nennt dazu keine Frist.",
           "pos": [
             65.9708,
             -18.5286
@@ -8216,6 +8222,8 @@
           "name": "Reiterhof Eldhestar",
           "strasse": "Hveragerði",
           "text": "Kurze und längere Reittouren in verschiedenen Schwierigkeitsstufen, für Anfänger und erfahrene Reiter.",
+          "buchen": true,
+          "buchenText": "Reittouren beim Partner Eldhestar - der Reiseplan nennt dazu keine Frist.",
           "pos": [
             63.9850019,
             -21.1695586
@@ -8270,6 +8278,8 @@
           "name": "Reiterhof Eldhestar",
           "strasse": "Hveragerði",
           "text": "Reittouren in verschiedenen Schwierigkeitsstufen.",
+          "buchen": true,
+          "buchenText": "Reittouren beim Partner Eldhestar - der Reiseplan nennt dazu keine Frist.",
           "pos": [
             63.9850019,
             -21.1695586

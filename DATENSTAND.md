@@ -207,6 +207,32 @@ Denkmal-Node daneben — historisches Taufbecken von 1000 n. Chr., Parkplatz mit
 50 m Fußweg, über 40 °C, Platz für 3–4 Personen. Damit sind 128 von 128 Stopps
 verortet.
 
+### Was vor der Abreise zu buchen ist
+
+Der Reiseplan nennt an 19 Stopps etwas Buchbares. Sie tragen `buchen: true`,
+und wo der Plan eine Frist nennt, steht sie wörtlich in `buchenText`. Die App
+zeigt beides: als bernsteinfarbenes Abzeichen am Kartensymbol (spiegelbildlich
+zum Stiefel der Wanderungen), als Pille im Tagesablauf und als Block im
+Kontextblatt. Vorher standen die beiden Felder zwar im Schema und gepflegt in
+`reise.json` — gezeigt wurden sie nirgends. Eine Frist, die niemand sieht, ist
+keine.
+
+Vier Ziele drängen im Plan ausdrücklich auf eine Buchung **vor Reisebeginn**:
+Blaue Lagune (an beiden Tagen), Bootsfahrt Jökulsárlón („ist notwendig"),
+Vatnshellir und Krauma. Der Tunnel Vaðlaheiðargöng trägt dasselbe Flag aus
+demselben Grund: Die Maut will im Fenster ±3 Stunden um die Durchfahrt
+registriert sein, sonst rechnet die Autovermietung ab.
+
+An den übrigen Stopps nennt der Plan ein Angebot mit Anbieter, aber keine
+Frist — Láki Tours, North Sailing, Arctic Sea Tours, Whale Watching Hauganes,
+Dive.is, die Reiterhöfe Saltvík und Eldhestar, die geführten Höhlen und
+Gletschertouren. Dort sagt der Satz genau das: buchbar, Frist unbekannt. Eine
+geratene Frist wäre schlimmer als gar keine — nach ihr würde jemand planen.
+
+**Nicht** geflaggt sind Bäder, zu denen der Plan keinen Buchungshinweis gibt
+(GeoSea, Vök Baths, Bjórböðin, Secret Lagoon, Laugarás Lagoon, Earth Lagoon).
+Dorthin geht man; die Grenze verläuft am Wortlaut des Plans, nicht am Gefühl.
+
 ### Was bewusst „Bereich" bleibt
 
 Vier Kategorien lassen sich nicht punktgenau belegen, und die Pipeline tut

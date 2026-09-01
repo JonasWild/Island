@@ -5,7 +5,7 @@ import { routeNach } from '@/lib/route';
 import { kategorieVon } from '@/lib/kategorie';
 import type { Kategorie } from '@/lib/kategorie';
 import { zuLngLat } from '@/lib/geo';
-import { ICON_FUSSWEG, ICON_PFEIL, iconName, unterkunftIconName } from './icons';
+import { ICON_BUCHUNG, ICON_FUSSWEG, ICON_PFEIL, iconName, unterkunftIconName } from './icons';
 
 export const SRC_STOPPS = 'stopps';
 export const SRC_ROUTE = 'route';
@@ -17,6 +17,7 @@ export const LYR_ROUTE_PFEIL = 'route-pfeil';
 export const LYR_ROUTE_LUFT = 'route-luftlinie';
 export const LYR_STOPP = 'stopp-symbol';
 export const LYR_WANDERUNG = 'stopp-wanderung';
+export const LYR_BUCHUNG = 'stopp-buchung';
 export const LYR_STOPP_LABEL = 'stopp-label';
 export const LYR_ORT = 'ort-symbol';
 
@@ -49,6 +50,9 @@ export function stoppFeatures(): FeatureCollection<Point> {
         // bleibt ein Wasserfall, auch wenn man 2,8 km hinläuft. Deshalb ein
         // eigenes Abzeichen statt einer eigenen Kategorie.
         wanderung: s.stopp.wanderung !== undefined,
+        // Ebenso eine Eigenschaft, keine Zielart — und die einzige, die schon
+        // vor der Abreise etwas verlangt.
+        buchen: s.stopp.buchen === true,
       },
     }));
 
@@ -80,6 +84,7 @@ export function stoppFeatures(): FeatureCollection<Point> {
         // Unterkünfte lassen sich nicht wegfiltern und liegen immer obenauf.
         istHaus: true,
         wanderung: false,
+        buchen: false,
       },
     }));
 
@@ -370,6 +375,31 @@ export function layerSetzen(
     paint: { 'icon-opacity': ['case', aktiv(aktivesDatum), 1, 0.72] },
   });
 
+  /*
+    Abzeichen für Stopps, an denen etwas zu buchen ist — 19 der 128. Es sitzt
+    links oben, spiegelbildlich zum Stiefel rechts oben: an den Stopps, wo
+    beides gilt (Silfra, Vatnshellir), stehen die zwei nebeneinander statt
+    übereinander.
+
+    Es ist das einzige Abzeichen, das eine Frist meint. Deshalb steht es auf
+    der Karte und nicht nur im Blatt: Die Bootsfahrt auf dem Jökulsárlón will
+    vor der Abreise gebucht sein, nicht am Morgen davor.
+  */
+  add({
+    id: LYR_BUCHUNG,
+    type: 'symbol',
+    source: SRC_STOPPS,
+    filter: ['all', ['==', ['get', 'buchen'], true], stoppFilter(kategorien, nurTag, aktivesDatum)],
+    layout: {
+      'icon-image': ICON_BUCHUNG,
+      'icon-size': ['case', aktiv(aktivesDatum), 0.4, 0.26],
+      'icon-offset': [-40, -40],
+      'icon-allow-overlap': true,
+      'icon-ignore-placement': true,
+    },
+    paint: { 'icon-opacity': ['case', aktiv(aktivesDatum), 1, 0.72] },
+  });
+
   add({
     id: LYR_STOPP_LABEL,
     type: 'symbol',
@@ -447,9 +477,10 @@ export function aktivenTagSetzen(
     ]);
     map.setPaintProperty(LYR_STOPP, 'icon-opacity', ['case', f, 1, 0.72]);
   }
-  if (map.getLayer(LYR_WANDERUNG)) {
-    map.setLayoutProperty(LYR_WANDERUNG, 'icon-size', ['case', f, 0.4, 0.26]);
-    map.setPaintProperty(LYR_WANDERUNG, 'icon-opacity', ['case', f, 1, 0.72]);
+  for (const abzeichen of [LYR_WANDERUNG, LYR_BUCHUNG]) {
+    if (!map.getLayer(abzeichen)) continue;
+    map.setLayoutProperty(abzeichen, 'icon-size', ['case', f, 0.4, 0.26]);
+    map.setPaintProperty(abzeichen, 'icon-opacity', ['case', f, 1, 0.72]);
   }
   sichtbarkeitSetzen(map, kategorien, nurTag, datum);
 }
@@ -469,6 +500,9 @@ export function sichtbarkeitSetzen(
   if (map.getLayer(LYR_STOPP)) map.setFilter(LYR_STOPP, sichtbar);
   if (map.getLayer(LYR_WANDERUNG)) {
     map.setFilter(LYR_WANDERUNG, ['all', ['==', ['get', 'wanderung'], true], sichtbar]);
+  }
+  if (map.getLayer(LYR_BUCHUNG)) {
+    map.setFilter(LYR_BUCHUNG, ['all', ['==', ['get', 'buchen'], true], sichtbar]);
   }
   if (map.getLayer(LYR_STOPP_LABEL)) {
     map.setFilter(LYR_STOPP_LABEL, ['all', aktiv(datum), sichtbar]);

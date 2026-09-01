@@ -44,6 +44,8 @@ type Inhalt = {
   text: string;
   bild: Bild | null;
   farbe: string;
+  /** Ob hier etwas zu buchen ist — der ganze Satz steht im Kontextblatt. */
+  buchen: boolean;
 };
 
 function inhaltVon(vorschau: NonNullable<ReturnType<typeof useMapStore.getState>['vorschau']>): Inhalt | null {
@@ -57,6 +59,7 @@ function inhaltVon(vorschau: NonNullable<ReturnType<typeof useMapStore.getState>
       text: ersteSaetze(u.beschreibung),
       bild: null,
       farbe: kategorieFarbe('unterkunft'),
+      buchen: false,
     };
   }
   const ref = alleStopps.find((s) => s.id === vorschau.id);
@@ -69,6 +72,7 @@ function inhaltVon(vorschau: NonNullable<ReturnType<typeof useMapStore.getState>
     text: ersteSaetze(ref.stopp.text),
     bild: ref.stopp.bilder[0] ?? null,
     farbe: kategorieFarbe(kategorie),
+    buchen: ref.stopp.buchen === true,
   };
 }
 
@@ -175,6 +179,17 @@ export function Vorschau({ karte }: { karte: MLMap | null }) {
           <span className="truncate">{inhalt.unter}</span>
         </p>
         <h2 className="mt-1 text-sm font-semibold leading-tight text-slate-900">{inhalt.titel}</h2>
+        {/* Nur das Signal, nicht der ganze Satz: In der Blase ist kein Platz
+            für eine Frist, und „Mehr" ist einen Fingerbreit entfernt. Dasselbe
+            Wort wie im Tagesablauf — drei Flächen, eine Vokabel. */}
+        {inhalt.buchen && (
+          <p
+            data-testid="vorschau-buchen"
+            className="mt-1.5 inline-block rounded-full bg-amber-100 px-1.5 py-0.5 text-[10px] font-medium leading-none text-amber-800"
+          >
+            buchen
+          </p>
+        )}
         {inhalt.text && (
           <p className="mt-1 text-[11px] leading-snug text-slate-600">{inhalt.text}</p>
         )}

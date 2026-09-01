@@ -58,6 +58,24 @@ export const alleStopps: readonly StoppRef[] = tage.flatMap((t) =>
 
 export const verorteteStopps = alleStopps.filter((s) => s.stopp.pos !== null);
 
+/** Stopps, an denen etwas zu buchen ist — was vor der Abreise zu erledigen ist. */
+export const buchbareStopps = alleStopps.filter((s) => s.stopp.buchen === true);
+
+/**
+ * Was zum Buchen zu sagen ist — in einem Satz, für Karte, Blatt und Ablauf
+ * derselbe.
+ *
+ * Steht im Reiseplan eine Frist („vor Reisebeginn", „Vorausbuchung
+ * empfehlenswert"), dann ist sie es, die zählt, und sie steht wörtlich hier.
+ * Steht dort keine, wird auch keine erfunden: Der Satz sagt dann, dass es
+ * etwas zu buchen gibt und dass der Plan zur Frist schweigt. Eine geratene
+ * Frist wäre schlimmer als gar keine — nach ihr würde jemand planen.
+ */
+export function buchungSatz(stopp: Pick<Stopp, 'buchen' | 'buchenText'>): string | null {
+  if (stopp.buchen !== true) return null;
+  return stopp.buchenText ?? 'Buchbares Angebot — der Reiseplan nennt dazu keine Frist.';
+}
+
 export const kennzahlen = {
   tage: tage.length,
   stopps: alleStopps.length,

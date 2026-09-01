@@ -113,6 +113,16 @@ export function Tagesdetails() {
                   {ref.stopp.wanderung.gehzeit ? ` · ${ref.stopp.wanderung.gehzeit}` : ''}
                 </span>
               )}
+              {/* Dieselbe Pille wie „zu Fuß", in der Farbe des Abzeichens auf
+                  der Karte: eine Eigenschaft des Stopps, keine Zielart. */}
+              {ref.stopp.buchen && (
+                <span
+                  data-testid="ablauf-buchen"
+                  className="rounded-full bg-amber-100 px-1.5 py-0.5 font-medium text-amber-800"
+                >
+                  buchen
+                </span>
+              )}
             </span>
           </span>
         </button>
