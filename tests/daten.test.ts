@@ -53,14 +53,22 @@ describe('reise.json', () => {
     }
   });
 
-  it('führt Ferienhäuser ohne Hausblatt als Bereichsangabe', () => {
-    // Ohne Blatt des Vermieters gibt es zu einem Ferienhaus keine Parzelle,
-    // nur die Siedlung. Das bleibt eine Bereichsangabe.
+  it('verortet alle vier Ferienhäuser aus dem Blatt des Vermieters', () => {
+    // Seit dem 01.09.2026 liegt auch für Birkiskógar das Hausblatt vor. Damit
+    // hat jedes der vier Ferienhäuser eine Parzelle statt einer Siedlung.
     const haeuser = ['birkiskogar', 'thrasastadir', 'hlidarendi', 'hlidarholt'];
     for (const id of haeuser) {
       const u = unterkunftNach(id);
-      if (u?.hausblatt) continue;
-      expect(u?.posMeta?.genauigkeit, id).toBe('bereich');
+      expect(u?.hausblatt, id).toBeDefined();
+      expect(u?.posMeta?.genauigkeit, id).toBe('punkt');
+    }
+  });
+
+  it('lässt ein Haus ohne Blatt eine Bereichsangabe bleiben', () => {
+    // Die Regel gilt weiter, auch wenn sie gerade auf niemanden zutrifft:
+    // Ohne Blatt des Vermieters gibt es keine Parzelle, nur die Siedlung.
+    for (const u of unterkuenfte.filter((u) => !u.hausblatt && u.typ.includes('Ferienhaus'))) {
+      expect(u.posMeta?.genauigkeit, u.id).toBe('bereich');
     }
   });
 
@@ -76,8 +84,13 @@ describe('reise.json', () => {
 describe('Hausblätter', () => {
   const mitBlatt = unterkuenfte.filter((u) => u.hausblatt);
 
-  it('liegen für die drei Häuser mit Vermieterblatt vor', () => {
-    expect(mitBlatt.map((u) => u.id)).toEqual(['thrasastadir', 'hlidarendi', 'hlidarholt']);
+  it('liegen für alle vier Ferienhäuser vor', () => {
+    expect(mitBlatt.map((u) => u.id)).toEqual([
+      'birkiskogar',
+      'thrasastadir',
+      'hlidarendi',
+      'hlidarholt',
+    ]);
   });
 
   it('tragen Quelle, Prüfdatum und Objektnummer', () => {

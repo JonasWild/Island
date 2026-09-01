@@ -57,7 +57,7 @@
     {
       "id": "birkiskogar",
       "name": "Birkiskógar",
-      "ort": "Bifröst",
+      "ort": "Munaðarnes bei Bifröst",
       "region": "Westisland / Borgarfjörður",
       "von": "2026-08-27",
       "bis": "2026-08-30",
@@ -68,17 +68,61 @@
       "website": "https://www.viatis.is/de/ferienhaus/westisland/birkiskogar",
       "verpflegung": "Selbstverpflegung",
       "beschreibung": "Hübsches Ferienhaus im klassischen isländischen Stil in Westisland mit Hot Pot.",
-      "hinweis": null,
+      "hinweis": "Haus Nr. 17 in der Ferienhaussiedlung Birkiskógar bei Munaðarnes — das erste Haus rechts, rund 1 km hinter der Abzweigung. Das Tor zur Siedlung ist immer zu schließen, sonst kommen die Schafe aufs Gelände. Nicht auf dem Gras parken, sondern auf dem Kiesplatz.",
       "pos": [
-        64.7686,
-        -21.5486
+        64.703683,
+        -21.655453
       ],
       "posMeta": {
         "quelle": "anbieter",
-        "genauigkeit": "bereich",
-        "geprueftAm": "2026-08-13",
-        "ref": "https://www.viatis.is/de/ferienhaus/westisland/birkiskogar",
-        "hinweis": "Ferienhaussiedlung Birkiskógar bei Bifröst/Hreðavatn. Viatis nennt keine Hausnummer — Bereichsangabe."
+        "genauigkeit": "punkt",
+        "geprueftAm": "2026-09-01",
+        "ref": "Viator Summerhouses, Hausinformation „Birkiskógar (W276)“, Rev. 19 — Kartenziel des QR-Codes",
+        "hinweis": "Punktgenau aus dem Hausblatt des Vermieters: Haus Birkiskógar 17 in der Ferienhaussiedlung bei Munaðarnes, 3,7 km hinter dem Kiosk Baula an der Ringstraße. Die bisherige Bereichsangabe lag 8,8 km weiter nordöstlich bei Bifröst/Hreðavatn. Der Abstand zu Borgarnes stimmt damit auf 22 km — genau die Angabe des Hausblatts."
+      },
+      "hausblatt": {
+        "code": "W276",
+        "checkIn": "ab 15:00",
+        "checkOut": "bis 12:00",
+        "groesse": "54 m² für 6 Personen",
+        "anfahrt": "Von Reykjavík auf der Ringstraße 1 Richtung Akureyri — entweder durch den Hvalfjörður-Tunnel oder auf der Straße 47 um den Fjord herum, das kostet rund eine Stunde mehr. Weiter bis Borgarnes, durch den Ort hindurch und auf der Ringstraße 1 Richtung Akureyri bleiben. Nach etwa 20 km kommt der Kiosk mit Tankstelle „Baula“ an der Kreuzung zur Straße 50. Ab dort auf den Kilometerzähler schauen: Nach genau 3,7 km geht rechts die Straße in die Ferienhaussiedlung Birkiskógar ab, das kleine blaue Schild nennt „Stapasel, Múlakot, Jafnaskrað und Hreðavatn“. Dort abbiegen, der Straße links haltend rund 1 km folgen — das Haus ist das erste auf der rechten Seite, Birkiskógar 17.",
+        "navigation": "https://www.google.com/maps/dir/?api=1&destination=64.703683,-21.655453",
+        "schlafen": [
+          "Schlafzimmer mit Doppelbett 160 cm und Kinderbett",
+          "Schlafzimmer mit Etagenbett (2 × 80 cm) und Doppelbett 160 cm"
+        ],
+        "ausstattung": [
+          "Küche mit guter Ausstattung und Mikrowelle",
+          "Wohnzimmer mit TV, Video/DVD, Radio und CD",
+          "WC mit Dusche — der Wasserdruck in der Dusche ist zeitweise gering",
+          "80 m² Terrasse mit Hot Pot, Gas- und Holzkohlegrill, Gartenmöbel",
+          "Kinderhochstuhl",
+          "Parkplatz am Haus"
+        ],
+        "vorOrt": [
+          "Gebuchte Viator-Laundry-Kits vor der Anfahrt an einer der Abholstellen Keflavík, Akureyri oder Egilsstaðir mitnehmen.",
+          "Das Tor zur Ferienhaussiedlung immer schließen, damit keine Schafe aufs Gelände kommen.",
+          "Nicht auf dem Gras fahren oder parken — das beschädigt es. Der Kiesplatz am Haus ist der Parkplatz.",
+          "Im Flur hängt eine Sicherungsanlage, über die der Eigentümer den Strom aus der Ferne einschalten kann: niemals ausstecken oder abschalten. Eine Kamera ist während des Aufenthalts nicht in Betrieb.",
+          "Der Schuppen draußen ist verschlossen und gehört dem Eigentümer.",
+          "Der Hot Pot ist bei der Ankunft gefüllt und fertig."
+        ],
+        "abreise": [
+          "Die Endreinigung machen die Gäste: Böden saugen bzw. kehren und wischen, Staub wischen, auch die Fensterbänke.",
+          "Küche gründlich reinigen — Herd, Kühlschrank, Ofen, Schränke. Den Kühlschrank leer lassen.",
+          "Bad gründlich reinigen, Fenster und Spiegel bei Bedarf polieren.",
+          "Allen Müll aus dem Haus mitnehmen.",
+          "Den Hot Pot reinigen: Abfluss öffnen und leerlaufen lassen, mit „blautsápa“ (Schmierseife) und der Bürste an der Wand schrubben, danach den Abfluss wieder schließen — er füllt sich in rund 5 Stunden von selbst. Niemals abstellen.",
+          "Alle Türen und Fenster fest verschließen, Licht ausschalten — die Außenbeleuchtung bleibt an.",
+          "Die Heizkörper nicht abdrehen, sondern auf Stufe 2 stehen lassen.",
+          "Alle Vorhänge zuziehen, damit niemand hineinsehen kann.",
+          "Gemietete Bettwäsche an einer Viator-Abholstelle zurückgeben.",
+          "Hausschlüssel in den Schlüsselkasten legen."
+        ],
+        "entsorgung": "Müllcontainer an der Einfahrt zur Ferienhaussiedlung, beim Rohrtor — die Rückseite des Containers ist unverschlossen.",
+        "service": "Viator Summerhouses, +354 544 8990 oder +354 863 9414 (auch WhatsApp)",
+        "quelle": "Viator Summerhouses, Hausinformation „Birkiskógar (W276)“, Rev. 19",
+        "geprueftAm": "2026-09-01"
       }
     },
     {
