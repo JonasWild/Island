@@ -60,3 +60,17 @@ export function formatKoordinate(pos: Pos): string {
   const ew = lon >= 0 ? 'O' : 'W';
   return `${Math.abs(lat).toFixed(4)}° ${ns}, ${Math.abs(lon).toFixed(4)}° ${ew}`;
 }
+
+/**
+ * Link auf genau diese Koordinate in Google Maps.
+ *
+ * Die Koordinate, nicht der Name: „Reykholt" gibt es in Island dreimal, und
+ * die Karte zeigt eine belegte Position, kein Suchwort. Die Maps-URL-API mit
+ * `query=lat,lon` setzt die Nadel exakt dorthin; von dort aus ist Navigation
+ * ein Tippen. Sechs Nachkommastellen sind etwa zehn Zentimeter — mehr trägt
+ * keine Quelle dieses Projekts.
+ */
+export function googleMapsUrl(pos: Pos): string {
+  const [lat, lon] = pos;
+  return `https://www.google.com/maps/search/?api=1&query=${lat.toFixed(6)},${lon.toFixed(6)}`;
+}

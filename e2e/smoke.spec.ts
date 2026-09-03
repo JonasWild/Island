@@ -1,4 +1,6 @@
 import { expect, type Page, test } from '@playwright/test';
+import { readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import { stilStubben } from './stub';
 
 /**
@@ -59,6 +61,50 @@ test('Deep Link öffnet das Kontextblatt', async ({ page }) => {
 
   await page.locator('body').press('Escape');
   await expect(blatt).toBeHidden();
+});
+
+test('jedes Symbol führt auf seine Koordinate in Google Maps', async ({ page }) => {
+  await stilStubben(page);
+  // Der Link trägt die Position des Stopps selbst, nicht seinen Namen — die
+  // Karte zeigt eine belegte Koordinate, und Google Maps soll dieselbe zeigen.
+  await page.goto('/?tag=2026-08-31&stopp=0');
+  const blatt = page.getByTestId('kontextblatt');
+  const link = blatt.getByTestId('kontextblatt-maps');
+  await expect(link).toHaveAttribute('target', '_blank');
+  const href = (await link.getAttribute('href'))!;
+  const ziel = new URL(href);
+  expect(ziel.origin + ziel.pathname).toBe('https://www.google.com/maps/search/');
+  const [lat, lon] = ziel.searchParams.get('query')!.split(',').map(Number);
+  const reise = JSON.parse(readFileSync(resolve(__dirname, '../data/reise.json'), 'utf8'));
+  const stopp = reise.tage.find((t: { datum: string }) => t.datum === '2026-08-31').highlights[0];
+  expect(lat).toBeCloseTo(stopp.pos[0], 5);
+  expect(lon).toBeCloseTo(stopp.pos[1], 5);
+
+  // Die Unterkunft ebenso — und der Link des Vermieters bleibt daneben.
+  await page.goto('/?unterkunft=thrasastadir');
+  await expect(blatt.getByTestId('kontextblatt-maps')).toHaveAttribute(
+    'href',
+    /google\.com\/maps\/search\/\?api=1&query=65\.70\d+,-17\.70\d+/,
+  );
+  await expect(blatt.getByRole('link', { name: 'Ziel in Google Maps öffnen' })).toBeVisible();
+
+  // Und die Vorschau-Blase trägt denselben Link als Nadel neben „Mehr".
+  await page.goto('/?tag=2026-08-28');
+  await page.waitForFunction(
+    () =>
+      (window.__islandKarte?.queryRenderedFeatures(undefined, { layers: ['stopp-symbol'] })
+        ?.length ?? 0) > 0,
+  );
+  await page.waitForTimeout(2500);
+  const symbol = await freiesSymbol(page);
+  expect(symbol, 'kein frei liegendes Symbol im Bild').not.toBeNull();
+  await page.mouse.click(symbol!.x, symbol!.y);
+  const nadel = page.getByTestId('vorschau-maps');
+  await expect(nadel).toHaveAttribute(
+    'href',
+    /google\.com\/maps\/search\/\?api=1&query=-?\d+\.\d{6},-?\d+\.\d{6}/,
+  );
+  await expect(nadel).toHaveAttribute('target', '_blank');
 });
 
 test('Hintergrundtext nennt Quelle und Link', async ({ page }) => {

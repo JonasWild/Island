@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bounds, distanzKm, formatKoordinate, peilung, zuLngLat } from '@/lib/geo';
+import { bounds, distanzKm, formatKoordinate, googleMapsUrl, peilung, zuLngLat } from '@/lib/geo';
 import type { Pos } from '@/lib/schema';
 
 const REYKJAVIK: Pos = [64.1466, -21.9426];
@@ -43,5 +43,14 @@ describe('geo', () => {
 
   it('formatiert Koordinaten für Island', () => {
     expect(formatKoordinate(REYKJAVIK)).toBe('64.1466° N, 21.9426° W');
+  });
+
+  it('verlinkt genau die Koordinate in Google Maps', () => {
+    // Die Nadel, nicht das Suchwort: `query=lat,lon` mit Vorzeichen, damit
+    // Google Maps dieselbe Stelle zeigt wie die Karte.
+    const url = new URL(googleMapsUrl(REYKJAVIK));
+    expect(url.origin + url.pathname).toBe('https://www.google.com/maps/search/');
+    expect(url.searchParams.get('api')).toBe('1');
+    expect(url.searchParams.get('query')).toBe('64.146600,-21.942600');
   });
 });
