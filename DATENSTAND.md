@@ -1,17 +1,18 @@
 # Datenstand und offene Punkte
 
-Stand: 30.08.2026. Grundlage: `data/reise.json`, geprüft mit `pnpm geocode`
+Stand: 01.09.2026. Grundlage: `data/reise.json`, geprüft mit `pnpm geocode`
 gegen OpenStreetMap (Nominatim primär, Overpass als Rückfall) und ergänzt um
 Web-Recherche für die Fälle, die OSM nicht beantwortet.
 
-**Neu am 30.08.2026: die Hausblätter des Vermieters.** Für Þrasastaðir (N3018),
-Hlíðarendi (O402) und Hlíðarholt (S503) liegen die Hausinformationen von Viator
-Summerhouses vor. Sie beantworten drei der offenen Fragen dieser Datei — und
-zwar besser als jede Recherche, weil der Vermieter weiß, wo sein Haus steht:
-Jedes Blatt trägt einen Kartenlink auf die Parzelle. Die drei Häuser sind
-seither **punktgenau** verortet (`quelle: 'anbieter'`), und was sonst auf dem
-Blatt steht — Anfahrt, Betten, Ausstattung, die Handgriffe bei Ankunft und
-Abreise — steht als `hausblatt` am Haus und im Kontextblatt der App.
+**Die Hausblätter des Vermieters — seit dem 01.09.2026 vollständig.** Für
+Þrasastaðir (N3018), Hlíðarendi (O402), Hlíðarholt (S503) und nun auch
+Birkiskógar (W276) liegen die Hausinformationen von Viator Summerhouses vor.
+Sie beantworten die offenen Fragen dieser Datei — und zwar besser als jede
+Recherche, weil der Vermieter weiß, wo sein Haus steht: Jedes Blatt trägt
+einen Kartenlink auf die Parzelle. Alle vier Ferienhäuser sind damit
+**punktgenau** verortet (`quelle: 'anbieter'`), und was sonst auf dem Blatt
+steht — Anfahrt, Betten, Ausstattung, die Handgriffe bei Ankunft und Abreise —
+steht als `hausblatt` am Haus und im Kontextblatt der App.
 
 Codes stehen dort **nicht**: Alarmcode, Torcode und WLAN-Passwort bleiben in
 den PDFs. Die App ist öffentlich erreichbar, das Hausblatt nicht. Der Text
@@ -174,6 +175,44 @@ zwei Dinge nicht beurteilen:
 
 Auch das ist eine Frage an den Veranstalter, keine an OSM.
 
+## 8. Birkiskógar — geklärt: bei Munaðarnes, 64.703683 / −21.655453
+
+Das erste Haus der Reise war das letzte ohne Hausblatt und damit die letzte
+Bereichsangabe unter den Unterkünften. Das Blatt (W276, Rev. 19) nennt die
+Adresse, die viatis.is schuldig blieb: **Birkiskógar 17**, das erste Haus
+rechts in der Ferienhaussiedlung bei **Munaðarnes** — nicht bei Bifröst, wo
+die Näherung lag.
+
+Zwischen alter und neuer Position liegen **8,8 km nach Südwesten**. Das Blatt
+bestätigt den Punkt mit seiner eigenen Entfernungsangabe: Es rechnet 22 km bis
+Borgarnes, und die neue Koordinate liegt 22,3 km Luftlinie davon entfernt. Von
+der alten wären es 31,1 km gewesen — die Angabe des Vermieters passte also zur
+Näherung gar nicht.
+
+Die vier Tage, die an diesem Haus hängen, sind in `route.json` nachgezogen —
+und nur diese vier; die übrigen elf sind unverändert:
+
+| Tag | vorher | nachher |
+|---|---|---|
+| 27.08. Anreise | 183,4 km · 3 h 1 min | 176,1 km · 2 h 56 min |
+| 28.08. Borgarfjörður | 216,9 km · 3 h 47 min | 202,3 km · 3 h 38 min |
+| 29.08. Snæfellsnes | 410,2 km · 8 h 11 min | 407,5 km · 8 h 9 min |
+| 30.08. nach Mývatn | 353,4 km · 4 h 37 min | 362,0 km · 4 h 44 min |
+
+Die Anfahrt hat eine Stelle, an der man den Kilometerzähler braucht: Ab dem
+Kiosk Baula sind es genau 3,7 km bis zum kleinen blauen Schild „Stapasel,
+Múlakot, Jafnaskrað und Hreðavatn". Sie steht vollständig in der App am Haus.
+
+**Keine Codes auf diesem Blatt** — anders als bei Hlíðarholt und Hlíðarendi
+verlangt Birkiskógar weder Alarmcode noch Torcode. Es hat dafür zwei Regeln,
+die im Haus hängen: Das Tor zur Siedlung ist immer zu schließen, sonst kommen
+die Schafe aufs Gelände, und die Sicherungsanlage im Flur darf nie
+ausgesteckt werden — über sie schaltet der Eigentümer den Strom aus der Ferne
+ein. Auch der Hot Pot ist Arbeit: Er wird bei der Abreise geleert, geschrubbt
+und wieder verschlossen, dann füllt er sich in rund 5 Stunden selbst.
+
+Quelle: Viator Summerhouses, Hausinformation „Birkiskógar (W276)", Rev. 19
+
 ---
 
 ## Positionen: was die Pipeline geändert hat
@@ -192,12 +231,12 @@ Korrekturen:
 | Tunnel Vaðlaheiðargöng | 65.6772 / −18.0181 | 65.71115 / −17.98593 | der Tunnel statt des Büros in Akureyri |
 | Saltvík Reiterhof | 65.9975 / −17.34 | 66.00094 / −17.36455 | der Hof statt der Bucht |
 
-Dazu die drei Häuser, die am 30.08.2026 aus dem Hausblatt des Vermieters
-punktgenau wurden:
+Dazu die vier Häuser, die aus dem Hausblatt des Vermieters punktgenau wurden:
 
 | Unterkunft | vorher (Bereich) | nachher (Hausblatt) | Verschiebung |
 |---|---|---|---|
 | Hlíðarendi | 65.2667 / −14.4 | 65.16965 / −14.497833 | ~12 km — die Näherung lag auf Egilsstaðir statt in Úlfstaðaskógur |
+| Birkiskógar | 64.7686 / −21.5486 | 64.703683 / −21.655453 | ~9 km — die Parzelle bei Munaðarnes statt der Gegend um Bifröst/Hreðavatn |
 | Hlíðarholt | 64.1333 / −20.3167 | 64.17965 / −20.422917 | ~7 km — Reykholt/Bláskógabyggð statt Flúðir |
 | Þrasastaðir | 65.6963 / −17.6459 | 65.705667 / −17.703667 | ~3 km — die Parzelle am Ljósavatn statt des Seeufers |
 
@@ -235,23 +274,22 @@ Dorthin geht man; die Grenze verläuft am Wortlaut des Plans, nicht am Gefühl.
 
 ### Was bewusst „Bereich" bleibt
 
-Vier Kategorien lassen sich nicht punktgenau belegen, und die Pipeline tut
-auch nicht so:
-
-1. **Ferienhäuser ohne Hausblatt** — viatis.is nennt keine Adresse.
-   Bereichsangabe mit Verweis auf die Anbieterseite. Das trifft seit dem
-   30.08.2026 nur noch **Birkiskógar** zu; für Þrasastaðir, Hlíðarendi und
-   Hlíðarholt liegt das Hausblatt des Vermieters mit Kartenziel vor, sie sind
-   punktgenau (`quelle: 'anbieter'`). Diese drei Positionen rührt `pnpm
-   geocode` auch mit `--all` nicht mehr an: Ein Ortsmittelpunkt aus OSM wäre
-   schlechter als die Angabe dessen, dem das Haus gehört.
-2. **Landschaftsräume** (Halbinsel Reykjanes, Mýrar, Skagafjörður /
+Drei Kategorien lassen sich nicht punktgenau belegen, und die Pipeline tut
+auch nicht so. **Ferienhäuser ohne Hausblatt** standen bis zum 31.08.2026 als
+vierte hier — viatis.is nennt keine Adresse, es blieb bei der Siedlung. Seit
+Birkiskógar (W276) am 01.09.2026 dazukam, liegt für alle vier Häuser das
+Blatt des Vermieters mit Kartenziel vor; die Kategorie ist leer. Die Regel
+gilt weiter, falls je ein Haus ohne Blatt dazukommt, und ein Test hält sie
+fest. Diese vier Positionen rührt `pnpm geocode` auch mit `--all` nicht mehr
+an: Ein Ortsmittelpunkt aus OSM wäre schlechter als die Angabe dessen, dem das
+Haus gehört.
+1. **Landschaftsräume** (Halbinsel Reykjanes, Mýrar, Skagafjörður /
    Öxnadalsheiði, Jökulsárgljúfur, Lagarfljót, Eldhraun) — ein Punkt ist hier
    nur ein Schwerpunkt.
-3. **Streckenabschnitte** der Straße 94 am 04.09. (Ebene des Hérað,
+2. **Streckenabschnitte** der Straße 94 am 04.09. (Ebene des Hérað,
    Héraðsflói, Passhöhe, grüne Talrinne) — das sind Beschreibungen einer
    Fahrt, keine Ziele.
-4. **Sammeleinträge** wie „Küstenroute Stokkseyri, Eyrarbakki, Þorlákshöfn"
+3. **Sammeleinträge** wie „Küstenroute Stokkseyri, Eyrarbakki, Þorlákshöfn"
    oder die „Lighthouse Route" — die Einzelziele haben eigene Stopps.
 
 Sie stehen im Datensatz als `genauigkeit: 'bereich'` und sind damit von den
@@ -266,8 +304,8 @@ punktgenauen Positionen unterscheidbar.
 | davon Bereichsangabe | 39 |
 | ohne Position | 0 |
 | in `offen.json` zur Klärung | 22 |
-| Unterkünfte punktgenau | 5 von 6 (beide Hotels aus OSM, drei Ferienhäuser aus dem Hausblatt) |
-| Unterkünfte mit Hausblatt | 3 von 6 |
+| Unterkünfte punktgenau | 6 von 6 (beide Hotels aus OSM, alle vier Ferienhäuser aus dem Hausblatt) |
+| Unterkünfte mit Hausblatt | 4 von 6 (die zwei Hotels haben keines) |
 
 Vorher: 127 kuratiert, 1 ohne Position, 27 Näherungen ohne Beleg. Jetzt trägt
 jede der 128 Positionen ein `posMeta` mit Quelle und Prüfdatum. Die 22 Einträge
