@@ -4,9 +4,9 @@ import { useMapStore } from '@/store/mapStore';
 import { alleStopps, buchungSatz, datumKurz, unterkunftNach } from '@/lib/reise';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
 import { kategorieFarbe } from '@/map/icons';
-import { formatKoordinate } from '@/lib/geo';
+import { formatKoordinate, googleMapsUrl } from '@/lib/geo';
 import { Bilderstreifen } from './Bilderstreifen';
-import type { Bild, Hausblatt, Unterkunft, Wanderung, Wissen } from '@/lib/schema';
+import type { Bild, Hausblatt, Pos, Unterkunft, Wanderung, Wissen } from '@/lib/schema';
 
 /**
  * Eine Liste aus dem Hausblatt, eingeklappt. Ausstattung und Abreise-Pflichten
@@ -152,6 +152,8 @@ export function ContextSheet() {
   let bilder: readonly Bild[] = [];
   let haus: Unterkunft | null = null;
   let punkt: string | null = null;
+  /** Die belegte Position — ohne sie gibt es auch keinen Link nach draussen. */
+  let pos: Pos | null = null;
 
   if (auswahl.art === 'stopp') {
     const ref = alleStopps.find((s) => s.id === auswahl.id);
@@ -164,6 +166,7 @@ export function ContextSheet() {
     buchung = buchungSatz(ref.stopp);
     bilder = ref.stopp.bilder;
     punkt = kategorieFarbe(kategorieVon(ref.stopp));
+    pos = ref.stopp.pos;
   }
 
   if (auswahl.art === 'unterkunft') {
@@ -174,11 +177,13 @@ export function ContextSheet() {
     unter = 'Übernachtung';
     text = u.beschreibung;
     punkt = kategorieFarbe('unterkunft');
+    pos = u.pos;
   }
 
   if (auswahl.art === 'ort') {
     titel = 'Was ist hier?';
     unter = formatKoordinate(auswahl.pos);
+    pos = auswahl.pos;
   }
 
   // Auf dem Handy ein Bottom-Sheet über die volle Breite: eine Drittel-Spalte
@@ -211,6 +216,37 @@ export function ContextSheet() {
             {unter}
           </p>
           <h2 className="mt-0.5 text-lg font-semibold leading-tight text-slate-900">{titel}</h2>
+          {/*
+            Der Weg nach draussen: dieselbe Koordinate, die das Symbol auf der
+            Karte trägt, in Google Maps — dort, wo das Handy navigiert. Ohne
+            belegte Position gibt es den Link nicht; ein Link auf einen
+            Ortsnamen zeigte woanders hin als die Karte.
+          */}
+          {pos && (
+            <a
+              href={googleMapsUrl(pos)}
+              target="_blank"
+              rel="noreferrer"
+              data-testid="kontextblatt-maps"
+              className="mt-2 inline-flex min-h-9 items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 text-xs font-medium text-slate-700 transition hover:bg-slate-200"
+            >
+              <svg
+                viewBox="0 0 16 16"
+                className="h-3.5 w-3.5"
+                aria-hidden
+                fill="none"
+                stroke="currentColor"
+              >
+                <path
+                  d="M8 14.5s4.5-4.2 4.5-7.8a4.5 4.5 0 1 0-9 0c0 3.6 4.5 7.8 4.5 7.8Z"
+                  strokeWidth="1.5"
+                  strokeLinejoin="round"
+                />
+                <circle cx="8" cy="6.7" r="1.6" strokeWidth="1.5" />
+              </svg>
+              In Google Maps öffnen
+            </a>
+          )}
         </div>
         {/* 44 px Trefferfläche — der Rahmen ist unsichtbar, das Kreuz bleibt klein. */}
         <button

@@ -53,6 +53,7 @@ Layer-Ausdrücke, verdeckte Bedienelemente.
 | `←` / `→` | Tag zurück / vor |
 | Klick auf einen Stopp | Vorschau-Blase am Symbol |
 | `Mehr` in der Blase | Kontextblatt (auf dem Handy unten, sonst rechts) |
+| Nadel in der Blase / „In Google Maps öffnen" im Blatt | genau diese Koordinate in Google Maps, zum Navigieren |
 | Klick auf leere Karte | Koordinate im Kontextblatt |
 | `Esc` | schließt das Kontextblatt |
 
@@ -146,6 +147,15 @@ halbe Bild kosten.
 
 Der Text wird an **Satzgrenzen** gekürzt, nie mitten im Satz — ein
 abgeschnittener Halbsatz liest sich wie ein Fehler.
+
+**Jedes Symbol führt nach Google Maps** — als Nadel neben „Mehr" in der Blase
+und als Knopf unter dem Titel im Kontextblatt, auch für einen Klick auf die
+leere Karte. Der Link trägt die **Koordinate**, nicht den Namen: Reykholt und
+Laugarvatn gibt es in Island mehrfach, und die Karte zeigt eine belegte
+Position, kein Suchwort. Google Maps setzt die Nadel dann exakt dorthin, wo
+das Symbol steht (`googleMapsUrl` in `src/lib/geo.ts`); Navigation ist von
+dort ein Tippen. Ein Stopp ohne belegte Position bekommt keinen Link — ein
+Link auf einen Ortsnamen zeigte woanders hin als die Karte.
 
 Bewusst kein `maplibregl.Popup`, sondern ein eigenes Element: dessen Styles
 aus `maplibre-gl.css` müssten sonst Stück für Stück überschrieben werden, und

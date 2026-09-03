@@ -6,7 +6,7 @@ import { useMapStore } from '@/store/mapStore';
 import { alleStopps, datumKurz, unterkunftNach } from '@/lib/reise';
 import { KATEGORIE_LABEL, kategorieVon } from '@/lib/kategorie';
 import { kategorieFarbe } from '@/map/icons';
-import { zuLngLat } from '@/lib/geo';
+import { googleMapsUrl, zuLngLat } from '@/lib/geo';
 import type { Bild, Pos } from '@/lib/schema';
 
 /** Breite der Blase. Schmal genug, dass sie auf 390 px nicht die Karte frisst. */
@@ -212,6 +212,35 @@ export function Vorschau({ karte }: { karte: MLMap | null }) {
               <path d="M6 3l5 5-5 5" strokeWidth="2" strokeLinecap="round" />
             </svg>
           </button>
+          {/*
+            Genau diese Position in Google Maps — ein Tippen vom Symbol zur
+            Navigation, ohne den Umweg über das Blatt. Die Blase ist der Ort,
+            an dem man im Auto sitzt und fragt: „Wie komme ich da hin?"
+          */}
+          <a
+            href={googleMapsUrl(inhalt.pos)}
+            target="_blank"
+            rel="noreferrer"
+            data-testid="vorschau-maps"
+            aria-label="In Google Maps öffnen"
+            title="In Google Maps öffnen"
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-100 text-slate-700 transition hover:bg-slate-200"
+          >
+            <svg
+              viewBox="0 0 16 16"
+              className="h-4 w-4"
+              aria-hidden
+              fill="none"
+              stroke="currentColor"
+            >
+              <path
+                d="M8 14.5s4.5-4.2 4.5-7.8a4.5 4.5 0 1 0-9 0c0 3.6 4.5 7.8 4.5 7.8Z"
+                strokeWidth="1.5"
+                strokeLinejoin="round"
+              />
+              <circle cx="8" cy="6.7" r="1.6" strokeWidth="1.5" />
+            </svg>
+          </a>
           <button
             type="button"
             data-testid="vorschau-schliessen"
